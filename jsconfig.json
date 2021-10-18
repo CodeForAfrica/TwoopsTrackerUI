@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/twoopstrackerui/*": ["./src/*"]
+      "@/twoopstracker/*": ["./src/*"]
     }
   },
   "exclude": ["node_modules"]

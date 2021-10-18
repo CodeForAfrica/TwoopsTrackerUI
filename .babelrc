@@ -15,7 +15,7 @@
       {
         "root": ["./"],
         "alias": {
-          "@/twoopstrackerui": "./src"
+          "@/twoopstracker": "./src"
         }
       }
     ]
