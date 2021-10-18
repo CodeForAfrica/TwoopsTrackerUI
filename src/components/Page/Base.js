@@ -1,4 +1,3 @@
-import { GoogleFonts } from "next-google-fonts";
 import { NextSeo } from "next-seo";
 import PropTypes from "prop-types";
 import React from "react";
@@ -9,7 +8,6 @@ import React from "react";
 function BasePage({ children, ...props }) {
   return (
     <div>
-      <GoogleFonts href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;700&family=Open+Sans:wght@400;700&display=swap" />
       <NextSeo {...props} />
       {children}
     </div>
