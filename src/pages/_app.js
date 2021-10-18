@@ -4,7 +4,7 @@ import { DefaultSeo } from "next-seo";
 import PropTypes from "prop-types";
 import React from "react";
 
-import theme from "@/nigerianstat/theme";
+import theme from "@/twoopstrackerui/theme";
 import SEO from "next-seo.config";
 
 export default function MyApp(props) {

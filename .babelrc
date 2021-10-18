@@ -15,7 +15,7 @@
       {
         "root": ["./"],
         "alias": {
-          "@/nigerianstat": "./src"
+          "@/twoopstrackerui": "./src"
         }
       }
     ]

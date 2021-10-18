@@ -2,7 +2,7 @@ import { ServerStyleSheets } from "@material-ui/core/styles";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import React from "react";
 
-import theme from "@/nigerianstat/theme";
+import theme from "@/twoopstrackrui/theme";
 
 export default class MyDocument extends Document {
   render() {
