@@ -1,7 +1,6 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
-const FONT_FAMILY_HEADING = '"Arial", "sans-serif"'; // to be updated
-const FONT_FAMILY_TEXT = '"Arial", "sans-serif"';
+const FONT_FAMILY = '"Arial", "sans-serif"';
 
 // Create a theme instance.
 const theme = createMuiTheme({
@@ -36,12 +35,12 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: FONT_FAMILY_TEXT,
+    fontFamily: FONT_FAMILY,
     h1: {
-      fontFamily: FONT_FAMILY_HEADING,
+      fontFamily: FONT_FAMILY,
     },
     body1: {
-      fontFamily: FONT_FAMILY_TEXT,
+      fontFamily: FONT_FAMILY,
     },
   },
 });
