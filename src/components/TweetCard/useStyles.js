@@ -11,8 +11,17 @@ const useStyles = makeStyles(({ typography }) => ({
       padding: `${typography.pxToRem(10)} !important`,
     },
   },
-  text: {
+  retweet: {
     marginTop: typography.pxToRem(10),
+    "& .highlight": {
+      color: "#DB1111",
+    },
+  },
+  originalTweet: {
+    marginTop: typography.pxToRem(10),
+    "& .highlight": {
+      color: "#DB1111",
+    },
   },
 }));
 

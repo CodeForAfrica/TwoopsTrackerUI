@@ -7,8 +7,13 @@ export default {
   argTypes: {},
 };
 
-const Template = () => <TweetCard />;
+const Template = (args) => <TweetCard {...args} />;
 
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+  retweet:
+    "<span class='highlight'>Retweet @handle</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+  originalTweet:
+    "Original tweet by  <span class='highlight'>Link to original tweet</span>",
+};
