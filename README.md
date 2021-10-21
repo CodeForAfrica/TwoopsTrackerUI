@@ -1,6 +1,6 @@
 # trolltracker.investigate.africa/
 
-Troll Tracker
+Twoops Tracker
 
 ## Getting Started
 

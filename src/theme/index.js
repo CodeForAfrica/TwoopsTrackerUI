@@ -1,7 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
-const FONT_FAMILY_HEADING = '"Maven Pro", "sans-serif"'; // to be updated
-const FONT_FAMILY_TEXT = '"Open Sans", "sans-serif"';
+const FONT_FAMILY_HEADING = '"Arial", "sans-serif"'; // to be updated
+const FONT_FAMILY_TEXT = '"Arial", "sans-serif"';
 
 // Create a theme instance.
 const theme = createMuiTheme({
