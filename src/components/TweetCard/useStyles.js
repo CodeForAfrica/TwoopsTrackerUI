@@ -11,6 +11,9 @@ const useStyles = makeStyles(({ typography }) => ({
       padding: `${typography.pxToRem(10)} !important`,
     },
   },
+  text: {
+    marginTop: typography.pxToRem(10),
+  },
 }));
 
 export default useStyles;
