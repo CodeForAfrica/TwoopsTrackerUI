@@ -1,7 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(({ typography }) => ({
-  root: {},
+  root: {
+    "& .highlight": {
+      color: "#DB1111",
+    },
+  },
   username: {
     fontWeight: "700",
     fontSize: typography.pxToRem(36),
@@ -10,6 +14,11 @@ const useStyles = makeStyles(({ typography }) => ({
     // marginTop: typography.pxToRem(10),
   },
   list: {
+    marginTop: typography.pxToRem(10),
+  },
+  deleteTime: {},
+  interactions: {},
+  text: {
     marginTop: typography.pxToRem(10),
   },
   icon: {
@@ -27,15 +36,9 @@ const useStyles = makeStyles(({ typography }) => ({
   },
   retweet: {
     marginTop: typography.pxToRem(10),
-    "& .highlight": {
-      color: "#DB1111",
-    },
   },
   originalTweet: {
     marginTop: typography.pxToRem(10),
-    "& .highlight": {
-      color: "#DB1111",
-    },
   },
 }));
 

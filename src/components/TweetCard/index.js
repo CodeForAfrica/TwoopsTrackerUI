@@ -1,5 +1,6 @@
 import { RichTypography } from "@commons-ui/core";
 import { Grid, Typography } from "@material-ui/core";
+import clsx from "clsx";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
@@ -8,7 +9,17 @@ import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 
-const TweetCard = ({ retweet, originalTweet, ...props }) => {
+const TweetCard = ({
+  retweet,
+  originalTweet,
+  username,
+  handle,
+  listDescription,
+  posted,
+  deleted,
+  interactions,
+  ...props
+}) => {
   const classes = useStyles(props);
   return (
     <div className={classes.root}>
@@ -20,18 +31,19 @@ const TweetCard = ({ retweet, originalTweet, ...props }) => {
         </Grid>
         <Grid item lg={5}>
           <div>
-            <Typography className={classes.username}>
-              Username Username
-            </Typography>
-            <RichTypography className={classes.handle}>
-              @handle Type of account
-            </RichTypography>
-            <Typography className={classes.list}>Add to List</Typography>
+            <Typography className={classes.username}>{username}</Typography>
+            <RichTypography className={classes.handle}>{handle}</RichTypography>
+            <Typography className={classes.list}>{listDescription}</Typography>
           </div>
         </Grid>
         <Grid item lg={6}>
-          <Typography>Username Username</Typography>
-          <Typography>Username Username</Typography>
+          <Typography>{posted}</Typography>
+          <RichTypography className={clsx(classes.text, classes.deleteTime)}>
+            {deleted}
+          </RichTypography>
+          <Typography className={clsx(classes.text, classes.interaction)}>
+            {interactions}
+          </Typography>
         </Grid>
       </Grid>
       <RichTypography className={classes.retweet}>{retweet}</RichTypography>
@@ -45,11 +57,23 @@ const TweetCard = ({ retweet, originalTweet, ...props }) => {
 TweetCard.propTypes = {
   retweet: PropTypes.string,
   originalTweet: PropTypes.string,
+  username: PropTypes.string,
+  handle: PropTypes.string,
+  listDescription: PropTypes.string,
+  posted: PropTypes.string,
+  deleted: PropTypes.string,
+  interactions: PropTypes.string,
 };
 
 TweetCard.defaultProps = {
   retweet: undefined,
   originalTweet: undefined,
+  username: undefined,
+  handle: undefined,
+  listDescription: undefined,
+  posted: undefined,
+  deleted: undefined,
+  interactions: undefined,
 };
 
 export default TweetCard;
