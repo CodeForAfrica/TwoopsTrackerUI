@@ -2,14 +2,28 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(({ typography }) => ({
   root: {},
+  username: {
+    fontWeight: "700",
+    fontSize: typography.pxToRem(36),
+  },
+  handle: {
+    // marginTop: typography.pxToRem(10),
+  },
+  list: {
+    marginTop: typography.pxToRem(10),
+  },
   icon: {
     position: "relative",
-    width: typography.pxToRem(64),
-    height: typography.pxToRem(64),
+    width: typography.pxToRem(100),
+    height: typography.pxToRem(100),
     border: `solid 1px`,
     "& img": {
       padding: `${typography.pxToRem(10)} !important`,
     },
+  },
+  detailSection: {
+    display: "flex",
+    flexDirection: "column",
   },
   retweet: {
     marginTop: typography.pxToRem(10),
