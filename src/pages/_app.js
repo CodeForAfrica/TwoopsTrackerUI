@@ -1,10 +1,11 @@
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
-// import { DefaultSeo } from "next-seo";
+import { DefaultSeo } from "next-seo";
 import PropTypes from "prop-types";
 import React from "react";
 
 import theme from "@/twoopstracker/theme";
+import SEO from "next-seo.config";
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -19,6 +20,7 @@ export default function MyApp(props) {
 
   return (
     <>
+      <DefaultSeo {...SEO} />
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
