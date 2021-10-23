@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/twoopstracker/*": ["./src/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
