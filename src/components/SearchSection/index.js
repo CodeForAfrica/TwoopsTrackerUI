@@ -2,7 +2,7 @@ import React from "react";
 
 import useStyles from "./useStyles";
 
-import Search from "@/twoopstracker/components/SearchComponent";
+import Search from "@/twoopstracker/components/Search";
 import Section from "@/twoopstracker/components/Section";
 
 const SearchSection = () => {
