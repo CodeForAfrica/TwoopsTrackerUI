@@ -9,7 +9,7 @@ const tweets = [
       "<span class='highlight'>Retweet @handle</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
     originalTweet:
       "Original tweet by  <span class='highlight'>Link to original tweet</span>",
-    username: "Dave Chappelle",
+    username: "User One",
     handle: "<span class='highlight'>@handle</span> Type of account",
     listDescription: "Add to List",
     posted: "Posted on mm/dd/yyyy at 00:00:00",
@@ -22,7 +22,7 @@ const tweets = [
       "<span class='highlight'>Retweet @handle</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
     originalTweet:
       "Original tweet by  <span class='highlight'>Link to original tweet</span>",
-    username: "Dave Chappelle",
+    username: "User Two",
     handle: "<span class='highlight'>@handle</span> Type of account",
     listDescription: "Add to List",
     posted: "Posted on mm/dd/yyyy at 00:00:00",
@@ -35,7 +35,7 @@ const tweets = [
       "<span class='highlight'>Retweet @handle</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
     originalTweet:
       "Original tweet by  <span class='highlight'>Link to original tweet</span>",
-    username: "Dave Chappelle",
+    username: "User Three",
     handle: "<span class='highlight'>@handle</span> Type of account",
     listDescription: "Add to List",
     posted: "Posted on mm/dd/yyyy at 00:00:00",
@@ -49,7 +49,7 @@ const Tweets = () => {
   return (
     <Section>
       {tweets.map((tweet) => (
-        <TweetCard {...tweet} />
+        <TweetCard key={tweet.username} {...tweet} />
       ))}
     </Section>
   );

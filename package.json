@@ -66,6 +66,7 @@
     "prettier": "^2.2.1",
     "storybook-addon-material-ui": "^0.9.0-alpha.24",
     "storybook-addon-next-router": "^3.0.8",
+    "svg-url-loader": "^7.1.1",
     "typescript": "^4.2.4"
   },
   "browserslist": [
