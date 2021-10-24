@@ -6,6 +6,9 @@ const useStyles = makeStyles(({ typography }) => ({
       color: "#DB1111",
     },
   },
+  section: {
+    marginTop: typography.pxToRem(20),
+  },
   username: {
     fontWeight: "700",
     fontSize: typography.pxToRem(36),
@@ -31,8 +34,7 @@ const useStyles = makeStyles(({ typography }) => ({
     },
   },
   detailSection: {
-    display: "flex",
-    flexDirection: "column",
+    marginLeft: typography.pxToRem(20),
   },
   retweet: {
     marginTop: typography.pxToRem(10),

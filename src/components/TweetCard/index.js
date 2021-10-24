@@ -23,20 +23,18 @@ const TweetCard = ({
   const classes = useStyles(props);
   return (
     <div className={classes.root}>
-      <Grid container>
+      <Grid container className={classes.section}>
         <Grid item lg={1}>
           <div className={classes.icon}>
             <Image layout="fill" src={UserIcon} />
           </div>
         </Grid>
-        <Grid item lg={5}>
-          <div>
-            <Typography className={classes.username}>{username}</Typography>
-            <RichTypography className={classes.handle}>{handle}</RichTypography>
-            <Typography className={classes.list}>{listDescription}</Typography>
-          </div>
+        <Grid item lg={5} className={classes.detailSection}>
+          <Typography className={classes.username}>{username}</Typography>
+          <RichTypography className={classes.handle}>{handle}</RichTypography>
+          <Typography className={classes.list}>{listDescription}</Typography>
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={5}>
           <Typography>{posted}</Typography>
           <RichTypography className={clsx(classes.text, classes.deleteTime)}>
             {deleted}
