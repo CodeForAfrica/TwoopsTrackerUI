@@ -1,4 +1,3 @@
-import { Typography } from "@material-ui/core";
 import React from "react";
 
 import Page from "@/twoopstracker/components/Page";
@@ -10,7 +9,6 @@ const { tweets } = config;
 export default function Index() {
   return (
     <>
-      <Typography>One Two Three</Typography>
       <Tweets tweets={tweets} />
       <Page />
     </>
