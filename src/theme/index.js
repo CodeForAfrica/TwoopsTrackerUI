@@ -43,6 +43,12 @@ const theme = createMuiTheme({
       fontFamily: FONT_FAMILY,
     },
   },
+  widths: {
+    values: {
+      md: 608, // 0, 80, 0, 80 margin - to be confirmed for TwoopsTracker
+      lg: 1160, // 0, 140, 0, 140 margin - to be confirmed for TwoopsTracker
+    },
+  },
 });
 
 export default theme;
