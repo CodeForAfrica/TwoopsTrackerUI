@@ -2,12 +2,17 @@ import React from "react";
 
 import useStyles from "./useStyles";
 
+import Search from "@/twoopstracker/components/SearchComponent";
+import Section from "@/twoopstracker/components/Section";
+
 const SearchSection = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <div>Search Section</div>
+      <Section className={classes.section}>
+        <Search />
+      </Section>
     </div>
   );
 };

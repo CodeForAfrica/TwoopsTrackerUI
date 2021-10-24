@@ -3,7 +3,7 @@ import React from "react";
 import Search from ".";
 
 export default {
-  title: "Components/SearchSection",
+  title: "Components/Search",
   argTypes: {},
 };
 
