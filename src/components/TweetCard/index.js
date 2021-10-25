@@ -29,12 +29,12 @@ const TweetCard = ({
             <Image layout="fill" src={UserIcon} />
           </div>
         </Grid>
-        <Grid item lg={5} className={classes.detailSection}>
+        <Grid item lg={5} md={12} sm={12} className={classes.detailSection}>
           <Typography className={classes.username}>{username}</Typography>
           <RichTypography className={classes.handle}>{handle}</RichTypography>
           <Typography className={classes.list}>{listDescription}</Typography>
         </Grid>
-        <Grid item lg={5}>
+        <Grid item lg={5} md={12} sm={12}>
           <Typography>{posted}</Typography>
           <RichTypography className={clsx(classes.text, classes.deleteTime)}>
             {deleted}
