@@ -19,7 +19,12 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     fontSize: typography.pxToRem(36),
   },
   handle: {
-    // marginTop: typography.pxToRem(10),
+    display: "inline",
+    color: "#DB1111",
+  },
+  accountType: {
+    display: "inline",
+    marginLeft: typography.pxToRem(10),
   },
   list: {
     marginTop: typography.pxToRem(10),

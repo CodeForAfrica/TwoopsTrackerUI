@@ -4,10 +4,10 @@ import React from "react";
 import Section from "@/twoopstracker/components/Section";
 import TweetCard from "@/twoopstracker/components/TweetCard";
 
-const Tweets = ({ tweets }) => {
+const Tweets = ({ data }) => {
   return (
     <Section>
-      {tweets.map((tweet) => (
+      {data.map((tweet) => (
         <TweetCard key={tweet.username} {...tweet} />
       ))}
     </Section>
@@ -15,22 +15,11 @@ const Tweets = ({ tweets }) => {
 };
 
 Tweets.propTypes = {
-  tweets: PropTypes.arrayOf(
-    PropTypes.shape({
-      username: PropTypes.string,
-      handle: PropTypes.string,
-      retweet: PropTypes.string,
-      originalTweet: PropTypes.string,
-      posted: PropTypes.string,
-      deleted: PropTypes.string,
-      listDescription: PropTypes.string,
-      interactions: PropTypes.string,
-    })
-  ),
+  data: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Tweets.defaultProps = {
-  tweets: undefined,
+  data: undefined,
 };
 
 export default Tweets;
