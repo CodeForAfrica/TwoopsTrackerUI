@@ -20,7 +20,6 @@ const TweetCard = ({ owner, deleted, content, ...props }) => {
     created_at: createdAt,
   } = props;
 
-  console.log("PROOOPS", props);
   const usernameData = name;
   const handleData = screenName.replace(/\s/g, "");
   const accountType = accountStatus ? "Private" : "Public";
