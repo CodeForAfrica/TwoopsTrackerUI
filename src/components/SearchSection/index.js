@@ -14,10 +14,10 @@ const SearchSection = () => {
       <Section className={classes.section}>
         <div className={classes.container}>
           <Search />
-          <Filter />
-          <Filter />
-          <Filter />
-          <Filter />
+          <Filter label="Dates" />
+          <Filter label="Account Type" />
+          <Filter label="Theme" />
+          <Filter label="Location" />
         </div>
       </Section>
     </div>
