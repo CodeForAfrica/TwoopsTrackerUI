@@ -16,12 +16,8 @@ const Search = (props) => {
     <InputBase
       placeholder="Search"
       endAdornment={
-        <InputAdornment position="end">
-          <IconButton
-            color="primary"
-            size="small"
-            // className={classes.button}
-          >
+        <InputAdornment position="end" variant="filled">
+          <IconButton color="primary" size="small">
             <SvgIcon component={UserIcon} />
           </IconButton>
         </InputAdornment>
