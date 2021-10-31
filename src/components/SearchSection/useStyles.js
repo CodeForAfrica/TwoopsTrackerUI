@@ -5,6 +5,10 @@ const useStyles = makeStyles(({ palette, typography }) => ({
     backgroundColor: palette.primary.main,
     padding: `${typography.pxToRem(88)} 0`,
   },
+  container: {
+    display: "flex",
+    justifyContent: "space-evenly",
+  },
 }));
 
 export default useStyles;
