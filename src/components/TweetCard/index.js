@@ -66,15 +66,15 @@ TweetCard.propTypes = {
   owner: PropTypes.shape({
     screen_name: PropTypes.string,
     name: PropTypes.string,
-    protected: PropTypes.string,
+    protected: PropTypes.bool,
   }),
-  likes_count: PropTypes.string,
-  retweets_count: PropTypes.string,
-  replies_count: PropTypes.string,
+  likes_count: PropTypes.number,
+  retweets_count: PropTypes.number,
+  replies_count: PropTypes.number,
   created_at: PropTypes.string,
   retweet: PropTypes.string,
   content: PropTypes.string,
-  deleted: PropTypes.string,
+  deleted: PropTypes.bool,
 };
 
 TweetCard.defaultProps = {
