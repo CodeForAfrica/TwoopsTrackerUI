@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import React from "react";
 
 import useStyles from "./useStyles";
@@ -18,6 +19,9 @@ const SearchSection = () => {
           <Filter label="Account Type" />
           <Filter label="Theme" />
           <Filter label="Location" />
+        </div>
+        <div className={classes.buttonSection}>
+          <Button className={classes.button}>Search</Button>
         </div>
       </Section>
     </div>

@@ -7,7 +7,21 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   },
   container: {
     display: "flex",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
+  },
+  buttonSection: {
+    display: "flex",
+    justifyContent: "end",
+    marginTop: typography.pxToRem(40),
+  },
+  button: {
+    backgroundColor: "#fff",
+    color: "#DB1111",
+    fontWeight: "700",
+    "&:hover": {
+      backgroundColor: "#fff",
+      color: "#000",
+    },
   },
 }));
 
