@@ -1,7 +1,12 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
+    boxShadow: `0 ${typography.pxToRem(4)} ${typography.pxToRem(
+      8
+    )} 0 rgba(0,0,0,0.2)`,
+    marginBottom: `${typography.pxToRem(20)}`,
+    padding: `${typography.pxToRem(20)}`,
     "& .highlight": {
       color: "#DB1111",
     },
@@ -14,7 +19,12 @@ const useStyles = makeStyles(({ typography }) => ({
     fontSize: typography.pxToRem(36),
   },
   handle: {
-    // marginTop: typography.pxToRem(10),
+    display: "inline",
+    color: "#DB1111",
+  },
+  accountType: {
+    display: "inline",
+    marginLeft: typography.pxToRem(10),
   },
   list: {
     marginTop: typography.pxToRem(10),
@@ -34,7 +44,10 @@ const useStyles = makeStyles(({ typography }) => ({
     },
   },
   detailSection: {
-    marginLeft: typography.pxToRem(20),
+    marginLeft: 0,
+    [breakpoints.up("md")]: {
+      marginLeft: typography.pxToRem(20),
+    },
   },
   retweet: {
     marginTop: typography.pxToRem(10),
