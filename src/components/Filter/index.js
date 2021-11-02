@@ -10,7 +10,7 @@ import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
-const Filter = ({ label, ...props }) => {
+const Filter = ({ label, menuItems, ...props }) => {
   const classes = useStyles(props);
 
   const [age, setAge] = useState("");
@@ -32,9 +32,12 @@ const Filter = ({ label, ...props }) => {
           label={label}
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {menuItems &&
+            menuItems.map((item) => (
+              <MenuItem key={item.value} value={item.value}>
+                {item.name}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
     </Box>
@@ -43,10 +46,17 @@ const Filter = ({ label, ...props }) => {
 
 Filter.propTypes = {
   label: PropTypes.string,
+  menuItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      value: PropTypes.string,
+    })
+  ),
 };
 
 Filter.defaultProps = {
   label: undefined,
+  menuItems: undefined,
 };
 
 export default Filter;

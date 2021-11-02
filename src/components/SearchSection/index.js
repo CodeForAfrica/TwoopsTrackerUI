@@ -16,10 +16,30 @@ const SearchSection = ({ onSearch, ...props }) => {
       <Section className={classes.section}>
         <div className={classes.container}>
           <Search />
-          <Filter label="Dates" />
-          <Filter label="Account Type" />
-          <Filter label="Theme" />
-          <Filter label="Location" />
+          <Filter
+            label="Dates"
+            menuItems={[
+              { name: "Last 1 Day", value: 1 },
+              { name: "Last 3 Days", value: 3 },
+              { name: "Last 30 Days", value: 30 },
+            ]}
+          />
+          <Filter
+            label="Theme"
+            menuItems={[
+              { name: "Covid-19", value: "Covid-19" },
+              { name: "Anti-vaxx", value: "Anti-vaxx" },
+              { name: "Foreign Influence", value: "Foreign Influence" },
+            ]}
+          />
+          <Filter
+            label="Location"
+            menuItems={[
+              { name: "Russia", value: "Russia" },
+              { name: "Jamaica", value: "Jamaica" },
+              { name: "Ghana", value: "Jamaica" },
+            ]}
+          />
         </div>
         <div className={classes.buttonSection}>
           <Button className={classes.button} onClick={onSearch}>

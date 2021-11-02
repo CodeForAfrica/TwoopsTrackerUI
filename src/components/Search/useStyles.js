@@ -6,6 +6,7 @@ const useStyles = makeStyles(({ typography }) => ({
   },
   input: {
     marginLeft: typography.pxToRem(10),
+    minWidth: typography.pxToRem(400),
   },
 }));
 
