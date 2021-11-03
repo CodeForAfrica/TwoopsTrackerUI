@@ -16,15 +16,23 @@ const TweetsContainer = (props) => {
   const [date, setDate] = useState("");
   const [theme, setTheme] = useState("");
   const [location, setLocation] = useState("");
+  const [search, setSearch] = useState("");
   const stateObject = {
     date: setDate,
     theme: setTheme,
     location: setLocation,
+    search: setSearch,
   };
 
   const searchTweets = async () => {
     setIsLoading(true);
-    let url = `https://dev.investigate.africa/v1/tweets/?location=${location}&&query=${theme}`;
+    let url = `https://dev.investigate.africa/v1/tweets/?location=${location}`;
+
+    if (search && theme) {
+      url = `${url}&&query="${theme} and ${search}"`;
+    } else {
+      url = `${url}&&query=${theme || search}`;
+    }
 
     if (date) {
       const newDate = new Date();
@@ -35,6 +43,7 @@ const TweetsContainer = (props) => {
 
       url = `${url}&&startDate=${pastDate}&&endDate=${today}`;
     }
+
     const res = await fetch(url);
     const data = await res.json();
 
@@ -42,7 +51,7 @@ const TweetsContainer = (props) => {
     setIsLoading(false);
   };
 
-  const handleFilter = ({ name, value }) => {
+  const handleSelection = ({ name, value }) => {
     stateObject[name](value);
   };
 
@@ -52,11 +61,12 @@ const TweetsContainer = (props) => {
     setIsLoading(false);
   }, [props]);
 
-  console.log("TWEEETS", tweets);
-
   return (
     <>
-      <SearchSection onSearch={searchTweets} handleFilter={handleFilter} />
+      <SearchSection
+        onSearch={searchTweets}
+        handleSelection={handleSelection}
+      />
       {isLoading && <Loading />}
       {tweets.length > 0 ? (
         <Tweets tweets={tweets} />

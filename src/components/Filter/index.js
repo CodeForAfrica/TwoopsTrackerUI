@@ -10,14 +10,14 @@ import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
-const Filter = ({ label, menuItems, handleFilter, ...props }) => {
+const Filter = ({ label, menuItems, handleSelection, ...props }) => {
   const classes = useStyles(props);
 
   const [val, setValue] = useState("");
 
   const handleChange = (event) => {
     setValue(event.target.value);
-    handleFilter({ name: label.toLowerCase(), value: event.target.value });
+    handleSelection({ name: label.toLowerCase(), value: event.target.value });
   };
 
   return (
@@ -46,7 +46,7 @@ const Filter = ({ label, menuItems, handleFilter, ...props }) => {
 
 Filter.propTypes = {
   label: PropTypes.string,
-  handleFilter: PropTypes.func,
+  handleSelection: PropTypes.func,
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -59,7 +59,7 @@ Filter.propTypes = {
 Filter.defaultProps = {
   label: undefined,
   menuItems: undefined,
-  handleFilter: undefined,
+  handleSelection: undefined,
 };
 
 export default Filter;
