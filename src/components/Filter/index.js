@@ -10,13 +10,14 @@ import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
-const Filter = ({ label, menuItems, ...props }) => {
+const Filter = ({ label, menuItems, handleFilter, ...props }) => {
   const classes = useStyles(props);
 
-  const [age, setAge] = useState("");
+  const [val, setValue] = useState("");
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setValue(event.target.value);
+    handleFilter({ name: label.toLowerCase(), value: event.target.value });
   };
 
   return (
@@ -26,10 +27,10 @@ const Filter = ({ label, menuItems, ...props }) => {
           {label}
         </InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label={label}
+          // labelId="demo-simple-select-label"
+          // id="demo-simple-select"
+          value={val}
+          // label={label}
           onChange={handleChange}
         >
           {menuItems &&
@@ -46,10 +47,12 @@ const Filter = ({ label, menuItems, ...props }) => {
 
 Filter.propTypes = {
   label: PropTypes.string,
+  handleFilter: PropTypes.func,
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
-      value: PropTypes.string,
+      // eslint-disable-next-line react/forbid-prop-types
+      value: PropTypes.any,
     })
   ),
 };
@@ -57,6 +60,7 @@ Filter.propTypes = {
 Filter.defaultProps = {
   label: undefined,
   menuItems: undefined,
+  handleFilter: undefined,
 };
 
 export default Filter;

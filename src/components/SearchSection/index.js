@@ -8,7 +8,7 @@ import Filter from "@/twoopstracker/components/Filter";
 import Search from "@/twoopstracker/components/Search";
 import Section from "@/twoopstracker/components/Section";
 
-const SearchSection = ({ onSearch, ...props }) => {
+const SearchSection = ({ onSearch, handleFilter, ...props }) => {
   const classes = useStyles(props);
 
   return (
@@ -17,7 +17,8 @@ const SearchSection = ({ onSearch, ...props }) => {
         <div className={classes.container}>
           <Search />
           <Filter
-            label="Dates"
+            label="Date"
+            handleFilter={handleFilter}
             menuItems={[
               { name: "Last 1 Day", value: 1 },
               { name: "Last 3 Days", value: 3 },
@@ -26,6 +27,7 @@ const SearchSection = ({ onSearch, ...props }) => {
           />
           <Filter
             label="Theme"
+            handleFilter={handleFilter}
             menuItems={[
               { name: "Covid-19", value: "Covid-19" },
               { name: "Anti-vaxx", value: "Anti-vaxx" },
@@ -34,10 +36,11 @@ const SearchSection = ({ onSearch, ...props }) => {
           />
           <Filter
             label="Location"
+            handleFilter={handleFilter}
             menuItems={[
               { name: "Russia", value: "Russia" },
               { name: "Jamaica", value: "Jamaica" },
-              { name: "Ghana", value: "Jamaica" },
+              { name: "Ghana", value: "Ghana" },
             ]}
           />
         </div>
@@ -53,9 +56,11 @@ const SearchSection = ({ onSearch, ...props }) => {
 
 SearchSection.propTypes = {
   onSearch: PropTypes.func,
+  handleFilter: PropTypes.func,
 };
 SearchSection.defaultProps = {
   onSearch: undefined,
+  handleFilter: undefined,
 };
 
 export default SearchSection;
