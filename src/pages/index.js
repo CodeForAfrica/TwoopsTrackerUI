@@ -13,8 +13,10 @@ export default function Index(props) {
 }
 
 export async function getServerSideProps() {
+  const url = process.env.TWOOPSTRACKER_API_URL;
+
   // Fetch data from external API
-  const res = await fetch(`https://dev.investigate.africa/v1/tweets/`);
+  const res = await fetch(`${url}/tweets/`);
   const data = await res.json();
 
   // Pass data to the page via props
