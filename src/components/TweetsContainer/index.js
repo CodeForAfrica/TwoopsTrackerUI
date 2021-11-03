@@ -22,10 +22,10 @@ const TweetsContainer = (props) => {
 
     if (date) {
       const newDate = new Date();
-      const today = newDate.toLocaleDateString();
+      const today = newDate.toISOString().substr(0, 10);
 
       newDate.setDate(newDate.getDate() - date);
-      const pastDate = newDate.toLocaleDateString();
+      const pastDate = newDate.toISOString().substr(0, 10);
 
       url = `${url}&&startDate=${pastDate}&&endDate=${today}`;
     }
