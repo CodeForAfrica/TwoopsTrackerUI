@@ -1,12 +1,18 @@
+import { Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 
+import useStyles from "./useStyles";
+
+import Loading from "@/twoopstracker/components/Loading";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
 
 const TweetsContainer = (props) => {
+  const classes = useStyles(props);
+
   const [isLoading, setIsLoading] = useState(true);
-  const [tweets, setTweets] = useState(null);
+  const [tweets, setTweets] = useState([]);
   const [date, setDate] = useState("");
   const [theme, setTheme] = useState("");
   const [location, setLocation] = useState("");
@@ -46,10 +52,17 @@ const TweetsContainer = (props) => {
     setIsLoading(false);
   }, [props]);
 
+  console.log("TWEEETS", tweets);
+
   return (
     <>
       <SearchSection onSearch={searchTweets} handleFilter={handleFilter} />
-      {isLoading ? <div>Loading...</div> : <Tweets tweets={tweets} />}
+      {isLoading && <Loading />}
+      {tweets.length > 0 ? (
+        <Tweets tweets={tweets} />
+      ) : (
+        <Typography className={classes.text}>No Tweets Found</Typography>
+      )}
     </>
   );
 };

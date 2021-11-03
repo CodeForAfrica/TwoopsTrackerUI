@@ -23,6 +23,7 @@ const SearchSection = ({ onSearch, handleFilter, ...props }) => {
               { name: "Last 1 Day", value: 1 },
               { name: "Last 3 Days", value: 3 },
               { name: "Last 30 Days", value: 30 },
+              { name: "None", value: "" },
             ]}
           />
           <Filter
@@ -32,6 +33,7 @@ const SearchSection = ({ onSearch, handleFilter, ...props }) => {
               { name: "Covid-19", value: "Covid-19" },
               { name: "Anti-vaxx", value: "Anti-vaxx" },
               { name: "Foreign Influence", value: "Foreign Influence" },
+              { name: "None", value: "" },
             ]}
           />
           <Filter
@@ -41,6 +43,7 @@ const SearchSection = ({ onSearch, handleFilter, ...props }) => {
               { name: "Russia", value: "Russia" },
               { name: "Jamaica", value: "Jamaica" },
               { name: "Ghana", value: "Ghana" },
+              { name: "None", value: "" },
             ]}
           />
         </div>
