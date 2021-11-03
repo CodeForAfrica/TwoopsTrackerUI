@@ -30,12 +30,10 @@ const TweetsContainer = (props) => {
       url = `${url}&&startDate=${pastDate}&&endDate=${today}`;
     }
     const res = await fetch(url);
-    // eslint-disable-next-line no-unused-vars
-    const data = await res.json(); // fixed after cors error
+    const data = await res.json();
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    setTweets(data);
+    setIsLoading(false);
   };
 
   const handleFilter = ({ name, value }) => {
