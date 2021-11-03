@@ -9,6 +9,9 @@ const useStyles = makeStyles(({ typography }) => ({
     color: "#000",
     marginLeft: typography.pxToRem(5),
   },
+  select: {
+    paddingLeft: typography.pxToRem(5),
+  },
 }));
 
 export default useStyles;

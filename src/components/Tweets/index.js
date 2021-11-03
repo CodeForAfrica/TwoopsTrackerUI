@@ -1,12 +1,15 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import useStyles from "./useStyles";
+
 import Section from "@/twoopstracker/components/Section";
 import TweetCard from "@/twoopstracker/components/TweetCard";
 
-const Tweets = ({ tweets }) => {
+const Tweets = ({ tweets, ...props }) => {
+  const classes = useStyles(props);
   return (
-    <Section>
+    <Section className={classes.section}>
       {tweets.map((tweet) => (
         <TweetCard key={tweet.tweet_id} {...tweet} />
       ))}

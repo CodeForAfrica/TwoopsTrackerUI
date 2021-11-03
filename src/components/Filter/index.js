@@ -23,15 +23,14 @@ const Filter = ({ label, menuItems, handleFilter, ...props }) => {
   return (
     <Box sx={{ width: 150 }}>
       <FormControl fullWidth className={classes.form}>
-        <InputLabel id="demo-simple-select-label" className={classes.label}>
+        <InputLabel id={`${label}-id`} className={classes.label}>
           {label}
         </InputLabel>
         <Select
-          // labelId="demo-simple-select-label"
-          // id="demo-simple-select"
+          labelId={`${label}-id`}
           value={val}
-          // label={label}
           onChange={handleChange}
+          className={classes.select}
         >
           {menuItems &&
             menuItems.map((item) => (
