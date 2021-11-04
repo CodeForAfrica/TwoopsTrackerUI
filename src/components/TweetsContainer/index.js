@@ -26,7 +26,8 @@ const TweetsContainer = (props) => {
 
   const searchTweets = async () => {
     setIsLoading(true);
-    let url = `https://dev.investigate.africa/v1/tweets/?location=${location}`;
+    const apiUrl = process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL;
+    let url = `${apiUrl}/tweets/?location=${location}`;
 
     if (search && theme) {
       url = `${url}&&query="${theme} and ${search}"`;
