@@ -21,7 +21,7 @@ const Filter = ({ label, menuItems, handleSelection, ...props }) => {
   };
 
   return (
-    <Box sx={{ width: 150 }}>
+    <Box sx={{ width: 150 }} className={classes.box}>
       <FormControl fullWidth className={classes.form}>
         <InputLabel id={`${label}-id`} className={classes.label}>
           {label}

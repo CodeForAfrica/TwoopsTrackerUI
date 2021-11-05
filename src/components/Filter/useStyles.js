@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {},
   form: {
     backgroundColor: "#FFF",
@@ -11,6 +11,14 @@ const useStyles = makeStyles(({ typography }) => ({
   },
   select: {
     paddingLeft: typography.pxToRem(5),
+  },
+  box: {
+    marginTop: typography.pxToRem(20),
+    minWidth: typography.pxToRem(300),
+    [breakpoints.up("lg")]: {
+      marginTop: "0",
+      minWidth: "auto",
+    },
   },
 }));
 

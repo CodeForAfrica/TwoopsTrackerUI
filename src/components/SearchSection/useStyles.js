@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ palette, typography }) => ({
+const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   root: {
     backgroundColor: palette.primary.main,
     padding: `${typography.pxToRem(88)} 0`,
@@ -8,6 +8,10 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   container: {
     display: "flex",
     justifyContent: "space-between",
+    flexDirection: "column",
+    [breakpoints.up("lg")]: {
+      flexDirection: "row",
+    },
   },
   buttonSection: {
     display: "flex",
