@@ -2,6 +2,7 @@ import React from "react";
 
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
+import { fetchTweets } from "@/twoopstracker/lib";
 
 export default function Index(props) {
   return (
@@ -13,10 +14,7 @@ export default function Index(props) {
 }
 
 export async function getServerSideProps() {
-  const url = process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL;
-  // Fetch data from external API
-  const res = await fetch(`${url}/tweets/`);
-  const data = await res.json();
+  const data = await fetchTweets();
 
   // Pass data to the page via props
   return { props: { data } };
