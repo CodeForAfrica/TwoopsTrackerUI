@@ -1,4 +1,3 @@
-import { Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 
@@ -28,7 +27,6 @@ const TweetsContainer = (props) => {
   const searchTweets = async () => {
     setIsLoading(true);
     const data = await fetchSearchTweets(search, date, theme, location);
-
     setTweets(data);
     setIsLoading(false);
   };
@@ -48,13 +46,10 @@ const TweetsContainer = (props) => {
       <SearchSection
         onSearch={searchTweets}
         handleSelection={handleSelection}
+        className={classes.root}
       />
       {isLoading && <Loading />}
-      {tweets.length > 0 ? (
-        <Tweets tweets={tweets} />
-      ) : (
-        <Typography className={classes.text}>No Tweets Found</Typography>
-      )}
+      <Tweets tweets={tweets} />
     </>
   );
 };
