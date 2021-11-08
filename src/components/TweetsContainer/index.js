@@ -1,4 +1,3 @@
-import { Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 
@@ -7,6 +6,7 @@ import useStyles from "./useStyles";
 import Loading from "@/twoopstracker/components/Loading";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
+import { fetchSearchTweets } from "@/twoopstracker/lib";
 
 const TweetsContainer = (props) => {
   const classes = useStyles(props);
@@ -26,28 +26,7 @@ const TweetsContainer = (props) => {
 
   const searchTweets = async () => {
     setIsLoading(true);
-    const apiUrl = process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL;
-    let url = `${apiUrl}/tweets/?location=${location}`;
-
-    if (search && theme) {
-      url = `${url}&&query="${theme} and ${search}"`;
-    } else {
-      url = `${url}&&query=${theme || search}`;
-    }
-
-    if (date) {
-      const newDate = new Date();
-      const today = newDate.toISOString().substr(0, 10);
-
-      newDate.setDate(newDate.getDate() - date);
-      const pastDate = newDate.toISOString().substr(0, 10);
-
-      url = `${url}&&startDate=${pastDate}&&endDate=${today}`;
-    }
-
-    const res = await fetch(url);
-    const data = await res.json();
-
+    const data = await fetchSearchTweets(search, date, theme, location);
     setTweets(data);
     setIsLoading(false);
   };
@@ -67,13 +46,10 @@ const TweetsContainer = (props) => {
       <SearchSection
         onSearch={searchTweets}
         handleSelection={handleSelection}
+        className={classes.root}
       />
       {isLoading && <Loading />}
-      {tweets.length > 0 ? (
-        <Tweets tweets={tweets} />
-      ) : (
-        <Typography className={classes.text}>No Tweets Found</Typography>
-      )}
+      <Tweets tweets={tweets} />
     </>
   );
 };

@@ -1,3 +1,4 @@
+import { Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -10,9 +11,11 @@ const Tweets = ({ tweets, ...props }) => {
   const classes = useStyles(props);
   return (
     <Section className={classes.section}>
-      {tweets.map((tweet) => (
-        <TweetCard key={tweet.tweet_id} {...tweet} />
-      ))}
+      {tweets.length > 0 ? (
+        tweets.map((tweet) => <TweetCard key={tweet.tweet_id} {...tweet} />)
+      ) : (
+        <Typography className={classes.text}>No Tweets Found</Typography>
+      )}
     </Section>
   );
 };

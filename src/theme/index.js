@@ -1,9 +1,9 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 
 const FONT_FAMILY = '"Arial", "sans-serif"';
 
 // Create a theme instance.
-const theme = createMuiTheme({
+const theme = createTheme({
   breakpoints: {
     xs: 0, // mobile
     md: 720, // tablet
