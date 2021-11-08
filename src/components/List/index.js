@@ -4,15 +4,15 @@ import React from "react";
 
 import useStyles from "./useStyles";
 
-const List = ({ listName, createdAt, ...props }) => {
+const List = ({ name, createdAt, ...props }) => {
   const classes = useStyles(props);
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title}>{listName}</Typography>
+      <Typography className={classes.title}>{name}</Typography>
       <Grid container>
         <Grid item xs={8}>
-          <Typography>{createdAt}</Typography>
+          {createdAt && <Typography>{createdAt}</Typography>}
         </Grid>
         <Grid item xs={4}>
           <Button className={classes.editButton}>Edit</Button>
@@ -24,12 +24,12 @@ const List = ({ listName, createdAt, ...props }) => {
 };
 
 List.propTypes = {
-  listName: PropTypes.string,
+  name: PropTypes.string,
   createdAt: PropTypes.string,
 };
 
 List.defaultProps = {
-  listName: undefined,
+  name: undefined,
   createdAt: undefined,
 };
 

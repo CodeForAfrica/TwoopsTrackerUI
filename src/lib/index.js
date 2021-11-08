@@ -31,3 +31,10 @@ export const fetchSearchTweets = async (search, date, theme, location) => {
 
   return data;
 };
+
+export const fetchLists = async () => {
+  const res = await fetch(`${url}/lists/`);
+  const data = await res.json();
+
+  return data;
+};
