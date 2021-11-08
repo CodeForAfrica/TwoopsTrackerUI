@@ -13,9 +13,9 @@ export const Default = Template.bind({});
 
 Default.args = {
   data: [
-    { name: "List One", createdAt: "Saved on yy/mm/dd at 00:00:00" },
-    { name: "List Two", createdAt: "Saved on yy/mm/dd at 00:00:00" },
-    { name: "List Three", createdAt: "Saved on yy/mm/dd at 00:00:00" },
-    { name: "List Four", createdAt: "Saved on yy/mm/dd at 00:00:00" },
+    { name: "List One", created_at: "Saved on yy/mm/dd at 00:00:00" },
+    { name: "List Two", created_at: "Saved on yy/mm/dd at 00:00:00" },
+    { name: "List Three", created_at: "Saved on yy/mm/dd at 00:00:00" },
+    { name: "List Four", created_at: "Saved on yy/mm/dd at 00:00:00" },
   ],
 };

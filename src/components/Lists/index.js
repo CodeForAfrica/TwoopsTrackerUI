@@ -16,7 +16,7 @@ const ListItems = ({ data, ...props }) => {
   return (
     <Section>
       {data.map((item) => (
-        <List classes={{ root: classes.listItem }} {...item} />
+        <List key={item.name} classes={{ root: classes.listItem }} {...item} />
       ))}
     </Section>
   );
