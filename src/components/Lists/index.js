@@ -1,3 +1,4 @@
+import { Button, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -15,6 +16,10 @@ const ListItems = ({ data, ...props }) => {
 
   return (
     <Section>
+      <div className={classes.section}>
+        <Typography>Your Lists</Typography>
+        <Button className={classes.button}>Create New List</Button>
+      </div>
       {data.map((item) => (
         <List key={item.name} classes={{ root: classes.listItem }} {...item} />
       ))}
