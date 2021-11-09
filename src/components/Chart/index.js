@@ -38,9 +38,11 @@ function Chart({ data, title, ...props }) {
     }
   }, [data]);
 
-  if (title && view) {
-    view.signal("ChartTitle", title).run();
-  }
+  useEffect(() => {
+    if (title && view) {
+      view.signal("chartTitle", title).run();
+    }
+  }, [view, title]);
 
   if (!data) {
     return null;
