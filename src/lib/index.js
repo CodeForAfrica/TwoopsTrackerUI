@@ -1,13 +1,31 @@
-import { searchTweets, fetchAllTweets } from "@/twoopstracker/pages/api";
+import { subDays } from "date-fns";
 
-export const fetchTweets = async () => {
-  const data = await fetchAllTweets();
+const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
 
-  return data;
-};
+export async function fetchAll() {
+  const res = await fetch(`${BASE_URL}/tweets/`);
+  return res.json();
+}
 
-export const fetchSearchTweets = async (search, date, theme, location) => {
-  const data = await searchTweets(search, date, theme, location);
+export async function search(term, theme, location, days = 7) {
+  const searchParams = new URLSearchParams();
+  let query = term || theme;
+  if (query && theme) {
+    query = `(${query} AND ${theme})`;
+  }
+  if (query) {
+    searchParams.append("query", query);
+  }
+  if (location) {
+    searchParams.append("location", location);
+  }
+  const date = new Date();
+  const endDate = date.toISOString().substr(0, 10);
+  const startDate = subDays(date, days).toISOString().substr(0, 10);
+  searchParams.append("startDate", startDate);
+  searchParams.append("endDate", endDate);
 
-  return data;
-};
+  const searchUrl = `${BASE_URL}/tweets/?${searchParams.toString()}&format=json`;
+  const res = await fetch(searchUrl);
+  return res.json();
+}
