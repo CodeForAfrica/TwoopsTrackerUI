@@ -47,7 +47,7 @@ Filter.propTypes = {
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
-      value: PropTypes.oneOfType(PropTypes.string, PropTypes.number),
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     })
   ),
   value: PropTypes.string,
