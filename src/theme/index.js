@@ -5,6 +5,7 @@ const FONT_FAMILY_HEADING = '"Playfair Display", "serif"';
 const FONT_FAMILY_TEXT = '"Arial", "sans-serif"';
 const FONT_FAMILY_TEXT2 = '"Montserrat", "sans-serif"';
 
+// Create a theme instance.
 const theme = createTheme({
   breakpoints: {
     values: {
