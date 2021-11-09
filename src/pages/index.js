@@ -25,4 +25,8 @@ Index.defaultProps = {
 
 // TODO(kilemensi): Once search has been moved to the search page, this method
 //                  should be turned into getStaticProps
-export function getStaticProps() {}
+export function getStaticProps() {
+  return {
+    props: {},
+  };
+}
