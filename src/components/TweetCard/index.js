@@ -9,21 +9,22 @@ import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 
-const TweetCard = ({ owner, deleted, content, ...props }) => {
+const TweetCard = ({
+  owner,
+  deleted,
+  content,
+  retweeted_user_screen_name: retweetedUser,
+  number_of_interactions: interaction,
+  created_at: createdAt,
+  ...props
+}) => {
   const classes = useStyles(props);
 
   const { name, screen_name: screenName, protected: accountStatus } = owner;
-  const {
-    likes_count: likesCount,
-    retweets_count: retweetsCount,
-    replies_count: repliesCount,
-    created_at: createdAt,
-  } = props;
 
   const username = name;
   const handle = screenName.replace(/\s/g, "");
   const accountType = accountStatus ? "Private" : "Public";
-  const interaction = likesCount + retweetsCount + repliesCount;
 
   return (
     <div className={classes.root}>
@@ -54,9 +55,11 @@ const TweetCard = ({ owner, deleted, content, ...props }) => {
         </Grid>
       </Grid>
       <RichTypography className={classes.retweet}>{content}</RichTypography>
-      <RichTypography className={classes.originalTweet}>
-        Original tweet by
-      </RichTypography>
+      {retweetedUser && (
+        <RichTypography className={classes.originalTweet}>
+          Original tweet by
+        </RichTypography>
+      )}
     </div>
   );
 };
@@ -70,18 +73,20 @@ TweetCard.propTypes = {
   likes_count: PropTypes.number,
   retweets_count: PropTypes.number,
   replies_count: PropTypes.number,
+  retweeted_user_screen_name: PropTypes.string,
+  number_of_interactions: PropTypes.number,
   created_at: PropTypes.string,
-  retweet: PropTypes.string,
   content: PropTypes.string,
   deleted: PropTypes.bool,
 };
 
 TweetCard.defaultProps = {
   owner: undefined,
-  retweet: undefined,
   content: undefined,
   likes_count: undefined,
   retweets_count: undefined,
+  retweeted_user_screen_name: undefined,
+  number_of_interactions: undefined,
   replies_count: undefined,
   created_at: undefined,
   deleted: undefined,
