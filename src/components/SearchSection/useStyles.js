@@ -18,6 +18,12 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     justifyContent: "end",
     marginTop: typography.pxToRem(40),
   },
+  saveButton: {
+    color: "#fff",
+    border: "solid 1px white",
+    fontWeight: "700",
+    marginRight: typography.pxToRem(15),
+  },
   button: {
     backgroundColor: "#fff",
     color: "#DB1111",

@@ -48,6 +48,9 @@ const SearchSection = ({ onSearch, handleSelection, ...props }) => {
           />
         </div>
         <div className={classes.buttonSection}>
+          <Button className={classes.saveButton} onClick={onSearch}>
+            Save Search
+          </Button>
           <Button className={classes.button} onClick={onSearch}>
             Search
           </Button>

@@ -9,22 +9,29 @@ import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 
-const TweetCard = ({ owner, deleted, content, ...props }) => {
+const TweetCard = ({
+  owner,
+  deleted,
+  content,
+  retweeted_user_screen_name: retweetedUser,
+  number_of_interactions: interaction,
+  created_at: createdAt,
+  deleted_at: deletedAt,
+  ...props
+}) => {
   const classes = useStyles(props);
 
   const { name, screen_name: screenName, protected: accountStatus } = owner;
-  const {
-    likes_count: likesCount,
-    retweets_count: retweetsCount,
-    replies_count: repliesCount,
-    created_at: createdAt,
-  } = props;
 
-  const usernameData = name;
-  const handleData = screenName.replace(/\s/g, "");
+  const username = name;
+  const handle = screenName.replace(/\s/g, "");
   const accountType = accountStatus ? "Private" : "Public";
-  const interactionData = likesCount + retweetsCount + repliesCount;
-  const createdData = createdAt;
+
+  const date1 = new Date(createdAt);
+  const date2 = new Date(deletedAt);
+
+  const time = date2 - date1;
+  const timeDiff = Math.ceil(time / (1000 * 3600));
 
   return (
     <div className={classes.root}>
@@ -35,29 +42,35 @@ const TweetCard = ({ owner, deleted, content, ...props }) => {
           </div>
         </Grid>
         <Grid item lg={5} sm={12} className={classes.detailSection}>
-          <Typography className={classes.username}>{usernameData}</Typography>
+          <Typography className={classes.username}>{username}</Typography>
           <RichTypography className={classes.handle}>
-            {`@${handleData}`}
+            {`@${handle}`}
           </RichTypography>
           <Typography className={classes.accountType}>{accountType}</Typography>
           <Typography className={classes.list}>Add to List</Typography>
         </Grid>
         <Grid item lg={5} sm={12}>
-          <Typography>{`Created at ${createdData}`}</Typography>
+          {createdAt && (
+            <Typography>{`Created on ${date1
+              .toISOString()
+              .substr(0, 10)}`}</Typography>
+          )}
           {deleted && (
             <RichTypography className={clsx(classes.text, classes.deleteTime)}>
-              Deleted after xxmin about two hours ago
+              {`Deleted after ${timeDiff} hours`}
             </RichTypography>
           )}
           <Typography className={clsx(classes.text, classes.interaction)}>
-            {`Number of Interactions: ${interactionData}`}
+            {`Number of Interactions: ${interaction}`}
           </Typography>
         </Grid>
       </Grid>
       <RichTypography className={classes.retweet}>{content}</RichTypography>
-      <RichTypography className={classes.originalTweet}>
-        Original tweet by
-      </RichTypography>
+      {retweetedUser && (
+        <RichTypography className={classes.originalTweet}>
+          {`Original tweet by ${retweetedUser}`}
+        </RichTypography>
+      )}
     </div>
   );
 };
@@ -68,22 +81,20 @@ TweetCard.propTypes = {
     name: PropTypes.string,
     protected: PropTypes.bool,
   }),
-  likes_count: PropTypes.number,
-  retweets_count: PropTypes.number,
-  replies_count: PropTypes.number,
+  deleted_at: PropTypes.string,
+  retweeted_user_screen_name: PropTypes.string,
+  number_of_interactions: PropTypes.number,
   created_at: PropTypes.string,
-  retweet: PropTypes.string,
   content: PropTypes.string,
   deleted: PropTypes.bool,
 };
 
 TweetCard.defaultProps = {
   owner: undefined,
-  retweet: undefined,
   content: undefined,
-  likes_count: undefined,
-  retweets_count: undefined,
-  replies_count: undefined,
+  deleted_at: undefined,
+  retweeted_user_screen_name: undefined,
+  number_of_interactions: undefined,
   created_at: undefined,
   deleted: undefined,
 };
