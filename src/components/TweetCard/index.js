@@ -20,11 +20,10 @@ const TweetCard = ({ owner, deleted, content, ...props }) => {
     created_at: createdAt,
   } = props;
 
-  const usernameData = name;
-  const handleData = screenName.replace(/\s/g, "");
+  const username = name;
+  const handle = screenName.replace(/\s/g, "");
   const accountType = accountStatus ? "Private" : "Public";
-  const interactionData = likesCount + retweetsCount + repliesCount;
-  const createdData = createdAt;
+  const interaction = likesCount + retweetsCount + repliesCount;
 
   return (
     <div className={classes.root}>
@@ -35,22 +34,22 @@ const TweetCard = ({ owner, deleted, content, ...props }) => {
           </div>
         </Grid>
         <Grid item lg={5} sm={12} className={classes.detailSection}>
-          <Typography className={classes.username}>{usernameData}</Typography>
+          <Typography className={classes.username}>{username}</Typography>
           <RichTypography className={classes.handle}>
-            {`@${handleData}`}
+            {`@${handle}`}
           </RichTypography>
           <Typography className={classes.accountType}>{accountType}</Typography>
           <Typography className={classes.list}>Add to List</Typography>
         </Grid>
         <Grid item lg={5} sm={12}>
-          <Typography>{`Created at ${createdData}`}</Typography>
+          <Typography>{`Created at ${createdAt}`}</Typography>
           {deleted && (
             <RichTypography className={clsx(classes.text, classes.deleteTime)}>
               Deleted after xxmin about two hours ago
             </RichTypography>
           )}
           <Typography className={clsx(classes.text, classes.interaction)}>
-            {`Number of Interactions: ${interactionData}`}
+            {`Number of Interactions: ${interaction}`}
           </Typography>
         </Grid>
       </Grid>
