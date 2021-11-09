@@ -16,6 +16,7 @@ const TweetCard = ({
   retweeted_user_screen_name: retweetedUser,
   number_of_interactions: interaction,
   created_at: createdAt,
+  deleted_at: deletedAt,
   ...props
 }) => {
   const classes = useStyles(props);
@@ -25,6 +26,12 @@ const TweetCard = ({
   const username = name;
   const handle = screenName.replace(/\s/g, "");
   const accountType = accountStatus ? "Private" : "Public";
+
+  const date1 = new Date(createdAt);
+  const date2 = new Date(deletedAt);
+
+  const time = date2 - date1;
+  const timeDiff = Math.ceil(time / (1000 * 3600));
 
   return (
     <div className={classes.root}>
@@ -43,10 +50,14 @@ const TweetCard = ({
           <Typography className={classes.list}>Add to List</Typography>
         </Grid>
         <Grid item lg={5} sm={12}>
-          <Typography>{`Created at ${createdAt}`}</Typography>
+          {createdAt && (
+            <Typography>{`Created on ${date1
+              .toISOString()
+              .substr(0, 10)}`}</Typography>
+          )}
           {deleted && (
             <RichTypography className={clsx(classes.text, classes.deleteTime)}>
-              Deleted after xxmin about two hours ago
+              {`Deleted after ${timeDiff} hours`}
             </RichTypography>
           )}
           <Typography className={clsx(classes.text, classes.interaction)}>
@@ -57,7 +68,7 @@ const TweetCard = ({
       <RichTypography className={classes.retweet}>{content}</RichTypography>
       {retweetedUser && (
         <RichTypography className={classes.originalTweet}>
-          Original tweet by
+          {`Original tweet by ${retweetedUser}`}
         </RichTypography>
       )}
     </div>
@@ -70,9 +81,7 @@ TweetCard.propTypes = {
     name: PropTypes.string,
     protected: PropTypes.bool,
   }),
-  likes_count: PropTypes.number,
-  retweets_count: PropTypes.number,
-  replies_count: PropTypes.number,
+  deleted_at: PropTypes.string,
   retweeted_user_screen_name: PropTypes.string,
   number_of_interactions: PropTypes.number,
   created_at: PropTypes.string,
@@ -83,11 +92,9 @@ TweetCard.propTypes = {
 TweetCard.defaultProps = {
   owner: undefined,
   content: undefined,
-  likes_count: undefined,
-  retweets_count: undefined,
+  deleted_at: undefined,
   retweeted_user_screen_name: undefined,
   number_of_interactions: undefined,
-  replies_count: undefined,
   created_at: undefined,
   deleted: undefined,
 };
