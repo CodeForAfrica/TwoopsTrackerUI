@@ -1,13 +1,13 @@
-import { Typography } from "@material-ui/core";
 import React from "react";
 
+import Chart from "@/twoopstracker/components/Chart";
 import Page from "@/twoopstracker/components/Page";
+import { chartData } from "@/twoopstracker/config";
 
 export default function Index() {
   return (
-    <>
-      <Typography>One Two Three</Typography>
-      <Page />
-    </>
+    <Page>
+      <Chart data={chartData} />
+    </Page>
   );
 }
