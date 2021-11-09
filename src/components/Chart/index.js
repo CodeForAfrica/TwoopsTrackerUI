@@ -28,7 +28,7 @@ function Chart({ data, title, ...props }) {
       if (chartRef?.current) {
         const newView = await embed(chartRef.current, spec, {
           renderer: "canvas",
-          actions: true,
+          actions: false,
         });
         setView(newView);
       }
