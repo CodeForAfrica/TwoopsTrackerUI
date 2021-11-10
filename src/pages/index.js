@@ -3,12 +3,12 @@ import React from "react";
 
 import Chart from "@/twoopstracker/components/Chart";
 import Page from "@/twoopstracker/components/Page";
-import { chartData } from "@/twoopstracker/config";
+import { search } from "@/twoopstracker/lib";
 
 export default function Index({ ...props }) {
   return (
     <Page {...props}>
-      <Chart data={chartData} />
+      <Chart {...props} />
     </Page>
   );
 }
@@ -25,8 +25,11 @@ Index.defaultProps = {
 
 // TODO(kilemensi): Once search has been moved to the search page, this method
 //                  should be turned into getStaticProps
-export function getStaticProps() {
+export async function getStaticProps() {
+  const tweets = await search();
   return {
-    props: {},
+    props: {
+      tweets,
+    },
   };
 }
