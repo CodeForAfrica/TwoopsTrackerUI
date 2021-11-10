@@ -102,7 +102,7 @@ export default function LineChartScope(data) {
       },
       {
         name: "highlightFont",
-        value: "Total number of deleted tweets",
+        value: theme.typography.chart.fontFamily,
       },
       {
         name: "highlightWeight",
@@ -114,7 +114,7 @@ export default function LineChartScope(data) {
       },
       {
         name: "titleFont",
-        value: "Total number of deleted tweets",
+        value: theme.typography.chart.fontFamily,
       },
       {
         name: "titleWeight",
@@ -126,7 +126,7 @@ export default function LineChartScope(data) {
       },
       {
         name: "totalFont",
-        value: "Total number of deleted tweets",
+        value: theme.typography.chart.fontFamily,
       },
       {
         name: "totalWeight",
