@@ -5,10 +5,10 @@ import Chart from "@/twoopstracker/components/Chart";
 import Page from "@/twoopstracker/components/Page";
 import { search } from "@/twoopstracker/lib";
 
-export default function Index({ ...props }) {
+export default function Index({ tweets, ...props }) {
   return (
     <Page {...props}>
-      <Chart {...props} />
+      <Chart tweets={tweets} />
     </Page>
   );
 }
