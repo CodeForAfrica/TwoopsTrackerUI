@@ -6,11 +6,11 @@ export default function LineChartScope(data) {
     description: "Line Chart",
     config: {
       axis: {
-        labelColor: theme.palette.text.primary,
-        labelFont: theme.typography.fontFamily,
-        labelFontSize: 11,
         gridColor: theme.palette.text.primary,
         gridOpacity: 0.2,
+      },
+      range: {
+        category: [theme.palette.primary.main],
       },
     },
     autosize: { type: "fit-x" },
@@ -229,6 +229,9 @@ export default function LineChartScope(data) {
             grid: true,
             labelPadding: 6,
             zindex: 1,
+            format: { signal: "numberFormat" },
+            tickCount: 6,
+            tickMinStep: 1,
             encode: {
               grid: {
                 update: {
@@ -271,7 +274,7 @@ export default function LineChartScope(data) {
         name: "highlightGroup",
         encode: {
           enter: {
-            x2: { signal: "width - 30" },
+            x: { signal: "0.8 * width" },
             y2: { signal: "height" },
             height: { value: 100 },
             width: { value: 100 },

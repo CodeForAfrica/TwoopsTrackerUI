@@ -5,10 +5,12 @@ import embed from "vega-embed";
 
 import LineScope from "./LineScope";
 
+import Section from "@/twoopstracker/components/Section";
+
 const useStyles = makeStyles(({ typography }) => ({
-  root: {
+  root: {},
+  section: {
     position: "relative",
-    width: "100%",
     padding: typography.pxToRem(30),
     boxShadow: "4px 4px 6px 0px #0000000D",
   },
@@ -17,14 +19,14 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
-function Chart({ data, title, ...props }) {
+function Chart({ tweets, title, ...props }) {
   const classes = useStyles(props);
   const chartRef = useRef();
   const [view, setView] = useState(null);
 
   useEffect(() => {
     async function renderChart() {
-      const spec = LineScope(data);
+      const spec = LineScope(tweets);
       if (chartRef?.current) {
         const newView = await embed(chartRef.current, spec, {
           renderer: "canvas",
@@ -33,10 +35,10 @@ function Chart({ data, title, ...props }) {
         setView(newView);
       }
     }
-    if (data) {
+    if (tweets) {
       renderChart();
     }
-  }, [data]);
+  }, [tweets]);
 
   useEffect(() => {
     if (title && view) {
@@ -44,23 +46,25 @@ function Chart({ data, title, ...props }) {
     }
   }, [view, title]);
 
-  if (!data) {
+  if (!tweets.length) {
     return null;
   }
   return (
     <div className={classes.root}>
-      <div ref={chartRef} className={classes.chart} />
+      <Section classes={{ root: classes.section }}>
+        <div ref={chartRef} className={classes.chart} />
+      </Section>
     </div>
   );
 }
 
 Chart.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({})),
+  tweets: PropTypes.arrayOf(PropTypes.shape({})),
   title: PropTypes.string,
 };
 
 Chart.defaultProps = {
-  data: undefined,
+  tweets: undefined,
   title: undefined,
 };
 
