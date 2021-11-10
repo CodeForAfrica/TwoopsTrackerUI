@@ -26,10 +26,11 @@ Index.defaultProps = {
 // TODO(kilemensi): Once search has been moved to the search page, this method
 //                  should be turned into getStaticProps
 export async function getStaticProps() {
-  const tweets = await search();
+  const tweets = await search({ days: 14 });
   return {
     props: {
       tweets,
     },
+    revalidate: 15 * 50, // 15 minutes
   };
 }
