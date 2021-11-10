@@ -3,7 +3,7 @@ import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
-import cover from "@/twoopstracker/assets/images/Rectangle 34.png";
+import coverImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography, palette }) => ({
@@ -27,17 +27,19 @@ const useStyles = makeStyles(({ typography, palette }) => ({
     color: palette.text.secondary,
   },
   description: {
-    marginTop: typography.pxToRem(62),
-    marginBottom: typography.pxToRem(52),
+    marginTop: typography.pxToRem(39),
+    marginBottom: typography.pxToRem(80),
     color: palette.text.secondary,
+    fontWeight: 400,
   },
   investigationtitle: {
     color: palette.text.secondary,
+    fontWeight: "bold",
   },
 }));
 
 function Investigations({
-  image,
+  items,
   title,
   description,
   buttonText,
@@ -52,24 +54,24 @@ function Investigations({
         <Typography className={classes.title} variant="h2">
           {title}
         </Typography>
-        <Typography className={classes.description} variant="body1">
+        <Typography align="center" className={classes.description} variant="h4">
           {description}
         </Typography>
         <Grid container spacing={8}>
-          {Array.from({ length: 4 }).map(() => (
+          {items.map(({ cover, title: bookTitle }) => (
             <Grid item xs={6} md={3}>
               <Image
                 height={369}
                 width={297}
                 objectFit="contain"
-                src={image}
+                src={cover}
                 alt={title}
               />
               <Typography
                 className={classes.investigationtitle}
                 variant="body1"
               >
-                {title}
+                {bookTitle}
               </Typography>
             </Grid>
           ))}
@@ -91,7 +93,7 @@ Investigations.propTypes = {
   buttonLink: PropTypes.string,
   buttonText: PropTypes.string,
   description: PropTypes.string,
-  image: PropTypes.string,
+  items: PropTypes.string,
   title: PropTypes.string,
 };
 Investigations.defaultProps = {
@@ -99,7 +101,12 @@ Investigations.defaultProps = {
   buttonText: "Read all reports here",
   description:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  image: cover,
+  items: [
+    { cover: coverImage, title: "Investigation 1" },
+    { cover: coverImage, title: "Investigation 2" },
+    { cover: coverImage, title: "Investigation 3" },
+    { cover: coverImage, title: "Investigation 4" },
+  ],
   title: "Investigations",
 };
 export default Investigations;
