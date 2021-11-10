@@ -8,6 +8,7 @@ export default function LineChartScope(data) {
       axis: {
         gridColor: theme.palette.text.primary,
         gridOpacity: 0.2,
+        labelFont: theme.typography.chart.fontFamily,
       },
       range: {
         category: [theme.palette.primary.main],

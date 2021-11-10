@@ -1,17 +1,15 @@
 import React from "react";
-import { withNextRouter } from "storybook-addon-next-router";
 
 import Link from ".";
 
 export default {
   title: "Components/Link",
-  decorators: [withNextRouter],
   argTypes: {
     color: {
       control: {
         type: "select",
       },
-      options: ["primary", "secondary"],
+      options: ["primary", "secondary", "textPrimary", "textSecondary"],
     },
     href: {
       control: {
@@ -26,12 +24,22 @@ export default {
   },
 };
 
-const Template = ({ label, ...args }) => <Link {...args}>{label}</Link>;
+const Template = ({ label, ...args }) => (
+  <Link variant="button" {...args}>
+    {label}
+  </Link>
+);
 
 export const Default = Template.bind({});
 
+Default.parameters = {
+  nextRouter: {
+    pathname: "/?path=/story/components-link--default",
+  },
+};
+
 Default.args = {
   color: "primary",
-  href: "#",
+  href: "/?path=/story/components-link--default",
   label: "Link",
 };
