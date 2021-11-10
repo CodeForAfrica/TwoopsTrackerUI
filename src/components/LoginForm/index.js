@@ -1,8 +1,9 @@
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSession, signIn } from "next-auth/client";
+import Router from "next/router";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,6 +73,13 @@ const useStyles = makeStyles((theme) => ({
 function Login({ providers, ...props }) {
   const classes = useStyles(props);
   const [session] = useSession();
+
+  useEffect(() => {
+    if (session) {
+      Router.push("/explore");
+    }
+  }, [session]);
+
   return (
     <Grid
       container
@@ -94,7 +102,11 @@ function Login({ providers, ...props }) {
                   className={classes.loginButton}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => signIn(provider.id)}
+                  onClick={() =>
+                    signIn(provider.id, {
+                      callbackUrl: `${window.location.origin}/explore`,
+                    })
+                  }
                 >
                   Sign in with {provider.name}
                 </Button>
