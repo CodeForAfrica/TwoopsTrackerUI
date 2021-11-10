@@ -12,7 +12,7 @@ const theme = createTheme({
   palette: {
     primary: {
       light: "#00BF71",
-      main: "#044E3D",
+      main: "#DB1111",
     },
     secondary: {
       main: "#F9E600",
@@ -41,6 +41,12 @@ const theme = createTheme({
     },
     body1: {
       fontFamily: FONT_FAMILY,
+    },
+  },
+  widths: {
+    values: {
+      md: 608, // 0, 80, 0, 80 margin - to be confirmed for TwoopsTracker
+      lg: 1160, // 0, 140, 0, 140 margin - to be confirmed for TwoopsTracker
     },
   },
 });

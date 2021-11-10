@@ -17,9 +17,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@commons-ui/core": "^0.1.0-alpha.6",
     "@material-ui/core": "^4.11.3",
     "@svgr/webpack": "^5.5.0",
     "clsx": "^1.1.1",
+    "date-fns": "^2.25.0",
     "next": "^11.1.2",
     "next-seo": "^4.23.0",
     "prop-types": "^15.7.2",
@@ -28,6 +30,7 @@
     "vega": "^5.21.0",
     "vega-embed": "^6.20.0",
     "vega-lite": "^5.1.1",
+    "swr": "^1.0.1",
     "webpack": "^5.59.1"
   },
   "devDependencies": {
@@ -68,13 +71,14 @@
     "prettier": "^2.2.1",
     "storybook-addon-material-ui": "^0.9.0-alpha.24",
     "storybook-addon-next-router": "^3.0.8",
+    "svg-url-loader": "^7.1.1",
     "typescript": "^4.2.4"
   },
   "browserslist": [
     "defaults"
   ],
   "lint-staged": {
-    "*.{js}": [
+    "*.js": [
       "yarn lint-staged-optimal-imports",
       "yarn lint-staged-top-level-imports"
     ],
