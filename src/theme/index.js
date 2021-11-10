@@ -11,7 +11,7 @@ const theme = createTheme({
     values: {
       xs: 0, // mobile
       md: 720, // tablet
-      lg: 1440, // desktop
+      lg: 1600, // desktop
     },
   },
   palette: {
@@ -82,7 +82,7 @@ const theme = createTheme({
   widths: {
     values: {
       md: 608, // 0, 80, 0, 80 margin - to be confirmed for TwoopsTracker
-      lg: 1160, // 0, 140, 0, 140 margin - to be confirmed for TwoopsTracker
+      lg: 1520, // 0, 140, 0, 140 margin - to be confirmed for TwoopsTracker
     },
   },
 });
@@ -105,19 +105,20 @@ deepmerge(
       },
     },
     h2: {
-      fontSize: pxToRem(24),
-      lineHeight: 40 / 24,
+      fontSize: pxToRem(42),
+      lineHeight: 49.2 / 24,
       [breakpoints.up("lg")]: {
-        fontSize: pxToRem(30),
-        lineHeight: 30 / 30,
+        fontSize: pxToRem(72),
+        lineHeight: 79.2 / 72,
       },
     },
     h3: {
-      fontSize: pxToRem(18),
-      [breakpoints.up("lg")]: { fontSize: pxToRem(24) },
+      fontSize: pxToRem(30),
+      [breakpoints.up("lg")]: { fontSize: pxToRem(42) },
     },
     h4: {
-      fontSize: pxToRem(18),
+      fontSize: pxToRem(24),
+      [breakpoints.up("lg")]: { fontSize: pxToRem(36) },
     },
     h5: {
       fontSize: pxToRem(14),
