@@ -7,7 +7,7 @@ import useStyles from "./useStyles";
 import InvestigationCard from "@/twoopstracker/components/InvestigationsCard";
 import Section from "@/twoopstracker/components/Section";
 
-function FeaturedStoryCard({ items, ...props }) {
+function InvestigationList({ items, ...props }) {
   const classes = useStyles(props);
 
   if (!items?.length) {
@@ -30,10 +30,10 @@ function FeaturedStoryCard({ items, ...props }) {
   );
 }
 
-FeaturedStoryCard.propTypes = {
+InvestigationList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({})),
 };
-FeaturedStoryCard.defaultProps = {
+InvestigationList.defaultProps = {
   items: undefined,
 };
-export default FeaturedStoryCard;
+export default InvestigationList;
