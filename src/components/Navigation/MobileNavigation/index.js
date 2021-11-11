@@ -126,21 +126,6 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
     [breakpoints.up("lg")]: {
       flexDirection: "column",
       justifyContent: "flex-start",
-      "& > div:nth-of-type(2)": {
-        order: 4,
-      },
-      "& > div:nth-of-type(3)": {
-        order: 5,
-      },
-      "& > div:nth-of-type(4)": {
-        order: 3,
-      },
-      "& > div:nth-of-type(5)": {
-        order: 2,
-      },
-      "& > div:nth-of-type(6)": {
-        order: 5,
-      },
     },
   },
   search: {
