@@ -80,14 +80,14 @@ export const navigationArgs = {
     width: 254,
     height: 40,
     alt: "mobile logo",
-    href: "https://codeforafrica.org",
+    href: "/",
     src: navLogo,
   },
   drawerLogoProps: {
     width: 254,
     height: 40,
     alt: "drawer logo",
-    href: "https://codeforafrica.org",
+    href: "/",
     src: navLogo,
   },
 };
