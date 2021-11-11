@@ -10,29 +10,37 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     backgroundImage: `url('${backgroundImage.src}')`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "right",
+    backgroundPosition: "right bottom",
     width: "100%",
-    height: typography.pxToRem(500),
-    [breakpoints.up("lg")]: {
-      height: typography.pxToRem(757),
-    },
   },
   button: {
     marginRight: typography.pxToRem(60),
   },
   buttonContainer: {
     display: "flex",
-    marginTop: typography.pxToRem(90),
+    marginTop: typography.pxToRem(40),
+    [breakpoints.up("lg")]: {
+      marginTop: typography.pxToRem(90),
+    },
   },
   title: {
     width: typography.pxToRem(1000),
+    maxWidth: "80%",
   },
   description: {
     color: palette.text.secondary,
-    marginTop: typography.pxToRem(90),
+    marginTop: typography.pxToRem(40),
+    [breakpoints.up("lg")]: {
+      marginTop: typography.pxToRem(90),
+    },
   },
   section: {
-    paddingTop: typography.pxToRem(117),
+    paddingTop: typography.pxToRem(90),
+    paddingBottom: typography.pxToRem(90),
+    [breakpoints.up("lg")]: {
+      paddingTop: typography.pxToRem(117),
+      paddingBottom: typography.pxToRem(127),
+    },
   },
 }));
 
@@ -43,6 +51,7 @@ function Banner({
   searchLink,
   signUpLabel,
   signUpLink,
+  withCTA,
   ...props
 }) {
   const classes = useStyles(props);
@@ -55,34 +64,37 @@ function Banner({
         <Typography className={classes.description} variant="h3">
           {description}
         </Typography>
-        <div className={classes.buttonContainer}>
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-          >
-            {searchLabel}
-          </Button>
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-          >
-            {signUpLabel}
-          </Button>
-        </div>
+        {withCTA && (
+          <div className={classes.buttonContainer}>
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+            >
+              {searchLabel}
+            </Button>
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+            >
+              {signUpLabel}
+            </Button>
+          </div>
+        )}
       </Section>
     </div>
   );
 }
 
 Banner.propTypes = {
-  signUpLabel: PropTypes.string,
-  signUpLink: PropTypes.string,
   description: PropTypes.string,
   searchLabel: PropTypes.string,
   searchLink: PropTypes.string,
+  signUpLabel: PropTypes.string,
+  signUpLink: PropTypes.string,
   title: PropTypes.string,
+  withCTA: PropTypes.string,
 };
 Banner.defaultProps = {
   signUpLabel: "Search the Data",
@@ -91,6 +103,7 @@ Banner.defaultProps = {
   searchLabel: "Sign Up",
   searchLink: PropTypes.string,
   title: "Track disinformation actors and trolls!",
+  withCTA: true,
 };
 
 export default Banner;
