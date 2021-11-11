@@ -1,3 +1,4 @@
+import { subDays } from "date-fns";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -5,21 +6,23 @@ import Chart from "@/twoopstracker/components/Chart";
 import Page from "@/twoopstracker/components/Page";
 import { search } from "@/twoopstracker/lib";
 
-export default function Index({ tweets, ...props }) {
+export default function Index({ endDate, startDate, tweets, ...props }) {
   return (
     <Page {...props}>
-      <Chart tweets={tweets} />
+      <Chart tweets={tweets} startDate={startDate} endDate={endDate} />
     </Page>
   );
 }
 
 Index.propTypes = {
-  fallback: PropTypes.arrayOf(PropTypes.shape({})),
+  endDate: PropTypes.string,
+  startDate: PropTypes.string,
   tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Index.defaultProps = {
-  fallback: undefined,
+  endDate: undefined,
+  startDate: undefined,
   tweets: undefined,
 };
 
@@ -27,9 +30,14 @@ Index.defaultProps = {
 //                  should be turned into getStaticProps
 export async function getStaticProps() {
   const tweets = await search({ days: 14 });
+  const date = new Date();
+  const endDate = date.toISOString().substr(0, 10);
+  const startDate = subDays(date, 14).toISOString().substr(0, 10);
   return {
     props: {
       tweets,
+      startDate,
+      endDate,
     },
     revalidate: 15 * 50, // 15 minutes
   };

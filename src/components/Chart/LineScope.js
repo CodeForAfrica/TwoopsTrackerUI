@@ -1,6 +1,6 @@
 import theme from "@/twoopstracker/theme";
 
-export default function LineChartScope(data) {
+export default function LineChartScope(data, startDate, endDate) {
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: "Line Chart",
@@ -21,39 +21,29 @@ export default function LineChartScope(data) {
       {
         name: "table",
         values: data,
+        format: { type: "json", parse: "auto" },
         transform: [
           {
-            type: "formula",
-            as: "date",
-            expr: "datetime(datum.deleted_at)",
+            type: "collect",
+            sort: { field: "deleted_at" },
           },
-        ],
-      },
-      {
-        name: "table_formatted",
-        source: "table",
-        transform: [
           {
             type: "formula",
-            as: "full_date",
-            expr: "timeFormat(datum.date, '%d %b %Y')",
+            as: "formatted_date",
+            expr: "timeFormat(datum.deleted_at, '%e %b')",
           },
           {
             type: "aggregate",
             ops: ["count"],
             as: ["count"],
-            groupby: ["full_date"],
+            drop: false,
+            groupby: ["formatted_date"],
           },
           {
             type: "joinaggregate",
             as: ["TotalCount"],
             ops: ["sum"],
             fields: ["count"],
-          },
-          {
-            type: "formula",
-            as: "formatted_date",
-            expr: "timeFormat(datetime(datum.full_date), '%d %b')",
           },
         ],
       },
@@ -99,7 +89,7 @@ export default function LineChartScope(data) {
       },
       {
         name: "total",
-        update: "data('table_formatted')[0]['TotalCount']",
+        update: "data('table')[0]['TotalCount']",
       },
       {
         name: "highlightFont",
@@ -137,13 +127,21 @@ export default function LineChartScope(data) {
         name: "totalSize",
         value: 36,
       },
+      {
+        name: "endDate",
+        value: new Date(endDate),
+      },
+      {
+        name: "startDate",
+        value: new Date(startDate),
+      },
     ],
     scales: [
       {
         name: "xscale",
         type: "point",
         domain: {
-          data: "table_formatted",
+          data: "table",
           field: "formatted_date",
         },
         range: [
@@ -157,7 +155,7 @@ export default function LineChartScope(data) {
         name: "yscale",
         type: "linear",
         domain: {
-          data: "table_formatted",
+          data: "table",
           field: "count",
         },
         range: [{ signal: "height - 100" }, 0],
@@ -170,7 +168,7 @@ export default function LineChartScope(data) {
         type: "ordinal",
         range: "category",
         domain: {
-          data: "table_formatted",
+          data: "table",
           field: "formatted_date",
         },
       },
@@ -253,7 +251,7 @@ export default function LineChartScope(data) {
         marks: [
           {
             name: "line",
-            from: { data: "table_formatted" },
+            from: { data: "table" },
             type: "line",
             encode: {
               enter: {

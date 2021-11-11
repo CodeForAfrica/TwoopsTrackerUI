@@ -19,18 +19,18 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
-function Chart({ tweets, title, ...props }) {
+function Chart({ tweets, title, startDate, endDate, ...props }) {
   const classes = useStyles(props);
   const chartRef = useRef();
   const [view, setView] = useState(null);
 
   useEffect(() => {
     async function renderChart() {
-      const spec = LineScope(tweets);
+      const spec = LineScope(tweets, startDate, endDate);
       if (chartRef?.current) {
         const newView = await embed(chartRef.current, spec, {
           renderer: "canvas",
-          actions: false,
+          actions: true,
         });
         setView(newView);
       }
@@ -59,13 +59,17 @@ function Chart({ tweets, title, ...props }) {
 }
 
 Chart.propTypes = {
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  endDate: PropTypes.string,
+  startDate: PropTypes.string,
   title: PropTypes.string,
+  tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Chart.defaultProps = {
-  tweets: undefined,
+  endDate: undefined,
+  startDate: undefined,
   title: undefined,
+  tweets: undefined,
 };
 
 export default Chart;
