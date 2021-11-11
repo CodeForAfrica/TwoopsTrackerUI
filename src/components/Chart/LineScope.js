@@ -147,7 +147,7 @@ export default function LineChartScope(data, startDate, endDate) {
         range: [
           0,
           {
-            signal: "0.7 * width",
+            signal: "0.75 * width",
           },
         ],
       },

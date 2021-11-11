@@ -8,11 +8,13 @@ import LineScope from "./LineScope";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography }) => ({
-  root: {},
+  root: {
+    margin: `${typography.pxToRem(30)} 0`,
+  },
   section: {
     position: "relative",
     padding: typography.pxToRem(30),
-    boxShadow: "4px 4px 6px 0px #0000000D",
+    boxShadow: "0 0.25rem 0.5rem 0 #0000000D", // 0 0.25rem 0.5rem 0 rgb(0 0 0 / 20%)
   },
   chart: {
     width: "100%",
@@ -30,7 +32,7 @@ function Chart({ tweets, title, startDate, endDate, ...props }) {
       if (chartRef?.current) {
         const newView = await embed(chartRef.current, spec, {
           renderer: "canvas",
-          actions: true,
+          actions: false,
         });
         setView(newView);
       }
