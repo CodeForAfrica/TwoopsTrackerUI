@@ -1,3 +1,5 @@
+import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
+
 const tweets = [
   {
     retweet:
@@ -40,8 +42,60 @@ const tweets = [
   },
 ];
 
+export const navigationArgs = {
+  menuProps: [
+    {
+      href: "/data",
+      label: "Data",
+    },
+    {
+      href: "/investigation",
+      label: "Investigation",
+    },
+    {
+      href: "/resources",
+      label: "Resources",
+    },
+    {
+      href: "/about",
+      label: "About",
+    },
+    {
+      href: "/sign-in",
+      label: "Sign in",
+    },
+    {
+      href: "/sign-up",
+      label: "Sign Up",
+    },
+  ],
+  desktopLogoProps: {
+    width: 237,
+    height: 55,
+    alt: "desktop logo",
+    href: "https://codeforafrica.org",
+    src: navLogo,
+  },
+  mobileLogoProps: {
+    width: 254,
+    height: 40,
+    alt: "mobile logo",
+    href: "https://codeforafrica.org",
+    src: navLogo,
+  },
+  drawerLogoProps: {
+    width: 254,
+    height: 40,
+    alt: "drawer logo",
+    href: "https://codeforafrica.org",
+    src: navLogo,
+  },
+};
+
 const config = {
   tweets,
+  navigationArgs,
+  url: "http://localhost:3000",
 };
 
 export default config;

@@ -1,6 +1,7 @@
 import { createTheme } from "@material-ui/core/styles";
 
 const FONT_FAMILY = '"Arial", "sans-serif"';
+const SECONDARY_FONT_FAMILY = '"Montserrat", "sans-serif"';
 
 // Create a theme instance.
 const theme = createTheme({
@@ -38,6 +39,9 @@ const theme = createTheme({
     fontFamily: FONT_FAMILY,
     h1: {
       fontFamily: FONT_FAMILY,
+    },
+    h4: {
+      fontFamily: SECONDARY_FONT_FAMILY,
     },
     body1: {
       fontFamily: FONT_FAMILY,
