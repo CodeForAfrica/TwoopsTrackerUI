@@ -31,7 +31,7 @@ Explore.defaultProps = {
 // TODO(kilemensi): Once search has been moved to the search page, this method
 //                  should be turned into getStaticProps
 export async function getServerSideProps() {
-  const tweets = await search();
+  const tweets = await search({});
 
   return {
     props: {
