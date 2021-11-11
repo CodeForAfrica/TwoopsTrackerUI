@@ -15,10 +15,15 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
   },
   button: {
     marginRight: typography.pxToRem(60),
+    marginBottom: typography.pxToRem(8),
   },
   buttonContainer: {
     display: "flex",
     marginTop: typography.pxToRem(40),
+    flexDirection: "column",
+    [breakpoints.up("md")]: {
+      flexDirection: "row",
+    },
     [breakpoints.up("lg")]: {
       marginTop: typography.pxToRem(90),
     },

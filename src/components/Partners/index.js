@@ -5,15 +5,35 @@ import React from "react";
 
 import Section from "@/twoopstracker/components/Section";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
-    marginTop: typography.pxToRem(107),
-
-    marginBottom: typography.pxToRem(111),
+    marginTop: typography.pxToRem(50),
+    marginBottom: typography.pxToRem(60),
+    [breakpoints.up("md")]: {
+      marginTop: typography.pxToRem(107),
+      marginBottom: typography.pxToRem(111),
+    },
+  },
+  image: {
+    width: "100%",
+    [breakpoints.up("md")]: {
+      width: "unset",
+    },
+  },
+  imageContainer: {
+    justifyContent: "center",
+    marginTop: typography.pxToRem(30),
+    [breakpoints.up("md")]: {
+      marginTop: "unset",
+      justifyContent: "flex-end",
+    },
   },
   section: {},
   description: {
-    marginTop: typography.pxToRem(118),
+    marginTop: typography.pxToRem(50),
+    [breakpoints.up("md")]: {
+      marginTop: typography.pxToRem(118),
+    },
   },
 }));
 
@@ -33,8 +53,8 @@ function Partners({ images, title, description, ...props }) {
             </Typography>
           </Grid>
           <Grid
+            className={classes.imageContainer}
             container
-            justifyContent="flex-end"
             alignItems="flex-start"
             item
             xs={12}
@@ -42,6 +62,7 @@ function Partners({ images, title, description, ...props }) {
           >
             {images.map((image) => (
               <Image
+                className={classes.image}
                 height={170}
                 width={450}
                 objectFit="contain"

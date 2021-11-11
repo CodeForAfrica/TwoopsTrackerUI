@@ -95,18 +95,25 @@ deepmerge(
   typography,
   {
     h1: {
-      fontSize: pxToRem(60),
-      lineHeight: 75.6 / 60,
+      fontSize: pxToRem(42),
+      lineHeight: 50 / 42,
       color: palette.text.secondary,
-
+      [breakpoints.up("md")]: {
+        fontSize: pxToRem(60),
+        lineHeight: 75.6 / 60,
+      },
       [breakpoints.up("lg")]: {
         fontSize: pxToRem(96),
         lineHeight: 105.6 / 96,
       },
     },
     h2: {
-      fontSize: pxToRem(42),
-      lineHeight: 49.2 / 24,
+      fontSize: pxToRem(36),
+      lineHeight: 42 / 36,
+      [breakpoints.up("md")]: {
+        fontSize: pxToRem(42),
+        lineHeight: 49.2 / 24,
+      },
       [breakpoints.up("lg")]: {
         fontSize: pxToRem(72),
         lineHeight: 79.2 / 72,
@@ -141,8 +148,9 @@ deepmerge(
       lineHeight: 30 / 18,
     },
     button: {
-      fontSize: pxToRem(24),
+      fontSize: pxToRem(16),
       lineHeight: "149.49%",
+      [breakpoints.up("md")]: { fontSize: pxToRem(24) },
     },
     caption: {
       fontSize: pxToRem(14),
@@ -199,10 +207,10 @@ deepmerge(
         borderRadius: 0,
         border: "1px solid transparent",
         "&:hover": {
-          color: palette.secondary.main,
+          color: palette.text.secondary,
           backgroundColor: palette.primary.main,
           borderRadius: pxToRem(5),
-          border: `1px solid ${palette.secondary.main}`,
+          border: `1px solid ${palette.primary.main}`,
         },
       },
       containedSecondary: {
@@ -212,10 +220,10 @@ deepmerge(
         borderRadius: 0,
         border: "1px solid transparent",
         "&:hover": {
-          color: palette.secondary.main,
-          backgroundColor: palette.primary.main,
+          color: palette.primary.main,
+          backgroundColor: palette.background.default,
           borderRadius: pxToRem(5),
-          border: `1px solid ${palette.secondary.main}`,
+          border: `1px solid ${palette.background.default}`,
         },
       },
     },
