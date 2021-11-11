@@ -18,15 +18,9 @@ const options = {
      * @return {boolean}         Return `true` (or a modified JWT) to allow sign in
      *                           Return `false` to deny access
      */
-    signIn: async (user, account) => {
-      // check useremail against db/env to see if they are allowed to login
-      // if (process.env.ALLOWED_EMAILS.includes(user.email)) {
-      //   return Promise.resolve(true);
-      // }
-      // return Promise.resolve(true);
-
-      if (account.provider === "google") {
-        return Promise.resolve(true);
+    signIn: (user, account) => {
+      if (account.provider === "google" && user.email) {
+        return true;
       }
       return false;
     },

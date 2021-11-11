@@ -9,13 +9,13 @@ import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
 import { search } from "@/twoopstracker/lib";
 
 export default function Explore({ fallback, tweets, ...props }) {
-  const [session] = useSession();
+  const [session, loading] = useSession();
 
   useEffect(() => {
-    if (!session) {
+    if (!session && !loading) {
       Router.push("/login");
     }
-  }, [session]);
+  }, [session, loading]);
 
   return (
     <>
