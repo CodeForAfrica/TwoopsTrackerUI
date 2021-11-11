@@ -58,8 +58,8 @@ export const navigationArgs = {
       label: "Data",
     },
     {
-      href: "/investigation",
-      label: "Investigation",
+      href: "/investigations",
+      label: "Investigations",
     },
     {
       href: "/resources",
