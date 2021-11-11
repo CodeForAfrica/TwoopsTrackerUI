@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Image from "@/twoopstracker/components/Image";
-/* import Link from "@/twoopstracker/components/Link"; */
+import Link from "@/twoopstracker/components/Link";
 import Menu from "@/twoopstracker/components/Menu";
 import Section from "@/twoopstracker/components/Section";
 
@@ -26,7 +26,7 @@ function DesktopNavigation({ menuProps, desktopLogoProps, ...props }) {
         <Grid container alignItems="center">
           <Grid item xs={3}>
             <LogoButton
-              /*  component={Link} */
+              component={Link}
               href="/"
               className={classes.logoButton}
             >

@@ -14,7 +14,7 @@ import React, { useState } from "react";
 
 import MenuCloseIcon from "@/twoopstracker/assets/close_black_24dp.svg";
 import MenuOpenIcon from "@/twoopstracker/assets/menu_open.svg";
-/* import Link from "@/twoopstracker/components/Link"; */
+import Link from "@/twoopstracker/components/Link";
 import Menu from "@/twoopstracker/components/Menu";
 import Section from "@/twoopstracker/components/Section";
 
@@ -142,12 +142,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function MobileNavigation({
-  logoProps,
   menuProps,
   mobileLogoProps,
   drawerLogoProps,
-  socialLinks,
-  href,
   ...props
 }) {
   const classes = useStyles(props);
@@ -169,7 +166,7 @@ function MobileNavigation({
           <Grid item xs={10}>
             <LogoButton
               href="/"
-              /*  component={Link} */
+              component={Link}
               className={classes.logoButton}
             >
               <Image {...mobileLogoProps} />
@@ -214,7 +211,7 @@ function MobileNavigation({
                   <Grid item xs={10}>
                     <LogoButton
                       href="/"
-                      /*  component={Link} */
+                      component={Link}
                       className={classes.logoButton}
                     >
                       <Image {...drawerLogoProps} />
@@ -238,7 +235,6 @@ function MobileNavigation({
               <Section className={classes.section}>
                 <Menu
                   links={menuProps}
-                  socialLinks={socialLinks}
                   classes={{
                     root: classes.mainMenu,
                     menuLinks: classes.menuLinks,
@@ -263,8 +259,6 @@ MobileNavigation.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
   }),
-  href: PropTypes.string,
-  logoProps: PropTypes.shape({}),
   menuProps: PropTypes.arrayOf(PropTypes.shape({})),
   mobileLogoProps: PropTypes.shape({
     alt: PropTypes.string,
@@ -273,16 +267,12 @@ MobileNavigation.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
   }),
-  socialLinks: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 MobileNavigation.defaultProps = {
   drawerLogoProps: undefined,
-  href: "/explore",
-  logoProps: undefined,
   menuProps: undefined,
   mobileLogoProps: undefined,
-  socialLinks: undefined,
 };
 
 export default MobileNavigation;

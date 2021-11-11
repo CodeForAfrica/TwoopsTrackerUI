@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React from "react";
 
-/* import Link from "@/twoopstracker/components/Link"; */
+import Link from "@/twoopstracker/components/Link";
 
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
@@ -76,7 +76,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Menu({ links, children, socialLinks, ...props }) {
+function Menu({ links, children, ...props }) {
   const classes = useStyles(props);
 
   if (!links?.length) {
@@ -87,7 +87,7 @@ function Menu({ links, children, socialLinks, ...props }) {
       {links.map((item, index) => (
         <Grid item key={item.label} className={classes.menu}>
           <Button
-            /*  component={Link} */
+            component={Link}
             color={index !== links.length - 1 ? "default" : "primary"}
             variant={index !== links.length - 1 ? "text" : "contained"}
             size="large"
@@ -111,18 +111,10 @@ function Menu({ links, children, socialLinks, ...props }) {
 
 Menu.propTypes = {
   links: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
-  socialLinks: PropTypes.arrayOf(
-    PropTypes.shape({
-      url: PropTypes.string,
-      label: PropTypes.string,
-      component: PropTypes.func,
-    })
-  ),
   children: PropTypes.node,
 };
 
 Menu.defaultProps = {
   children: undefined,
-  socialLinks: undefined,
 };
 export default Menu;
