@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -21,45 +21,56 @@ const SearchSection = ({
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
-        <div className={classes.container}>
-          <Search handleSelection={handleSelection} />
-          <Filter
-            key={days}
-            label="Days"
-            handleSelection={handleSelection}
-            menuItems={[
-              { name: "Last 1 Day", value: "1" },
-              { name: "Last 3 Days", value: "3" },
-              { name: "Last 30 Days", value: "30" },
-              { name: "None", value: "" },
-            ]}
-            value={days}
-          />
-          <Filter
-            key={theme}
-            label="Theme"
-            handleSelection={handleSelection}
-            menuItems={[
-              { name: "Covid-19", value: "Covid-19" },
-              { name: "Anti-vaxx", value: "Anti-vaxx" },
-              { name: "Foreign Influence", value: "Foreign Influence" },
-              { name: "None", value: "" },
-            ]}
-            value={theme}
-          />
-          <Filter
-            key={location}
-            label="Location"
-            handleSelection={handleSelection}
-            menuItems={[
-              { name: "Russia", value: "Russia" },
-              { name: "Jamaica", value: "Jamaica" },
-              { name: "Ghana", value: "Ghana" },
-              { name: "None", value: "" },
-            ]}
-            value={location}
-          />
-        </div>
+        <Grid container>
+          <Grid item lg={7} md={12} sm={12} xs={12}>
+            <Search handleSelection={handleSelection} />
+          </Grid>
+          <Grid
+            item
+            lg={5}
+            md={12}
+            sm={12}
+            xs={12}
+            className={classes.filterSection}
+          >
+            <Filter
+              key={days}
+              label="Days"
+              handleSelection={handleSelection}
+              menuItems={[
+                { name: "Last 1 Day", value: "1" },
+                { name: "Last 3 Days", value: "3" },
+                { name: "Last 30 Days", value: "30" },
+                { name: "None", value: "" },
+              ]}
+              value={days}
+            />
+            <Filter
+              key={theme}
+              label="Theme"
+              handleSelection={handleSelection}
+              menuItems={[
+                { name: "Covid-19", value: "Covid-19" },
+                { name: "Anti-vaxx", value: "Anti-vaxx" },
+                { name: "Foreign Influence", value: "Foreign Influence" },
+                { name: "None", value: "" },
+              ]}
+              value={theme}
+            />
+            <Filter
+              key={location}
+              label="Location"
+              handleSelection={handleSelection}
+              menuItems={[
+                { name: "Russia", value: "Russia" },
+                { name: "Jamaica", value: "Jamaica" },
+                { name: "Ghana", value: "Ghana" },
+                { name: "None", value: "" },
+              ]}
+              value={location}
+            />
+          </Grid>
+        </Grid>
         <div className={classes.buttonSection}>
           <Button className={classes.saveButton} onClick={onSearch}>
             Save Search
