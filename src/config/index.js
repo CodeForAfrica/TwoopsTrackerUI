@@ -1,3 +1,6 @@
+import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
+import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
+
 const tweets = [
   {
     retweet:
@@ -40,8 +43,82 @@ const tweets = [
   },
 ];
 
+export const investigation = {
+  banner: {
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+    title: "Investigations",
+  },
+  items: [
+    {
+      image: featuredInvestigationImage,
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      title: "Investigation One",
+      href: "https://www.example.com",
+    },
+    {
+      image: investigationImage,
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
+      title: "Investigation One",
+      href: "https://www.example.com",
+    },
+    {
+      image: investigationImage,
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
+      title: "Investigation One",
+      href: "https://www.example.com",
+    },
+    {
+      image: investigationImage,
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
+      title: "Investigation One",
+      href: "https://www.example.com",
+    },
+    {
+      image: investigationImage,
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
+      title: "Investigation One",
+      href: "https://www.example.com",
+    },
+    {
+      image: investigationImage,
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
+      title: "Investigation One",
+      href: "https://www.example.com",
+    },
+    {
+      image: investigationImage,
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
+      title: "Investigation One",
+      href: "https://www.example.com",
+    },
+  ],
+};
+
 const config = {
   tweets,
+  investigation,
 };
 
 export default config;
