@@ -5,6 +5,9 @@ import React from "react";
 import Navigation from "@/twoopstracker/components/Navigation";
 import { navigationArgs } from "@/twoopstracker/config";
 
+import Footer from "@/twoopstracker/components/Footer";
+import { footerArgs } from "@/twoopstracker/config";
+
 /**
  * Base page that can be used to build all other pages.
  */
@@ -14,6 +17,7 @@ function BasePage({ children, ...props }) {
       <Navigation {...navigationArgs} />
       <NextSeo {...props} />
       {children}
+      <Footer {...footerArgs} />
     </div>
   );
 }

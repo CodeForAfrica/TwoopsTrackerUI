@@ -1,15 +1,21 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import Hero from "@/twoopstracker/components/Hero";
+import InvestigationsPreview from "@/twoopstracker/components/InvestigationsPreview";
 import Page from "@/twoopstracker/components/Page";
+import Partners from "@/twoopstracker/components/Partners";
+import SignUp from "@/twoopstracker/components/SignUp";
+import { home } from "@/twoopstracker/config";
 
 export default function Index({ ...props }) {
   return (
-    <>
-      <Page {...props}>
-        <div>Home Page</div>
-      </Page>
-    </>
+    <Page {...props}>
+      <Hero {...home.hero} />
+      <SignUp {...home.signUp} />
+      <InvestigationsPreview {...home.investigation} />
+      <Partners {...home.partners} />
+    </Page>
   );
 }
 
