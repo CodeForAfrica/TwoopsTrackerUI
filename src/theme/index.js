@@ -1,9 +1,6 @@
 import { createTheme } from "@material-ui/core/styles";
 import { deepmerge } from "@material-ui/utils";
 
-
-const FONT_FAMILY = '"Arial", "sans-serif"';
-
 const FONT_FAMILY_HEADING = '"Playfair Display", "serif"';
 const FONT_FAMILY_TEXT = '"Arial", "sans-serif"';
 const FONT_FAMILY_TEXT2 = '"Montserrat", "sans-serif"';
@@ -62,9 +59,6 @@ const theme = createTheme({
     },
     h6: {
       fontFamily: FONT_FAMILY_HEADING,
-    },
-    h4: {
-      fontFamily: SECONDARY_FONT_FAMILY,
     },
     body1: {
       fontFamily: FONT_FAMILY_TEXT,
