@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import Banner from "@/twoopstracker/components/Banner";
+import Hero from "@/twoopstracker/components/Hero";
 import InvestigationList from "@/twoopstracker/components/InvestigationList";
 import Page from "@/twoopstracker/components/Page";
 import { investigation } from "@/twoopstracker/config";
@@ -9,7 +9,7 @@ import { investigation } from "@/twoopstracker/config";
 export default function Investigations({ ...props }) {
   return (
     <Page {...props}>
-      <Banner withCTA={false} {...investigation.banner} />
+      <Hero withCTA={false} {...investigation.banner} />
       <InvestigationList items={investigation.items} />
     </Page>
   );

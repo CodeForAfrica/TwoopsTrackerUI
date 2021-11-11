@@ -3,7 +3,6 @@ import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
-import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography }) => ({
@@ -19,7 +18,7 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
-function CallToAction({
+function SignUp({
   image,
   title,
   description,
@@ -53,19 +52,18 @@ function CallToAction({
   );
 }
 
-CallToAction.propTypes = {
+SignUp.propTypes = {
   buttonLink: PropTypes.string,
   buttonText: PropTypes.string,
   description: PropTypes.string,
   image: PropTypes.string,
   title: PropTypes.string,
 };
-CallToAction.defaultProps = {
-  buttonLink: PropTypes.string,
-  buttonText: "Sign up",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ",
-  image: trollImage,
-  title: "Get more data today!",
+SignUp.defaultProps = {
+  buttonLink: undefined,
+  buttonText: undefined,
+  description: undefined,
+  image: undefined,
+  title: undefined,
 };
-export default CallToAction;
+export default SignUp;

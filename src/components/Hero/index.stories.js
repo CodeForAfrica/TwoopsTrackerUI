@@ -1,13 +1,13 @@
 import React from "react";
 
-import CallToAction from ".";
+import Hero from ".";
 
 export default {
-  title: "Components/CallToAction",
+  title: "Components/Hero",
   argTypes: {},
 };
 
-const Template = () => <CallToAction />;
+const Template = () => <Hero />;
 
 export const Default = Template.bind({});
 

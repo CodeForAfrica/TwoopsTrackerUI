@@ -1,13 +1,13 @@
 import React from "react";
 
-import Banner from ".";
+import SignUp from ".";
 
 export default {
-  title: "Components/Banner",
+  title: "Components/SignUp",
   argTypes: {},
 };
 
-const Template = () => <Banner />;
+const Template = () => <SignUp />;
 
 export const Default = Template.bind({});
 

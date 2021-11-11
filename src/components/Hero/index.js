@@ -44,7 +44,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
   },
 }));
 
-function Banner({
+function Hero({
   title,
   description,
   searchLabel,
@@ -87,7 +87,7 @@ function Banner({
   );
 }
 
-Banner.propTypes = {
+Hero.propTypes = {
   description: PropTypes.string,
   searchLabel: PropTypes.string,
   searchLink: PropTypes.string,
@@ -96,14 +96,15 @@ Banner.propTypes = {
   title: PropTypes.string,
   withCTA: PropTypes.string,
 };
-Banner.defaultProps = {
-  signUpLabel: "Search the Data",
-  signUpLink: PropTypes.string,
-  description: "Let’s keep disinformation agents accountable.",
-  searchLabel: "Sign Up",
-  searchLink: PropTypes.string,
-  title: "Track disinformation actors and trolls!",
+
+Hero.defaultProps = {
+  signUpLabel: undefined,
+  signUpLink: undefined,
+  description: undefined,
+  searchLabel: undefined,
+  searchLink: undefined,
+  title: undefined,
   withCTA: true,
 };
 
-export default Banner;
+export default Hero;

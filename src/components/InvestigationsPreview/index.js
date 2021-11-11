@@ -3,7 +3,6 @@ import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
-import coverImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography, palette }) => ({
@@ -48,6 +47,9 @@ function InvestigationsPreview({
 }) {
   const classes = useStyles(props);
 
+  if (!items?.length) {
+    return null;
+  }
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
@@ -58,7 +60,7 @@ function InvestigationsPreview({
           {description}
         </Typography>
         <Grid container spacing={8}>
-          {items.map(({ image, title: bookTitle }) => (
+          {items.slice(0, 4).map(({ image, title: bookTitle }) => (
             <Grid item xs={6} md={3}>
               <Image
                 height={369}
@@ -97,16 +99,10 @@ InvestigationsPreview.propTypes = {
   title: PropTypes.string,
 };
 InvestigationsPreview.defaultProps = {
-  buttonLink: PropTypes.string,
-  buttonText: "Read all reports here",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  items: [
-    { image: coverImage, title: "Investigation 1" },
-    { image: coverImage, title: "Investigation 2" },
-    { image: coverImage, title: "Investigation 3" },
-    { image: coverImage, title: "Investigation 4" },
-  ],
-  title: "InvestigationsPreview",
+  buttonLink: undefined,
+  buttonText: undefined,
+  description: undefined,
+  items: undefined,
+  title: undefined,
 };
 export default InvestigationsPreview;
