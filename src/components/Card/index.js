@@ -23,7 +23,6 @@ const Card = ({
   onClick,
   title,
   titleProps,
-  variant,
   ...props
 }) => {
   const classes = useStyles({ ...props });
@@ -86,7 +85,6 @@ Card.propTypes = {
   onClick: PropTypes.func,
   title: PropTypes.string,
   titleProps: PropTypes.shape({}),
-  variant: PropTypes.oneOf(["image", "embed"]),
 };
 
 Card.defaultProps = {
@@ -102,7 +100,6 @@ Card.defaultProps = {
   media: undefined,
   mediaProps: undefined,
   onClick: undefined,
-  variant: "image",
   title: undefined,
   titleProps: undefined,
 };
