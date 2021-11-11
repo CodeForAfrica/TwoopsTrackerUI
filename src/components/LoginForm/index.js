@@ -10,15 +10,18 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: "white",
     background: "none",
+    width: "100vw",
+    height: "100vh",
+    margin: "auto",
   },
   loginButton: {
     marginBottom: "1rem",
     width: "100%",
     color: "white",
     "&:hover": {
-      color: theme.palette.secondary.main,
+      color: "#000",
     },
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: theme.palette.primary.main,
     fontWeight: 800,
     fontSize: theme.typography.subtitle2.fontSize,
     height: "3rem",
@@ -41,32 +44,17 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  footerInput: {
-    // Moved to `App.css` due to difficult of setting input `text-align` to `center`
-  },
-  buttonLink: {
-    textDecoration: "none",
-  },
   formStyles: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
-  formControlStyles: {
-    width: "400px",
-    marginBottom: "10px",
-    [theme.breakpoints.between("xs", "xs")]: {
-      width: "95vw",
-    },
-  },
-  inputLabel: {
-    textAlign: "initial",
-    color: "#FFFFFF",
-    transform: "none",
-    position: "static",
-  },
-  text: {
+  item: {
     color: "black",
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 }));
 
@@ -87,8 +75,7 @@ function Login({ providers, ...props }) {
       alignitems="center"
       className={classes.root}
     >
-      <Grid item xs={12}>
-        <p className={classes.text}>HAPPAAA</p>
+      <Grid item xs={12} className={classes.item}>
         <form noValidate className={classes.formStyles}>
           <div className={classes.buttonContainer}>
             {!session &&
