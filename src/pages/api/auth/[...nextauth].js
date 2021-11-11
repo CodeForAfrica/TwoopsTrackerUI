@@ -27,7 +27,7 @@ const options = {
   },
 
   pages: {
-    signIn: "/",
+    // signIn: "/",
     error: "/404", // Error code passed in query string as ?error=
   },
 };

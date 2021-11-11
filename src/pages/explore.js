@@ -29,7 +29,7 @@ export default function Explore({ fallback, tweets, ...props }) {
 }
 
 Explore.propTypes = {
-  fallback: PropTypes.arrayOf(PropTypes.shape({})),
+  fallback: PropTypes.shape({}),
   tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
 

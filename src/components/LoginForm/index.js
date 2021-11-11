@@ -79,6 +79,7 @@ function Login({ providers, ...props }) {
         <form noValidate className={classes.formStyles}>
           <div className={classes.buttonContainer}>
             {!session &&
+              providers &&
               Object.values(providers).map((provider) => (
                 <Button
                   key={provider.name}
