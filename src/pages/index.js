@@ -12,7 +12,7 @@ export default function Index({ ...props }) {
   return (
     <Page {...props}>
       <Hero {...home.hero} />
-      <SignUp {...home.signup} />
+      <SignUp {...home.signUp} />
       <InvestigationsPreview {...home.investigation} />
       <Partners {...home.partners} />
     </Page>
