@@ -125,11 +125,11 @@ export const investigation = {
 
 export const home = {
   hero: {
-    signUpLabel: "Search the Data",
+    searchLabel: "Search the Data",
     signUpLink: "/login",
     description: "Let’s keep disinformation agents accountable.",
-    searchLabel: "Sign Up",
-    searchLink: "/search",
+    signUpLabel: "Sign Up",
+    searchLink: "/explore",
     title: "Track disinformation actors and trolls!",
     withCTA: true,
   },
