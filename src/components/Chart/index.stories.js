@@ -1,15 +1,15 @@
 import React from "react";
 
-import Tweets from ".";
+import Chart from ".";
 
 import { tweets } from "@/twoopstracker/config";
 
 export default {
-  title: "Components/Tweets",
+  title: "Section/Chart",
   argTypes: {},
 };
 
-const Template = (args) => <Tweets {...args} />;
+const Template = (args) => <Chart {...args} />;
 
 export const Default = Template.bind({});
 

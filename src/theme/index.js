@@ -78,6 +78,9 @@ const theme = createTheme({
       fontFamily: FONT_FAMILY_TEXT,
       textTransform: "none",
     },
+    chart: {
+      fontFamily: FONT_FAMILY_TEXT2,
+    },
   },
   widths: {
     values: {
