@@ -30,6 +30,12 @@ const Template = ({ label, ...args }) => <Link {...args}>{label}</Link>;
 
 export const Default = Template.bind({});
 
+Default.parameters = {
+  nextRouter: {
+    pathname: "/?path=/story/components-link--default",
+  },
+};
+
 Default.args = {
   color: "primary",
   href: "#",

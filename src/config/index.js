@@ -7,6 +7,7 @@ import codeForAfrica from "@/twoopstracker/assets/images/CFA Editable Logo-01 1.
 import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
+import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
 
 const tweets = [
   {
@@ -49,6 +50,56 @@ const tweets = [
     interactions: "Number of interactions: xxxx",
   },
 ];
+
+export const navigationArgs = {
+  menuProps: [
+    {
+      href: "/data",
+      label: "Data",
+    },
+    {
+      href: "/investigation",
+      label: "Investigation",
+    },
+    {
+      href: "/resources",
+      label: "Resources",
+    },
+    {
+      href: "/about",
+      label: "About",
+    },
+    {
+      href: "/sign-in",
+      label: "Sign in",
+    },
+    {
+      href: "/sign-up",
+      label: "Sign Up",
+    },
+  ],
+  desktopLogoProps: {
+    width: 237,
+    height: 55,
+    alt: "desktop logo",
+    href: "https://codeforafrica.org",
+    src: navLogo,
+  },
+  mobileLogoProps: {
+    width: 254,
+    height: 40,
+    alt: "mobile logo",
+    href: "/",
+    src: navLogo,
+  },
+  drawerLogoProps: {
+    width: 254,
+    height: 40,
+    alt: "drawer logo",
+    href: "/",
+    src: navLogo,
+  },
+};
 
 export const investigation = {
   banner: {
@@ -228,6 +279,8 @@ export const footerArgs = {
 
 const config = {
   tweets,
+  navigationArgs,
+  url: "http://localhost:3000",
   investigation,
 };
 

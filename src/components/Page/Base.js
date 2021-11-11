@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Footer from "@/twoopstracker/components/Footer";
-import { footerArgs } from "@/twoopstracker/config";
+import Navigation from "@/twoopstracker/components/Navigation";
+import { navigationArgs, footerArgs } from "@/twoopstracker/config";
 
 /**
  * Base page that can be used to build all other pages.
@@ -11,6 +12,7 @@ import { footerArgs } from "@/twoopstracker/config";
 function BasePage({ children, ...props }) {
   return (
     <div>
+      <Navigation {...navigationArgs} />
       <NextSeo {...props} />
       {children}
       <Footer {...footerArgs} />
