@@ -2,6 +2,9 @@ import { NextSeo } from "next-seo";
 import PropTypes from "prop-types";
 import React from "react";
 
+import Footer from "@/twoopstracker/components/Footer";
+import { footerArgs } from "@/twoopstracker/config";
+
 /**
  * Base page that can be used to build all other pages.
  */
@@ -10,6 +13,7 @@ function BasePage({ children, ...props }) {
     <div>
       <NextSeo {...props} />
       {children}
+      <Footer {...footerArgs} />
     </div>
   );
 }
