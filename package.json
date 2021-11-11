@@ -77,10 +77,7 @@
     "defaults"
   ],
   "lint-staged": {
-    "*.js": [
-      "yarn lint-staged-optimal-imports",
-      "yarn lint-staged-top-level-imports"
-    ],
+    "*.js": [],
     "*.{js,json,md}": [
       "yarn lint-staged"
     ],
