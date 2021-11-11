@@ -9,12 +9,13 @@ import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography }) => ({
   root: {
-    margin: `${typography.pxToRem(30)} 0`,
+    marginTop: typography.pxToRem(30),
+    marginBottom: typography.pxToRem(100),
   },
   section: {
     position: "relative",
     padding: typography.pxToRem(30),
-    boxShadow: "0 0.25rem 0.5rem 0 #0000000D", // 0 0.25rem 0.5rem 0 rgb(0 0 0 / 20%)
+    boxShadow: "0 4px 6px 0 #0000000D",
   },
   chart: {
     width: "100%",
