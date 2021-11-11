@@ -28,13 +28,12 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     lineHeight: "149.49%",
     textAlign: "right",
     textTransform: "capitalize",
-    [breakpoints.up("lg")]: {
-      fontSize: typography.pxToRem(16),
-    },
   },
   menu: {
     margin: 0,
-    [breakpoints.up("lg")]: {},
+    [breakpoints.up("lg")]: {
+      marginRight: typography.pxToRem(15),
+    },
   },
   text: {
     "&::after": {
