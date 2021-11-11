@@ -13,6 +13,10 @@ const useStyles = makeStyles(() => ({
   root: {},
   logoButton: {
     paddingLeft: 0,
+    "&:hover, &:focus, &:focus-within": {
+      backgroundColor: "transparent",
+      textDecoration: "none",
+    },
   },
   section: {},
 }));

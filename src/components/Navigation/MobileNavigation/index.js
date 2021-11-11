@@ -23,6 +23,10 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
   logoButton: {
     padding: 0,
     width: typography.pxToRem(254),
+    "&:hover, &:focus, &:focus-within": {
+      backgroundColor: "transparent",
+      textDecoration: "none",
+    },
   },
   section: {},
   dialog: {
