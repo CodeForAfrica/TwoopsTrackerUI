@@ -99,7 +99,11 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
         className={classes.root}
       />
       {isLoading && <Loading />}
-      <Chart tweets={tweets} classes={{ root: classes.chartRoot }} />
+      <Chart
+        days={days}
+        tweets={tweets}
+        classes={{ root: classes.chartRoot }}
+      />
       <Tweets tweets={tweets} />
     </>
   );

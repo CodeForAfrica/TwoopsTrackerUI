@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { subDays } from "date-fns";
 import PropTypes from "prop-types";
 import React, { useEffect, useState, useRef } from "react";
 import embed from "vega-embed";
@@ -22,10 +23,16 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
-function Chart({ tweets, title, startDate, endDate, ...props }) {
+function Chart({ tweets, title, days, ...props }) {
   const classes = useStyles(props);
   const chartRef = useRef();
   const [view, setView] = useState(null);
+
+  const date = new Date();
+  const endDate = date.toISOString().substr(0, 10);
+  const startDate = subDays(date, days + 1)
+    .toISOString()
+    .substr(0, 10);
 
   useEffect(() => {
     async function renderChart() {
@@ -62,15 +69,13 @@ function Chart({ tweets, title, startDate, endDate, ...props }) {
 }
 
 Chart.propTypes = {
-  endDate: PropTypes.string,
-  startDate: PropTypes.string,
+  days: PropTypes.number,
   title: PropTypes.string,
   tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Chart.defaultProps = {
-  endDate: undefined,
-  startDate: undefined,
+  days: 7,
   title: undefined,
   tweets: undefined,
 };

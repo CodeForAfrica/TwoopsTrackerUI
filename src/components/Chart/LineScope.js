@@ -28,9 +28,11 @@ export default function LineChartScope(data, startDate, endDate) {
             sort: { field: "deleted_at" },
           },
           {
-            type: "formula",
-            as: "formatted_date",
-            expr: "timeFormat(datum.deleted_at, '%e %b')",
+            type: "timeunit",
+            field: "deleted_at",
+            units: ["date", "month", "year"],
+            as: ["formatted_date", "formatted_date0"],
+            signal: "tbin",
           },
           {
             type: "aggregate",
@@ -129,11 +131,15 @@ export default function LineChartScope(data, startDate, endDate) {
       },
       {
         name: "endDate",
-        value: new Date(endDate),
+        value: endDate,
       },
       {
         name: "startDate",
-        value: new Date(startDate),
+        value: startDate,
+      },
+      {
+        name: "check",
+        update: "timeSequence('date', datetime(startDate), datetime(endDate))",
       },
     ],
     scales: [
@@ -141,8 +147,8 @@ export default function LineChartScope(data, startDate, endDate) {
         name: "xscale",
         type: "point",
         domain: {
-          data: "table",
-          field: "formatted_date",
+          signal:
+            "timeSequence('date', datetime(startDate), datetime(endDate))",
         },
         range: [
           0,
@@ -242,10 +248,9 @@ export default function LineChartScope(data, startDate, endDate) {
           {
             orient: "bottom",
             scale: "xscale",
-            bandPosition: 0,
             domainOpacity: 0.2,
-            tickSize: 0,
-            labelPadding: 6,
+            format: { signal: "dateFormat" },
+            formatType: "time",
           },
         ],
         marks: [
