@@ -81,17 +81,17 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     },
   },
   quickLink: {
-    fontSize: typography.subtitle1.fontSize,
     color: palette.text.secondary,
     fontWeight: "normal",
     "&:hover": {
       color: palette.primary.light,
     },
+    fontFamily: typography.body1.fontFamily,
   },
   quickLinksTitle: {
     color: palette.text.secondary,
-    fontSize: typography.subtitle2.fontSize,
     fontWeight: "bold",
+    fontFamily: typography.body1.fontFamily,
   },
   description: {
     color: palette.text.secondary,
