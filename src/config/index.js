@@ -4,8 +4,11 @@ import linkedin from "@/twoopstracker/assets/icons/white icon linkedin.svg";
 import twitter from "@/twoopstracker/assets/icons/white icon twitter.svg";
 import codeForAll from "@/twoopstracker/assets/images/Artboard 1@2x 1.png";
 import codeForAfrica from "@/twoopstracker/assets/images/CFA Editable Logo-01 1.png";
+import crowdtangle from "@/twoopstracker/assets/images/image 5.png";
+import github from "@/twoopstracker/assets/images/Rectangle 10.png";
 import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
+import cfaSquare from "@/twoopstracker/assets/images/Square-01 1.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
 
@@ -275,6 +278,54 @@ export const footerArgs = {
     copyrightVariant: "subtitle1",
   },
   aboutVariant: "subtitle1",
+};
+
+export const about = {
+  banner: {
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+    title: "Resources",
+  },
+  items: [
+    {
+      image: codeForAfrica,
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    },
+    {
+      image: codeForAll,
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    },
+  ],
+};
+
+export const resources = {
+  banner: {
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+    title: "About Us",
+  },
+  items: [
+    {
+      image: cfaSquare,
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      title: "Existing website - ANCIR ",
+    },
+    {
+      image: github,
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      title: "Github",
+    },
+    {
+      image: crowdtangle,
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      title: "Crowdtangle",
+    },
+  ],
 };
 
 const config = {
