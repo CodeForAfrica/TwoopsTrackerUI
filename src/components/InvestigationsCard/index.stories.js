@@ -32,12 +32,6 @@ export default {
         type: "text",
       },
     },
-    variant: {
-      control: {
-        type: "select",
-      },
-      options: ["insights", "news"],
-    },
   },
 };
 

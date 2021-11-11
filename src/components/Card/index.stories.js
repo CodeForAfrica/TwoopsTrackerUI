@@ -2,7 +2,7 @@ import React from "react";
 
 import Card from ".";
 
-import { investigation } from "@/twoopstracker/config";
+import cardImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 
 export default {
   title: "Components/Card",
@@ -15,5 +15,11 @@ const Template = (args) => {
 export const Default = Template.bind({});
 
 Default.args = {
-  items: investigation.items,
+  title: "Our new website is out and it comes with new advanced features.",
+  description:
+    "Lorem ipsum dolor sit amet consectetur adipiscing elit, magnis mus etiam nam lectus lobortis varius ultrices, donec dapibus dui felis est penatibus.",
+  href: "/?path=/story/components-featured-story-card--default",
+  ctaText: "Read More",
+  image: cardImage,
+  variant: "news",
 };

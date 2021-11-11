@@ -24,7 +24,7 @@ const VIEWPORTS = {
     name: "Tablet",
     styles: {
       height: size(900),
-      width: size(768),
+      width: size(900),
     },
     type: "tablet",
   },
@@ -32,7 +32,7 @@ const VIEWPORTS = {
     name: "Desktop",
     styles: {
       height: size(900),
-      width: size(1440),
+      width: size(1600),
     },
     type: "desktop",
   },
