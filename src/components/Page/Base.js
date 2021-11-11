@@ -2,11 +2,9 @@ import { NextSeo } from "next-seo";
 import PropTypes from "prop-types";
 import React from "react";
 
-import Navigation from "@/twoopstracker/components/Navigation";
-import { navigationArgs } from "@/twoopstracker/config";
-
 import Footer from "@/twoopstracker/components/Footer";
-import { footerArgs } from "@/twoopstracker/config";
+import Navigation from "@/twoopstracker/components/Navigation";
+import { navigationArgs, footerArgs } from "@/twoopstracker/config";
 
 /**
  * Base page that can be used to build all other pages.

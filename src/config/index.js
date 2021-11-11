@@ -1,6 +1,3 @@
-
-import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
-
 import fb from "@/twoopstracker/assets/icons/white icon fb.svg";
 import insta from "@/twoopstracker/assets/icons/white icon insta.svg";
 import linkedin from "@/twoopstracker/assets/icons/white icon linkedin.svg";
@@ -10,7 +7,7 @@ import codeForAfrica from "@/twoopstracker/assets/images/CFA Editable Logo-01 1.
 import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
-
+import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
 
 const tweets = [
   {
@@ -53,7 +50,6 @@ const tweets = [
     interactions: "Number of interactions: xxxx",
   },
 ];
-
 
 export const navigationArgs = {
   menuProps: [
@@ -103,7 +99,7 @@ export const navigationArgs = {
     href: "/",
     src: navLogo,
   },
-}
+};
 
 export const investigation = {
   banner: {
