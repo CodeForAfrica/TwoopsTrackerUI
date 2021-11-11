@@ -12,7 +12,7 @@ import Image from "next/image";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
-import MenuCloseIcon from "@/twoopstracker/assets/menu_close.svg";
+import MenuCloseIcon from "@/twoopstracker/assets/close_black_24dp.svg";
 import MenuOpenIcon from "@/twoopstracker/assets/menu_open.svg";
 /* import Link from "@/twoopstracker/components/Link"; */
 import Menu from "@/twoopstracker/components/Menu";
