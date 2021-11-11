@@ -7,7 +7,7 @@ import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
   root: {
-    backgroundImage: `url('${backgroundImage.src}')`,
+    backgroundImage: `url('${backgroundImage.src || backgroundImage}')`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "right bottom",
