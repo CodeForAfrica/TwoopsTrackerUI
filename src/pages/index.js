@@ -3,7 +3,7 @@ import React from "react";
 
 import Banner from "@/twoopstracker/components/Banner";
 import CallToAction from "@/twoopstracker/components/CallToAction";
-import Investigations from "@/twoopstracker/components/Investigations";
+import InvestigationsPreview from "@/twoopstracker/components/InvestigationsPreview";
 import Page from "@/twoopstracker/components/Page";
 import Partners from "@/twoopstracker/components/Partners";
 
@@ -12,7 +12,7 @@ export default function Index({ ...props }) {
     <Page {...props}>
       <Banner />
       <CallToAction />
-      <Investigations />
+      <InvestigationsPreview />
       <Partners />
     </Page>
   );
