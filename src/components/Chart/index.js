@@ -1,4 +1,5 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { useMediaQuery } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { subDays } from "date-fns";
 import PropTypes from "prop-types";
 import React, { useEffect, useState, useRef } from "react";
@@ -17,6 +18,7 @@ const useStyles = makeStyles(({ typography }) => ({
     position: "relative",
     padding: typography.pxToRem(30),
     boxShadow: "0 4px 6px 0 #0000000D",
+    height: typography.pxToRem(523),
   },
   chart: {
     width: "100%",
@@ -28,6 +30,9 @@ function Chart({ tweets, title, days, ...props }) {
   const chartRef = useRef();
   const [view, setView] = useState(null);
 
+  const theme = useTheme();
+  const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
+
   const date = new Date();
   const endDate = date.toISOString().substr(0, 10);
   const startDate = subDays(date, days + 1)
@@ -36,10 +41,10 @@ function Chart({ tweets, title, days, ...props }) {
 
   useEffect(() => {
     async function renderChart() {
-      const spec = LineScope(tweets, startDate, endDate);
+      const spec = LineScope(tweets, startDate, endDate, isUpLg);
       if (chartRef?.current) {
         const newView = await embed(chartRef.current, spec, {
-          renderer: "canvas",
+          renderer: "svg",
           actions: false,
         });
         setView(newView);
@@ -48,7 +53,7 @@ function Chart({ tweets, title, days, ...props }) {
     if (tweets) {
       renderChart();
     }
-  }, [tweets]);
+  }, [tweets, isUpLg]);
 
   useEffect(() => {
     if (title && view) {
