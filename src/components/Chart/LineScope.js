@@ -1,7 +1,6 @@
 import theme from "@/twoopstracker/theme";
 
-export default function LineChartScope(data, startDate, endDate, isUpLg) {
-  const smallScreen = !isUpLg;
+export default function LineChartScope(data, startDate, endDate, smallScreen) {
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: "Line Chart",
@@ -93,7 +92,7 @@ export default function LineChartScope(data, startDate, endDate, isUpLg) {
       {
         name: "highlight",
         value: smallScreen
-          ? "Total number of deleted tweets"
+          ? "Total deleted tweets"
           : ["Total number of deleted", "tweets"],
       },
       {
@@ -254,6 +253,7 @@ export default function LineChartScope(data, startDate, endDate, isUpLg) {
             domainOpacity: 0.2,
             format: { signal: "dateFormat" },
             formatType: "time",
+            labelOverlap: true,
           },
         ],
         marks: [

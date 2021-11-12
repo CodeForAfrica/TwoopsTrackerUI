@@ -45,7 +45,7 @@ function Chart({ tweets, title, days, ...props }) {
 
   useEffect(() => {
     async function renderChart() {
-      const spec = LineScope(tweets, startDate, endDate, isUpLg);
+      const spec = LineScope(tweets, startDate, endDate, !isUpLg);
       if (chartRef?.current) {
         const newView = await embed(chartRef.current, spec, {
           renderer: "svg",
