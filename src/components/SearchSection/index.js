@@ -22,12 +22,12 @@ const SearchSection = ({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item lg={7} md={12} sm={12} xs={12}>
+          <Grid item lg={8} md={12} sm={12} xs={12}>
             <Search handleSelection={handleSelection} />
           </Grid>
           <Grid
             item
-            lg={5}
+            lg={4}
             md={12}
             sm={12}
             xs={12}
@@ -41,7 +41,7 @@ const SearchSection = ({
                 { name: "Last 1 Day", value: "1" },
                 { name: "Last 3 Days", value: "3" },
                 { name: "Last 30 Days", value: "30" },
-                { name: "None", value: "" },
+                { name: "Last 7 Days", value: "" },
               ]}
               value={days}
             />
