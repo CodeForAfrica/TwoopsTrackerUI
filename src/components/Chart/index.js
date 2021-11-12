@@ -9,10 +9,14 @@ import LineScope from "./LineScope";
 
 import Section from "@/twoopstracker/components/Section";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ breakpoints, typography }) => ({
   root: {
     marginTop: typography.pxToRem(30),
-    marginBottom: typography.pxToRem(100),
+    marginBottom: typography.pxToRem(30),
+    [breakpoints.up("lg")]: {
+      marginTop: typography.pxToRem(30),
+      marginBottom: typography.pxToRem(100),
+    },
   },
   section: {
     position: "relative",
