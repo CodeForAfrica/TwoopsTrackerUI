@@ -1,6 +1,6 @@
 import theme from "@/twoopstracker/theme";
 
-export default function LineChartScope(data, startDate, endDate) {
+export default function LineChartScope(data, startDate, endDate, smallScreen) {
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: "Line Chart",
@@ -16,7 +16,7 @@ export default function LineChartScope(data, startDate, endDate) {
     },
     autosize: { type: "fit-x" },
     width: { signal: "width" },
-    height: 435,
+    height: { signal: "height" },
     data: [
       {
         name: "table",
@@ -75,7 +75,7 @@ export default function LineChartScope(data, startDate, endDate) {
       },
       {
         name: "dateFormat",
-        value: "%e %b",
+        value: smallScreen ? "%e/%m" : "%e %b",
       },
       {
         name: "mainGroup",
@@ -86,8 +86,14 @@ export default function LineChartScope(data, startDate, endDate) {
         value: "Activity",
       },
       {
+        name: "smallScreen",
+        value: smallScreen,
+      },
+      {
         name: "highlight",
-        value: ["Total number of deleted", "tweets"],
+        value: smallScreen
+          ? "Total deleted tweets"
+          : ["Total number of deleted", "tweets"],
       },
       {
         name: "total",
@@ -103,7 +109,7 @@ export default function LineChartScope(data, startDate, endDate) {
       },
       {
         name: "highlightSize",
-        value: 24,
+        value: smallScreen ? 18 : 24,
       },
       {
         name: "titleFont",
@@ -127,7 +133,7 @@ export default function LineChartScope(data, startDate, endDate) {
       },
       {
         name: "totalSize",
-        value: 36,
+        value: smallScreen ? 18 : 36,
       },
       {
         name: "endDate",
@@ -136,10 +142,6 @@ export default function LineChartScope(data, startDate, endDate) {
       {
         name: "startDate",
         value: startDate,
-      },
-      {
-        name: "check",
-        update: "timeSequence('date', datetime(startDate), datetime(endDate))",
       },
     ],
     scales: [
@@ -153,7 +155,7 @@ export default function LineChartScope(data, startDate, endDate) {
         range: [
           0,
           {
-            signal: "0.75 * width",
+            signal: "smallScreen? width: 0.75 * width",
           },
         ],
       },
@@ -187,8 +189,8 @@ export default function LineChartScope(data, startDate, endDate) {
         encode: {
           enter: {
             x: { value: 0 },
-            y2: { value: 100 },
-            height: { value: 100 },
+            y: { value: 0 },
+            height: { signal: "smallScreen? '50': '100'" },
             width: { signal: "width" },
           },
         },
@@ -221,7 +223,7 @@ export default function LineChartScope(data, startDate, endDate) {
               signal: "height - 100",
             },
             width: {
-              signal: "0.7 * width",
+              signal: "smallScreen? width: 0.75 * width",
             },
           },
         },
@@ -240,7 +242,7 @@ export default function LineChartScope(data, startDate, endDate) {
             encode: {
               grid: {
                 update: {
-                  x2: { signal: " 0.7 * width" },
+                  x2: { signal: "smallScreen ? width : 0.75 * width" },
                 },
               },
             },
@@ -251,6 +253,7 @@ export default function LineChartScope(data, startDate, endDate) {
             domainOpacity: 0.2,
             format: { signal: "dateFormat" },
             formatType: "time",
+            labelOverlap: true,
           },
         ],
         marks: [
@@ -278,10 +281,10 @@ export default function LineChartScope(data, startDate, endDate) {
         name: "highlightGroup",
         encode: {
           enter: {
-            x: { signal: "0.8 * width" },
-            y2: { signal: "height" },
-            height: { value: 100 },
-            width: { value: 100 },
+            x: { signal: "smallScreen ? '0' : 0.8 * width" },
+            y2: { signal: "smallScreen ? '100': height" },
+            height: { signal: "smallScreen? '50': '100'" },
+            width: { signal: "smallScreen? width: '100'" },
           },
         },
         marks: [
@@ -303,8 +306,8 @@ export default function LineChartScope(data, startDate, endDate) {
             type: "text",
             encode: {
               update: {
-                x: { value: 0 },
-                y2: { value: 100 },
+                x2: { signal: "smallScreen? width: '0'" },
+                y2: { signal: "smallScreen? '0': '100'" },
                 text: { signal: "total" },
                 opacity: { value: 1 },
                 font: { signal: "totalFont" },
