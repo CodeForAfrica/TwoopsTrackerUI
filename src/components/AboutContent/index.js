@@ -22,6 +22,7 @@ function AboutContent({ items, ...props }) {
             className={classes.row}
             container
             alignItems="center"
+            spacing={4}
             item
             lg={12}
             key={title}
