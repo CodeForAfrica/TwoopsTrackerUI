@@ -604,11 +604,11 @@ export const navigationArgs = {
       label: "About",
     },
     {
-      href: "/sign-in",
+      href: "/login",
       label: "Sign in",
     },
     {
-      href: "/sign-up",
+      href: "/login",
       label: "Sign Up",
     },
   ],
@@ -725,7 +725,7 @@ export const home = {
     title: "Partners & About Us",
   },
   signUp: {
-    buttonLink: "/signup",
+    buttonLink: "/login",
     buttonText: "Sign up",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ",
