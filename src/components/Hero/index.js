@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import backgroundImage from "@/twoopstracker/assets/images/banner background.png";
+import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
@@ -71,20 +72,24 @@ function Hero({
         </Typography>
         {withCTA && (
           <div className={classes.buttonContainer}>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-            >
-              {searchLabel}
-            </Button>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-            >
-              {signUpLabel}
-            </Button>
+            <Link href={searchLink}>
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+              >
+                {searchLabel}
+              </Button>
+            </Link>
+            <Link href={signUpLink}>
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+              >
+                {signUpLabel}
+              </Button>
+            </Link>
           </div>
         )}
       </Section>

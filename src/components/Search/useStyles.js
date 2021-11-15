@@ -4,7 +4,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
     backgroundColor: "#fff",
     width: "100%",
-    height: typography.pxToRem(48),
+    height: typography.pxToRem(64),
   },
   input: {
     marginLeft: typography.pxToRem(10),

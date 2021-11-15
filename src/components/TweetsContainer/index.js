@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import useStyles from "./useStyles";
 import useTweets from "./useTweets";
 
+import Chart from "@/twoopstracker/components/Chart";
 import Loading from "@/twoopstracker/components/Loading";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
@@ -98,6 +99,11 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
         className={classes.root}
       />
       {isLoading && <Loading />}
+      <Chart
+        days={days}
+        tweets={tweets}
+        classes={{ root: classes.chartRoot }}
+      />
       <Tweets tweets={tweets} />
     </>
   );

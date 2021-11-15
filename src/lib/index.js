@@ -7,7 +7,7 @@ export async function fetchAll() {
   return res.json();
 }
 
-export async function search(term, theme, location, days = 7) {
+export async function search({ term, theme, location, days = 7 }) {
   const searchParams = new URLSearchParams();
   let query = term || theme;
   if (query && theme) {
