@@ -815,7 +815,7 @@ export const about = {
   banner: {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-    title: "Resources",
+    title: "About Us",
   },
   items: [
     {
@@ -835,7 +835,7 @@ export const resources = {
   banner: {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-    title: "About Us",
+    title: "Resources",
   },
   items: [
     {
