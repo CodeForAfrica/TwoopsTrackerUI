@@ -1,4 +1,15 @@
-import { Button, Typography, Box, Modal } from "@material-ui/core";
+import {
+  Button,
+  Typography,
+  Box,
+  Modal,
+  FormControl,
+  FilledInput,
+  InputLabel,
+  FormHelperText,
+  Checkbox,
+  FormControlLabel,
+} from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -43,12 +54,47 @@ const ListItems = ({ data, ...props }) => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <FormControl variant="standard" className={classes.formControl}>
+              <InputLabel className={classes.label} htmlFor="name">
+                List Name
+              </InputLabel>
+              <FilledInput id="name" onChange={() => {}} />
+              <FormHelperText className={classes.label} id="name-helper-text">
+                Name of list
+              </FormHelperText>
+            </FormControl>
+
+            <FormControl variant="standard" className={classes.formControl}>
+              <InputLabel className={classes.label} htmlFor="accounts">
+                User Accounts
+              </InputLabel>
+              <FilledInput id="accounts" onChange={() => {}} />
+              <FormHelperText
+                className={classes.label}
+                id="accounts-helper-text"
+              >
+                Enter twitter account names seperated by a comma i.e
+                userone,usertwo
+              </FormHelperText>
+            </FormControl>
+
+            <FormControl variant="standard" className={classes.formControl}>
+              <FormControlLabel
+                value="end"
+                control={<Checkbox className={classes.checkbox} />}
+                label="Is Private"
+                labelPlacement="end"
+              />
+            </FormControl>
+            <div>
+              <Button className={classes.createButton}>Create</Button>
+            </div>
+            {/* <Typography id="modal-modal-title" variant="h6" component="h2">
               Text in a modal
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            </Typography> */}
           </Box>
         </Modal>
       </div>

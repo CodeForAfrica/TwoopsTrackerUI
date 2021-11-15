@@ -14,6 +14,19 @@ const useStyles = makeStyles(({ typography }) => ({
     backgroundColor: "red",
     color: "#fff",
   },
+  label: {
+    color: "#000",
+  },
+  checkbox: {
+    color: "#000",
+  },
+  createButton: {
+    backgroundColor: "red",
+    color: "#fff",
+  },
+  formControl: {
+    marginBottom: typography.pxToRem(20),
+  },
 }));
 
 export default useStyles;

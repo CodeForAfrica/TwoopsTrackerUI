@@ -6,10 +6,9 @@ import { fetchLists } from "@/twoopstracker/lib";
 
 export default function Index(props) {
   return (
-    <>
-      <Page />
+    <Page {...props}>
       <Lists {...props} />
-    </>
+    </Page>
   );
 }
 

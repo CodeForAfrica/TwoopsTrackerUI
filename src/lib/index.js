@@ -7,6 +7,11 @@ export async function fetchAll() {
   return res.json();
 }
 
+export async function fetchLists() {
+  const res = await fetch(`${BASE_URL}/lists/`);
+  return res.json();
+}
+
 export async function search({ term, theme, location, days = 7 }) {
   const searchParams = new URLSearchParams();
   let query = term || theme;
