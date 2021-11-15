@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 
 import AboutContent from "@/twoopstracker/components/AboutContent";
@@ -13,20 +12,4 @@ export default function Resources({ ...props }) {
       <AboutContent items={resources.items} />
     </Page>
   );
-}
-
-Resources.propTypes = {
-  fallback: PropTypes.arrayOf(PropTypes.shape({})),
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
-};
-
-Resources.defaultProps = {
-  fallback: undefined,
-  tweets: undefined,
-};
-
-export function getStaticProps() {
-  return {
-    props: {},
-  };
 }
