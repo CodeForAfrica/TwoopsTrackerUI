@@ -24,7 +24,7 @@ const TweetCard = ({
   const { name, screen_name: screenName, protected: accountStatus } = owner;
 
   const username = name;
-  const handle = screenName.replace(/\s/g, "");
+  const handle = screenName?.replace(/\s/g, "");
   const accountType = accountStatus ? "Private" : "Public";
 
   const date1 = new Date(createdAt);

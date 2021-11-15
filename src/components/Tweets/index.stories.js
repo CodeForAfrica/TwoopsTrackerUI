@@ -2,7 +2,7 @@ import React from "react";
 
 import Tweets from ".";
 
-import config from "@/twoopstracker/config";
+import { tweets } from "@/twoopstracker/config";
 
 export default {
   title: "Components/Tweets",
@@ -14,5 +14,5 @@ const Template = (args) => <Tweets {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  tweets: config.tweets,
+  tweets,
 };

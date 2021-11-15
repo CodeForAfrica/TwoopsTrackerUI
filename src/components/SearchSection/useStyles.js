@@ -5,6 +5,13 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     backgroundColor: palette.primary.main,
     padding: `${typography.pxToRem(88)} 0`,
   },
+  filterSection: {
+    display: "flex",
+    flexDirection: "column",
+    [breakpoints.up("md")]: {
+      flexDirection: "row",
+    },
+  },
   container: {
     display: "flex",
     justifyContent: "space-between",

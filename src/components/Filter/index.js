@@ -6,29 +6,26 @@ import {
   Select,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React from "react";
 
 import useStyles from "./useStyles";
 
-const Filter = ({ label, menuItems, handleSelection, ...props }) => {
+const Filter = ({ handleSelection, label, menuItems, value, ...props }) => {
   const classes = useStyles(props);
 
-  const [val, setValue] = useState("");
-
   const handleChange = (event) => {
-    setValue(event.target.value);
     handleSelection({ name: label.toLowerCase(), value: event.target.value });
   };
 
   return (
-    <Box sx={{ width: 150 }} className={classes.box}>
+    <Box sx={{ width: 160 }} className={classes.box}>
       <FormControl fullWidth className={classes.form}>
         <InputLabel id={`${label}-id`} className={classes.label}>
           {label}
         </InputLabel>
         <Select
           labelId={`${label}-id`}
-          value={val}
+          value={value}
           onChange={handleChange}
           className={classes.select}
         >
@@ -45,21 +42,22 @@ const Filter = ({ label, menuItems, handleSelection, ...props }) => {
 };
 
 Filter.propTypes = {
-  label: PropTypes.string,
   handleSelection: PropTypes.func,
+  label: PropTypes.string,
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
-      // eslint-disable-next-line react/forbid-prop-types
-      value: PropTypes.any,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     })
   ),
+  value: PropTypes.string,
 };
 
 Filter.defaultProps = {
+  handleSelection: undefined,
   label: undefined,
   menuItems: undefined,
-  handleSelection: undefined,
+  value: undefined,
 };
 
 export default Filter;

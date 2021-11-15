@@ -14,7 +14,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   box: {
     marginTop: typography.pxToRem(20),
-    minWidth: typography.pxToRem(300),
+    marginLeft: typography.pxToRem(5),
     [breakpoints.up("lg")]: {
       marginTop: "0",
       minWidth: "auto",
