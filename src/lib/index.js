@@ -1,6 +1,6 @@
 import { subDays } from "date-fns";
 
-const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
+const BASE_URL = "https://dev.investigate.africa/v1";
 
 export async function fetchAll() {
   const res = await fetch(`${BASE_URL}/tweets/`);
@@ -9,6 +9,17 @@ export async function fetchAll() {
 
 export async function fetchLists() {
   const res = await fetch(`${BASE_URL}/lists/`);
+  return res.json();
+}
+
+export async function createList(payload) {
+  const res = await fetch(`${BASE_URL}/lists/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
   return res.json();
 }
 

@@ -17,6 +17,7 @@ import useStyles from "./useStyles";
 
 import List from "@/twoopstracker/components/List";
 import Section from "@/twoopstracker/components/Section";
+import { createList, fetchLists } from "@/twoopstracker/lib";
 
 const style = {
   position: "absolute",
@@ -30,13 +31,53 @@ const style = {
   p: 4,
 };
 
-const ListItems = ({ data, ...props }) => {
+const ListItems = ({ data: listsProp, ...props }) => {
   const [open, setOpen] = useState(false);
+  const [lists, setLists] = useState(listsProp);
+  const [name, setName] = useState("");
+  const [accounts, setAccounts] = useState("");
+  const [privacy, setPrivacy] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = useStyles(props);
 
-  if (!data.length) {
+  const onCreate = async () => {
+    const accountsMap = accounts
+      .split(",")
+      .map((item) => ({ screen_name: item }));
+
+    const payload = {
+      name,
+      accounts: accountsMap,
+      owner: 1,
+      is_private: privacy,
+    };
+
+    try {
+      await createList(payload);
+      const result = await fetchLists();
+      setLists(result);
+      setOpen(false);
+    } catch (e) {
+      setOpen(true);
+    }
+  };
+
+  const handleChange = (event) => {
+    if (event.target.name === "name") {
+      setName(event.target.value);
+    }
+
+    if (event.target.name === "accounts") {
+      setAccounts(event.target.value);
+    }
+
+    if (event.target.name === "privacy") {
+      setPrivacy(event.target.checked);
+    }
+  };
+
+  if (!listsProp.length) {
     return null;
   }
 
@@ -58,7 +99,7 @@ const ListItems = ({ data, ...props }) => {
               <InputLabel className={classes.label} htmlFor="name">
                 List Name
               </InputLabel>
-              <FilledInput id="name" onChange={() => {}} />
+              <FilledInput name="name" id="name" onChange={handleChange} />
               <FormHelperText className={classes.label} id="name-helper-text">
                 Name of list
               </FormHelperText>
@@ -68,7 +109,11 @@ const ListItems = ({ data, ...props }) => {
               <InputLabel className={classes.label} htmlFor="accounts">
                 User Accounts
               </InputLabel>
-              <FilledInput id="accounts" onChange={() => {}} />
+              <FilledInput
+                name="accounts"
+                id="accounts"
+                onChange={handleChange}
+              />
               <FormHelperText
                 className={classes.label}
                 id="accounts-helper-text"
@@ -80,14 +125,21 @@ const ListItems = ({ data, ...props }) => {
 
             <FormControl variant="standard" className={classes.formControl}>
               <FormControlLabel
-                value="end"
-                control={<Checkbox className={classes.checkbox} />}
+                control={
+                  <Checkbox
+                    className={classes.checkbox}
+                    onChange={handleChange}
+                    name="privacy"
+                  />
+                }
                 label="Is Private"
                 labelPlacement="end"
               />
             </FormControl>
             <div>
-              <Button className={classes.createButton}>Create</Button>
+              <Button onClick={onCreate} className={classes.createButton}>
+                Create
+              </Button>
             </div>
             {/* <Typography id="modal-modal-title" variant="h6" component="h2">
               Text in a modal
@@ -98,7 +150,7 @@ const ListItems = ({ data, ...props }) => {
           </Box>
         </Modal>
       </div>
-      {data.map((item) => (
+      {lists.map((item) => (
         <List key={item.name} classes={{ root: classes.listItem }} {...item} />
       ))}
     </Section>
