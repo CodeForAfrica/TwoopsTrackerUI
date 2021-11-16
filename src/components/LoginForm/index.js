@@ -1,9 +1,11 @@
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSession, signIn } from "next-auth/client";
 import Router from "next/router";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
+
+import saveToken from "@/twoopstracker/lib/saveToken";
+import useSession from "@/twoopstracker/lib/useSession";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,16 +60,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function useQueryParams() {
+  const params = new URLSearchParams(
+    global.window ? window.location.search : {}
+  );
+  return new Proxy(params, {
+    get(target, prop) {
+      return target.get(prop);
+    },
+  });
+}
+
 function Login({ providers, ...props }) {
   const classes = useStyles(props);
   const [session] = useSession();
-
   useEffect(() => {
     if (session) {
       Router.push("/explore");
     }
   }, [session]);
 
+  const openGoogleLoginPage = useCallback(() => {
+    const googleAuthUrl = process.env.NEXT_PUBLIC_GOOGLE_AUTH_URL;
+
+    const scope = [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile",
+    ].join(" ");
+
+    const params = {
+      response_type: "code",
+      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      redirect_uri: `${process.env.NEXT_PUBLIC_TWOOPSTRACKER_AUTH_URL}/login/google/`,
+      prompt: "select_account",
+      access_type: "offline",
+      scope,
+      state: process.env.NEXT_PUBLIC_REDIRECT_URL,
+    };
+    const urlParams = new URLSearchParams(params).toString();
+
+    window.location = `${googleAuthUrl}?${urlParams}`;
+  }, []);
+
+  const token = useQueryParams();
+  if (token.access_token && token.refresh_token) {
+    saveToken(token.access_token, token.refresh_token);
+    Router.push("/explore");
+  }
   return (
     <Grid
       container
@@ -78,27 +117,18 @@ function Login({ providers, ...props }) {
       <Grid item xs={12} className={classes.item}>
         <form noValidate className={classes.formStyles}>
           <div className={classes.buttonContainer}>
-            {!session &&
-              providers &&
-              Object.values(providers).map((provider) => (
-                <Button
-                  key={provider.name}
-                  value="Subscribe"
-                  name="submit"
-                  id="mc-embedded-subscribe-form"
-                  variant="contained"
-                  className={classes.loginButton}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() =>
-                    signIn(provider.id, {
-                      callbackUrl: `${window.location.origin}/explore`,
-                    })
-                  }
-                >
-                  Sign in with {provider.name}
-                </Button>
-              ))}
+            <Button
+              value="Subscribe"
+              name="submit"
+              id="signin"
+              variant="contained"
+              className={classes.loginButton}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={openGoogleLoginPage}
+            >
+              Sign in with Google
+            </Button>
           </div>
         </form>
       </Grid>
