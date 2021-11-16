@@ -12,14 +12,26 @@ export async function fetchLists() {
   return res.json();
 }
 
-export async function updateList(payload, method) {
-  const res = await fetch(`${BASE_URL}/lists/`, {
+export async function updateList(payload, method, param) {
+  let url = BASE_URL;
+
+  if (param) {
+    url = `${url}/lists/${param}`;
+  } else {
+    url = `${url}/lists/`;
+  }
+
+  const res = await fetch(url, {
     method,
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(payload),
+    body: payload ? JSON.stringify(payload) : null,
   });
+
+  if (method === "DELETE") {
+    return res;
+  }
   return res.json();
 }
 

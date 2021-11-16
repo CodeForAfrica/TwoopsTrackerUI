@@ -35,15 +35,21 @@ const List = ({
   created_at: createdAt,
   accounts: listAccounts,
   is_private: privacyStatus,
+  id,
   setLists,
   ...props
 }) => {
   const [open, setOpen] = useState(false);
+  const [deleteopen, setDeleteOpen] = useState(false);
+
   const [name, setName] = useState(listName);
   const [privacy, setPrivacy] = useState(privacyStatus);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleDeleteOpen = () => setDeleteOpen(true);
+  const handleDeleteClose = () => setDeleteOpen(false);
 
   let accountsStr = null;
   listAccounts.forEach((account) => {
@@ -92,6 +98,17 @@ const List = ({
     }
   };
 
+  const onDelete = async () => {
+    try {
+      await updateList(null, "DELETE", id);
+      const result = await fetchLists();
+      setLists(result);
+      setDeleteOpen(false);
+    } catch (e) {
+      setDeleteOpen(true);
+    }
+  };
+
   const classes = useStyles(props);
 
   const date = new Date(createdAt).toISOString();
@@ -103,16 +120,18 @@ const List = ({
     <div className={classes.root}>
       <Typography className={classes.title}>{name}</Typography>
       <Grid container>
-        <Grid item xs={8}>
+        <Grid item xs={10}>
           {createdAt && (
             <Typography>{`Saved on ${year} at ${hours}`}</Typography>
           )}
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={2}>
           <Button onClick={handleOpen} className={classes.editButton}>
             Edit
           </Button>
-          <Button className={classes.deleteButton}>Delete</Button>
+          <Button onClick={handleDeleteOpen} className={classes.deleteButton}>
+            Delete
+          </Button>
 
           <Modal
             open={open}
@@ -176,6 +195,24 @@ const List = ({
               </div>
             </Box>
           </Modal>
+
+          <Modal
+            open={deleteopen}
+            onClose={handleDeleteClose}
+            aria-labelledby="delete-modal"
+            aria-describedby="delete-modal"
+          >
+            <Box sx={style}>
+              <Typography>
+                Are you sure you want to delete this List?
+              </Typography>
+              <div>
+                <Button onClick={onDelete} className={classes.createButton}>
+                  Delete
+                </Button>
+              </div>
+            </Box>
+          </Modal>
         </Grid>
       </Grid>
     </div>
@@ -185,6 +222,7 @@ const List = ({
 List.propTypes = {
   name: PropTypes.string,
   accounts: PropTypes.arrayOf(PropTypes.shape({})),
+  id: PropTypes.number,
   is_private: PropTypes.bool,
   created_at: PropTypes.string,
   setLists: PropTypes.func,
@@ -193,6 +231,7 @@ List.propTypes = {
 List.defaultProps = {
   name: undefined,
   accounts: undefined,
+  id: undefined,
   is_private: undefined,
   created_at: undefined,
   setLists: undefined,

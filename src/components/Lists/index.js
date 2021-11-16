@@ -56,6 +56,7 @@ const ListItems = ({ data: listsProp, ...props }) => {
     try {
       await updateList(payload, "POST");
       const result = await fetchLists();
+
       setLists(result);
       setOpen(false);
     } catch (e) {
