@@ -10,13 +10,14 @@ const fetcher = (url) => {
       refesh: getSessionItem("refreshToken"),
     }),
     method: "POST",
-  }).then((res) => (res.ok ? res.json() : res.error())).then;
+  }).then((res) => (res.ok ? res.json() : Promise.reject(res)));
 };
-
 /**
- *
- *  get the token from storage check if token is valid return true if not check if refesh token is valid if valid, referesh acessToken  if refersh fails or token isnt valid return false
- * @returns
+ * get the token from storage check if token is valid,
+ * if not check if refesh token is valid,
+ * if valid, referesh acessToken
+ * if refersh fails or token isnt valid return false
+ * @returns [Object, boolean]
  */
 export default function useSession() {
   const refreshToken = getSessionItem("refreshToken");
