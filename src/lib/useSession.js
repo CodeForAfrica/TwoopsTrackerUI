@@ -5,7 +5,12 @@ import useSWR from "swr";
 import { getSessionItem, setSessionItem } from "./sessionStorage";
 
 const fetcher = (url) => {
-  return fetch(url).then((res) => res.json());
+  return fetch(url, {
+    body: JSON.stringify({
+      refesh: getSessionItem("refreshToken"),
+    }),
+    method: "POST",
+  }).then((res) => (res.ok ? res.json() : res.error())).then;
 };
 
 /**
@@ -31,8 +36,8 @@ export default function useSession() {
           setSession([false, false]);
         }
         if (!error && data) {
-          setSessionItem("accessToken", data);
-          setSession([data, true]);
+          setSessionItem("accessToken", data.access);
+          setSession([data.access, true]);
         }
         setSession([false, true]);
       }
