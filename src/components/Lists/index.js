@@ -37,6 +37,9 @@ const ListItems = ({ data: listsProp, ...props }) => {
 
       setLists(result);
       setOpen(false);
+      setName("");
+      setAccounts("");
+      setPrivacy(false);
     } catch (e) {
       setOpen(true);
     }

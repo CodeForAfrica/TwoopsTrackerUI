@@ -103,7 +103,7 @@ const ModalComponent = ({
           </FormControl>
         )}
 
-        {privacyValue && (
+        {privacyOnChange && (
           <FormControl variant="standard" className={classes.formControl}>
             {privacyValue && (
               <FormControlLabel
