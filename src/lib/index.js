@@ -12,9 +12,9 @@ export async function fetchLists() {
   return res.json();
 }
 
-export async function createList(payload) {
+export async function updateList(payload, method) {
   const res = await fetch(`${BASE_URL}/lists/`, {
-    method: "POST",
+    method,
     headers: {
       "Content-Type": "application/json",
     },

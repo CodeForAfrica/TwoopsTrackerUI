@@ -17,7 +17,7 @@ import useStyles from "./useStyles";
 
 import List from "@/twoopstracker/components/List";
 import Section from "@/twoopstracker/components/Section";
-import { createList, fetchLists } from "@/twoopstracker/lib";
+import { updateList, fetchLists } from "@/twoopstracker/lib";
 
 const style = {
   position: "absolute",
@@ -54,7 +54,7 @@ const ListItems = ({ data: listsProp, ...props }) => {
     };
 
     try {
-      await createList(payload);
+      await updateList(payload, "POST");
       const result = await fetchLists();
       setLists(result);
       setOpen(false);
@@ -141,17 +141,16 @@ const ListItems = ({ data: listsProp, ...props }) => {
                 Create
               </Button>
             </div>
-            {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography> */}
           </Box>
         </Modal>
       </div>
       {lists.map((item) => (
-        <List key={item.name} classes={{ root: classes.listItem }} {...item} />
+        <List
+          key={item.name}
+          classes={{ root: classes.listItem }}
+          {...item}
+          setLists={setLists}
+        />
       ))}
     </Section>
   );
