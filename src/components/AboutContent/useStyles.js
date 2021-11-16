@@ -7,6 +7,13 @@ const useStyles = makeStyles(({ typography }) => ({
   title: {
     marginBottom: typography.pxToRem(50),
   },
+  link: {
+    color: "unset",
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "none",
+    },
+  },
   description: {},
   row: {
     marginBottom: typography.pxToRem(80),
