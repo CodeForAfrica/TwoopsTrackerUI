@@ -1,34 +1,11 @@
-import {
-  Typography,
-  Button,
-  Grid,
-  Box,
-  Modal,
-  FormControl,
-  FilledInput,
-  InputLabel,
-  FormHelperText,
-  Checkbox,
-  FormControlLabel,
-} from "@material-ui/core";
+import { Typography, Button, Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
+import CustomModal from "@/twoopstracker/components/Modal";
 import { updateList, fetchLists } from "@/twoopstracker/lib";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 const List = ({
   name: listName,
@@ -132,87 +109,29 @@ const List = ({
           <Button onClick={handleDeleteOpen} className={classes.deleteButton}>
             Delete
           </Button>
-
-          <Modal
+          <CustomModal
             open={open}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <FormControl variant="standard" className={classes.formControl}>
-                <InputLabel className={classes.label} htmlFor="name">
-                  List Name
-                </InputLabel>
-                <FilledInput
-                  value={name}
-                  name="name"
-                  id="name"
-                  onChange={handleChange}
-                />
-                <FormHelperText className={classes.label} id="name-helper-text">
-                  Name of list
-                </FormHelperText>
-              </FormControl>
-
-              <FormControl variant="standard" className={classes.formControl}>
-                <InputLabel className={classes.label} htmlFor="accounts">
-                  User Accounts
-                </InputLabel>
-                <FilledInput
-                  value={accounts}
-                  name="accounts"
-                  id="accounts"
-                  onChange={handleChange}
-                />
-                <FormHelperText
-                  className={classes.label}
-                  id="accounts-helper-text"
-                >
-                  Enter twitter account names seperated by a comma i.e
-                  userone,usertwo
-                </FormHelperText>
-              </FormControl>
-
-              <FormControl variant="standard" className={classes.formControl}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={privacy}
-                      className={classes.checkbox}
-                      onChange={handleChange}
-                      name="privacy"
-                    />
-                  }
-                  label="Is Private"
-                  labelPlacement="end"
-                />
-              </FormControl>
-              <div>
-                <Button onClick={onUpdate} className={classes.createButton}>
-                  Update
-                </Button>
-              </div>
-            </Box>
-          </Modal>
-
-          <Modal
+            nameLabel="ListName"
+            nameValue={name}
+            nameHelper="Name of List"
+            nameOnChange={handleChange}
+            accountsLabel="User Accounts"
+            accountsOnChange={handleChange}
+            accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
+            accountsValue={accounts}
+            privacyValue={privacy}
+            privacyOnChange={handleChange}
+            buttonLabel="Update"
+            buttonOnClick={onUpdate}
+          />
+          <CustomModal
             open={deleteopen}
             onClose={handleDeleteClose}
-            aria-labelledby="delete-modal"
-            aria-describedby="delete-modal"
-          >
-            <Box sx={style}>
-              <Typography>
-                Are you sure you want to delete this List?
-              </Typography>
-              <div>
-                <Button onClick={onDelete} className={classes.createButton}>
-                  Delete
-                </Button>
-              </div>
-            </Box>
-          </Modal>
+            buttonLabel="Delete"
+            buttonOnClick={onDelete}
+            deleteDescription="Are you sure you want to delete this List?"
+          />
         </Grid>
       </Grid>
     </div>
