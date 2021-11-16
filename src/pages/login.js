@@ -1,4 +1,3 @@
-import { providers } from "next-auth/client";
 import React from "react";
 
 import Login from "@/twoopstracker/components/LoginForm";
@@ -11,11 +10,9 @@ function Home(props) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   return {
-    props: {
-      providers: await providers(context),
-    },
+    props: {},
     revalidate: 60 * 60, // 60 minutes
   };
 }
