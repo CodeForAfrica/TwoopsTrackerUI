@@ -12,6 +12,11 @@ export async function fetchLists() {
   return res.json();
 }
 
+export async function fetchList(id) {
+  const res = await fetch(`${BASE_URL}/lists/${id}`);
+  return res.json();
+}
+
 export async function updateList(payload, method, param) {
   let url = BASE_URL;
 
