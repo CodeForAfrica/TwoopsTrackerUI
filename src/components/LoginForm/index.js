@@ -74,6 +74,9 @@ function useQueryParams() {
 function Login({ providers, ...props }) {
   const classes = useStyles(props);
   const [session] = useSession();
+  const token = useQueryParams();
+  const isLoading = token?.access_token || session;
+
   useEffect(() => {
     if (session) {
       Router.push("/explore");
@@ -102,7 +105,6 @@ function Login({ providers, ...props }) {
     window.location = `${googleAuthUrl}?${urlParams}`;
   }, []);
 
-  const token = useQueryParams();
   if (token.access_token && token.refresh_token) {
     saveToken(token.access_token, token.refresh_token);
     Router.push("/explore");
@@ -125,9 +127,10 @@ function Login({ providers, ...props }) {
               className={classes.loginButton}
               target="_blank"
               rel="noopener noreferrer"
+              disabled={isLoading}
               onClick={openGoogleLoginPage}
             >
-              Sign in with Google
+              {isLoading ? "Loading..." : "Sign in with Google"}
             </Button>
           </div>
         </form>
