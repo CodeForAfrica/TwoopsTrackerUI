@@ -2,7 +2,7 @@ import React from "react";
 
 import InvestigationsCard from ".";
 
-import cardImage from "@/twoopstracker/assets/images/Rectangle 34.png";
+import cardImage from "@/twoopstracker/assets/images/image18.png";
 
 export default {
   title: "Components/InvestigationsCard",
