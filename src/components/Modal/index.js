@@ -63,7 +63,7 @@ function ModalComponent({
             )}
             {nameOnChange && (
               <FilledInput
-                value={nameValue || ""}
+                defaultValue={nameValue || ""}
                 name="name"
                 id="name"
                 onChange={nameOnChange}
@@ -86,7 +86,7 @@ function ModalComponent({
             )}
             {accountsOnChange && (
               <FilledInput
-                value={accountsValue || ""}
+                defaultValue={accountsValue || ""}
                 name="accounts"
                 id="accounts"
                 onChange={accountsOnChange}
@@ -105,20 +105,18 @@ function ModalComponent({
 
         {privacyOnChange && (
           <FormControl variant="standard" className={classes.formControl}>
-            {privacyValue && (
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={privacyValue}
-                    className={classes.checkbox}
-                    onChange={privacyOnChange}
-                    name="privacy"
-                  />
-                }
-                label="Is Private"
-                labelPlacement="end"
-              />
-            )}
+            <FormControlLabel
+              control={
+                <Checkbox
+                  defaultChecked={privacyValue}
+                  className={classes.checkbox}
+                  onChange={privacyOnChange}
+                  name="privacy"
+                />
+              }
+              label="Is Private"
+              labelPlacement="end"
+            />
           </FormControl>
         )}
         {deleteDescription && <Typography>{deleteDescription}</Typography>}

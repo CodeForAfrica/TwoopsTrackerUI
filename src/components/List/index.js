@@ -95,7 +95,7 @@ function List({
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title}>{name}</Typography>
+      <Typography className={classes.title}>{listName}</Typography>
       <Grid container>
         <Grid item xs={10}>
           {createdAt && (
@@ -119,8 +119,8 @@ function List({
             accountsLabel="User Accounts"
             accountsOnChange={handleChange}
             accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
-            accountsValue={accounts}
-            privacyValue={privacy}
+            accountsValue={accountsStr}
+            privacyValue={privacyStatus}
             privacyOnChange={handleChange}
             buttonLabel="Update"
             buttonOnClick={onUpdate}
