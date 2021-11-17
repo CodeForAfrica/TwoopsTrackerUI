@@ -9,8 +9,8 @@ const useStyles = makeStyles(({ typography }) => ({
   root: {
     borderBottom: "1px solid rgba(0, 0, 0, 0.25)",
     paddingBottom: typography.pxToRem(10),
+    paddingTop: typography.pxToRem(30),
   },
-  title: {},
   button: {
     padding: `${typography.pxToRem(10)} ${typography.pxToRem(20)}`,
     marginRight: typography.pxToRem(10),
@@ -52,7 +52,7 @@ function UserSearchCard({
             <Typography
               variant="body1"
               className={classes.text}
-            >{`${queryPrefix}${Object.values(query).join(", ")}`}</Typography>
+            >{`${queryPrefix}${Object.keys(query).join(", ")}`}</Typography>
           )}
         </Grid>
         <Grid
