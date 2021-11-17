@@ -13,7 +13,11 @@ const AccountList = ({ data: { name, accounts }, ...props }) => {
     <Section className={classes.root}>
       {name && <Typography className={classes.listName}>{name}</Typography>}
       {accounts?.map((account) => (
-        <Account key={account.screen_name} account={account} />
+        <Account
+          key={account.screen_name}
+          account={account}
+          items={accounts.length}
+        />
       ))}
     </Section>
   );

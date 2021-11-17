@@ -14,6 +14,7 @@ const Account = ({
     created_at: createdAt,
     protected: accountType,
   },
+  items,
   ...props
 }) => {
   const classes = useStyles(props);
@@ -49,7 +50,9 @@ const Account = ({
           )}
         </Grid>
         <Grid item lg={5} sm={12} className={classes.buttonSection}>
-          <Button className={classes.delete}>Delete</Button>
+          <Button disabled={items === 1} className={classes.delete}>
+            Delete
+          </Button>
         </Grid>
       </Grid>
     </div>
@@ -63,10 +66,12 @@ Account.propTypes = {
     created_at: PropTypes.string,
     protected: PropTypes.bool,
   }),
+  items: PropTypes.number,
 };
 
 Account.defaultProps = {
   account: undefined,
+  items: undefined,
 };
 
 export default Account;
