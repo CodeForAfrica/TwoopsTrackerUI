@@ -1,7 +1,16 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
-  root: {},
+  root: {
+    boxShadow: `0 ${typography.pxToRem(4)} ${typography.pxToRem(
+      8
+    )} 0 rgba(0,0,0,0.2)`,
+    marginBottom: `${typography.pxToRem(20)}`,
+    padding: `${typography.pxToRem(20)}`,
+    "& .highlight": {
+      color: "#DB1111",
+    },
+  },
   icon: {
     position: "relative",
     width: typography.pxToRem(100),

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
+import Link from "@/twoopstracker/components/Link";
 import CustomModal from "@/twoopstracker/components/Modal";
 import { updateList, fetchLists } from "@/twoopstracker/lib";
 
@@ -95,7 +96,9 @@ const List = ({
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title}>{name}</Typography>
+      <Link href={`/lists/${id}`}>
+        <Typography className={classes.title}>{name}</Typography>
+      </Link>
       <Grid container>
         <Grid item xs={10}>
           {createdAt && (
