@@ -1,13 +1,13 @@
 import React from "react";
 
-// import Lists from "@/twoopstracker/components/Lists";
+import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
 import { fetchList } from "@/twoopstracker/lib";
 
 export default function Index(props) {
   return (
     <Page {...props}>
-      <div>Data List</div>
+      <AccountsList {...props} />
     </Page>
   );
 }
