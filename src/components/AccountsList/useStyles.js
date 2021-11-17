@@ -5,6 +5,7 @@ const useStyles = makeStyles(({ typography }) => ({
   listName: {
     fontWeight: "700",
     fontSize: typography.pxToRem(36),
+    margin: `${typography.pxToRem(20)} 0`,
   },
 }));
 

@@ -46,9 +46,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     justifyContent: "end",
     alignItems: "end",
   },
-  edit: {
-    color: "#DB1111",
-  },
+
   delete: {
     backgroundColor: "#DB1111",
     color: "#fff",
