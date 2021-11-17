@@ -1,3 +1,4 @@
+import { A } from "@commons-ui/core";
 import { Typography, Button, Grid, makeStyles } from "@material-ui/core";
 import Image from "next/image";
 import PropTypes from "prop-types";
@@ -60,21 +61,23 @@ function InvestigationsPreview({
           {description}
         </Typography>
         <Grid container spacing={8}>
-          {items.slice(0, 4).map(({ image, title: bookTitle }) => (
+          {items.slice(0, 4).map(({ image, title: bookTitle, href }) => (
             <Grid item xs={6} md={3}>
-              <Image
-                height={369}
-                width={297}
-                objectFit="contain"
-                src={image}
-                alt={title}
-              />
-              <Typography
-                className={classes.investigationtitle}
-                variant="body1"
-              >
-                {bookTitle}
-              </Typography>
+              <A href={href}>
+                <Image
+                  height={369}
+                  width={297}
+                  objectFit="contain"
+                  src={image}
+                  alt={title}
+                />
+                <Typography
+                  className={classes.investigationtitle}
+                  variant="body1"
+                >
+                  {bookTitle}
+                </Typography>
+              </A>
             </Grid>
           ))}
         </Grid>

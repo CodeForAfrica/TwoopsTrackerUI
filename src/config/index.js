@@ -5,9 +5,11 @@ import twitter from "@/twoopstracker/assets/icons/white icon twitter.svg";
 import codeForAll from "@/twoopstracker/assets/images/Artboard 1@2x 1.png";
 import codeForAfrica from "@/twoopstracker/assets/images/CFA Editable Logo-01 1.png";
 import crowdtangle from "@/twoopstracker/assets/images/image 5.png";
+import onlinePoliticalTrolls from "@/twoopstracker/assets/images/image18.png";
+import kenyaKeyboard from "@/twoopstracker/assets/images/image3.png";
+import ethopiaHacktivism from "@/twoopstracker/assets/images/image5.png";
+import ugandaInChrisis from "@/twoopstracker/assets/images/image9.png";
 import github from "@/twoopstracker/assets/images/Rectangle 10.png";
-import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
-import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import cfaSquare from "@/twoopstracker/assets/images/Square-01 1.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
@@ -643,67 +645,32 @@ export const investigation = {
   },
   items: [
     {
-      image: featuredInvestigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      image: onlinePoliticalTrolls,
       description:
-        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-      title: "Investigation One",
-      href: "https://www.example.com",
+        "Operation KOT: User network uses coordinated amplification of anti-Ruto hashtags on Twitter, in a likely attempt to spread disinformation",
+      title: "Online Political Troll",
+      href: "https://investigate.africa/opt-report-post",
     },
     {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      image: ugandaInChrisis,
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
+        "In the lead-up to the East African nation’s January 2021 elections, pro-government trolls wielded tweets as a weapon to spread misinformation and disinformation against opposition leader Bobi Wine.",
+      title: "Uganda In Chrisis",
+      href: "https://investigate.africa/reports/uganda-in-crisis/",
     },
     {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      image: kenyaKeyboard,
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
+        "How opposing online groups coordinated to amplify political narratives against each other on social media.",
+      title: "Kenya's Keyboard Warrior",
+      href: "https://investigate.africa/reports/kenya-keyboard-warriors",
     },
     {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+      image: ethopiaHacktivism,
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
-    },
-    {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
-    },
-    {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
-    },
-    {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
+        "How the Ethiopian diaspora community spearheaded the Hashtag Activism after the assassination of Haacaaluu Hundessa",
+      title: "ET Hacktivism",
+      href: "https://investigate.africa/reports/ethiopia-hacktivism-post/",
     },
   ],
 };
