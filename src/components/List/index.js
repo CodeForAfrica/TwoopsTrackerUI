@@ -66,7 +66,7 @@ const List = ({
     };
 
     try {
-      await updateList(payload, "PUT");
+      await updateList(payload, "PUT", id);
       const result = await fetchLists();
       setLists(result);
       setOpen(false);
