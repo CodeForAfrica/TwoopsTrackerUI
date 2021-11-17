@@ -1,5 +1,63 @@
+import jwtDecode from "jwt-decode";
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
+
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+function fetchToken(
+  token,
+  url = "https://dev.investigate.africa/auth/login/google/"
+) {
+  const raw = JSON.stringify({
+    access_token: token,
+  });
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  return fetch(url, requestOptions).then((response) => {
+    return response.json();
+  });
+}
+/**
+ * Takes a token, and returns a new token with updated
+ * `accessToken` and `exp`. If an error occurs,
+ * returns the old token and an error property
+ */
+async function refreshAccessToken(token) {
+  try {
+    const url = "https://dev.investigate.africa/api/token/refresh/";
+
+    const response = await fetch(url, {
+      headers: myHeaders,
+      method: "POST",
+      body: JSON.stringify({
+        refresh: token.refreshToken,
+      }),
+    });
+
+    const refreshedTokens = await response.json();
+
+    if (!response.ok) {
+      throw refreshedTokens;
+    }
+
+    return {
+      ...token,
+      accessToken: refreshedTokens.access_token,
+      exp: jwtDecode(refreshedTokens.access_token).exp * 1000,
+      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
+    };
+  } catch (error) {
+    return {
+      error: "RefreshAccessTokenError",
+    };
+  }
+}
 
 const options = {
   // Configure one or more authentication providers
@@ -18,14 +76,40 @@ const options = {
      * @return {boolean}         Return `true` (or a modified JWT) to allow sign in
      *                           Return `false` to deny access
      */
-    signIn: (user, account) => {
-      if (account.provider === "google" && user.email) {
+    signIn: async (user, account) => {
+      const token = await fetchToken(account.accessToken);
+      if (token.access_token) {
         return true;
       }
       return false;
     },
+    jwt: async (token, user, account) => {
+      // Initial sign in
+      if (account && user) {
+        const { access_token: accessToken, refresh_token: refreshToken } =
+          await fetchToken(account?.accessToken);
+        return {
+          accessToken,
+          exp: jwtDecode(accessToken).exp * 1000,
+          refreshToken,
+          user,
+        };
+      }
+      // Return previous token if the access token has not expired yet
+      if (Date.now() < token.exp) {
+        return token;
+      }
+      // Access token has expired, try to update it
+      return refreshAccessToken(token);
+    },
+    session: async (session, token) => {
+      const newSession = session;
+      newSession.user = token.user;
+      newSession.accessToken = token.accessToken;
+      newSession.error = token.error;
+      return newSession;
+    },
   },
-
   pages: {
     // signIn: "/",
     error: "/404", // Error code passed in query string as ?error=
