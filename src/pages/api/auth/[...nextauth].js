@@ -5,13 +5,8 @@ import Providers from "next-auth/providers";
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-function fetchToken(
-  token,
-  url = "https://dev.investigate.africa/auth/login/google/"
-) {
-  const raw = JSON.stringify({
-    access_token: token,
-  });
+function fetchToken(token, url = process.env.AUTH_URL) {
+  const raw = JSON.stringify(token);
   const requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -20,7 +15,10 @@ function fetchToken(
   };
 
   return fetch(url, requestOptions).then((response) => {
-    return response.json();
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error(response.statusText);
   });
 }
 /**
@@ -30,21 +28,10 @@ function fetchToken(
  */
 async function refreshAccessToken(token) {
   try {
-    const url = "https://dev.investigate.africa/api/token/refresh/";
-
-    const response = await fetch(url, {
-      headers: myHeaders,
-      method: "POST",
-      body: JSON.stringify({
-        refresh: token.refreshToken,
-      }),
-    });
-
-    const refreshedTokens = await response.json();
-
-    if (!response.ok) {
-      throw refreshedTokens;
-    }
+    const refreshedTokens = await fetchToken(
+      { refresh: token.refreshToken },
+      process.env.REFRESH_URL
+    );
 
     return {
       ...token,
@@ -77,7 +64,9 @@ const options = {
      *                           Return `false` to deny access
      */
     signIn: async (user, account) => {
-      const token = await fetchToken(account.accessToken);
+      const token = await fetchToken({
+        access_token: account.accessToken,
+      });
       if (token.access_token) {
         return true;
       }
@@ -87,7 +76,9 @@ const options = {
       // Initial sign in
       if (account && user) {
         const { access_token: accessToken, refresh_token: refreshToken } =
-          await fetchToken(account?.accessToken);
+          await fetchToken({
+            access_token: account?.accessToken,
+          });
         return {
           accessToken,
           exp: jwtDecode(accessToken).exp * 1000,
