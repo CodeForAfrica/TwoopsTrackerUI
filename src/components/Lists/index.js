@@ -2,14 +2,14 @@ import { Button, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
+import fetchData from "./apiHelper";
 import useStyles from "./useStyles";
 
 import List from "@/twoopstracker/components/List";
 import CustomModal from "@/twoopstracker/components/Modal";
 import Section from "@/twoopstracker/components/Section";
-import { updateList, fetchLists } from "@/twoopstracker/lib";
 
-function ListItems({ data: listsProp, ...props }) {
+function ListItems({ results: listsProp, ...props }) {
   const [open, setOpen] = useState(false);
   const [lists, setLists] = useState(listsProp);
   const [name, setName] = useState("");
@@ -32,10 +32,9 @@ function ListItems({ data: listsProp, ...props }) {
     };
 
     try {
-      await updateList(payload, "POST");
-      const result = await fetchLists();
+      const results = await fetchData(payload, "/api/accounts/lists");
 
-      setLists(result);
+      setLists(results);
       setOpen(false);
       setName("");
       setAccounts("");
@@ -100,11 +99,11 @@ function ListItems({ data: listsProp, ...props }) {
 }
 
 ListItems.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({})),
+  results: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 ListItems.defaultProps = {
-  data: undefined,
+  results: undefined,
 };
 
 export default ListItems;

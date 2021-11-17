@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import useStyles from "./useStyles";
 
 import CustomModal from "@/twoopstracker/components/Modal";
-import { updateList, fetchLists } from "@/twoopstracker/lib";
 
 function List({
   name: listName,
@@ -66,9 +65,15 @@ function List({
     };
 
     try {
-      await updateList(payload, "PUT", id);
-      const result = await fetchLists();
-      setLists(result);
+      await fetch(`/api/accounts/lists/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(payload),
+      });
+
+      const data = await fetch("/api/accounts/lists");
+      const result = await data.json();
+
+      setLists(result.results);
       setOpen(false);
     } catch (e) {
       setOpen(true);
@@ -77,9 +82,14 @@ function List({
 
   const onDelete = async () => {
     try {
-      await updateList(null, "DELETE", id);
-      const result = await fetchLists();
-      setLists(result);
+      await fetch(`/api/accounts/lists/${id}`, {
+        method: "DELETE",
+      });
+
+      const data = await fetch("/api/accounts/lists");
+      const result = await data.json();
+
+      setLists(result.results);
       setDeleteOpen(false);
     } catch (e) {
       setDeleteOpen(true);

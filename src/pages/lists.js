@@ -13,8 +13,8 @@ export default function Index(props) {
 }
 
 export async function getServerSideProps() {
-  const data = await fetchLists();
+  const { results } = await fetchLists();
 
   // Pass data to the page via props
-  return { props: { data } };
+  return { props: { results } };
 }

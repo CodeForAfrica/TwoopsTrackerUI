@@ -1,6 +1,6 @@
 import { subDays } from "date-fns";
 
-const BASE_URL = "https://dev.investigate.africa/v1";
+const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
 
 export async function fetchAll() {
   const res = await fetch(`${BASE_URL}/tweets/`);
@@ -26,7 +26,7 @@ export async function updateList(payload, method, param) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: payload ? JSON.stringify(payload) : null,
+    body: payload || null,
   });
 
   if (method === "DELETE") {
