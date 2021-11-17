@@ -7,7 +7,7 @@ import useStyles from "./useStyles";
 import CustomModal from "@/twoopstracker/components/Modal";
 import { updateList, fetchLists } from "@/twoopstracker/lib";
 
-const List = ({
+function List({
   name: listName,
   created_at: createdAt,
   accounts: listAccounts,
@@ -15,7 +15,7 @@ const List = ({
   id,
   setLists,
   ...props
-}) => {
+}) {
   const [open, setOpen] = useState(false);
   const [deleteopen, setDeleteOpen] = useState(false);
 
@@ -136,7 +136,7 @@ const List = ({
       </Grid>
     </div>
   );
-};
+}
 
 List.propTypes = {
   name: PropTypes.string,

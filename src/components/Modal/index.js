@@ -27,7 +27,7 @@ const style = {
   p: 4,
 };
 
-const ModalComponent = ({
+function ModalComponent({
   open,
   onClose,
   nameValue,
@@ -44,7 +44,7 @@ const ModalComponent = ({
   buttonLabel,
   buttonOnClick,
   ...props
-}) => {
+}) {
   const classes = useStyles(props);
   return (
     <Modal
@@ -132,7 +132,7 @@ const ModalComponent = ({
       </Box>
     </Modal>
   );
-};
+}
 
 ModalComponent.propTypes = {
   open: PropTypes.bool,
