@@ -1,3 +1,4 @@
+import navLogo from "@/twoopstracker/assets/icons/avator.svg";
 import fb from "@/twoopstracker/assets/icons/white icon fb.svg";
 import insta from "@/twoopstracker/assets/icons/white icon insta.svg";
 import linkedin from "@/twoopstracker/assets/icons/white icon linkedin.svg";
@@ -7,7 +8,6 @@ import codeForAfrica from "@/twoopstracker/assets/images/CFA Editable Logo-01 1.
 import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
-import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
 
 export const tweets = [
   {
@@ -632,6 +632,17 @@ export const navigationArgs = {
   },
 };
 
+export const userProfileArgs = {
+  label: "Account Name",
+  avatorProps: {
+    width: 48,
+    height: 48,
+    alt: "desktop logo",
+    href: "https://codeforafrica.org",
+    src: navLogo,
+  },
+};
+
 export const investigation = {
   banner: {
     description:
@@ -811,6 +822,7 @@ export const footerArgs = {
 const config = {
   tweets,
   navigationArgs,
+  userProfileArgs,
   url: "http://localhost:3000",
   investigation,
 };
