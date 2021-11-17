@@ -45,7 +45,8 @@ function Chart({ tweets, title, days, ...props }) {
 
   useEffect(() => {
     async function renderChart() {
-      const spec = LineScope(tweets, startDate, endDate, !isUpLg);
+      const { results: data } = tweets;
+      const spec = LineScope(data, startDate, endDate, !isUpLg);
       if (chartRef?.current) {
         const newView = await embed(chartRef.current, spec, {
           renderer: "svg",
@@ -57,7 +58,7 @@ function Chart({ tweets, title, days, ...props }) {
     if (tweets) {
       renderChart();
     }
-  }, [tweets, isUpLg]);
+  }, [tweets, isUpLg, startDate, endDate]);
 
   useEffect(() => {
     if (title && view) {
@@ -65,7 +66,7 @@ function Chart({ tweets, title, days, ...props }) {
     }
   }, [view, title]);
 
-  if (!tweets.length) {
+  if (!tweets?.results?.length) {
     return null;
   }
   return (
@@ -80,7 +81,9 @@ function Chart({ tweets, title, days, ...props }) {
 Chart.propTypes = {
   days: PropTypes.number,
   title: PropTypes.string,
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  tweets: PropTypes.shape({
+    results: PropTypes.arrayOf(PropTypes.shape({})),
+  }),
 };
 
 Chart.defaultProps = {
