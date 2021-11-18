@@ -1,10 +1,12 @@
 import { Grid, Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React from "react";
 
 import Link from "@/twoopstracker/components/Link";
 import LoginMenu from "@/twoopstracker/components/LoginMenu";
+import UserProfile from "@/twoopstracker/components/UserProfile";
 
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
@@ -77,8 +79,10 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Menu({ links, children, loginMenuProps, ...props }) {
+function Menu({ links, children, loginMenuProps, userProfileArgs, ...props }) {
   const classes = useStyles(props);
+  const router = useRouter();
+  const href = router.pathname;
 
   if (!links?.length) {
     return null;
@@ -104,7 +108,11 @@ function Menu({ links, children, loginMenuProps, ...props }) {
           </Button>
         </Grid>
       ))}
-      <LoginMenu links={loginMenuProps} />
+      {href === "/explore" ? (
+        <UserProfile {...userProfileArgs} />
+      ) : (
+        <LoginMenu links={loginMenuProps} />
+      )}
       {children}
     </Grid>
   );
@@ -113,11 +121,13 @@ function Menu({ links, children, loginMenuProps, ...props }) {
 Menu.propTypes = {
   links: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
+  userProfileArgs: PropTypes.arrayOf(PropTypes.shape({})),
   children: PropTypes.node,
 };
 
 Menu.defaultProps = {
   loginMenuProps: undefined,
+  userProfileArgs: undefined,
   children: undefined,
 };
 export default Menu;
