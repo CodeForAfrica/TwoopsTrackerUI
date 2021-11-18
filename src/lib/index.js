@@ -57,3 +57,40 @@ export async function search({ term, theme, location, days = 7 }) {
   const res = await fetch(searchUrl);
   return res.json();
 }
+
+// API fetch helpers
+
+export const fetchUpdateList = async (url, payload, id) => {
+  await fetch(`${url}/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+
+  const data = await fetch(url);
+  const result = await data.json();
+
+  return result.results;
+};
+
+export const fetchPostList = async (payload, url) => {
+  await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  const data = await fetch(url);
+  const result = await data.json();
+
+  return result.results;
+};
+
+export const fetchDeleteList = async (url, id) => {
+  await fetch(`${url}/${id}`, {
+    method: "DELETE",
+  });
+
+  const data = await fetch(url);
+  const result = await data.json();
+
+  return result.results;
+};

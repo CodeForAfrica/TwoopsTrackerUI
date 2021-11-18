@@ -2,12 +2,12 @@ import { Button, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
-import fetchData from "./apiHelper";
 import useStyles from "./useStyles";
 
 import List from "@/twoopstracker/components/List";
 import CustomModal from "@/twoopstracker/components/Modal";
 import Section from "@/twoopstracker/components/Section";
+import { fetchPostList } from "@/twoopstracker/lib";
 
 function ListItems({ results: listsProp, ...props }) {
   const [open, setOpen] = useState(false);
@@ -32,7 +32,7 @@ function ListItems({ results: listsProp, ...props }) {
     };
 
     try {
-      const results = await fetchData(payload, "/api/accounts/lists");
+      const results = await fetchPostList(payload, "/api/accounts/lists");
 
       setLists(results);
       setOpen(false);
