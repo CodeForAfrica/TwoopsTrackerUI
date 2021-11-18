@@ -21,13 +21,18 @@ export async function updateList(payload, method, param) {
     url = `${url}/lists/`;
   }
 
-  const res = await fetch(url, {
+  const options = {
     method,
     headers: {
       "Content-Type": "application/json",
     },
-    body: payload || null,
-  });
+  };
+
+  if (payload) {
+    options.body = payload;
+  }
+
+  const res = await fetch(url, options);
 
   if (method === "DELETE") {
     return res;

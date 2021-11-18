@@ -9,7 +9,7 @@ import CustomModal from "@/twoopstracker/components/Modal";
 import Section from "@/twoopstracker/components/Section";
 import { fetchPostList } from "@/twoopstracker/lib";
 
-function ListItems({ results: listsProp, ...props }) {
+function Lists({ results: listsProp, ...props }) {
   const [open, setOpen] = useState(false);
   const [lists, setLists] = useState(listsProp);
   const [name, setName] = useState("");
@@ -98,12 +98,12 @@ function ListItems({ results: listsProp, ...props }) {
   );
 }
 
-ListItems.propTypes = {
+Lists.propTypes = {
   results: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
-ListItems.defaultProps = {
+Lists.defaultProps = {
   results: undefined,
 };
 
-export default ListItems;
+export default Lists;
