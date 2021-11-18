@@ -12,10 +12,26 @@ const Template = (args) => <Lists {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  data: [
-    { name: "List One", created_at: "Saved on yy/mm/dd at 00:00:00" },
-    { name: "List Two", created_at: "Saved on yy/mm/dd at 00:00:00" },
-    { name: "List Three", created_at: "Saved on yy/mm/dd at 00:00:00" },
-    { name: "List Four", created_at: "Saved on yy/mm/dd at 00:00:00" },
+  results: [
+    {
+      name: "List One",
+      created_at: "2021-11-16T15:37:07.752405Z",
+      accounts: [{ screen_name: "code4africa" }],
+    },
+    {
+      name: "List Two",
+      created_at: "2021-11-16T15:37:07.752405Z",
+      accounts: [{ screen_name: "code4africa" }],
+    },
+    {
+      name: "List Three",
+      created_at: "2021-11-16T15:37:07.752405Z",
+      accounts: [{ screen_name: "code4africa" }],
+    },
+    {
+      name: "List Four",
+      created_at: "2021-11-16T15:37:07.752405Z",
+      accounts: [{ screen_name: "code4africa" }],
+    },
   ],
 };

@@ -1,6 +1,6 @@
 import { subDays } from "date-fns";
 
-const BASE_URL = "https://dev.investigate.africa/v1";
+const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
 
 export async function fetchAll() {
   const res = await fetch(`${BASE_URL}/tweets/`);
@@ -26,13 +26,18 @@ export async function updateList(payload, method, param) {
     url = `${url}/lists/`;
   }
 
-  const res = await fetch(url, {
+  const options = {
     method,
     headers: {
       "Content-Type": "application/json",
     },
-    body: payload ? JSON.stringify(payload) : null,
-  });
+  };
+
+  if (payload) {
+    options.body = payload;
+  }
+
+  const res = await fetch(url, options);
 
   if (method === "DELETE") {
     return res;
@@ -62,3 +67,40 @@ export async function search({ term, theme, location, days = 7 }) {
   const res = await fetch(searchUrl);
   return res.json();
 }
+
+// API fetch helpers
+
+export const fetchUpdateList = async (url, payload, id) => {
+  await fetch(`${url}/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+
+  const data = await fetch(url);
+  const result = await data.json();
+
+  return result.results;
+};
+
+export const fetchPostList = async (payload, url) => {
+  await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  const data = await fetch(url);
+  const result = await data.json();
+
+  return result.results;
+};
+
+export const fetchDeleteList = async (url, id) => {
+  await fetch(`${url}/${id}`, {
+    method: "DELETE",
+  });
+
+  const data = await fetch(url);
+  const result = await data.json();
+
+  return result.results;
+};

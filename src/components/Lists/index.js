@@ -4,12 +4,12 @@ import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
-import List from "@/twoopstracker/components/List";
+import ListCard from "@/twoopstracker/components/ListCard";
 import CustomModal from "@/twoopstracker/components/Modal";
 import Section from "@/twoopstracker/components/Section";
-import { updateList, fetchLists } from "@/twoopstracker/lib";
+import { fetchPostList } from "@/twoopstracker/lib";
 
-const ListItems = ({ data: listsProp, ...props }) => {
+function Lists({ results: listsProp, ...props }) {
   const [open, setOpen] = useState(false);
   const [lists, setLists] = useState(listsProp);
   const [name, setName] = useState("");
@@ -32,10 +32,9 @@ const ListItems = ({ data: listsProp, ...props }) => {
     };
 
     try {
-      await updateList(payload, "POST");
-      const result = await fetchLists();
+      const results = await fetchPostList(payload, "/api/accounts/lists");
 
-      setLists(result);
+      setLists(results);
       setOpen(false);
       setName("");
       setAccounts("");
@@ -66,7 +65,7 @@ const ListItems = ({ data: listsProp, ...props }) => {
   return (
     <Section>
       <div className={classes.section}>
-        <Typography>Your Lists</Typography>
+        <Typography className={classes.listTitle}>Your Lists</Typography>
         <Button onClick={handleOpen} className={classes.button}>
           Create New List
         </Button>
@@ -88,7 +87,7 @@ const ListItems = ({ data: listsProp, ...props }) => {
         />
       </div>
       {lists.map((item) => (
-        <List
+        <ListCard
           key={item.name}
           classes={{ root: classes.listItem }}
           {...item}
@@ -97,14 +96,14 @@ const ListItems = ({ data: listsProp, ...props }) => {
       ))}
     </Section>
   );
+}
+
+Lists.propTypes = {
+  results: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
-ListItems.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({})),
+Lists.defaultProps = {
+  results: undefined,
 };
 
-ListItems.defaultProps = {
-  data: undefined,
-};
-
-export default ListItems;
+export default Lists;

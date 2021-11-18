@@ -27,7 +27,7 @@ const style = {
   p: 4,
 };
 
-const ModalComponent = ({
+function ModalComponent({
   open,
   onClose,
   nameValue,
@@ -44,7 +44,7 @@ const ModalComponent = ({
   buttonLabel,
   buttonOnClick,
   ...props
-}) => {
+}) {
   const classes = useStyles(props);
   return (
     <Modal
@@ -63,7 +63,7 @@ const ModalComponent = ({
             )}
             {nameOnChange && (
               <FilledInput
-                value={nameValue || ""}
+                defaultValue={nameValue || ""}
                 name="name"
                 id="name"
                 onChange={nameOnChange}
@@ -86,7 +86,7 @@ const ModalComponent = ({
             )}
             {accountsOnChange && (
               <FilledInput
-                value={accountsValue || ""}
+                defaultValue={accountsValue || ""}
                 name="accounts"
                 id="accounts"
                 onChange={accountsOnChange}
@@ -105,20 +105,18 @@ const ModalComponent = ({
 
         {privacyOnChange && (
           <FormControl variant="standard" className={classes.formControl}>
-            {privacyValue && (
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={privacyValue}
-                    className={classes.checkbox}
-                    onChange={privacyOnChange}
-                    name="privacy"
-                  />
-                }
-                label="Is Private"
-                labelPlacement="end"
-              />
-            )}
+            <FormControlLabel
+              control={
+                <Checkbox
+                  defaultChecked={privacyValue}
+                  className={classes.checkbox}
+                  onChange={privacyOnChange}
+                  name="privacy"
+                />
+              }
+              label="Is Private"
+              labelPlacement="end"
+            />
           </FormControl>
         )}
         {deleteDescription && <Typography>{deleteDescription}</Typography>}
@@ -132,7 +130,7 @@ const ModalComponent = ({
       </Box>
     </Modal>
   );
-};
+}
 
 ModalComponent.propTypes = {
   open: PropTypes.bool,
@@ -141,11 +139,11 @@ ModalComponent.propTypes = {
   nameOnChange: PropTypes.func,
   nameLabel: PropTypes.string,
   nameHelper: PropTypes.string,
-  accountsValue: PropTypes.arrayOf(PropTypes.shape({})),
+  accountsValue: PropTypes.string,
   accountsOnChange: PropTypes.func,
   accountsHelper: PropTypes.string,
   accountsLabel: PropTypes.string,
-  privacyValue: PropTypes.string,
+  privacyValue: PropTypes.bool,
   privacyOnChange: PropTypes.func,
   deleteDescription: PropTypes.string,
   buttonLabel: PropTypes.string,

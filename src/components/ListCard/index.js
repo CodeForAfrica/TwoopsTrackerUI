@@ -6,9 +6,9 @@ import useStyles from "./useStyles";
 
 import Link from "@/twoopstracker/components/Link";
 import CustomModal from "@/twoopstracker/components/Modal";
-import { updateList, fetchLists } from "@/twoopstracker/lib";
+import { fetchUpdateList, fetchDeleteList } from "@/twoopstracker/lib";
 
-const List = ({
+function List({
   name: listName,
   created_at: createdAt,
   accounts: listAccounts,
@@ -16,7 +16,7 @@ const List = ({
   id,
   setLists,
   ...props
-}) => {
+}) {
   const [open, setOpen] = useState(false);
   const [deleteopen, setDeleteOpen] = useState(false);
 
@@ -67,8 +67,8 @@ const List = ({
     };
 
     try {
-      await updateList(payload, "PUT");
-      const result = await fetchLists();
+      const result = await fetchUpdateList("/api/accounts/lists", payload, id);
+
       setLists(result);
       setOpen(false);
     } catch (e) {
@@ -78,8 +78,8 @@ const List = ({
 
   const onDelete = async () => {
     try {
-      await updateList(null, "DELETE", id);
-      const result = await fetchLists();
+      const result = await fetchDeleteList("/api/accounts/lists", id);
+
       setLists(result);
       setDeleteOpen(false);
     } catch (e) {
@@ -122,8 +122,8 @@ const List = ({
             accountsLabel="User Accounts"
             accountsOnChange={handleChange}
             accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
-            accountsValue={accounts}
-            privacyValue={privacy}
+            accountsValue={accountsStr}
+            privacyValue={privacyStatus}
             privacyOnChange={handleChange}
             buttonLabel="Update"
             buttonOnClick={onUpdate}
@@ -139,7 +139,7 @@ const List = ({
       </Grid>
     </div>
   );
-};
+}
 
 List.propTypes = {
   name: PropTypes.string,
