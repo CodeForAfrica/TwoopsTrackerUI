@@ -28,8 +28,9 @@ async function fetchTweets({ query, location, days = 7, page, pageSize }) {
   searchParams.append("endDate", endDate);
 
   const searchUrl = `${BASE_URL}/tweets/?${searchParams.toString()}&format=json`;
-  const res = await fetch(searchUrl);
-  return res.json();
+  const results = await fetchJson(searchUrl);
+  const allTweets = await fetchJson(`${searchUrl}?get_all_pages=true`);
+  return { tweets: results, allTweets };
 }
 
 export async function tweets(searchQuery = {}) {

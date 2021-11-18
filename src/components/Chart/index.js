@@ -29,7 +29,7 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
   },
 }));
 
-function Chart({ tweets, title, days, ...props }) {
+function Chart({ tweets, title, days: daysProp, ...props }) {
   const classes = useStyles(props);
   const chartRef = useRef();
   const [view, setView] = useState(null);
@@ -37,11 +37,11 @@ function Chart({ tweets, title, days, ...props }) {
   const theme = useTheme();
   const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
 
+  const days = parseInt(daysProp, 10) + 1;
+
   const date = new Date();
   const endDate = date.toISOString().substr(0, 10);
-  const startDate = subDays(date, days + 1)
-    .toISOString()
-    .substr(0, 10);
+  const startDate = subDays(date, days).toISOString().substr(0, 10);
 
   useEffect(() => {
     async function renderChart() {
@@ -87,7 +87,7 @@ Chart.propTypes = {
 };
 
 Chart.defaultProps = {
-  days: 7,
+  days: undefined,
   title: undefined,
   tweets: undefined,
 };

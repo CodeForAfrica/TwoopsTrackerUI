@@ -8,7 +8,7 @@ import Page from "@/twoopstracker/components/Page";
 import Partners from "@/twoopstracker/components/Partners";
 import SignUp from "@/twoopstracker/components/SignUp";
 import { home } from "@/twoopstracker/config";
-import { fetchAllResultsWithNext, tweets } from "@/twoopstracker/lib";
+import { tweets } from "@/twoopstracker/lib";
 
 export default function Index({ days, tweets: tweetsProp, ...props }) {
   return (
@@ -34,12 +34,11 @@ Index.defaultProps = {
 
 export async function getStaticProps() {
   const days = 14;
-  const fetchTweets = async () => tweets({ days, pageSize: 100 });
-  const foundTweets = await fetchAllResultsWithNext(fetchTweets);
+  const { allTweets } = await tweets({ days });
 
   return {
     props: {
-      tweets: foundTweets,
+      tweets: allTweets,
       days,
     },
     revalidate: 15 * 50, // 15 minutes

@@ -27,12 +27,18 @@ function getQueryString(query, theme, location, days) {
   return searchParams.toString();
 }
 
-function TweetsContainer({ tweets: tweetsProp, ...props }) {
+function TweetsContainer({
+  tweets: tweetsProp,
+  allTweets: allTweetsProp,
+  days: daysProp,
+  ...props
+}) {
   const classes = useStyles(props);
 
   const router = useRouter();
-  const [tweets, setTweets] = useState(tweetsProp);
-  const [days, setDays] = useState();
+  const [tweets, setTweets] = useState();
+  const [allTweets, setAllTweets] = useState();
+  const [days, setDays] = useState(daysProp);
   const [theme, setTheme] = useState();
   const [location, setLocation] = useState();
   const [query, setSearch] = useState("");
@@ -75,7 +81,7 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
 
   const shouldFetch = () => {
     const queryString = getQueryString(query, theme, location, days);
-    let url = "/api/search";
+    let url = "/api/tweets";
     if (queryString) {
       url = `${url}?${queryString}`;
     }
@@ -84,7 +90,8 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
   const { tweets: data, isLoading } = useTweets(shouldFetch);
   useEffect(() => {
     if (data) {
-      setTweets(data);
+      setTweets(data?.tweets);
+      setAllTweets(data?.allTweets);
     }
   }, [data]);
 
@@ -101,7 +108,7 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
       {isLoading && <Loading />}
       <Chart
         days={days}
-        tweets={tweets}
+        tweets={allTweets}
         classes={{ root: classes.chartRoot }}
       />
       <Tweets tweets={tweets} />
@@ -110,10 +117,14 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
 }
 
 TweetsContainer.propTypes = {
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  allTweets: PropTypes.shape({}),
+  days: PropTypes.number,
+  tweets: PropTypes.shape({}),
 };
 
 TweetsContainer.defaultProps = {
+  allTweets: undefined,
+  days: undefined,
   tweets: undefined,
 };
 

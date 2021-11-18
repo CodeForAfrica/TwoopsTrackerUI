@@ -6,9 +6,15 @@ import { SWRConfig } from "swr";
 
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
-import { search } from "@/twoopstracker/lib";
+import { tweets } from "@/twoopstracker/lib";
 
-export default function Explore({ fallback, tweets, ...props }) {
+export default function Explore({
+  days,
+  fallback,
+  tweets: tweetsProp,
+  allTweets,
+  ...props
+}) {
   const [session, loading] = useSession();
 
   useEffect(() => {
@@ -21,7 +27,11 @@ export default function Explore({ fallback, tweets, ...props }) {
     <>
       <Page {...props}>
         <SWRConfig value={{ fallback }}>
-          <TweetsContainer tweets={tweets} />
+          <TweetsContainer
+            tweets={tweetsProp}
+            days={days}
+            allTweets={allTweets}
+          />
         </SWRConfig>
       </Page>
     </>
@@ -29,11 +39,15 @@ export default function Explore({ fallback, tweets, ...props }) {
 }
 
 Explore.propTypes = {
+  allTweets: PropTypes.arrayOf(PropTypes.shape({})),
+  days: PropTypes.number,
   fallback: PropTypes.shape({}),
   tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Explore.defaultProps = {
+  allTweets: undefined,
+  days: undefined,
   fallback: undefined,
   tweets: undefined,
 };
@@ -41,14 +55,17 @@ Explore.defaultProps = {
 // TODO(kilemensi): Once search has been moved to the search page, this method
 //                  should be turned into getStaticProps
 export async function getServerSideProps(context) {
-  const tweets = await search({});
+  const days = 14;
+  const { tweets: defaultTweets, allTweets } = await tweets({ days });
 
   return {
     props: {
       providers: await providers(context),
-      tweets,
+      tweets: defaultTweets,
+      allTweets,
+      days,
       fallback: {
-        "/api/search": tweets,
+        "/api/tweets": { tweets: defaultTweets, allTweets },
       },
     },
   };

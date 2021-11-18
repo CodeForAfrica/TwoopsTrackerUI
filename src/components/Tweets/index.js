@@ -11,8 +11,10 @@ const Tweets = ({ tweets, ...props }) => {
   const classes = useStyles(props);
   return (
     <Section className={classes.section}>
-      {tweets.length > 0 ? (
-        tweets.map((tweet) => <TweetCard key={tweet.tweet_id} {...tweet} />)
+      {tweets?.results?.length > 0 ? (
+        tweets.results.map((tweet) => (
+          <TweetCard key={tweet.tweet_id} {...tweet} />
+        ))
       ) : (
         <Typography className={classes.text}>No Tweets Found</Typography>
       )}
@@ -21,7 +23,9 @@ const Tweets = ({ tweets, ...props }) => {
 };
 
 Tweets.propTypes = {
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  tweets: PropTypes.shape({
+    results: PropTypes.arrayOf(PropTypes.shape({})),
+  }),
 };
 
 Tweets.defaultProps = {
