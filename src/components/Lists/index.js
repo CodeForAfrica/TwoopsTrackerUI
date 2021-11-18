@@ -7,7 +7,7 @@ import useStyles from "./useStyles";
 import List from "@/twoopstracker/components/ListCard";
 import CustomModal from "@/twoopstracker/components/Modal";
 import Section from "@/twoopstracker/components/Section";
-import { fetchPostList } from "@/twoopstracker/lib";
+import { createList } from "@/twoopstracker/lib";
 
 function Lists({ results: listsProp, ...props }) {
   const [open, setOpen] = useState(false);
@@ -34,7 +34,7 @@ function Lists({ results: listsProp, ...props }) {
     };
 
     try {
-      const results = await fetchPostList(payload, "/api/accounts/lists");
+      const results = await createList(payload, "/api/accounts/lists");
 
       setLists(results);
       setOpen(false);

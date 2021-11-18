@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import useStyles from "./useStyles";
 
 import CustomModal from "@/twoopstracker/components/Modal";
-import { fetchUpdateList, fetchDeleteList } from "@/twoopstracker/lib";
+import { updateList, deleteList } from "@/twoopstracker/lib";
 
 function List({
   name: listName,
@@ -66,7 +66,7 @@ function List({
     };
 
     try {
-      const result = await fetchUpdateList("/api/accounts/lists", payload, id);
+      const result = await updateList("/api/accounts/lists", payload, id);
 
       setLists(result);
       setOpen(false);
@@ -77,7 +77,7 @@ function List({
 
   const onDelete = async () => {
     try {
-      const result = await fetchDeleteList("/api/accounts/lists", id);
+      const result = await deleteList("/api/accounts/lists", id);
 
       setLists(result);
       setDeleteOpen(false);
