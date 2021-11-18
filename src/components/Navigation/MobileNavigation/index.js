@@ -150,6 +150,7 @@ function MobileNavigation({
   mobileLogoProps,
   drawerLogoProps,
   loginMenuProps,
+  userProfileArgs,
   ...props
 }) {
   const classes = useStyles(props);
@@ -247,6 +248,7 @@ function MobileNavigation({
                     menu: classes.buttonMenu,
                   }}
                   loginMenuProps={loginMenuProps}
+                  {...userProfileArgs}
                 />
               </Section>
             </DialogContent>
@@ -258,13 +260,6 @@ function MobileNavigation({
 }
 
 MobileNavigation.propTypes = {
-  drawerLogoProps: PropTypes.shape({
-    alt: PropTypes.string,
-    href: PropTypes.string,
-    src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
-    width: PropTypes.number,
-    height: PropTypes.number,
-  }),
   menuProps: PropTypes.arrayOf(PropTypes.shape({})),
   loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
   mobileLogoProps: PropTypes.shape({
@@ -274,12 +269,30 @@ MobileNavigation.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
   }),
+  drawerLogoProps: PropTypes.shape({
+    alt: PropTypes.string,
+    href: PropTypes.string,
+    src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
+    width: PropTypes.number,
+    height: PropTypes.number,
+  }),
+  userProfileArgs: PropTypes.shape({
+    label: PropTypes.string,
+    avatorProps: PropTypes.shape({
+      alt: PropTypes.string,
+      href: PropTypes.string,
+      src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
+      width: PropTypes.number,
+      height: PropTypes.number,
+    }),
+  }),
 };
 
 MobileNavigation.defaultProps = {
   drawerLogoProps: undefined,
   menuProps: undefined,
   loginMenuProps: undefined,
+  userProfileArgs: undefined,
   mobileLogoProps: undefined,
 };
 

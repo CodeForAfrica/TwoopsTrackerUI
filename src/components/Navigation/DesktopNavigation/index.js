@@ -25,6 +25,7 @@ function DesktopNavigation({
   menuProps,
   desktopLogoProps,
   loginMenuProps,
+  userProfileArgs,
   ...props
 }) {
   const classes = useStyles(props);
@@ -50,7 +51,11 @@ function DesktopNavigation({
             justifyContent="flex-end"
             alignItems="center"
           >
-            <Menu links={menuProps} loginMenuProps={loginMenuProps} />
+            <Menu
+              links={menuProps}
+              loginMenuProps={loginMenuProps}
+              {...userProfileArgs}
+            />
           </Grid>
           <Grid />
           <Grid />
@@ -70,11 +75,22 @@ DesktopNavigation.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
   }),
+  userProfileArgs: PropTypes.shape({
+    label: PropTypes.string,
+    avatorProps: PropTypes.shape({
+      alt: PropTypes.string,
+      href: PropTypes.string,
+      src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
+      width: PropTypes.number,
+      height: PropTypes.number,
+    }),
+  }),
 };
 
 DesktopNavigation.defaultProps = {
   menuProps: undefined,
   loginMenuProps: undefined,
+  userProfileArgs: undefined,
   desktopLogoProps: undefined,
 };
 
