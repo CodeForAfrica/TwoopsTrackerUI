@@ -613,11 +613,11 @@ export const navigationArgs = {
   loginMenuProps: [
     {
       label: "Sign in",
-      href: "/sign-in",
+      href: "/login",
     },
     {
       label: "Sign Up ",
-      href: "/sign-up",
+      href: "/login",
     },
   ],
   desktopLogoProps: {
