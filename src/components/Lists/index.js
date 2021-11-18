@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
-import List from "@/twoopstracker/components/List";
+import List from "@/twoopstracker/components/ListCard";
 import CustomModal from "@/twoopstracker/components/Modal";
 import Section from "@/twoopstracker/components/Section";
 import { fetchPostList } from "@/twoopstracker/lib";
@@ -18,6 +18,8 @@ function Lists({ results: listsProp, ...props }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = useStyles(props);
+
+  console.log("FOR EACH", listsProp);
 
   const onCreate = async () => {
     const accountsMap = accounts
