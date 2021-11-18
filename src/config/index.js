@@ -808,11 +808,63 @@ export const footerArgs = {
   aboutVariant: "subtitle1",
 };
 
+export const searches = [
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+];
+
 const config = {
   tweets,
   navigationArgs,
   url: "http://localhost:3000",
   investigation,
+  searches,
 };
 
 export default config;
