@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { getSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -6,7 +7,7 @@ import Page from "@/twoopstracker/components/Page";
 import Section from "@/twoopstracker/components/Section";
 import Tabs from "@/twoopstracker/components/Tabs";
 import UserSearch from "@/twoopstracker/components/UserSearch";
-import { searches } from "@/twoopstracker/config";
+import { getSavedSearches } from "@/twoopstracker/lib";
 
 const useStyles = makeStyles(({ typography }) => ({
   section: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
-function Account({ slug, ...props }) {
+function Account({ searches, slug, ...props }) {
   const classes = useStyles(props);
   const tabItems = [
     {
@@ -53,30 +54,35 @@ function Account({ slug, ...props }) {
 }
 
 Account.propTypes = {
+  searches: PropTypes.arrayOf(PropTypes.shape({})),
   slug: PropTypes.string,
-  user: PropTypes.shape({}),
 };
 
 Account.defaultProps = {
+  searches: undefined,
   slug: undefined,
-  user: undefined,
 };
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-}
+export async function getServerSideProps(context) {
+  const { params, req, res } = context;
+  const session = await getSession({ req });
 
-export async function getStaticProps({ params }) {
+  if (!(session && res && session?.user)) {
+    res.writeHead(302, {
+      Location: "/login",
+    });
+    res.end();
+    return null;
+  }
+
+  const searches = await getSavedSearches(session);
   const [slug] = params?.slug ?? ["lists"];
 
   return {
     props: {
       slug,
+      searches,
     },
-    revalidate: 15 * 50, // 15 minutes
   };
 }
 
