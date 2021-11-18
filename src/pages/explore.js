@@ -1,7 +1,6 @@
-import { providers, useSession } from "next-auth/client";
-import Router from "next/router";
+import { getSession, providers } from "next-auth/client";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React from "react";
 import { SWRConfig } from "swr";
 
 import Page from "@/twoopstracker/components/Page";
@@ -9,14 +8,6 @@ import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
 import { search } from "@/twoopstracker/lib";
 
 export default function Explore({ fallback, tweets, ...props }) {
-  const [session, loading] = useSession();
-
-  useEffect(() => {
-    if (!session && !loading) {
-      Router.push("/login");
-    }
-  }, [session, loading]);
-
   return (
     <>
       <Page {...props}>
@@ -41,6 +32,17 @@ Explore.defaultProps = {
 // TODO(kilemensi): Once search has been moved to the search page, this method
 //                  should be turned into getStaticProps
 export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const session = await getSession({ req });
+
+  if (!(session && res && session?.user)) {
+    res.writeHead(302, {
+      Location: "/login",
+    });
+    res.end();
+    return null;
+  }
+
   const tweets = await search({});
 
   return {
