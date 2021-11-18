@@ -84,16 +84,17 @@ function LoginMenu({ links, children, ...props }) {
   }
   return (
     <div className={classes.root}>
-      {links.map((item) => (
+      {links.map((item, index) => (
         <Grid item key={item.label} className={classes.menu}>
           <Button
             component={Link}
-            color="default"
-            variant="text"
+            color={index !== links.length - 1 ? "default" : "primary"}
+            variant={index !== links.length - 1 ? "text" : "contained"}
             size="large"
             href={item.href}
             classes={{
-              root: classes.menuLinks,
+              root:
+                index !== links.length - 1 ? classes.menuLinks : classes.links,
               text: classes.text,
             }}
           >
