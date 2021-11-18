@@ -65,7 +65,7 @@ function ListItems({ results: listsProp, ...props }) {
   return (
     <Section>
       <div className={classes.section}>
-        <Typography>Your Lists</Typography>
+        <Typography className={classes.listTitle}>Your Lists</Typography>
         <Button onClick={handleOpen} className={classes.button}>
           Create New List
         </Button>
