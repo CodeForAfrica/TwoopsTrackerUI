@@ -30,7 +30,7 @@ export async function search({ term, theme, location, days = 7 }) {
   return res.json();
 }
 
-export async function deleteSavedSearches(searchId, session) {
+export async function deleteSavedSearch(searchId, session) {
   const option = {
     method: "DELETE",
     headers: { Authorization: `Bearer ${session?.user?.access_token}` },
@@ -51,21 +51,14 @@ export async function getSavedSearches(session) {
   return res.json();
 }
 
-export async function postSavedSearch({
-  term,
-  theme,
-  location,
-  days = 7,
-  name,
-  session,
-}) {
+export async function saveSearch(query, theme, location, days, name, session) {
   const date = new Date();
   const endDate = date.toISOString().substr(0, 10);
   const startDate = subDays(date, days).toISOString().substr(0, 10);
 
-  let query = term || theme;
-  if (query && theme) {
-    query = `(${query} AND ${theme})`;
+  let queryTerm = query || theme;
+  if (queryTerm && theme) {
+    queryTerm = `(${queryTerm} AND ${theme})`;
   }
 
   const option = {
@@ -74,7 +67,7 @@ export async function postSavedSearch({
     body: JSON.stringify({
       name,
       query: {
-        term: query,
+        term: queryTerm,
         endDate,
         location,
         startDate,
