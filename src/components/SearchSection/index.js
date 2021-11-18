@@ -11,6 +11,7 @@ import Section from "@/twoopstracker/components/Section";
 const SearchSection = ({
   days,
   handleSelection,
+  handleSaveSearch,
   location,
   onSearch,
   theme,
@@ -18,6 +19,11 @@ const SearchSection = ({
 }) => {
   const classes = useStyles(props);
 
+  const onSaveSearch = () => {
+    if (handleSaveSearch) {
+      handleSaveSearch();
+    }
+  };
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
@@ -72,7 +78,7 @@ const SearchSection = ({
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
-          <Button className={classes.saveButton} onClick={onSearch}>
+          <Button className={classes.saveButton} onClick={onSaveSearch}>
             Save Search
           </Button>
           <Button className={classes.button} onClick={onSearch}>
@@ -86,6 +92,7 @@ const SearchSection = ({
 
 SearchSection.propTypes = {
   days: PropTypes.string,
+  handleSaveSearch: PropTypes.func,
   handleSearch: PropTypes.func,
   handleSelection: PropTypes.func,
   location: PropTypes.string,
@@ -95,6 +102,7 @@ SearchSection.propTypes = {
 SearchSection.defaultProps = {
   days: undefined,
   handleSearch: undefined,
+  handleSaveSearch: undefined,
   handleSelection: undefined,
   location: undefined,
   onSearch: undefined,

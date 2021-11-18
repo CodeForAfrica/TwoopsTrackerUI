@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
@@ -9,6 +10,7 @@ import Chart from "@/twoopstracker/components/Chart";
 import Loading from "@/twoopstracker/components/Loading";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
+import { saveSearch } from "@/twoopstracker/lib";
 
 function getQueryString(query, theme, location, days) {
   const searchParams = new URLSearchParams();
@@ -36,6 +38,7 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
   const [theme, setTheme] = useState();
   const [location, setLocation] = useState();
   const [query, setSearch] = useState("");
+  const [session] = useSession();
 
   const stateObject = {
     days: setDays,
@@ -73,6 +76,11 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
     stateObject[name](value);
   };
 
+  const handleSaveSearch = async (name) => {
+    const res = await saveSearch(query, theme, location, days, name, session);
+    return res;
+  };
+
   const shouldFetch = () => {
     const queryString = getQueryString(query, theme, location, days);
     let url = "/api/search";
@@ -93,6 +101,7 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
       <SearchSection
         days={days}
         handleSelection={handleSelection}
+        handleSaveSearch={handleSaveSearch}
         location={location}
         onSearch={handleSearch}
         theme={theme}
