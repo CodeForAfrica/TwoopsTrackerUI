@@ -82,6 +82,16 @@ export const fetchUpdateList = async (url, payload, id) => {
   return result.results;
 };
 
+export const fetchDeleteAccount = async (url, payload, id) => {
+  const data = await fetch(`${url}/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+
+  const result = await data.json();
+  return result;
+};
+
 export const fetchPostList = async (payload, url) => {
   await fetch(url, {
     method: "POST",

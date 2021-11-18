@@ -96,7 +96,7 @@ function List({
 
   return (
     <div className={classes.root}>
-      <Link href={`/lists/${id}`}>
+      <Link href={`/accounts/lists/${id}`}>
         <Typography className={classes.title}>{name}</Typography>
       </Link>
       <Grid container>

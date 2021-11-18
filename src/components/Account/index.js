@@ -1,11 +1,12 @@
 import { Grid, Typography, Button } from "@material-ui/core";
 import Image from "next/image";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
+import CustomModal from "@/twoopstracker/components/Modal";
 
 const Account = ({
   account: {
@@ -15,11 +16,25 @@ const Account = ({
     protected: accountType,
   },
   items,
+  onDelete,
   ...props
 }) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const classes = useStyles(props);
 
   const date = new Date(createdAt);
+
+  const onAccountDelete = async () => {
+    try {
+      await onDelete(screenName);
+      setOpen(true);
+    } catch (e) {
+      setOpen(false);
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -50,9 +65,20 @@ const Account = ({
           )}
         </Grid>
         <Grid item lg={5} sm={12} className={classes.buttonSection}>
-          <Button disabled={items === 1} className={classes.delete}>
+          <Button
+            onClick={handleOpen}
+            disabled={items === 1}
+            className={classes.delete}
+          >
             Delete
           </Button>
+          <CustomModal
+            open={open}
+            onClose={handleClose}
+            buttonLabel="Delete"
+            buttonOnClick={onAccountDelete}
+            deleteDescription="Are you sure you want to delete this account from this List?"
+          />
         </Grid>
       </Grid>
     </div>
@@ -67,11 +93,13 @@ Account.propTypes = {
     protected: PropTypes.bool,
   }),
   items: PropTypes.number,
+  onDelete: PropTypes.func,
 };
 
 Account.defaultProps = {
   account: undefined,
   items: undefined,
+  onDelete: undefined,
 };
 
 export default Account;
