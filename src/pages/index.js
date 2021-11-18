@@ -35,7 +35,7 @@ Index.defaultProps = {
 export async function getStaticProps() {
   const days = 14;
   const fetchTweets = async () => tweets({ days, pageSize: 100 });
-  const foundTweets = fetchAllResultsWithNext(fetchTweets);
+  const foundTweets = await fetchAllResultsWithNext(fetchTweets);
 
   return {
     props: {
