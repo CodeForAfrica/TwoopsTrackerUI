@@ -6,13 +6,13 @@ import { SWRConfig } from "swr";
 
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
-import { tweets } from "@/twoopstracker/lib";
+import { fetchAllResultsWithNext, tweets } from "@/twoopstracker/lib";
 
 export default function Explore({
   days,
   fallback,
   tweets: tweetsProp,
-  allTweets,
+  foundTweets,
   ...props
 }) {
   const [session, loading] = useSession();
@@ -30,7 +30,7 @@ export default function Explore({
           <TweetsContainer
             tweets={tweetsProp}
             days={days}
-            allTweets={allTweets}
+            foundTweets={foundTweets}
           />
         </SWRConfig>
       </Page>
@@ -39,14 +39,14 @@ export default function Explore({
 }
 
 Explore.propTypes = {
-  allTweets: PropTypes.arrayOf(PropTypes.shape({})),
+  foundTweets: PropTypes.arrayOf(PropTypes.shape({})),
   days: PropTypes.number,
   fallback: PropTypes.shape({}),
   tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Explore.defaultProps = {
-  allTweets: undefined,
+  foundTweets: undefined,
   days: undefined,
   fallback: undefined,
   tweets: undefined,
@@ -56,16 +56,19 @@ Explore.defaultProps = {
 //                  should be turned into getStaticProps
 export async function getServerSideProps(context) {
   const days = 14;
-  const { tweets: defaultTweets, allTweets } = await tweets({ days });
+  const defaultTweets = await tweets({ days });
+
+  const fetchTweets = async () => tweets({ days, pageSize: 100 });
+  const foundTweets = await fetchAllResultsWithNext(fetchTweets);
 
   return {
     props: {
       providers: await providers(context),
       tweets: defaultTweets,
-      allTweets,
+      foundTweets,
       days,
       fallback: {
-        "/api/tweets": { tweets: defaultTweets, allTweets },
+        "/api/tweets": { tweets: defaultTweets, foundTweets },
       },
     },
   };
