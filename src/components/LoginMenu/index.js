@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Link from "@/twoopstracker/components/Link";
-import LoginMenu from "@/twoopstracker/components/LoginMenu";
 
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
@@ -14,7 +13,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     [breakpoints.up("lg")]: {
       padding: 0,
       flexDirection: "row",
-      justifyContent: "flex-end",
+      justifyContent: "flex-start",
     },
   },
   links: {
@@ -77,14 +76,14 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Menu({ links, children, loginMenuProps, ...props }) {
+function LoginMenu({ links, children, ...props }) {
   const classes = useStyles(props);
 
   if (!links?.length) {
     return null;
   }
   return (
-    <Grid container className={classes.root}>
+    <div className={classes.root}>
       {links.map((item) => (
         <Grid item key={item.label} className={classes.menu}>
           <Button
@@ -104,20 +103,16 @@ function Menu({ links, children, loginMenuProps, ...props }) {
           </Button>
         </Grid>
       ))}
-      <LoginMenu links={loginMenuProps} />
-      {children}
-    </Grid>
+    </div>
   );
 }
 
-Menu.propTypes = {
+LoginMenu.propTypes = {
   links: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
-  loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
   children: PropTypes.node,
 };
 
-Menu.defaultProps = {
-  loginMenuProps: undefined,
+LoginMenu.defaultProps = {
   children: undefined,
 };
-export default Menu;
+export default LoginMenu;
