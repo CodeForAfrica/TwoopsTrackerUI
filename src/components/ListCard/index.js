@@ -97,7 +97,7 @@ function List({
   return (
     <div className={classes.root}>
       <Link href={`/accounts/lists/${id}`}>
-        <Typography className={classes.title}>{name}</Typography>
+        <Typography className={classes.title}>{listName}</Typography>
       </Link>
       <Grid container>
         <Grid item xs={10}>
