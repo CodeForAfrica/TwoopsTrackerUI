@@ -42,6 +42,6 @@ export async function getStaticProps() {
       tweets: foundTweets,
       days,
     },
-    revalidate: 15 * 50, // 15 minutes
+    revalidate: 15 * 60, // 15 minutes
   };
 }
