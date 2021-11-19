@@ -6,7 +6,7 @@ import useSWR, { useSWRConfig } from "swr";
 import useStyles from "./useStyles";
 
 import Link from "@/twoopstracker/components/Link";
-import CustomModal from "@/twoopstracker/components/Modal";
+import ListModal from "@/twoopstracker/components/ListModal";
 import { updateList, deleteList } from "@/twoopstracker/lib";
 
 function ListCard({
@@ -124,7 +124,7 @@ function ListCard({
           <Button onClick={handleDeleteOpen} className={classes.deleteButton}>
             Delete
           </Button>
-          <CustomModal
+          <ListModal
             open={open}
             onClose={handleClose}
             nameLabel="ListName"
@@ -140,7 +140,7 @@ function ListCard({
             buttonLabel="Update"
             buttonOnClick={onUpdate}
           />
-          <CustomModal
+          <ListModal
             open={deleteopen}
             onClose={handleDeleteClose}
             buttonLabel="Delete"

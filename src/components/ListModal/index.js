@@ -46,6 +46,8 @@ function ModalComponent({
   ...props
 }) {
   const classes = useStyles(props);
+
+  console.log("CLASSES", classes.boxStyle);
   return (
     <Modal
       open={open}

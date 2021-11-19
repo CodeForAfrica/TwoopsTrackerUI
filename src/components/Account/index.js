@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
-import CustomModal from "@/twoopstracker/components/Modal";
+import ListModal from "@/twoopstracker/components/ListModal";
 
 const Account = ({
   account: {
@@ -72,7 +72,7 @@ const Account = ({
           >
             Delete
           </Button>
-          <CustomModal
+          <ListModal
             open={open}
             onClose={handleClose}
             buttonLabel="Delete"

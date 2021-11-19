@@ -6,7 +6,7 @@ import useSWR, { useSWRConfig } from "swr";
 import useStyles from "./useStyles";
 
 import ListCard from "@/twoopstracker/components/ListCard";
-import CustomModal from "@/twoopstracker/components/Modal";
+import ListModal from "@/twoopstracker/components/ListModal";
 import Section from "@/twoopstracker/components/Section";
 import { createList } from "@/twoopstracker/lib";
 
@@ -80,7 +80,7 @@ function Lists({ results: listsProp, ...props }) {
         <Button onClick={handleOpen} className={classes.button}>
           Create New List
         </Button>
-        <CustomModal
+        <ListModal
           open={open}
           onClose={handleClose}
           nameValue={name}
