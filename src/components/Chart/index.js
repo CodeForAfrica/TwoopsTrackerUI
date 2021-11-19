@@ -23,7 +23,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     position: "relative",
     padding: typography.pxToRem(30),
     boxShadow: "0 4px 6px 0 #0000000D",
-    height: typography.pxToRem(523),
+    height: typography.pxToRem(578),
   },
   chart: {
     width: "100%",

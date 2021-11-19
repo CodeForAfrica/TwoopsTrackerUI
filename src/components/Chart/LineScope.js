@@ -48,7 +48,7 @@ export default function LineChartScope(data, smallScreen) {
       },
       {
         name: "height",
-        value: 435,
+        value: 490,
       },
       {
         name: "interpolate",
@@ -69,6 +69,11 @@ export default function LineChartScope(data, smallScreen) {
       {
         name: "chartTitle",
         value: "Deleted Tweets Activity",
+      },
+      {
+        name: "chartSubTitle",
+        update:
+          "'From' + timeFormat(data('table')[0]['date'], tooltipDateFormat) + ' to ' + timeFormat(data('table')[data('table').length - 1 ]['date'], tooltipDateFormat)",
       },
       {
         name: "smallScreen",
@@ -143,7 +148,7 @@ export default function LineChartScope(data, smallScreen) {
           data: "table",
           field: "count",
         },
-        range: [{ signal: "height - 100" }, 0],
+        range: [{ signal: "height - 120" }, 0],
         nice: true,
         zero: true,
         clamp: true,
@@ -183,12 +188,27 @@ export default function LineChartScope(data, smallScreen) {
               update: {
                 x: { value: 0 },
                 y: { value: 0 },
-                height: { value: 60 },
+                height: { value: 50 },
                 text: { signal: "chartTitle" },
                 opacity: { value: 1 },
                 font: { signal: "titleFont" },
                 fontSize: { signal: "titleSize" },
                 fontWeight: { signal: "titleWeight" },
+              },
+            },
+          },
+          {
+            type: "text",
+            encode: {
+              update: {
+                x: { value: 0 },
+                y: { value: 50 },
+                height: { value: 20 },
+                text: { signal: "chartSubTitle" },
+                opacity: { value: 1 },
+                font: { signal: "highlightFont" },
+                fontSize: { signal: "highlightSize" },
+                fontWeight: { signal: "highlightWeight" },
               },
             },
           },
@@ -200,9 +220,9 @@ export default function LineChartScope(data, smallScreen) {
         encode: {
           update: {
             x: { value: 0 },
-            y: { value: 100 },
+            y: { value: 120 },
             height: {
-              signal: "height - 100",
+              signal: "height - 120",
             },
             width: {
               signal: "smallScreen? width: 0.75 * width",
