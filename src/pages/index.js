@@ -8,13 +8,13 @@ import Page from "@/twoopstracker/components/Page";
 import Partners from "@/twoopstracker/components/Partners";
 import SignUp from "@/twoopstracker/components/SignUp";
 import { home } from "@/twoopstracker/config";
-import { fetchAllResultsWithNext, tweets } from "@/twoopstracker/lib";
+import { tweets } from "@/twoopstracker/lib";
 
-export default function Index({ days, tweets: tweetsProp, ...props }) {
+export default function Index({ days, insights, ...props }) {
   return (
     <Page {...props}>
       <Hero {...home.hero} />
-      <Chart tweets={tweetsProp} days={days} />
+      <Chart data={insights} days={days} />
       <SignUp {...home.signUp} />
       <InvestigationsPreview {...home.investigation} />
       <Partners {...home.partners} />
@@ -24,22 +24,21 @@ export default function Index({ days, tweets: tweetsProp, ...props }) {
 
 Index.propTypes = {
   days: PropTypes.number,
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  insights: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Index.defaultProps = {
   days: undefined,
-  tweets: undefined,
+  insights: undefined,
 };
 
 export async function getStaticProps() {
   const days = 14;
-  const fetchTweets = async () => tweets({ days, pageSize: 100 });
-  const foundTweets = await fetchAllResultsWithNext(fetchTweets);
+  const { insights } = await tweets({});
 
   return {
     props: {
-      tweets: foundTweets,
+      insights,
       days,
     },
     revalidate: 15 * 60, // 15 minutes

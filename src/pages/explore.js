@@ -7,12 +7,12 @@ import { SWRConfig } from "swr";
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
 import { pagination } from "@/twoopstracker/config";
-import { fetchAllResultsWithNext, tweets } from "@/twoopstracker/lib";
+import { tweets } from "@/twoopstracker/lib";
 
 export default function Explore({
   days,
   fallback,
-  foundTweets,
+  insights,
   tweets: tweetsProp,
   ...props
 }) {
@@ -25,53 +25,47 @@ export default function Explore({
   }, [session, loading]);
 
   return (
-    <>
-      <Page {...props}>
-        <SWRConfig value={{ fallback }}>
-          <TweetsContainer
-            days={days}
-            foundTweets={foundTweets}
-            tweets={tweetsProp}
-            paginationProps={pagination}
-          />
-        </SWRConfig>
-      </Page>
-    </>
+    <Page {...props}>
+      <SWRConfig value={{ fallback }}>
+        <TweetsContainer
+          days={days}
+          insights={insights}
+          tweets={tweetsProp}
+          paginationProps={pagination}
+        />
+      </SWRConfig>
+    </Page>
   );
 }
 
 Explore.propTypes = {
-  foundTweets: PropTypes.arrayOf(PropTypes.shape({})),
   days: PropTypes.number,
   fallback: PropTypes.shape({}),
+  insights: PropTypes.arrayOf(PropTypes.shape({})),
   query: PropTypes.shape({}),
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  tweets: PropTypes.shape({}),
 };
 
 Explore.defaultProps = {
-  foundTweets: undefined,
   days: undefined,
   fallback: undefined,
+  insights: undefined,
   query: undefined,
   tweets: undefined,
 };
 
 export async function getServerSideProps(context) {
   const days = 14;
-  const defaultTweets = await tweets({ days });
-
-  const fetchTweets = async () => tweets({ days, pageSize: 100 });
-  const foundTweets = await fetchAllResultsWithNext(fetchTweets);
+  const results = await tweets({ days });
 
   return {
     props: {
+      ...results,
       days,
       fallback: {
-        "/api/tweets": { tweets: defaultTweets, foundTweets: defaultTweets },
+        "/api/tweets": results,
       },
-      foundTweets,
       providers: await providers(context),
-      tweets: defaultTweets,
     },
   };
 }

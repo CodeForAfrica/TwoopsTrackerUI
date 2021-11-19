@@ -36,7 +36,7 @@ function getQueryString(query, theme, location, days, page, pageSize) {
 
 function TweetsContainer({
   days: daysProp,
-  foundTweets: foundTweetsProp,
+  insights: insightsProp,
   paginationProps,
   tweets: tweetsProp,
   ...props
@@ -45,7 +45,7 @@ function TweetsContainer({
 
   const router = useRouter();
   const [days, setDays] = useState();
-  const [foundTweets, setfoundTweets] = useState();
+  const [insights, setInsights] = useState();
   const [location, setLocation] = useState();
   const [page, setPage] = useState();
   const [pageSize, setPageSize] = useState();
@@ -126,7 +126,7 @@ function TweetsContainer({
   useEffect(() => {
     if (data) {
       setTweets(data?.tweets);
-      setfoundTweets(data?.foundTweets);
+      setInsights(data?.insights);
     }
   }, [data]);
 
@@ -143,7 +143,7 @@ function TweetsContainer({
       {isLoading && <Loading />}
       <Chart
         days={days || daysProp}
-        tweets={foundTweets}
+        data={insights}
         classes={{ root: classes.chartRoot }}
       />
       <Tweets tweets={tweets} />
@@ -160,7 +160,7 @@ function TweetsContainer({
 }
 
 TweetsContainer.propTypes = {
-  foundTweets: PropTypes.shape({}),
+  insights: PropTypes.arrayOf(PropTypes.shape({})),
   days: PropTypes.number,
   paginationProps: PropTypes.shape({}),
   tweets: PropTypes.shape({
@@ -170,7 +170,7 @@ TweetsContainer.propTypes = {
 
 TweetsContainer.defaultProps = {
   days: undefined,
-  foundTweets: undefined,
+  insights: undefined,
   paginationProps: undefined,
   tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };

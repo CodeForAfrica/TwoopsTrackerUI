@@ -29,7 +29,12 @@ async function fetchTweets({ query, location, days = 7, page, pageSize }) {
   searchParams.append("format", "json");
 
   const searchUrl = `${BASE_URL}/tweets/?${searchParams.toString()}`;
-  return fetchJson(searchUrl);
+  const results = await fetchJson(searchUrl);
+
+  const insightsUrl = `${BASE_URL}/tweets/insights?${searchParams.toString()}`;
+  const insights = await fetchJson(insightsUrl);
+
+  return { tweets: results, insights };
 }
 
 export async function tweets(searchQuery = {}) {
@@ -50,19 +55,4 @@ export async function tweets(searchQuery = {}) {
     days = 30;
   }
   return fetchTweets({ query, location, days, page, pageSize });
-}
-
-export async function fetchAllResultsWithNext(fn) {
-  let json = await fn();
-  // NOTE(kilemensi): Since we're  fetching all, we'll no longer need next
-  const { results, next, ...others } = json;
-  while (json.next) {
-    // next url can only be determine from the result of previous fetch so
-    // we do ned await in loop
-    // eslint-disable-next-line no-await-in-loop
-    json = await fetchJson(json.next);
-    results.push(...json.results);
-  }
-
-  return { ...others, results };
 }
