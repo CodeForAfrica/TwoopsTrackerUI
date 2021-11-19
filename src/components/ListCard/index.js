@@ -1,13 +1,15 @@
 import { Typography, Button, Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import useSWR, { useSWRConfig } from "swr";
 
 import useStyles from "./useStyles";
 
+import Link from "@/twoopstracker/components/Link";
 import CustomModal from "@/twoopstracker/components/Modal";
 import { updateList, deleteList } from "@/twoopstracker/lib";
 
-function List({
+function ListCard({
   name: listName,
   created_at: createdAt,
   accounts: listAccounts,
@@ -39,6 +41,17 @@ function List({
 
   const [accounts, setAccounts] = useState(accountsStr);
 
+  const { mutate } = useSWRConfig();
+
+  const fetcher = (url) => fetch(url).then((results) => results.json());
+  const { data } = useSWR(`/api/accounts/lists`, fetcher);
+
+  useEffect(() => {
+    if (data) {
+      setLists(data.results);
+    }
+  }, [data, setLists]);
+
   const handleChange = (event) => {
     if (event.target.name === "name") {
       setName(event.target.value);
@@ -66,9 +79,9 @@ function List({
     };
 
     try {
-      const result = await updateList("/api/accounts/lists", payload, id);
+      await updateList("/api/accounts/lists", payload, id);
+      mutate("/api/accounts/lists", { ...data });
 
-      setLists(result);
       setOpen(false);
     } catch (e) {
       setOpen(true);
@@ -77,9 +90,9 @@ function List({
 
   const onDelete = async () => {
     try {
-      const result = await deleteList("/api/accounts/lists", id);
+      await deleteList("/api/accounts/lists", id);
+      mutate("/api/accounts/lists", { ...data });
 
-      setLists(result);
       setDeleteOpen(false);
     } catch (e) {
       setDeleteOpen(true);
@@ -95,7 +108,9 @@ function List({
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title}>{listName}</Typography>
+      <Link href={`/accounts/lists/${id}`}>
+        <Typography className={classes.title}>{listName}</Typography>
+      </Link>
       <Grid container>
         <Grid item xs={10}>
           {createdAt && (
@@ -138,7 +153,7 @@ function List({
   );
 }
 
-List.propTypes = {
+ListCard.propTypes = {
   name: PropTypes.string,
   accounts: PropTypes.arrayOf(PropTypes.shape({})),
   id: PropTypes.number,
@@ -147,7 +162,7 @@ List.propTypes = {
   setLists: PropTypes.func,
 };
 
-List.defaultProps = {
+ListCard.defaultProps = {
   name: undefined,
   accounts: undefined,
   id: undefined,
@@ -156,4 +171,4 @@ List.defaultProps = {
   setLists: undefined,
 };
 
-export default List;
+export default ListCard;

@@ -1,10 +1,11 @@
 import { Button, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import useSWR, { useSWRConfig } from "swr";
 
 import useStyles from "./useStyles";
 
-import List from "@/twoopstracker/components/ListCard";
+import ListCard from "@/twoopstracker/components/ListCard";
 import CustomModal from "@/twoopstracker/components/Modal";
 import Section from "@/twoopstracker/components/Section";
 import { createList } from "@/twoopstracker/lib";
@@ -19,7 +20,16 @@ function Lists({ results: listsProp, ...props }) {
   const handleClose = () => setOpen(false);
   const classes = useStyles(props);
 
-  console.log("FOR EACH", listsProp);
+  const { mutate } = useSWRConfig();
+
+  const fetcher = (url) => fetch(url).then((results) => results.json());
+  const { data } = useSWR(`/api/accounts/lists`, fetcher);
+
+  useEffect(() => {
+    if (data) {
+      setLists(data.results);
+    }
+  }, [data]);
 
   const onCreate = async () => {
     const accountsMap = accounts
@@ -34,9 +44,8 @@ function Lists({ results: listsProp, ...props }) {
     };
 
     try {
-      const results = await createList(payload, "/api/accounts/lists");
-
-      setLists(results);
+      await createList(payload, "/api/accounts/lists");
+      mutate("/api/accounts/lists", { ...data });
       setOpen(false);
       setName("");
       setAccounts("");
@@ -88,8 +97,8 @@ function Lists({ results: listsProp, ...props }) {
           buttonOnClick={onCreate}
         />
       </div>
-      {lists.map((item) => (
-        <List
+      {lists?.map((item) => (
+        <ListCard
           key={item.name}
           classes={{ root: classes.listItem }}
           {...item}
