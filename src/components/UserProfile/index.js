@@ -7,7 +7,16 @@ import Image from "@/twoopstracker/components/Image";
 import Link from "@/twoopstracker/components/Link";
 
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
-  root: {},
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    [breakpoints.up("lg")]: {
+      padding: 0,
+      flexDirection: "row",
+      justifyContent: "flex-start",
+    },
+  },
   label: {
     fontSize: typography.pxToRem(24),
     fontFamily: typography.h4.fontFamily,
@@ -60,22 +69,24 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
 function UserProfile({ label, avatorProps, ...props }) {
   const classes = useStyles(props);
   return (
-    <Button
-      component={Link}
-      color="default"
-      variant="text"
-      size="large"
-      href="/"
-      classes={{
-        root: classes.menuLinks,
-        text: classes.text,
-      }}
-    >
-      <Typography variant="body1" className={classes.label}>
-        {label}
-      </Typography>
-      <Image {...avatorProps} />
-    </Button>
+    <div className={classes.root}>
+      <Button
+        component={Link}
+        color="default"
+        variant="text"
+        size="large"
+        href="/"
+        classes={{
+          root: classes.menuLinks,
+          text: classes.text,
+        }}
+      >
+        <Typography variant="body1" className={classes.label}>
+          {label}
+        </Typography>
+        <Image {...avatorProps} />
+      </Button>
+    </div>
   );
 }
 
