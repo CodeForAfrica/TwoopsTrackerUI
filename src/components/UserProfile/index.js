@@ -19,14 +19,13 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   menuLinks: {
     color: "black",
-    margin: `${typography.pxToRem(10)} ${typography.pxToRem(-8)}`,
     "&:hover, &:focus, &:focus-within": {
       backgroundColor: "transparent",
       textDecoration: "none",
       color: "black",
     },
     [breakpoints.up("lg")]: {
-      /* padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`, */
+      padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
       color: "black",
       "&:hover, &:focus, &:focus-within": {
         color: "black",
