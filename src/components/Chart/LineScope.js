@@ -1,6 +1,6 @@
 import theme from "@/twoopstracker/theme";
 
-export default function LineChartScope(data, startDate, endDate, smallScreen) {
+export default function LineChartScope(data, smallScreen) {
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: "Line Chart",
@@ -21,26 +21,11 @@ export default function LineChartScope(data, startDate, endDate, smallScreen) {
       {
         name: "table",
         values: data,
-        format: { type: "json", parse: "auto" },
+        format: {
+          type: "json",
+          parse: "auto",
+        },
         transform: [
-          {
-            type: "collect",
-            sort: { field: "deleted_at" },
-          },
-          {
-            type: "timeunit",
-            field: "deleted_at",
-            units: ["date", "month", "year"],
-            as: ["formatted_date", "formatted_date0"],
-            signal: "tbin",
-          },
-          {
-            type: "aggregate",
-            ops: ["count"],
-            as: ["count"],
-            drop: false,
-            groupby: ["formatted_date"],
-          },
           {
             type: "joinaggregate",
             as: ["TotalCount"],
@@ -78,12 +63,12 @@ export default function LineChartScope(data, startDate, endDate, smallScreen) {
         value: smallScreen ? "%e/%m" : "%e %b",
       },
       {
-        name: "mainGroup",
-        value: "deleted_at",
+        name: "tooltipDateFormat",
+        value: "%e %B %Y",
       },
       {
         name: "chartTitle",
-        value: "Activity",
+        value: "Deleted Tweets Activity",
       },
       {
         name: "smallScreen",
@@ -135,22 +120,14 @@ export default function LineChartScope(data, startDate, endDate, smallScreen) {
         name: "totalSize",
         value: smallScreen ? 18 : 36,
       },
-      {
-        name: "endDate",
-        value: endDate,
-      },
-      {
-        name: "startDate",
-        value: startDate,
-      },
     ],
     scales: [
       {
         name: "xscale",
         type: "point",
         domain: {
-          signal:
-            "timeSequence('date', datetime(startDate), datetime(endDate))",
+          data: "table",
+          field: "date",
         },
         range: [
           0,
@@ -177,7 +154,7 @@ export default function LineChartScope(data, startDate, endDate, smallScreen) {
         range: "category",
         domain: {
           data: "table",
-          field: "formatted_date",
+          field: "date",
         },
       },
       {
@@ -263,20 +240,61 @@ export default function LineChartScope(data, startDate, endDate, smallScreen) {
         ],
         marks: [
           {
+            name: "line area",
+            from: { data: "table" },
+            type: "area",
+            encode: {
+              enter: {
+                x: { scale: "xscale", field: "date" },
+                y: { scale: "yscale", field: "count" },
+                y2: { scale: "yscale", value: 0 },
+                fill: { signal: "gradient('color-gradient', [0, 1], [1, 0])" },
+              },
+              update: {
+                interpolate: { signal: "interpolate" },
+                strokeOpacity: { value: 1 },
+              },
+            },
+          },
+          {
             name: "line",
             from: { data: "table" },
             type: "line",
             encode: {
               enter: {
-                x: { scale: "xscale", field: "formatted_date" },
-                stroke: { scale: "color", field: "formatted_date" },
+                x: { scale: "xscale", field: "date" },
+                stroke: { value: theme.palette.primary.main },
                 y: { scale: "yscale", field: "count" },
+                y2: { scale: "yscale", value: 0 },
                 strokeWidth: { value: 2 },
-                fill: { signal: "gradient('color-gradient', [0, 0], [1, 0]" },
               },
               update: {
                 interpolate: { signal: "interpolate" },
                 strokeOpacity: { value: 1 },
+              },
+            },
+          },
+          {
+            name: "line symbol",
+            from: { data: "table" },
+            type: "symbol",
+            encode: {
+              enter: {
+                x: { scale: "xscale", field: "date" },
+                y: { scale: "yscale", field: "count" },
+              },
+              update: {
+                size: { value: 2 },
+                tooltip: {
+                  signal:
+                    "{ 'date': timeFormat(datum.date, tooltipDateFormat), 'count': format(datum.count, numberFormat) + ' tweets'}",
+                },
+              },
+              hover: {
+                fill: { value: theme.palette.text.secondary },
+                size: { value: 70 },
+                stroke: { value: theme.palette.primary.main },
+                strokeWidth: { value: 2 },
               },
             },
           },
@@ -287,7 +305,7 @@ export default function LineChartScope(data, startDate, endDate, smallScreen) {
         name: "highlightGroup",
         encode: {
           enter: {
-            x: { signal: "smallScreen ? '0' : 0.8 * width" },
+            x: { signal: "smallScreen ? '0' : 0.78 * width" },
             y2: { signal: "smallScreen ? '100': height" },
             height: { signal: "smallScreen? '50': '100'" },
             width: { signal: "smallScreen? width: '100'" },
