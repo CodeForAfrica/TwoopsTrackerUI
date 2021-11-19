@@ -1,7 +1,6 @@
 import theme from "@/twoopstracker/theme";
 
 export default function LineChartScope(data, smallScreen) {
-  console.log(smallScreen);
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: "Line Chart",
@@ -121,7 +120,7 @@ export default function LineChartScope(data, smallScreen) {
       },
       {
         name: "sourceSize",
-        value: smallScreen ? 10 : 18,
+        value: smallScreen ? 13 : 18,
       },
       {
         name: "titleFont",
@@ -210,7 +209,6 @@ export default function LineChartScope(data, smallScreen) {
               update: {
                 x: { value: 0 },
                 y: { value: 0 },
-                height: { value: 50 },
                 text: { signal: "chartTitle" },
                 opacity: { value: 1 },
                 font: { signal: "titleFont" },
@@ -224,7 +222,7 @@ export default function LineChartScope(data, smallScreen) {
             encode: {
               update: {
                 x: { value: 0 },
-                y: { value: 50 },
+                y: { value: smallScreen ? 30 : 50 },
                 height: { value: 20 },
                 text: { signal: "chartSubTitle" },
                 opacity: { value: 1 },
@@ -242,7 +240,7 @@ export default function LineChartScope(data, smallScreen) {
         encode: {
           update: {
             x: { value: 0 },
-            y: { value: 100 },
+            y: { value: smallScreen ? 75 : 100 },
             height: {
               signal: "height - 170",
             },
@@ -349,7 +347,7 @@ export default function LineChartScope(data, smallScreen) {
         encode: {
           enter: {
             x: { signal: "smallScreen ? '0' : 0.78 * width" },
-            y: { signal: "smallScreen? height - 30 : height - 370" },
+            y: { signal: "smallScreen? height - 50 : height - 370" },
             y2: { signal: "height" },
             width: { signal: "smallScreen? width: '100'" },
           },
@@ -389,7 +387,7 @@ export default function LineChartScope(data, smallScreen) {
               update: {
                 x: { value: 0 },
                 height: { value: 20 },
-                y: { value: smallScreen ? 18 : 280 },
+                y: { value: smallScreen ? 25 : 280 },
                 text: { signal: "'Source: ' + source" },
                 opacity: { value: 1 },
                 font: { signal: "sourceFont" },
@@ -404,7 +402,7 @@ export default function LineChartScope(data, smallScreen) {
               update: {
                 x: { value: 0 },
                 height: { value: 20 },
-                y: { value: smallScreen ? 30 : 310 },
+                y: { value: smallScreen ? 45 : 310 },
                 text: { signal: "'Last Updated: ' + lastUpdated" },
                 opacity: { value: 1 },
                 font: { signal: "sourceFont" },

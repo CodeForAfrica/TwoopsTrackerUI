@@ -7,10 +7,11 @@ import useTweets from "./useTweets";
 
 import Chart from "@/twoopstracker/components/Chart";
 import Loading from "@/twoopstracker/components/Loading";
+import Pagination from "@/twoopstracker/components/Pagination";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
 
-function getQueryString(query, theme, location, days) {
+function getQueryString(query, theme, location, days, page, pageSize) {
   const searchParams = new URLSearchParams();
   if (query) {
     searchParams.append("query", query);
@@ -24,30 +25,49 @@ function getQueryString(query, theme, location, days) {
   if (days) {
     searchParams.append("days", days);
   }
+  if (page) {
+    searchParams.append("page", page);
+  }
+  if (pageSize) {
+    searchParams.append("pageSize", pageSize);
+  }
   return searchParams.toString();
 }
 
-function TweetsContainer({ tweets: tweetsProp, ...props }) {
+function TweetsContainer({
+  days: daysProp,
+  foundTweets: foundTweetsProp,
+  paginationProps,
+  tweets: tweetsProp,
+  ...props
+}) {
   const classes = useStyles(props);
 
   const router = useRouter();
-  const [tweets, setTweets] = useState(tweetsProp);
   const [days, setDays] = useState();
-  const [theme, setTheme] = useState();
+  const [foundTweets, setfoundTweets] = useState();
   const [location, setLocation] = useState();
-  const [query, setSearch] = useState("");
+  const [page, setPage] = useState();
+  const [pageSize, setPageSize] = useState();
+  const [query, setQuery] = useState("");
+  const [theme, setTheme] = useState();
+  const [tweets, setTweets] = useState();
 
-  const stateObject = {
+  const setStateObject = {
     days: setDays,
-    theme: setTheme,
     location: setLocation,
-    search: setSearch,
+    page: setPage,
+    pageSize: setPageSize,
+    search: setQuery,
+    theme: setTheme,
   };
 
   // Handle initial query parameters from server (if any)
   useEffect(() => {
     const { query: queryParams } = router;
-    Object.keys(queryParams).forEach((k) => stateObject?.[k]?.(queryParams[k]));
+    Object.keys(queryParams).forEach((k) =>
+      setStateObject?.[k]?.(queryParams[k])
+    );
     // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -58,7 +78,14 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
   };
 
   useEffect(() => {
-    const queryString = getQueryString(query, theme, location, days);
+    const queryString = getQueryString(
+      query,
+      theme,
+      location,
+      days,
+      page,
+      pageSize
+    );
     const { pathname } = router;
     let newPathname = pathname;
     if (queryString) {
@@ -67,15 +94,29 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
     router.push(newPathname, newPathname, { shallow: true });
     // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, theme, location, days]);
+  }, [query, theme, location, days, page, pageSize]);
 
   const handleSelection = ({ name, value }) => {
-    stateObject[name](value);
+    setStateObject[name](value);
+  };
+
+  const handleClickPage = (e, value) => {
+    setPage(value);
+  };
+  const handleClickPageSize = (e, value) => {
+    setPageSize(value);
   };
 
   const shouldFetch = () => {
-    const queryString = getQueryString(query, theme, location, days);
-    let url = "/api/search";
+    const queryString = getQueryString(
+      query,
+      theme,
+      location,
+      days,
+      page,
+      pageSize
+    );
+    let url = "/api/tweets";
     if (queryString) {
       url = `${url}?${queryString}`;
     }
@@ -84,7 +125,8 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
   const { tweets: data, isLoading } = useTweets(shouldFetch);
   useEffect(() => {
     if (data) {
-      setTweets(data);
+      setTweets(data?.tweets);
+      setfoundTweets(data?.foundTweets);
     }
   }, [data]);
 
@@ -100,21 +142,37 @@ function TweetsContainer({ tweets: tweetsProp, ...props }) {
       />
       {isLoading && <Loading />}
       <Chart
-        days={days}
-        tweets={tweets}
+        days={days || daysProp}
+        tweets={foundTweets}
         classes={{ root: classes.chartRoot }}
       />
       <Tweets tweets={tweets} />
+      <Pagination
+        {...paginationProps}
+        count={Math.ceil(tweets?.count / (pageSize || 20))}
+        onChangePage={handleClickPage}
+        onChangePageSize={handleClickPageSize}
+        page={page}
+        pageSize={pageSize}
+      />
     </>
   );
 }
 
 TweetsContainer.propTypes = {
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  foundTweets: PropTypes.shape({}),
+  days: PropTypes.number,
+  paginationProps: PropTypes.shape({}),
+  tweets: PropTypes.shape({
+    count: PropTypes.number,
+  }),
 };
 
 TweetsContainer.defaultProps = {
-  tweets: undefined,
+  days: undefined,
+  foundTweets: undefined,
+  paginationProps: undefined,
+  tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 export default TweetsContainer;

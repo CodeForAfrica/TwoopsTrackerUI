@@ -1,7 +1,7 @@
 import { Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme, ThemeProvider } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import ReactDOMServer from "react-dom/server";
 import embed from "vega-embed";
 
@@ -49,10 +49,9 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
 }));
 
-function Chart({ data, title, days, ...props }) {
+function Chart({ data, ...props }) {
   const classes = useStyles(props);
   const chartRef = useRef();
-  const [view, setView] = useState(null);
 
   const theme = useTheme();
   const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
@@ -72,66 +71,62 @@ function Chart({ data, title, days, ...props }) {
     return { x, y };
   };
 
-  const handler = useCallback((_, event, item, value) => {
-    const className = `charttooltip`;
-    let el = document.getElementsByClassName(className)[0];
-    if (!el) {
-      el = document.createElement("div");
-      el.classList.add(className);
-      document.body.appendChild(el);
-    }
+  const handler = useCallback(
+    (_, event, item, value) => {
+      const className = `charttooltip`;
+      let el = document.getElementsByClassName(className)[0];
+      if (!el) {
+        el = document.createElement("div");
+        el.classList.add(className);
+        document.body.appendChild(el);
+      }
 
-    const tooltipContainer = document.fullscreenElement || document.body;
-    tooltipContainer.appendChild(el);
-    // hide tooltip for null objects, undefined
-    if (!value) {
-      el.remove();
-      return;
-    }
-    el.innerHTML = ReactDOMServer.renderToString(
-      <ThemeProvider theme={theme}>
-        <div className={classes.tooltip}>
-          <Typography className={classes.date}>{value?.date}</Typography>
-          <Typography className={classes.count}>{value?.count}</Typography>
-        </div>
-      </ThemeProvider>
-    );
+      const tooltipContainer = document.fullscreenElement || document.body;
+      tooltipContainer.appendChild(el);
+      // hide tooltip for null objects, undefined
+      if (!value) {
+        el.remove();
+        return;
+      }
+      el.innerHTML = ReactDOMServer.renderToString(
+        <ThemeProvider theme={theme}>
+          <div className={classes.tooltip}>
+            <Typography className={classes.date}>{value?.date}</Typography>
+            <Typography className={classes.count}>{value?.count}</Typography>
+          </div>
+        </ThemeProvider>
+      );
 
-    el.classList.add("visible");
-    const { x, y } = calculateTooltipPosition(
-      event,
-      el.getBoundingClientRect(),
-      0,
-      10
-    );
-    el.setAttribute(
-      "style",
-      `top: ${y}px; left: ${x}px; z-index: 1230; position: absolute`
-    );
-  }, []);
+      el.classList.add("visible");
+      const { x, y } = calculateTooltipPosition(
+        event,
+        el.getBoundingClientRect(),
+        0,
+        10
+      );
+      el.setAttribute(
+        "style",
+        `top: ${y}px; left: ${x}px; z-index: 1230; position: absolute`
+      );
+    },
+    [classes.count, classes.date, classes.tooltip, theme]
+  );
 
   useEffect(() => {
     async function renderChart() {
       const spec = LineScope(data, !isUpLg);
       if (chartRef?.current) {
-        const newView = await embed(chartRef.current, spec, {
+        await embed(chartRef.current, spec, {
           renderer: "svg",
           actions: false,
           tooltip: handler,
         });
-        setView(newView);
       }
     }
     if (data) {
       renderChart();
     }
   }, [data, handler, isUpLg]);
-
-  useEffect(() => {
-    if (title && view) {
-      view.signal("chartTitle", title).run();
-    }
-  }, [view, title]);
 
   if (!data.length) {
     return null;
@@ -146,14 +141,10 @@ function Chart({ data, title, days, ...props }) {
 }
 
 Chart.propTypes = {
-  days: PropTypes.number,
-  title: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Chart.defaultProps = {
-  days: 7,
-  title: undefined,
   data: tweetsCount,
 };
 

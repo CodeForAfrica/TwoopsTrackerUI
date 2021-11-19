@@ -6,9 +6,16 @@ import { SWRConfig } from "swr";
 
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
-import { search } from "@/twoopstracker/lib";
+import { pagination } from "@/twoopstracker/config";
+import { fetchAllResultsWithNext, tweets } from "@/twoopstracker/lib";
 
-export default function Explore({ fallback, tweets, ...props }) {
+export default function Explore({
+  days,
+  fallback,
+  foundTweets,
+  tweets: tweetsProp,
+  ...props
+}) {
   const [session, loading] = useSession();
 
   useEffect(() => {
@@ -21,7 +28,12 @@ export default function Explore({ fallback, tweets, ...props }) {
     <>
       <Page {...props}>
         <SWRConfig value={{ fallback }}>
-          <TweetsContainer tweets={tweets} />
+          <TweetsContainer
+            days={days}
+            foundTweets={foundTweets}
+            tweets={tweetsProp}
+            paginationProps={pagination}
+          />
         </SWRConfig>
       </Page>
     </>
@@ -29,27 +41,37 @@ export default function Explore({ fallback, tweets, ...props }) {
 }
 
 Explore.propTypes = {
+  foundTweets: PropTypes.arrayOf(PropTypes.shape({})),
+  days: PropTypes.number,
   fallback: PropTypes.shape({}),
+  query: PropTypes.shape({}),
   tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Explore.defaultProps = {
+  foundTweets: undefined,
+  days: undefined,
   fallback: undefined,
+  query: undefined,
   tweets: undefined,
 };
 
-// TODO(kilemensi): Once search has been moved to the search page, this method
-//                  should be turned into getStaticProps
 export async function getServerSideProps(context) {
-  const tweets = await search({});
+  const days = 14;
+  const defaultTweets = await tweets({ days });
+
+  const fetchTweets = async () => tweets({ days, pageSize: 100 });
+  const foundTweets = await fetchAllResultsWithNext(fetchTweets);
 
   return {
     props: {
-      providers: await providers(context),
-      tweets,
+      days,
       fallback: {
-        "/api/search": tweets,
+        "/api/tweets": { tweets: defaultTweets, foundTweets: defaultTweets },
       },
+      foundTweets,
+      providers: await providers(context),
+      tweets: defaultTweets,
     },
   };
 }
