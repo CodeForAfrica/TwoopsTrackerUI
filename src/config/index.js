@@ -865,6 +865,12 @@ export const resources = {
   ],
 };
 
+export const pagination = {
+  pageSizeDefaultValue: "20",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "20" }, { value: "50" }],
+};
+
 const config = {
   tweets,
   navigationArgs,
