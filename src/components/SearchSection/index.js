@@ -46,8 +46,9 @@ const SearchSection = ({
               menuItems={[
                 { name: "Last 1 Day", value: "1" },
                 { name: "Last 3 Days", value: "3" },
+                { name: "Last 7 Days", value: "7" },
+                { name: "Last 14 Days", value: "14" },
                 { name: "Last 30 Days", value: "30" },
-                { name: "Last 7 Days", value: "" },
               ]}
               value={days}
             />
@@ -99,6 +100,7 @@ SearchSection.propTypes = {
   onSearch: PropTypes.func,
   theme: PropTypes.string,
 };
+
 SearchSection.defaultProps = {
   days: undefined,
   handleSearch: undefined,
