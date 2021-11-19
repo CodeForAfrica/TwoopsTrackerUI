@@ -9,8 +9,8 @@ import Link from "@/twoopstracker/components/Link";
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
     display: "flex",
-    flexDirection: "column",
     justifyContent: "flex-start",
+    marginLeft: typography.pxToRem(-8),
     [breakpoints.up("lg")]: {
       padding: 0,
       flexDirection: "row",
