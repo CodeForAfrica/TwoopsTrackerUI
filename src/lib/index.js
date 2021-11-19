@@ -15,19 +15,20 @@ async function fetchTweets({ query, location, days = 7, page, pageSize }) {
   if (location) {
     searchParams.append("location", location);
   }
+  const date = new Date();
+  const endDate = date.toISOString().substr(0, 10);
+  const startDate = subDays(date, days).toISOString().substr(0, 10);
+  searchParams.append("start_date", startDate);
+  searchParams.append("end_date", endDate);
   if (page) {
     searchParams.append("page", page);
   }
   if (pageSize) {
     searchParams.append("page_size", pageSize);
   }
-  const date = new Date();
-  const endDate = date.toISOString().substr(0, 10);
-  const startDate = subDays(date, days).toISOString().substr(0, 10);
-  searchParams.append("startDate", startDate);
-  searchParams.append("endDate", endDate);
+  searchParams.append("format", "json");
 
-  const searchUrl = `${BASE_URL}/tweets/?${searchParams.toString()}&format=json`;
+  const searchUrl = `${BASE_URL}/tweets/?${searchParams.toString()}`;
   return fetchJson(searchUrl);
 }
 
