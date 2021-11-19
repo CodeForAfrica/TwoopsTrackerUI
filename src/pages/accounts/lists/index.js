@@ -2,7 +2,7 @@ import React from "react";
 
 import Lists from "@/twoopstracker/components/Lists";
 import Page from "@/twoopstracker/components/Page";
-import { fetchLists } from "@/twoopstracker/lib";
+import { lists } from "@/twoopstracker/lib";
 
 export default function Index(props) {
   return (
@@ -13,7 +13,7 @@ export default function Index(props) {
 }
 
 export async function getServerSideProps() {
-  const { results } = await fetchLists();
+  const { results } = await lists();
 
   // Pass data to the page via props
   return { props: { results } };

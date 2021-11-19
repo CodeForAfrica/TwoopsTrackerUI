@@ -2,12 +2,12 @@ import { subDays } from "date-fns";
 
 const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
 
-export async function fetchAll() {
+export async function tweets() {
   const res = await fetch(`${BASE_URL}/tweets/`);
   return res.json();
 }
 
-export async function fetchLists() {
+export async function lists() {
   const res = await fetch(`${BASE_URL}/lists/`);
   return res.json();
 }
@@ -17,7 +17,49 @@ export async function fetchList(id) {
   return res.json();
 }
 
-export async function updateList(payload, method, param) {
+export const createList = async (payload, url) => {
+  const data = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  const result = await data.json();
+
+  return result;
+};
+
+export const deleteList = async (url, id) => {
+  const data = await fetch(`${url}/${id}`, {
+    method: "DELETE",
+  });
+
+  const result = await data.json();
+
+  return result;
+};
+
+export const updateList = async (url, payload, id) => {
+  const data = await fetch(`${url}/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+
+  const result = await data.json();
+
+  return result;
+};
+
+export const fetchDeleteAccount = async (url, payload, id) => {
+  const data = await fetch(`${url}/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+
+  const result = await data.json();
+  return result;
+};
+
+export async function APIRequest(payload, method, param) {
   let url = BASE_URL;
 
   if (param) {
@@ -67,50 +109,3 @@ export async function search({ term, theme, location, days = 7 }) {
   const res = await fetch(searchUrl);
   return res.json();
 }
-
-// API fetch helpers
-
-export const fetchUpdateList = async (url, payload, id) => {
-  await fetch(`${url}/${id}`, {
-    method: "PUT",
-    body: JSON.stringify(payload),
-  });
-
-  const data = await fetch(url);
-  const result = await data.json();
-
-  return result.results;
-};
-
-export const fetchDeleteAccount = async (url, payload, id) => {
-  const data = await fetch(`${url}/${id}`, {
-    method: "PUT",
-    body: JSON.stringify(payload),
-  });
-
-  const result = await data.json();
-  return result;
-};
-
-export const fetchPostList = async (payload, url) => {
-  await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-
-  const data = await fetch(url);
-  const result = await data.json();
-
-  return result.results;
-};
-
-export const fetchDeleteList = async (url, id) => {
-  await fetch(`${url}/${id}`, {
-    method: "DELETE",
-  });
-
-  const data = await fetch(url);
-  const result = await data.json();
-
-  return result.results;
-};

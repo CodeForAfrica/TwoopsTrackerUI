@@ -1,12 +1,13 @@
 import { Typography, Button, Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import useSWR, { useSWRConfig } from "swr";
 
 import useStyles from "./useStyles";
 
 import Link from "@/twoopstracker/components/Link";
 import CustomModal from "@/twoopstracker/components/Modal";
-import { fetchUpdateList, fetchDeleteList } from "@/twoopstracker/lib";
+import { updateList, deleteList } from "@/twoopstracker/lib";
 
 function List({
   name: listName,
@@ -40,6 +41,17 @@ function List({
 
   const [accounts, setAccounts] = useState(accountsStr);
 
+  const { mutate } = useSWRConfig();
+
+  const fetcher = (url) => fetch(url).then((results) => results.json());
+  const { data } = useSWR(`/api/accounts/lists`, fetcher);
+
+  useEffect(() => {
+    if (data) {
+      setLists(data.results);
+    }
+  }, [data, setLists]);
+
   const handleChange = (event) => {
     if (event.target.name === "name") {
       setName(event.target.value);
@@ -67,9 +79,9 @@ function List({
     };
 
     try {
-      const result = await fetchUpdateList("/api/accounts/lists", payload, id);
+      await updateList("/api/accounts/lists", payload, id);
+      mutate("/api/accounts/lists", { ...data });
 
-      setLists(result);
       setOpen(false);
     } catch (e) {
       setOpen(true);
@@ -78,9 +90,9 @@ function List({
 
   const onDelete = async () => {
     try {
-      const result = await fetchDeleteList("/api/accounts/lists", id);
+      await deleteList("/api/accounts/lists", id);
+      mutate("/api/accounts/lists", { ...data });
 
-      setLists(result);
       setDeleteOpen(false);
     } catch (e) {
       setDeleteOpen(true);
