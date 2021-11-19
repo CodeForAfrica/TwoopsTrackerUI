@@ -1,6 +1,6 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Dialog, TextField, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
@@ -18,10 +18,21 @@ const SearchSection = ({
   ...props
 }) => {
   const classes = useStyles(props);
+  const [name, setName] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const onSaveSearch = () => {
+    handleClose();
     if (handleSaveSearch) {
-      handleSaveSearch();
+      handleSaveSearch(name);
     }
   };
   return (
@@ -79,7 +90,7 @@ const SearchSection = ({
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
-          <Button className={classes.saveButton} onClick={onSaveSearch}>
+          <Button className={classes.saveButton} onClick={handleClickOpen}>
             Save Search
           </Button>
           <Button className={classes.button} onClick={onSearch}>
@@ -87,6 +98,30 @@ const SearchSection = ({
           </Button>
         </div>
       </Section>
+      <Dialog open={open} onClose={handleClose}>
+        <Typography variant="h4">Save Search</Typography>
+        <Grid>
+          <Typography>Enter a name for your search</Typography>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            label="Name"
+            type="text"
+            fullWidth
+          />
+        </Grid>
+        <Grid>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={onSaveSearch} color="primary">
+            Save
+          </Button>
+        </Grid>
+      </Dialog>
     </div>
   );
 };
