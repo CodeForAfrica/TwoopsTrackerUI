@@ -93,6 +93,7 @@ SearchSection.propTypes = {
   onSearch: PropTypes.func,
   theme: PropTypes.string,
 };
+
 SearchSection.defaultProps = {
   days: undefined,
   handleSearch: undefined,
