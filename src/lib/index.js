@@ -49,16 +49,6 @@ export const updateList = async (url, payload, id) => {
   return result;
 };
 
-export const fetchDeleteAccount = async (url, payload, id) => {
-  const data = await fetch(`${url}/${id}`, {
-    method: "PUT",
-    body: JSON.stringify(payload),
-  });
-
-  const result = await data.json();
-  return result;
-};
-
 export async function APIRequest(payload, method, param) {
   let url = BASE_URL;
 

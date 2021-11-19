@@ -1,12 +1,13 @@
 import { Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import useSWR, { useSWRConfig } from "swr";
 
 import useStyles from "./useStyles";
 
 import Account from "@/twoopstracker/components/Account";
 import Section from "@/twoopstracker/components/Section";
-import { fetchDeleteAccount } from "@/twoopstracker/lib";
+import { updateList } from "@/twoopstracker/lib";
 
 const AccountList = ({
   data: { name, accounts, is_private: privacy, id },
@@ -15,6 +16,17 @@ const AccountList = ({
   const classes = useStyles(props);
 
   const [listAccounts, setListAccounts] = useState(accounts);
+
+  const { mutate } = useSWRConfig();
+
+  const fetcher = (url) => fetch(url).then((results) => results.json());
+  const { data } = useSWR(`/api/accounts/lists/${id}`, fetcher);
+
+  useEffect(() => {
+    if (data) {
+      setListAccounts(data.accounts);
+    }
+  }, [data]);
 
   const onDelete = async (account) => {
     const newAccounts = listAccounts.filter(
@@ -28,11 +40,8 @@ const AccountList = ({
       is_private: privacy,
     };
 
-    const result = await fetchDeleteAccount("/api/accounts/lists", payload, id);
-
-    setListAccounts(result.accounts);
-
-    return result;
+    await updateList("/api/accounts/lists", payload, id);
+    mutate(`/api/accounts/lists/${id}`, { ...data });
   };
 
   return (
