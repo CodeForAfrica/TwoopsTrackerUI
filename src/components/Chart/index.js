@@ -127,7 +127,7 @@ function Chart({ data, ...props }) {
     }
   }, [data, handler, isUpLg]);
 
-  if (!data.length) {
+  if (!data?.length) {
     return null;
   }
   return (

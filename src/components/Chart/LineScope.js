@@ -82,7 +82,7 @@ export default function LineChartScope(data, smallScreen) {
       {
         name: "chartSubTitle",
         update:
-          "'From' + timeFormat(data('table')[0]['date'], tooltipDateFormat) + ' to ' +  lastUpdated",
+          "'From ' + timeFormat(data('table')[0]['date'], tooltipDateFormat) + ' to ' +  lastUpdated",
       },
       {
         name: "smallScreen",
