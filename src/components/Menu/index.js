@@ -79,7 +79,14 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Menu({ links, children, loginMenuProps, userProfileArgs, ...props }) {
+function Menu({
+  links,
+  children,
+  loginMenuProps,
+  avatorProps,
+  label,
+  ...props
+}) {
   const classes = useStyles(props);
   const router = useRouter();
   const href = router.pathname;
@@ -109,10 +116,11 @@ function Menu({ links, children, loginMenuProps, userProfileArgs, ...props }) {
         </Grid>
       ))}
       {href === "/explore" ? (
-        <UserProfile {...userProfileArgs} />
+        <UserProfile label={label} avatorProps={avatorProps} />
       ) : (
         <LoginMenu links={loginMenuProps} />
       )}
+
       {children}
     </Grid>
   );
@@ -121,13 +129,21 @@ function Menu({ links, children, loginMenuProps, userProfileArgs, ...props }) {
 Menu.propTypes = {
   links: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
-  userProfileArgs: PropTypes.arrayOf(PropTypes.shape({})),
+  label: PropTypes.string,
+  avatorProps: PropTypes.shape({
+    alt: PropTypes.string,
+    href: PropTypes.string,
+    src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
+    width: PropTypes.number,
+    height: PropTypes.number,
+  }),
   children: PropTypes.node,
 };
 
 Menu.defaultProps = {
   loginMenuProps: undefined,
-  userProfileArgs: undefined,
+  label: undefined,
+  avatorProps: undefined,
   children: undefined,
 };
 export default Menu;

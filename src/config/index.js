@@ -633,16 +633,15 @@ export const navigationArgs = {
     href: "/",
     src: navLogo,
   },
-};
-
-export const userProfileArgs = {
-  label: "Account Name",
-  avatorProps: {
-    width: 48,
-    height: 48,
-    alt: "desktop logo",
-    href: "https://codeforafrica.org",
-    src: userAvator,
+  userProfileArgs: {
+    label: "Account Name",
+    avatorProps: {
+      width: 48,
+      height: 48,
+      alt: "desktop logo",
+      href: "https://codeforafrica.org",
+      src: userAvator,
+    },
   },
 };
 
@@ -825,7 +824,6 @@ export const footerArgs = {
 const config = {
   tweets,
   navigationArgs,
-  userProfileArgs,
   url: "http://localhost:3000",
   investigation,
 };

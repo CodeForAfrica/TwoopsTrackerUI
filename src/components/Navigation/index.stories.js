@@ -2,7 +2,7 @@ import React from "react";
 
 import Navigation from ".";
 
-import { navigationArgs, userProfileArgs } from "@/twoopstracker/config";
+import { navigationArgs } from "@/twoopstracker/config";
 
 export default {
   title: "Sections/Navigation",
@@ -20,5 +20,5 @@ Default.parameters = {
 
 Default.args = {
   ...navigationArgs,
-  ...userProfileArgs,
+  ...navigationArgs.userProfileArgs,
 };

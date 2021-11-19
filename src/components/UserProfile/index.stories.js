@@ -2,7 +2,7 @@ import React from "react";
 
 import UserProfile from ".";
 
-import { userProfileArgs } from "@/twoopstracker/config";
+import { navigationArgs } from "@/twoopstracker/config";
 
 export default {
   title: "Components/UserProfile",
@@ -19,5 +19,5 @@ Default.parameters = {
 };
 
 Default.args = {
-  ...userProfileArgs,
+  ...navigationArgs.userProfileArgs,
 };

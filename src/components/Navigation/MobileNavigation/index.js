@@ -150,7 +150,8 @@ function MobileNavigation({
   mobileLogoProps,
   drawerLogoProps,
   loginMenuProps,
-  userProfileArgs,
+  label,
+  avatorProps,
   ...props
 }) {
   const classes = useStyles(props);
@@ -248,7 +249,8 @@ function MobileNavigation({
                     menu: classes.buttonMenu,
                   }}
                   loginMenuProps={loginMenuProps}
-                  {...userProfileArgs}
+                  label={label}
+                  avatorProps={avatorProps}
                 />
               </Section>
             </DialogContent>
@@ -276,15 +278,13 @@ MobileNavigation.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
   }),
-  userProfileArgs: PropTypes.shape({
-    label: PropTypes.string,
-    avatorProps: PropTypes.shape({
-      alt: PropTypes.string,
-      href: PropTypes.string,
-      src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
-      width: PropTypes.number,
-      height: PropTypes.number,
-    }),
+  label: PropTypes.string,
+  avatorProps: PropTypes.shape({
+    alt: PropTypes.string,
+    href: PropTypes.string,
+    src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
+    width: PropTypes.number,
+    height: PropTypes.number,
   }),
 };
 
@@ -292,7 +292,8 @@ MobileNavigation.defaultProps = {
   drawerLogoProps: undefined,
   menuProps: undefined,
   loginMenuProps: undefined,
-  userProfileArgs: undefined,
+  label: undefined,
+  avatorProps: undefined,
   mobileLogoProps: undefined,
 };
 
