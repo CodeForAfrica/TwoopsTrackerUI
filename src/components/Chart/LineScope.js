@@ -180,6 +180,11 @@ export default function LineChartScope(data, startDate, endDate, smallScreen) {
           field: "formatted_date",
         },
       },
+      {
+        name: "color-gradient",
+        type: "sequential",
+        range: ["rgba(219, 17, 17, 0.1)", "rgba(219, 17, 17, 0.6)"],
+      },
     ],
 
     marks: [
@@ -267,6 +272,7 @@ export default function LineChartScope(data, startDate, endDate, smallScreen) {
                 stroke: { scale: "color", field: "formatted_date" },
                 y: { scale: "yscale", field: "count" },
                 strokeWidth: { value: 2 },
+                fill: { signal: "gradient('color-gradient', [0, 0], [1, 0]" },
               },
               update: {
                 interpolate: { signal: "interpolate" },
