@@ -1,6 +1,7 @@
 import theme from "@/twoopstracker/theme";
 
 export default function LineChartScope(data, smallScreen) {
+  console.log(smallScreen);
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: "Line Chart",
@@ -64,16 +65,25 @@ export default function LineChartScope(data, smallScreen) {
       },
       {
         name: "tooltipDateFormat",
-        value: "%e %B %Y",
+        update: "smallScreen? '%e %b %Y' : '%e %B %Y'",
       },
       {
         name: "chartTitle",
         value: "Deleted Tweets Activity",
       },
       {
+        name: "source",
+        value: "Trolltracker",
+      },
+      {
+        name: "lastUpdated",
+        update:
+          "timeFormat(data('table')[data('table').length - 1 ]['date'], tooltipDateFormat)",
+      },
+      {
         name: "chartSubTitle",
         update:
-          "'From' + timeFormat(data('table')[0]['date'], tooltipDateFormat) + ' to ' + timeFormat(data('table')[data('table').length - 1 ]['date'], tooltipDateFormat)",
+          "'From' + timeFormat(data('table')[0]['date'], tooltipDateFormat) + ' to ' +  lastUpdated",
       },
       {
         name: "smallScreen",
@@ -102,6 +112,18 @@ export default function LineChartScope(data, smallScreen) {
         value: smallScreen ? 18 : 24,
       },
       {
+        name: "sourceFont",
+        value: theme.typography.chart.fontFamily,
+      },
+      {
+        name: "sourceWeight",
+        value: 400,
+      },
+      {
+        name: "sourceSize",
+        value: smallScreen ? 10 : 18,
+      },
+      {
         name: "titleFont",
         value: theme.typography.chart.fontFamily,
       },
@@ -111,7 +133,7 @@ export default function LineChartScope(data, smallScreen) {
       },
       {
         name: "titleSize",
-        value: 36,
+        value: smallScreen ? 24 : 36,
       },
       {
         name: "totalFont",
@@ -148,7 +170,7 @@ export default function LineChartScope(data, smallScreen) {
           data: "table",
           field: "count",
         },
-        range: [{ signal: "height - 120" }, 0],
+        range: [{ signal: "height - 170" }, 0],
         nice: true,
         zero: true,
         clamp: true,
@@ -220,12 +242,12 @@ export default function LineChartScope(data, smallScreen) {
         encode: {
           update: {
             x: { value: 0 },
-            y: { value: 120 },
+            y: { value: 100 },
             height: {
-              signal: "height - 120",
+              signal: "height - 170",
             },
             width: {
-              signal: "smallScreen? width: 0.75 * width",
+              signal: "smallScreen? width : 0.75 * width",
             },
           },
         },
@@ -245,6 +267,7 @@ export default function LineChartScope(data, smallScreen) {
               grid: {
                 update: {
                   x2: { signal: "smallScreen ? width : 0.75 * width" },
+                  opacity: { value: 0.2 },
                 },
               },
             },
@@ -326,8 +349,8 @@ export default function LineChartScope(data, smallScreen) {
         encode: {
           enter: {
             x: { signal: "smallScreen ? '0' : 0.78 * width" },
-            y2: { signal: "smallScreen ? '100': height" },
-            height: { signal: "smallScreen? '50': '100'" },
+            y: { signal: "smallScreen? height - 30 : height - 370" },
+            y2: { signal: "height" },
             width: { signal: "smallScreen? width: '100'" },
           },
         },
@@ -350,13 +373,43 @@ export default function LineChartScope(data, smallScreen) {
             type: "text",
             encode: {
               update: {
-                x2: { signal: "smallScreen? width: '0'" },
-                y2: { signal: "smallScreen? '0': '100'" },
+                x: { signal: "smallScreen ? width - 30 : '0'" },
+                y: { value: smallScreen ? 0 : 100 },
                 text: { signal: "total" },
                 opacity: { value: 1 },
                 font: { signal: "totalFont" },
                 fontSize: { signal: "totalSize" },
                 fontWeight: { signal: "totalWeight" },
+              },
+            },
+          },
+          {
+            type: "text",
+            encode: {
+              update: {
+                x: { value: 0 },
+                height: { value: 20 },
+                y: { value: smallScreen ? 18 : 280 },
+                text: { signal: "'Source: ' + source" },
+                opacity: { value: 1 },
+                font: { signal: "sourceFont" },
+                fontSize: { signal: "sourceSize" },
+                fontWeight: { signal: "sourceWeight" },
+              },
+            },
+          },
+          {
+            type: "text",
+            encode: {
+              update: {
+                x: { value: 0 },
+                height: { value: 20 },
+                y: { value: smallScreen ? 30 : 310 },
+                text: { signal: "'Last Updated: ' + lastUpdated" },
+                opacity: { value: 1 },
+                font: { signal: "sourceFont" },
+                fontSize: { signal: "sourceSize" },
+                fontWeight: { signal: "sourceWeight" },
               },
             },
           },

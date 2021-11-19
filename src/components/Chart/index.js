@@ -21,7 +21,9 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   section: {
     position: "relative",
-    padding: typography.pxToRem(30),
+    padding: `${typography.pxToRem(30)} ${typography.pxToRem(
+      30
+    )} ${typography.pxToRem(50)}`,
     boxShadow: "0 4px 6px 0 #0000000D",
     height: typography.pxToRem(578),
   },
@@ -114,7 +116,7 @@ function Chart({ data, title, days, ...props }) {
       if (chartRef?.current) {
         const newView = await embed(chartRef.current, spec, {
           renderer: "svg",
-          actions: true,
+          actions: false,
           tooltip: handler,
         });
         setView(newView);
