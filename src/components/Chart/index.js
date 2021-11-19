@@ -141,12 +141,10 @@ function Chart({ data, ...props }) {
 
 Chart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
-  days: PropTypes.number,
 };
 
 Chart.defaultProps = {
   data: undefined,
-  days: undefined,
 };
 
 export default Chart;
