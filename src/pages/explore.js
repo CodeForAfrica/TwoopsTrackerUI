@@ -41,11 +41,11 @@ export default function Explore({
 }
 
 Explore.propTypes = {
-  foundTweets: PropTypes.arrayOf(PropTypes.shape({})),
+  foundTweets: PropTypes.shape({}),
   days: PropTypes.number,
   fallback: PropTypes.shape({}),
   query: PropTypes.shape({}),
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  tweets: PropTypes.shape({}),
 };
 
 Explore.defaultProps = {

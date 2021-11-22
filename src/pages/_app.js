@@ -6,6 +6,7 @@ import React from "react";
 
 import theme from "@/twoopstracker/theme";
 import SEO from "next-seo.config";
+import "@/twoopstracker/theme/fonts.css";
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
