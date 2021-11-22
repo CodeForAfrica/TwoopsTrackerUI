@@ -7,7 +7,13 @@ export async function fetchJson(url) {
   return res.json();
 }
 
-async function fetchTweets({ query, location, days = 7, page, pageSize }) {
+function tweetsSearchParamFromSearchQuery({
+  query,
+  location,
+  days = 7,
+  page,
+  pageSize,
+}) {
   const searchParams = new URLSearchParams();
   if (query) {
     searchParams.append("query", query);
@@ -28,16 +34,10 @@ async function fetchTweets({ query, location, days = 7, page, pageSize }) {
   }
   searchParams.append("format", "json");
 
-  const searchUrl = `${BASE_URL}/tweets/?${searchParams.toString()}`;
-  const results = await fetchJson(searchUrl);
-
-  const insightsUrl = `${BASE_URL}/tweets/insights?${searchParams.toString()}`;
-  const insights = await fetchJson(insightsUrl);
-
-  return { tweets: results, insights };
+  return searchParams;
 }
 
-export async function tweets(searchQuery = {}) {
+function tweetsSearchQueryFromUserQuery(userQuery) {
   const {
     query: term,
     theme,
@@ -45,7 +45,7 @@ export async function tweets(searchQuery = {}) {
     days: daysAsString,
     page,
     pageSize,
-  } = searchQuery;
+  } = userQuery;
   let query = term || theme;
   if (query && theme) {
     query = `(${query} AND ${theme})`;
@@ -54,5 +54,20 @@ export async function tweets(searchQuery = {}) {
   if (days > 30) {
     days = 30;
   }
-  return fetchTweets({ query, location, days, page, pageSize });
+  return { query, location, days, page, pageSize };
+}
+
+export async function tweets(userQuery = {}) {
+  const searchQuery = tweetsSearchQueryFromUserQuery(userQuery);
+  const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+  const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
+  return fetchJson(url);
+}
+
+// Do not include page or pageSize in searchQuery
+export async function tweetsInsights({ page, pageSize, ...userQuery } = {}) {
+  const searchQuery = tweetsSearchQueryFromUserQuery(userQuery);
+  const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+  const url = `${BASE_URL}/tweets/insights?${searchParams.toString()}`;
+  return fetchJson(url);
 }
