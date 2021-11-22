@@ -8,7 +8,7 @@ import Page from "@/twoopstracker/components/Page";
 import Partners from "@/twoopstracker/components/Partners";
 import SignUp from "@/twoopstracker/components/SignUp";
 import { home } from "@/twoopstracker/config";
-import { tweets } from "@/twoopstracker/lib";
+import { tweetsInsights } from "@/twoopstracker/lib";
 
 export default function Index({ days, insights, ...props }) {
   return (
@@ -34,7 +34,7 @@ Index.defaultProps = {
 
 export async function getStaticProps() {
   const days = 14;
-  const { insights } = await tweets({});
+  const insights = await tweetsInsights({ days });
 
   return {
     props: {
