@@ -874,6 +874,7 @@ export const upload = {
   conjuctionLabel: "or",
   downloadCopy: "Download the template",
   errorLabel: "There was an error uploading your file, please try again.",
+  loadingLabel: "Uploading...",
   templateLink: "",
   templateName: "template.csv",
   dragLabel: "Drag and drop your CSV files here",
