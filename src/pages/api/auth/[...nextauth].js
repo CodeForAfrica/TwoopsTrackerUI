@@ -65,8 +65,6 @@ const options = {
      *                           Return `false` to deny access
      */
     signIn: async (user, account) => {
-      console.log("signin", account);
-
       const token = await fetchToken({
         provider: account?.provider,
         tokens: {
