@@ -65,8 +65,14 @@ const options = {
      *                           Return `false` to deny access
      */
     signIn: async (user, account) => {
+      console.log("signin", account);
+
       const token = await fetchToken({
-        access_token: account.accessToken,
+        provider: account?.provider,
+        tokens: {
+          access_token: account?.accessToken,
+          id_token: account?.idToken,
+        },
       });
       if (token.access_token) {
         return true;
@@ -78,7 +84,11 @@ const options = {
       if (account && user) {
         const { access_token: accessToken, refresh_token: refreshToken } =
           await fetchToken({
-            access_token: account?.accessToken,
+            provider: account?.provider,
+            tokens: {
+              access_token: account?.accessToken,
+              id_token: account?.idToken,
+            },
           });
         return {
           accessToken,
