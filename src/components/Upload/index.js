@@ -11,7 +11,7 @@ const handleUpload = (content) => {
   if (!content) {
     return null;
   }
-  return createList("/api/accounts/lists", content);
+  return createList(content, "/api/accounts/lists");
 };
 
 const useStyles = makeStyles(({ typography }) => ({
@@ -39,6 +39,7 @@ function Upload({
   conjuctionLabel,
   downloadCopy,
   errorLabel,
+  loadingLabel,
   uploadLabel,
   templateLink,
   dragLabel,
@@ -109,8 +110,9 @@ function Upload({
               className={classes.button}
               variant="contained"
               color="primary"
+              disabled={loading}
             >
-              {uploadLabel}
+              {loading ? loadingLabel : uploadLabel}
             </Button>
             {!loading && error && (
               <Typography variant="caption" className={classes.error}>
@@ -137,18 +139,20 @@ Upload.propTypes = {
   downloadCopy: PropTypes.string,
   dragLabel: PropTypes.string,
   errorLabel: PropTypes.string,
+  loadingLabel: PropTypes.string,
   templateLink: PropTypes.string,
   templateName: PropTypes.string,
   uploadLabel: PropTypes.string,
 };
 Upload.defaultProps = {
-  conjuctionLabel: "",
-  downloadCopy: "",
-  dragLabel: "",
-  errorLabel: "",
-  templateLink: "",
-  templateName: "",
-  uploadLabel: "",
+  conjuctionLabel: undefined,
+  downloadCopy: undefined,
+  dragLabel: undefined,
+  errorLabel: undefined,
+  loadingLabel: undefined,
+  templateLink: undefined,
+  templateName: undefined,
+  uploadLabel: undefined,
 };
 
 export default Upload;

@@ -77,3 +77,31 @@ export const createList = async (payload, url) => {
 
   return result;
 };
+
+export async function APIRequest(payload, method, param) {
+  let url = BASE_URL;
+
+  if (param) {
+    url = `${url}/lists/${param}`;
+  } else {
+    url = `${url}/lists/`;
+  }
+
+  const options = {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  if (payload) {
+    options.body = payload;
+  }
+
+  const res = await fetch(url, options);
+
+  if (method === "DELETE") {
+    return res;
+  }
+  return res.json();
+}
