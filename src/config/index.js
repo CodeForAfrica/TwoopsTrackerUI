@@ -870,6 +870,15 @@ export const pagination = {
   pageSizeLabel: "Results on Page",
   pageSizeOptions: [{ value: "20" }, { value: "50" }],
 };
+export const upload = {
+  conjuctionLabel: "or",
+  downloadCopy: "Download the template",
+  errorLabel: "There was an error uploading your file, please try again.",
+  templateLink: "",
+  templateName: "template.csv",
+  dragLabel: "Drag and drop your CSV files here",
+  uploadLabel: "Select a File",
+};
 
 const config = {
   tweets,
