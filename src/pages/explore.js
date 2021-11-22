@@ -58,7 +58,6 @@ export async function getServerSideProps(context) {
   const days = 14;
   const foundTweets = await tweets({ days });
   const insights = await tweetsInsights({ days });
-  console.log("BOOM", { foundTweets, insights });
 
   return {
     props: {
