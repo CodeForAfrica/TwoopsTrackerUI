@@ -94,6 +94,7 @@ const options = {
           accessToken,
           exp: jwtDecode(accessToken).exp * 1000,
           refreshToken,
+          idToken: account?.idToken,
           user,
         };
       }
