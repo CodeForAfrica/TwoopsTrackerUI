@@ -29,7 +29,7 @@ function fetchToken(token, url = process.env.AUTH_URL) {
 async function refreshAccessToken(token) {
   try {
     const refreshedTokens = await fetchToken(
-      { refresh: token.refreshToken },
+      { refresh: token.refreshToken, id_token: token.idToken },
       process.env.REFRESH_URL
     );
 
@@ -103,6 +103,7 @@ const options = {
       // Access token has expired, try to update it
       return refreshAccessToken(token);
     },
+    // Attach user and token to be available in the frontend https://next-auth.js.org/v3/tutorials/refresh-token-rotation#server-side
     session: async (session, token) => {
       const newSession = session;
       newSession.user = token.user;
