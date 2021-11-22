@@ -5,12 +5,13 @@ import PropTypes from "prop-types";
 import React, { useEffect, useCallback } from "react";
 
 import { ReactComponent as IcUpload } from "@/twoopstracker/assets/icons/upload.svg";
+import { createList } from "@/twoopstracker/lib";
 // upload file with fetch
 const handleUpload = (content) => {
   if (!content) {
     return null;
   }
-  return null;
+  return createList("/api/accounts/lists", content);
 };
 
 const useStyles = makeStyles(({ typography }) => ({
@@ -46,36 +47,43 @@ function Upload({
 }) {
   const classes = useStyles(props);
   const [file, setFile] = React.useState();
-  const [loading] = React.useState(false);
-  const [error] = React.useState();
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState();
 
   const handleChange = (selectedFile) => {
     setFile(selectedFile);
   };
 
   const processFile = useCallback(async () => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const text = reader.result;
-      const lines = text.split("\n");
-      const result = lines.reduce(
-        (acc, line, index) => {
-          if (index === 0) {
-            acc.is_private = line.split(",")[0].trim().toLowerCase === "yes";
-          } else {
-            const [screenName] = line.split(",");
-            acc.accounts.push({ screen_name: screenName.trim() });
+    setLoading(true);
+    try {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const text = reader.result;
+        const lines = text.split("\n");
+        const result = lines.reduce(
+          (acc, line, index) => {
+            if (index === 0) {
+              acc.is_private = line.split(",")[0].trim().toLowerCase === "yes";
+            } else {
+              const [screenName] = line.split(",");
+              acc.accounts.push({ screen_name: screenName.trim() });
+            }
+            return acc;
+          },
+          {
+            name: file[0].name,
+            accounts: [],
           }
-          return acc;
-        },
-        {
-          name: file[0].name,
-          accounts: [],
-        }
-      );
-      handleUpload(result);
-    };
-    reader.readAsText(file[0]);
+        );
+        await handleUpload(result);
+        setLoading(false);
+      };
+      reader.readAsText(file[0]);
+    } catch (err) {
+      setError(true);
+      setLoading(false);
+    }
   }, [file]);
 
   useEffect(() => {

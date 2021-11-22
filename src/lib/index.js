@@ -66,3 +66,14 @@ export async function fetchAllResultsWithNext(fn) {
 
   return { ...others, results };
 }
+
+export const createList = async (payload, url) => {
+  const data = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  const result = await data.json();
+
+  return result;
+};
