@@ -13,6 +13,9 @@ const useStyles = makeStyles(({ typography }) => ({
   button: {
     backgroundColor: "red",
     color: "#fff",
+    "&:hover": {
+      color: "#DB1111",
+    },
   },
   listTitle: {
     fontWeight: "bold",

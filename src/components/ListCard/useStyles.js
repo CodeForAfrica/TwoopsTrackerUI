@@ -17,6 +17,9 @@ const useStyles = makeStyles(({ typography }) => ({
     backgroundColor: "red",
     color: "#fff",
     marginLeft: typography.pxToRem(20),
+    "&:hover": {
+      color: "#DB1111",
+    },
   },
   label: {
     color: "#000",
