@@ -7,7 +7,7 @@ import { SWRConfig } from "swr";
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
 import { pagination } from "@/twoopstracker/config";
-import { tweets } from "@/twoopstracker/lib";
+import { tweets, tweetsInsights } from "@/twoopstracker/lib";
 
 export default function Explore({
   days,
@@ -56,14 +56,18 @@ Explore.defaultProps = {
 
 export async function getServerSideProps(context) {
   const days = 14;
-  const results = await tweets({ days });
+  const foundTweets = await tweets({ days });
+  const insights = await tweetsInsights({ days });
+  console.log("BOOM", { foundTweets, insights });
 
   return {
     props: {
-      ...results,
+      tweets: foundTweets,
+      insights,
       days,
       fallback: {
-        "/api/tweets": results,
+        "/api/tweets": foundTweets,
+        "/api/tweets/insights": insights,
       },
       providers: await providers(context),
     },
