@@ -115,7 +115,7 @@ function Menu({
           </Button>
         </Grid>
       ))}
-      {href === "/explore" ? (
+      {href === "/login" ? (
         <UserProfile label={label} avatorProps={avatorProps} />
       ) : (
         <LoginMenu links={loginMenuProps} />

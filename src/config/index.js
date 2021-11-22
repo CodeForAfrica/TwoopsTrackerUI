@@ -11,7 +11,7 @@ import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import cfaSquare from "@/twoopstracker/assets/images/Square-01 1.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
-import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
+import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
 export const tweets = [
   {
