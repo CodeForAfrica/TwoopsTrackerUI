@@ -4,10 +4,44 @@ import linkedin from "@/twoopstracker/assets/icons/white icon linkedin.svg";
 import twitter from "@/twoopstracker/assets/icons/white icon twitter.svg";
 import codeForAll from "@/twoopstracker/assets/images/Artboard 1@2x 1.png";
 import codeForAfrica from "@/twoopstracker/assets/images/CFA Editable Logo-01 1.png";
+import crowdtangle from "@/twoopstracker/assets/images/image 5.png";
+import github from "@/twoopstracker/assets/images/Rectangle 10.png";
 import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
+import cfaSquare from "@/twoopstracker/assets/images/Square-01 1.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
+
+export const tweetsCount = [
+  {
+    date: "2021-10-08",
+    count: 243,
+  },
+  {
+    date: "2021-10-09",
+    count: 340,
+  },
+  {
+    date: "2021-10-10",
+    count: 567,
+  },
+  {
+    date: "2021-10-11",
+    count: 80,
+  },
+  {
+    date: "2021-10-12",
+    count: 123,
+  },
+  {
+    date: "2021-10-13",
+    count: 342,
+  },
+  {
+    date: "2021-10-14",
+    count: 0,
+  },
+];
 
 export const tweets = [
   {
@@ -601,11 +635,11 @@ export const navigationArgs = {
       label: "About",
     },
     {
-      href: "/sign-in",
+      href: "/login",
       label: "Sign in",
     },
     {
-      href: "/sign-up",
+      href: "/login",
       label: "Sign Up",
     },
   ],
@@ -722,7 +756,7 @@ export const home = {
     title: "Partners & About Us",
   },
   signUp: {
-    buttonLink: "/signup",
+    buttonLink: "/login",
     buttonText: "Sign up",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ",
@@ -808,8 +842,69 @@ export const footerArgs = {
   aboutVariant: "subtitle1",
 };
 
+export const about = {
+  banner: {
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+    title: "About Us",
+  },
+  items: [
+    {
+      image: codeForAfrica,
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      href: "https://www.codeforafrica.org/",
+    },
+
+    {
+      image: codeForAll,
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      href: "https://www.cfa.org/",
+    },
+  ],
+};
+
+export const resources = {
+  banner: {
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
+    title: "Resources",
+  },
+  items: [
+    {
+      image: cfaSquare,
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      title: "Existing website - ANCIR ",
+      href: "https://www.cfa.org/",
+    },
+    {
+      image: github,
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      title: "Github",
+      href: "https://github.com/CodeForAfrica/TwoopsTrackerUI",
+    },
+    {
+      image: crowdtangle,
+      description:
+        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      title: "Crowdtangle",
+      href: "https://crowdtangle.com",
+    },
+  ],
+};
+
+export const pagination = {
+  pageSizeDefaultValue: "20",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "20" }, { value: "50" }],
+};
+
 const config = {
   tweets,
+  tweetsCount,
   navigationArgs,
   url: "http://localhost:3000",
   investigation,
