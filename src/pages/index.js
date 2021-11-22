@@ -24,7 +24,7 @@ export default function Index({ days, tweets: tweetsProp, ...props }) {
 
 Index.propTypes = {
   days: PropTypes.number,
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  tweets: PropTypes.shape({}),
 };
 
 Index.defaultProps = {
