@@ -48,6 +48,7 @@ function TweetsContainer({
   const [insights, setInsights] = useState();
   const [location, setLocation] = useState();
   const [page, setPage] = useState();
+  const [paginating, setPaginating] = useState(false);
   const [pageSize, setPageSize] = useState();
   const [query, setQuery] = useState("");
   const [theme, setTheme] = useState();
@@ -98,13 +99,18 @@ function TweetsContainer({
 
   const handleSelection = ({ name, value }) => {
     setStateObject[name](value);
+    setPaginating(false);
   };
 
   const handleClickPage = (e, value) => {
     setPage(value);
+    setPaginating(true);
   };
   const handleClickPageSize = (e, value) => {
+    // Changing pageSize triggers computation of number of pages.
+    setPage(1);
     setPageSize(value);
+    setPaginating(true);
   };
 
   const shouldFetch = () => {
@@ -122,13 +128,33 @@ function TweetsContainer({
     }
     return url;
   };
-  const { tweets: data, isLoading } = useTweets(shouldFetch);
+  const { data: newTweets, isLoading: isLoadingTweets } =
+    useTweets(shouldFetch);
   useEffect(() => {
-    if (data) {
-      setTweets(data?.tweets);
-      setInsights(data?.insights);
+    if (newTweets) {
+      setTweets(newTweets);
     }
-  }, [data]);
+  }, [newTweets]);
+  const shouldFetchInsights = () => {
+    if (paginating) {
+      return null;
+    }
+
+    const queryString = getQueryString(query, theme, location, days);
+    let url = "/api/tweets/insights";
+    if (queryString) {
+      url = `${url}?${queryString}`;
+    }
+    return url;
+  };
+  const { data: newInsights, isLoading: isLoadingInsights } =
+    useTweets(shouldFetchInsights);
+  useEffect(() => {
+    if (newInsights) {
+      setInsights(newInsights);
+    }
+  }, [newInsights]);
+  const isLoading = isLoadingTweets || isLoadingInsights;
 
   return (
     <>
