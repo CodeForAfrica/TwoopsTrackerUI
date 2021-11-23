@@ -1,6 +1,6 @@
 import { Grid, Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -88,12 +88,12 @@ function Menu({
   ...props
 }) {
   const classes = useStyles(props);
-  const router = useRouter();
-  const href = router.pathname;
+  const [session] = useSession();
 
   if (!links?.length) {
     return null;
   }
+
   return (
     <Grid container className={classes.root}>
       {links.map((item) => (
@@ -115,8 +115,8 @@ function Menu({
           </Button>
         </Grid>
       ))}
-      {href === "/explore" ? (
-        <UserProfile label={label} avatorProps={avatorProps} />
+      {session?.user?.name ? (
+        <UserProfile label={session.user.name} avatorProps={avatorProps} />
       ) : (
         <LoginMenu links={loginMenuProps} />
       )}
