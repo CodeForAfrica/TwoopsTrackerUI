@@ -147,6 +147,7 @@ Upload.propTypes = {
   templateName: PropTypes.string,
   uploadLabel: PropTypes.string,
 };
+
 Upload.defaultProps = {
   conjuctionLabel: undefined,
   downloadCopy: undefined,
