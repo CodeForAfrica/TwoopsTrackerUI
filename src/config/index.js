@@ -1,4 +1,6 @@
 import userAvator from "@/twoopstracker/assets/icons/avator.svg";
+import login from "@/twoopstracker/assets/icons/login.svg";
+import signup from "@/twoopstracker/assets/icons/signup.svg";
 import fb from "@/twoopstracker/assets/icons/white icon fb.svg";
 import insta from "@/twoopstracker/assets/icons/white icon insta.svg";
 import linkedin from "@/twoopstracker/assets/icons/white icon linkedin.svg";
@@ -607,12 +609,26 @@ export const navigationArgs = {
   ],
   loginMenuProps: [
     {
-      label: "Sign in",
+      label: "Sign up",
       href: "/login",
+      imageProps: {
+        width: 24,
+        height: 24,
+        alt: "desktop logo",
+        href: "/login",
+        src: signup,
+      },
     },
     {
-      label: "Sign Up ",
+      label: "Log In",
       href: "/login",
+      imageProps: {
+        width: 24,
+        height: 24,
+        alt: "desktop logo",
+        href: "/login",
+        src: login,
+      },
     },
   ],
   desktopLogoProps: {

@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React from "react";
 
+import Image from "@/twoopstracker/components/Image";
 import Link from "@/twoopstracker/components/Link";
 
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
@@ -17,8 +18,22 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   links: {
-    marginTop: "0.5rem",
-    borderRadius: 0,
+    color: "black",
+    margin: `${typography.pxToRem(10)} ${typography.pxToRem(-8)}`,
+    "&:hover, &:focus, &:focus-within": {
+      backgroundColor: "transparent",
+      textDecoration: "none",
+      color: "black",
+    },
+    [breakpoints.up("lg")]: {
+      padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
+      color: "black",
+      "&:hover, &:focus, &:focus-within": {
+        color: "black",
+        backgroundColor: "transparent",
+        textDecoration: "none",
+      },
+    },
   },
   label: {
     fontSize: typography.pxToRem(24),
@@ -57,18 +72,18 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   menuLinks: {
-    color: "black",
+    color: "#DB1111",
     margin: `${typography.pxToRem(10)} ${typography.pxToRem(-8)}`,
     "&:hover, &:focus, &:focus-within": {
       backgroundColor: "transparent",
       textDecoration: "none",
-      color: "black",
+      color: "#DB1111",
     },
     [breakpoints.up("lg")]: {
       padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
-      color: "black",
+      color: "#DB1111",
       "&:hover, &:focus, &:focus-within": {
-        color: "black",
+        color: "#DB1111",
         backgroundColor: "transparent",
         textDecoration: "none",
       },
@@ -88,8 +103,8 @@ function LoginMenu({ links, children, ...props }) {
         <Grid item key={item.label} className={classes.menu}>
           <Button
             component={Link}
-            color={index !== links.length - 1 ? "default" : "primary"}
-            variant={index !== links.length - 1 ? "text" : "contained"}
+            color="default"
+            variant="text"
             size="large"
             href={item.href}
             classes={{
@@ -97,6 +112,7 @@ function LoginMenu({ links, children, ...props }) {
                 index !== links.length - 1 ? classes.menuLinks : classes.links,
               text: classes.text,
             }}
+            startIcon={<Image {...item.imageProps} />}
           >
             <Typography variant="body1" className={classes.label}>
               {item.label}
