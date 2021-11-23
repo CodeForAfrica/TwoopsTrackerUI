@@ -80,11 +80,11 @@ function UserProfile({ label, avatorProps, ...props }) {
           root: classes.menuLinks,
           text: classes.text,
         }}
+        endIcon={<Image {...avatorProps} />}
       >
         <Typography variant="body1" className={classes.label}>
           {label}
         </Typography>
-        <Image {...avatorProps} />
       </Button>
     </div>
   );
