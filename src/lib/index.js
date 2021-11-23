@@ -145,10 +145,10 @@ export async function tweetsInsights({ page, pageSize, ...userQuery } = {}) {
 export async function deleteSearch(searchId, session) {
   const options = {
     method: "DELETE",
-    headers: { Authorization: `Bearer ${session?.accessToken}` },
-    body: JSON.stringify({
-      id: searchId,
-    }),
+    headers: {
+      Authorization: `Bearer ${session?.accessToken}`,
+      "Content-Type": "application/json",
+    },
   };
   return fetchJson(`${BASE_URL}/tweets/searches/${searchId}`, options);
 }

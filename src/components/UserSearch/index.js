@@ -23,7 +23,7 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
   const [page, setPage] = useState();
   const [searches, setSearches] = useState(searchesProp);
   const [shouldFetch, setShouldFetch] = useState(false);
-  const [pageSize, setPageSize] = useState();
+  const [pageSize, setPageSize] = useState(3);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClickPage = (e, value) => {
@@ -38,7 +38,8 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
 
   const fetchSearches = (url, pg, pSize) => {
     const queryString = getQueryString({ page: pg, pageSize: pSize });
-    return fetchJson(`${url}/${queryString}`);
+    console.log(queryString);
+    return fetchJson(`${url}/?${queryString}`);
   };
 
   const handleDeleteSearch = async (id) => {
