@@ -2,7 +2,7 @@ import React from "react";
 
 import Chart from ".";
 
-import { tweets } from "@/twoopstracker/config";
+import { tweetsCount } from "@/twoopstracker/config";
 
 export default {
   title: "Sections/Chart",
@@ -14,5 +14,5 @@ const Template = (args) => <Chart {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  tweets,
+  data: tweetsCount,
 };

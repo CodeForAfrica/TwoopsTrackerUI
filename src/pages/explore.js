@@ -6,12 +6,12 @@ import { SWRConfig } from "swr";
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
 import { pagination } from "@/twoopstracker/config";
-import { fetchAllResultsWithNext, tweets } from "@/twoopstracker/lib";
+import { tweets, tweetsInsights } from "@/twoopstracker/lib";
 
 export default function Explore({
   fallback,
+  insights,
   tweets: tweetsProp,
-  foundTweets,
   days,
   ...props
 }) {
@@ -20,7 +20,7 @@ export default function Explore({
       <SWRConfig value={{ fallback }}>
         <TweetsContainer
           days={days}
-          foundTweets={foundTweets}
+          insights={insights}
           tweets={tweetsProp}
           paginationProps={pagination}
         />
@@ -30,17 +30,17 @@ export default function Explore({
 }
 
 Explore.propTypes = {
-  foundTweets: PropTypes.arrayOf(PropTypes.shape({})),
   days: PropTypes.number,
   fallback: PropTypes.shape({}),
+  insights: PropTypes.arrayOf(PropTypes.shape({})),
   query: PropTypes.shape({}),
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  tweets: PropTypes.shape({}),
 };
 
 Explore.defaultProps = {
-  foundTweets: undefined,
   days: undefined,
   fallback: undefined,
+  insights: undefined,
   query: undefined,
   tweets: undefined,
 };
@@ -57,19 +57,18 @@ export async function getServerSideProps(context) {
   }
 
   const days = 14;
-  const defaultTweets = await tweets({ days });
-
-  const fetchTweets = async () => tweets({ days, pageSize: 100 });
-  const foundTweets = await fetchAllResultsWithNext(fetchTweets);
+  const foundTweets = await tweets({ days });
+  const insights = await tweetsInsights({ days });
 
   return {
     props: {
+      tweets: foundTweets,
+      insights,
       days,
       fallback: {
-        "/api/tweets": { tweets: defaultTweets, foundTweets: defaultTweets },
+        "/api/tweets": foundTweets,
+        "/api/tweets/insights": insights,
       },
-      foundTweets,
-      tweets: defaultTweets,
     },
   };
 }

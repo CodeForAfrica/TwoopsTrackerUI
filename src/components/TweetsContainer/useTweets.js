@@ -8,7 +8,7 @@ function useTweets(shouldFetch) {
   const { data, error } = useSWR(shouldFetch, fetcher);
 
   return {
-    tweets: data,
+    data,
     isLoading: shouldFetch() && !(error || data),
     isError: error,
   };
