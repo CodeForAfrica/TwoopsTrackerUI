@@ -1,4 +1,5 @@
 import { Button, makeStyles, Typography } from "@material-ui/core";
+import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -61,6 +62,7 @@ function Hero({
   ...props
 }) {
   const classes = useStyles(props);
+  const [session] = useSession();
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
@@ -81,15 +83,17 @@ function Hero({
                 {searchLabel}
               </Button>
             </Link>
-            <Link href={signUpLink}>
-              <Button
-                className={classes.button}
-                variant="contained"
-                color="primary"
-              >
-                {signUpLabel}
-              </Button>
-            </Link>
+            {!session?.user ? (
+              <Link href={signUpLink}>
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                >
+                  {signUpLabel}
+                </Button>
+              </Link>
+            ) : null}
           </div>
         )}
       </Section>

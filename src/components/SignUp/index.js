@@ -1,4 +1,5 @@
 import { Typography, Button, Grid, makeStyles } from "@material-ui/core";
+import { useSession } from "next-auth/client";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
@@ -27,6 +28,7 @@ function SignUp({
   ...props
 }) {
   const classes = useStyles(props);
+  const [session] = useSession();
 
   return (
     <div className={classes.root}>
@@ -42,9 +44,11 @@ function SignUp({
             <Typography className={classes.description} variant="body1">
               {description}
             </Typography>
-            <Button href={buttonLink} variant="contained" color="primary">
-              {buttonText}
-            </Button>
+            {!session?.user ? (
+              <Button href={buttonLink} variant="contained" color="primary">
+                {buttonText}
+              </Button>
+            ) : null}
           </Grid>
         </Grid>
       </Section>
