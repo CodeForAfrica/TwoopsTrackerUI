@@ -20,8 +20,8 @@ function Account({ searches, slug, ...props }) {
   const classes = useStyles(props);
   const tabItems = [
     {
-      label: "List",
-      slug: "list",
+      label: "Lists",
+      slug: "lists",
       href: "/account/lists",
       children: <div />,
     },
@@ -64,18 +64,20 @@ Account.defaultProps = {
 };
 
 export async function getServerSideProps(context) {
-  const { params, req, res } = context;
-  const session = await getSession({ req });
-
-  if (!(session && res && session?.user)) {
-    res.writeHead(302, {
-      Location: "/login",
-    });
-    res.end();
-    return null;
+  const { params } = context;
+  const session = await getSession(context);
+  if (!(session && session?.user)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+    };
   }
 
   const searches = await getSavedSearches(session);
+
+  console.log(searches);
   const [slug] = params?.slug ?? ["lists"];
 
   return {

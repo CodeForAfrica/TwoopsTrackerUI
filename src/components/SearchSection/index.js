@@ -98,26 +98,33 @@ const SearchSection = ({
           </Button>
         </div>
       </Section>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        classes={{ paper: classes.dialog }}
+        maxWidth="md"
+        fullWidth
+      >
         <Typography variant="h4">Save Search</Typography>
         <Grid>
-          <Typography>Enter a name for your search</Typography>
+          <Typography variant="body1">Enter a name for your search</Typography>
           <TextField
             autoFocus
-            margin="dense"
+            margin="normal"
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             label="Name"
             type="text"
+            color="secondary"
             fullWidth
           />
         </Grid>
         <Grid>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} variant="text" color="primary">
             Cancel
           </Button>
-          <Button onClick={onSaveSearch} color="primary">
+          <Button onClick={onSaveSearch} variant="contained" color="primary">
             Save
           </Button>
         </Grid>

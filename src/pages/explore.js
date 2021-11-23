@@ -46,15 +46,14 @@ Explore.defaultProps = {
 };
 
 export async function getServerSideProps(context) {
-  const { req, res } = context;
-  const session = await getSession({ req });
-
-  if (!(session && res && session?.user)) {
-    res.writeHead(302, {
-      Location: "/login",
-    });
-    res.end();
-    return null;
+  const session = await getSession(context);
+  if (!(session && session?.user)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+    };
   }
 
   const days = 14;
