@@ -63,13 +63,17 @@ function Tabs({ activeTab, items, name: nameProp, ...props }) {
           />
         ))}
       </MuiTabs>
-      <div className={classes.tabPanels}>
-        {items.map((item, index) => (
-          <TabPanel key={item.label} name={name} selected={value} value={index}>
-            {item.children}
-          </TabPanel>
-        ))}
-      </div>
+      {items.map((item, index) => (
+        <TabPanel
+          key={item.label}
+          name={name}
+          selected={value}
+          value={index}
+          classes={{ root: classes.tabPanel }}
+        >
+          {item.children}
+        </TabPanel>
+      ))}
     </div>
   );
 }

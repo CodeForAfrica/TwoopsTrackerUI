@@ -18,8 +18,9 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
-function Account({ foundSearches, foundLists, slug, ...props }) {
+function Account({ foundSearches, foundLists, activeSlug, ...props }) {
   const classes = useStyles(props);
+
   const tabItems = [
     {
       label: "Lists",
@@ -29,7 +30,7 @@ function Account({ foundSearches, foundLists, slug, ...props }) {
     },
     {
       label: "Saved Search",
-      slug: "saved-search",
+      slug: "searches",
       href: "/account/searches",
       children: (
         <UserSearch
@@ -54,7 +55,11 @@ function Account({ foundSearches, foundLists, slug, ...props }) {
   return (
     <Page {...props}>
       <Section classes={{ root: classes.section }}>
-        <Tabs name="account" activeTab={slug} items={tabItems} />
+        <Tabs
+          name="account"
+          activeTab={tabItems?.map(({ slug }) => slug)?.indexOf(activeSlug)}
+          items={tabItems}
+        />
       </Section>
     </Page>
   );
@@ -63,13 +68,13 @@ function Account({ foundSearches, foundLists, slug, ...props }) {
 Account.propTypes = {
   foundLists: PropTypes.arrayOf(PropTypes.shape({})),
   foundSearches: PropTypes.arrayOf(PropTypes.shape({})),
-  slug: PropTypes.string,
+  activeSlug: PropTypes.string,
 };
 
 Account.defaultProps = {
   foundSearches: undefined,
   foundLists: undefined,
-  slug: undefined,
+  activeSlug: undefined,
 };
 
 export async function getServerSideProps(context) {
@@ -86,11 +91,11 @@ export async function getServerSideProps(context) {
 
   const { results: foundLists } = await lists();
   const foundSearches = await searches({});
-  const [slug] = params?.slug ?? ["lists"];
+  const [activeSlug] = params?.slug ?? ["lists"];
 
   return {
     props: {
-      slug,
+      activeSlug,
       foundSearches,
       foundLists,
     },

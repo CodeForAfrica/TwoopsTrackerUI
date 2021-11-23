@@ -168,7 +168,7 @@ export async function updateSearch(searchId, payload) {
 
 export async function searches(page, pageSize) {
   const session = await getSession();
-  const searchParams = URLSearchParams();
+  const searchParams = new URLSearchParams();
   if (page) {
     searchParams.append("page", page);
   }

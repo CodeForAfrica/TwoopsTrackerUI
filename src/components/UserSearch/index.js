@@ -56,11 +56,12 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
     if (data) {
       setSearches(data);
       setIsLoading(false);
-    } else if (!data && !error) {
+    } else if (shouldFetch && !(data || error)) {
       setIsLoading(true);
     } else {
       setIsLoading(false);
     }
+    setShouldFetch(false);
   }, [data, error]);
 
   return (

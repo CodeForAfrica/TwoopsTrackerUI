@@ -1,16 +1,15 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ palette, typography }) => ({
+const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
     flexGrow: 1,
     display: "flex",
+    justifyContent: "space-between",
   },
   indicator: {
     width: 0,
   },
-  tabs: {
-    maxWidth: typography.pxToRem(306),
-  },
+  tabs: {},
   tab: {
     color: palette.secondary.main,
     fontWeight: 400,
@@ -38,9 +37,12 @@ const useStyles = makeStyles(({ palette, typography }) => ({
       cursor: "default",
     },
   },
-  tabPanel: {},
-  tabPanels: {
-    marginTop: typography.pxToRem(40),
+  tabPanel: {
+    paddingTop: typography.pxToRem(20),
+    [breakpoints.up("lg")]: {
+      paddingLeft: typography.pxToRem(86),
+      width: "calc(100% - 304px)",
+    },
   },
 }));
 

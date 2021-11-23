@@ -7,7 +7,6 @@ import useStyles from "./useStyles";
 
 import ListCard from "@/twoopstracker/components/ListCard";
 import ListModal from "@/twoopstracker/components/ListModal";
-import Section from "@/twoopstracker/components/Section";
 import { createList } from "@/twoopstracker/lib";
 
 function Lists({ results: listsProp, ...props }) {
@@ -74,7 +73,7 @@ function Lists({ results: listsProp, ...props }) {
   }
 
   return (
-    <Section>
+    <div className={classes.root}>
       <div className={classes.section}>
         <Typography className={classes.listTitle}>Your Lists</Typography>
         <Button onClick={handleOpen} className={classes.button}>
@@ -105,7 +104,7 @@ function Lists({ results: listsProp, ...props }) {
           setLists={setLists}
         />
       ))}
-    </Section>
+    </div>
   );
 }
 
