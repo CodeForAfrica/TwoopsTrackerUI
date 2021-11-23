@@ -35,9 +35,9 @@ async function refreshAccessToken(token) {
 
     return {
       ...token,
-      accessToken: refreshedTokens.access,
-      exp: jwtDecode(refreshedTokens.access).exp * 1000,
-      refreshToken: refreshedTokens?.refresh_token ?? token.refreshToken, // Fall back to old refresh token
+      accessToken: refreshedTokens.access_token,
+      exp: jwtDecode(refreshedTokens.access_token).exp * 1000,
+      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
     };
   } catch (error) {
     return {
