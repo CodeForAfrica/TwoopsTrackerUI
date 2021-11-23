@@ -12,6 +12,9 @@ import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 const useStyles = makeStyles(() => ({
   root: {},
+  pagination: {
+    width: "100%",
+  },
 }));
 
 function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
@@ -56,13 +59,13 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
     if (data) {
       setSearches(data);
       setIsLoading(false);
-    } else if (shouldFetch && !(data || error)) {
+      setShouldFetch(false);
+    } else if (shouldFetch && !data && !error) {
       setIsLoading(true);
     } else {
       setIsLoading(false);
     }
-    setShouldFetch(false);
-  }, [data, error]);
+  }, [data, error, shouldFetch]);
 
   return (
     <div className={classes.root}>
@@ -87,6 +90,7 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
             onChangePageSize={handleClickPageSize}
             page={page}
             pageSize={pageSize}
+            classes={{ section: classes.pagination }}
           />
         </>
       ) : (

@@ -1,5 +1,6 @@
 import { Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { differenceInCalendarDays } from "date-fns";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -26,9 +27,11 @@ const useStyles = makeStyles(({ typography }) => ({
 }));
 
 function UserSearchCard({
+  id,
   name,
   query,
   created_at: createdAt,
+  onDelete,
   datePrefix,
   keywordPrefix,
   queryPrefix,
@@ -38,15 +41,22 @@ function UserSearchCard({
   const date = new Date(createdAt);
 
   const searchUrl = () => {
-    const { start_date: startDate, end_date: endDate, ...rest } = query;
-    const searchParams = URLSearchParams();
+    const { startDate, endDate, ...rest } = query;
+    const searchParams = new URLSearchParams();
 
-    const days = endDate - startDate;
-
+    const days = differenceInCalendarDays(
+      new Date(endDate),
+      new Date(startDate)
+    );
     Object.keys(rest).forEach((k) => searchParams.append(k, rest[k]));
-
     searchParams.append("days", days);
-    return `/explore/${searchParams.toISOString()}`;
+    return `/explore/?${searchParams.toString()}`;
+  };
+
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete(id);
+    }
   };
 
   return (
@@ -96,6 +106,7 @@ function UserSearchCard({
               variant="contained"
               color="primary"
               className={classes.button}
+              onClick={handleDelete}
             >
               Delete
             </Button>
@@ -107,22 +118,26 @@ function UserSearchCard({
 }
 
 UserSearchCard.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string,
   query: PropTypes.shape({
-    end_date: PropTypes.string,
-    start_date: PropTypes.string,
+    endDate: PropTypes.string,
+    startDate: PropTypes.string,
     term: PropTypes.string,
   }),
   created_at: PropTypes.string,
   datePrefix: PropTypes.string,
   keywordPrefix: PropTypes.string,
+  onDelete: PropTypes.func,
   queryPrefix: PropTypes.string,
 };
 
 UserSearchCard.defaultProps = {
+  id: undefined,
   name: undefined,
   query: undefined,
   created_at: undefined,
+  onDelete: undefined,
   datePrefix: "Saved on ",
   keywordPrefix: "Keyword: ",
   queryPrefix: "Filters applied: ",

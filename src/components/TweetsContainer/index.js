@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
@@ -11,7 +10,7 @@ import Loading from "@/twoopstracker/components/Loading";
 import Pagination from "@/twoopstracker/components/Pagination";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
-import { saveSearch } from "@/twoopstracker/lib";
+import { fetchJson } from "@/twoopstracker/lib";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 function TweetsContainer({
@@ -33,8 +32,6 @@ function TweetsContainer({
   const [query, setQuery] = useState("");
   const [theme, setTheme] = useState();
   const [tweets, setTweets] = useState();
-
-  const [session] = useSession();
 
   const setStateObject = {
     days: setDays,
@@ -96,8 +93,16 @@ function TweetsContainer({
   };
 
   const handleSaveSearch = async (name) => {
-    const res = await saveSearch(query, theme, location, days, name, session);
-    return res;
+    await fetchJson(`/api/account/searches`, {
+      method: "POST",
+      body: JSON.stringify({
+        query,
+        theme,
+        location,
+        days,
+        name,
+      }),
+    });
   };
 
   const shouldFetch = () => {

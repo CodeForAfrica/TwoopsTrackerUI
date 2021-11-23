@@ -89,9 +89,9 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const { results: foundLists } = await lists();
-  const foundSearches = await searches({});
   const [activeSlug] = params?.slug ?? ["lists"];
+  const { results: foundLists } = await lists();
+  const foundSearches = await searches({}, session);
 
   return {
     props: {
