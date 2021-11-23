@@ -2,7 +2,7 @@ import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 import Loading from "@/twoopstracker/components/Loading";
 import Pagination from "@/twoopstracker/components/Pagination";
@@ -22,51 +22,45 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
 
   const [page, setPage] = useState();
   const [searches, setSearches] = useState(searchesProp);
-  const [shouldFetch, setShouldFetch] = useState(false);
   const [pageSize, setPageSize] = useState(3);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { mutate } = useSWRConfig();
+
   const handleClickPage = (e, value) => {
     setPage(value);
-    setShouldFetch(true);
   };
   const handleClickPageSize = (e, value) => {
     setPage(1);
     setPageSize(value);
-    setShouldFetch(true);
   };
 
   const fetchSearches = (url, pg, pSize) => {
     const queryString = getQueryString({ page: pg, pageSize: pSize });
-    console.log(queryString);
     return fetchJson(`${url}/?${queryString}`);
   };
 
-  const handleDeleteSearch = async (id) => {
-    const res = await fetchJson(`/api/account/searches/${id}`, {
-      method: "DELETE",
-    });
-    if (res.status === 200) {
-      setShouldFetch(true);
-    }
-  };
-
   const { data, error } = useSWR(
-    shouldFetch ? [`/api/account/searches`, page, pageSize] : null,
+    [`/api/account/searches`, page, pageSize],
     fetchSearches
   );
 
+  const handleDeleteSearch = async (id) => {
+    await fetchJson(`/api/account/searches/${id}`, {
+      method: "DELETE",
+    });
+    mutate([`/api/account/searches`, page, pageSize]);
+  };
   useEffect(() => {
     if (data) {
       setSearches(data);
       setIsLoading(false);
-      setShouldFetch(false);
-    } else if (shouldFetch && !data && !error) {
+    } else if (!data && !error) {
       setIsLoading(true);
     } else {
       setIsLoading(false);
     }
-  }, [data, error, shouldFetch]);
+  }, [data, error]);
 
   return (
     <div className={classes.root}>
