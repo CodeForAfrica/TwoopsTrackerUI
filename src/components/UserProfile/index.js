@@ -75,7 +75,7 @@ function UserProfile({ label, avatorProps, ...props }) {
         color="default"
         variant="text"
         size="large"
-        href="/"
+        href="/account"
         classes={{
           root: classes.menuLinks,
           text: classes.text,
