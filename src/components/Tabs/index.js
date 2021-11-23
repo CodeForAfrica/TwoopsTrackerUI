@@ -1,4 +1,5 @@
-import { Tab, Tabs as MuiTabs } from "@material-ui/core";
+import { Tab, Tabs as MuiTabs, useMediaQuery } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -24,6 +25,9 @@ function Tabs({ activeTab, items, name: nameProp, ...props }) {
     setValue(newValue);
   };
 
+  const theme = useTheme();
+  const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
+
   if (!items?.length) {
     return null;
   }
@@ -31,7 +35,7 @@ function Tabs({ activeTab, items, name: nameProp, ...props }) {
     <div className={classes.root}>
       <MuiTabs
         value={value}
-        orientation="vertical"
+        orientation={isUpLg ? "vertical" : "horizontal"}
         onChange={handleChange}
         variant="scrollable"
         scrollButtons="off"

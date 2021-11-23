@@ -6,7 +6,7 @@ import React from "react";
 
 import Link from "@/twoopstracker/components/Link";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ breakpoints, typography }) => ({
   root: {
     borderBottom: "1px solid rgba(0, 0, 0, 0.25)",
     paddingBottom: typography.pxToRem(10),
@@ -23,6 +23,12 @@ const useStyles = makeStyles(({ typography }) => ({
   date: {
     fontFamily: typography.h4.fontFamily,
     marginBottom: typography.pxToRem(30),
+  },
+  grid: {
+    [breakpoints.up("lg")]: {
+      justifyContent: "flex-end",
+      alignItems: "flex-end",
+    },
   },
 }));
 
@@ -62,7 +68,7 @@ function UserSearchCard({
   return (
     <div className={classes.root}>
       <Grid container>
-        <Grid item md={8} xs={12}>
+        <Grid item lg={8} xs={12}>
           <Typography variant="h4">{name}</Typography>
           {query?.term && (
             <Typography
@@ -79,12 +85,11 @@ function UserSearchCard({
         </Grid>
         <Grid
           item
-          md={4}
+          lg={4}
           xs={12}
           container
-          justify="flex-end"
-          alignItems="flex-end"
           direction="column"
+          className={classes.grid}
         >
           <Grid item>
             <Typography
