@@ -29,21 +29,17 @@ function fetchToken(token, url = process.env.AUTH_URL) {
 async function refreshAccessToken(token) {
   try {
     const refreshedTokens = await fetchToken(
-      { refresh: token.refreshToken, id_token: token.idToken },
+      { refresh: token.refreshToken },
       process.env.REFRESH_URL
     );
-
     return {
       ...token,
-      accessToken: refreshedTokens.access_token,
-      exp: jwtDecode(refreshedTokens.access_token).exp * 1000,
-      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
+      accessToken: refreshedTokens.access,
+      exp: jwtDecode(refreshedTokens.access).exp * 1000,
+      refreshToken: refreshedTokens?.refresh_token ?? token.refreshToken, // Fall back to old refresh token
     };
   } catch (error) {
-    return {
-      ...token,
-      error: "RefreshAccessTokenError",
-    };
+    return null;
   }
 }
 
@@ -79,6 +75,7 @@ const options = {
     },
     jwt: async (token, user, account) => {
       // Initial sign in
+
       if (account && user) {
         const { access_token: accessToken, refresh_token: refreshToken } =
           await fetchToken({
@@ -97,7 +94,11 @@ const options = {
         };
       }
       // Return previous token if the access token has not expired yet
-      if (Date.now() < token.exp) {
+
+      if (
+        !token?.error &&
+        Date.now() < jwtDecode(token?.accessToken).exp * 1000
+      ) {
         return token;
       }
       // Access token has expired, try to update it
@@ -105,10 +106,10 @@ const options = {
     },
     // Attach user and token to be available in the frontend https://next-auth.js.org/v3/tutorials/refresh-token-rotation#server-side
     session: async (session, token) => {
-      const newSession = session;
-      newSession.user = token.user;
-      newSession.accessToken = token.accessToken;
-      newSession.error = token.error;
+      if (!session || !token) {
+        return null;
+      }
+      const newSession = { ...session, ...token };
       return newSession;
     },
   },

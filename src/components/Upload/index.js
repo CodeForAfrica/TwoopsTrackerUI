@@ -6,24 +6,19 @@ import { useDropzone } from "react-dropzone";
 
 import { ReactComponent as IcUpload } from "@/twoopstracker/assets/icons/upload.svg";
 import Section from "@/twoopstracker/components/Section";
-import { createList } from "@/twoopstracker/lib";
+import request from "@/twoopstracker/utils/request";
 
 const handleUpload = async (content) => {
   if (!content) {
     return null;
   }
-  return createList(content, "/api/accounts/lists");
 
-  // const session = await getSession();
-  // const headers = new Headers();
-  // headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
-
-  // const data = await fetch(process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL, {
-  //   method: "POST",
-  //   body: JSON.stringify(content),
-  // });
-  // const result = await data.json();
-  // return result;
+  return request(
+    `${process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL}/lists/`,
+    "POST",
+    content,
+    true
+  );
 };
 
 const useStyles = makeStyles(({ typography }) => ({
