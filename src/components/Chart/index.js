@@ -1,15 +1,15 @@
-import { useMediaQuery } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { subDays } from "date-fns";
+import { Typography, useMediaQuery } from "@material-ui/core";
+import { makeStyles, useTheme, ThemeProvider } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
+import ReactDOMServer from "react-dom/server";
 import embed from "vega-embed";
 
 import LineScope from "./LineScope";
 
 import Section from "@/twoopstracker/components/Section";
 
-const useStyles = makeStyles(({ breakpoints, typography }) => ({
+const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
     marginTop: typography.pxToRem(30),
     marginBottom: typography.pxToRem(30),
@@ -20,53 +20,114 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
   },
   section: {
     position: "relative",
-    padding: typography.pxToRem(30),
+    padding: `${typography.pxToRem(30)} ${typography.pxToRem(
+      30
+    )} ${typography.pxToRem(50)}`,
     boxShadow: "0 4px 6px 0 #0000000D",
-    height: typography.pxToRem(523),
+    height: typography.pxToRem(578),
   },
   chart: {
     width: "100%",
   },
+  tooltip: {
+    padding: `${typography.pxToRem(5)} ${typography.pxToRem(10)}`,
+    backgroundColor: palette.background.default,
+    border: "0.5px solid #0000001A",
+    boxShadow: "0px 2px 4px 1px #00000033",
+  },
+  date: {
+    fontSize: typography.pxToRem(13),
+    fontFamily: typography.h4.fontFamily,
+    lineHeight: typography.pxToRem(18),
+  },
+  count: {
+    fontSize: typography.pxToRem(14),
+    fontFamily: typography.h4.fontFamily,
+    fontWeight: 500,
+    lineHeight: typography.pxToRem(18),
+  },
 }));
 
-function Chart({ tweets, title, days: daysProp, ...props }) {
+function Chart({ data, ...props }) {
   const classes = useStyles(props);
   const chartRef = useRef();
-  const [view, setView] = useState(null);
 
   const theme = useTheme();
   const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
 
-  const days = parseInt(daysProp, 10) + 1;
+  const calculateTooltipPosition = (event, tooltipBox, offsetX, offsetY) => {
+    let x = event.pageX + offsetX;
+    if (x + tooltipBox.width > window.innerWidth) {
+      x = +event.pageX - offsetX - tooltipBox.width;
+    }
+    let y = event.pageY + offsetY;
+    if (y < window.innerHeight) {
+      y = window.innerHeight + offsetY;
+    }
+    if (y + tooltipBox.height > window.innerHeight) {
+      y = +event.pageY - offsetY - tooltipBox.height;
+    }
+    return { x, y };
+  };
 
-  const date = new Date();
-  const endDate = date.toISOString().substr(0, 10);
-  const startDate = subDays(date, days).toISOString().substr(0, 10);
+  const handler = useCallback(
+    (_, event, item, value) => {
+      const className = `charttooltip`;
+      let el = document.getElementsByClassName(className)[0];
+      if (!el) {
+        el = document.createElement("div");
+        el.classList.add(className);
+        document.body.appendChild(el);
+      }
+
+      const tooltipContainer = document.fullscreenElement || document.body;
+      tooltipContainer.appendChild(el);
+      // hide tooltip for null objects, undefined
+      if (!value) {
+        el.remove();
+        return;
+      }
+      el.innerHTML = ReactDOMServer.renderToString(
+        <ThemeProvider theme={theme}>
+          <div className={classes.tooltip}>
+            <Typography className={classes.date}>{value?.date}</Typography>
+            <Typography className={classes.count}>{value?.count}</Typography>
+          </div>
+        </ThemeProvider>
+      );
+
+      el.classList.add("visible");
+      const { x, y } = calculateTooltipPosition(
+        event,
+        el.getBoundingClientRect(),
+        0,
+        10
+      );
+      el.setAttribute(
+        "style",
+        `top: ${y}px; left: ${x}px; z-index: 1230; position: absolute`
+      );
+    },
+    [classes.count, classes.date, classes.tooltip, theme]
+  );
 
   useEffect(() => {
     async function renderChart() {
-      const { results: data } = tweets;
-      const spec = LineScope(data, startDate, endDate, !isUpLg);
+      const spec = LineScope(data, !isUpLg);
       if (chartRef?.current) {
-        const newView = await embed(chartRef.current, spec, {
+        await embed(chartRef.current, spec, {
           renderer: "svg",
           actions: false,
+          tooltip: handler,
         });
-        setView(newView);
       }
     }
-    if (tweets) {
+    if (data) {
       renderChart();
     }
-  }, [tweets, isUpLg, startDate, endDate]);
+  }, [data, handler, isUpLg]);
 
-  useEffect(() => {
-    if (title && view) {
-      view.signal("chartTitle", title).run();
-    }
-  }, [view, title]);
-
-  if (!tweets?.results?.length) {
+  if (!data?.length) {
     return null;
   }
   return (
@@ -79,17 +140,11 @@ function Chart({ tweets, title, days: daysProp, ...props }) {
 }
 
 Chart.propTypes = {
-  days: PropTypes.number,
-  title: PropTypes.string,
-  tweets: PropTypes.shape({
-    results: PropTypes.arrayOf(PropTypes.shape({})),
-  }),
+  data: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Chart.defaultProps = {
-  days: undefined,
-  title: undefined,
-  tweets: undefined,
+  data: undefined,
 };
 
 export default Chart;
