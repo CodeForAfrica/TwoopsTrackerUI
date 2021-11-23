@@ -1,10 +1,13 @@
+import { useSession } from "next-auth/client";
 import useSWR from "swr";
 
-const fetcher = (url) => {
-  return fetch(url).then((res) => res.json());
-};
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 function useTweets(shouldFetch) {
+  const [session] = useSession();
+  const fetcher = (url) => {
+    return fetchJson(url, session);
+  };
   const { data, error } = useSWR(shouldFetch, fetcher);
 
   return {
