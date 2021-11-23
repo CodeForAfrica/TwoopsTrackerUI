@@ -37,6 +37,18 @@ function UserSearchCard({
   const classes = useStyles(props);
   const date = new Date(createdAt);
 
+  const searchUrl = () => {
+    const { start_date: startDate, end_date: endDate, ...rest } = query;
+    const searchParams = URLSearchParams();
+
+    const days = endDate - startDate;
+
+    Object.keys(rest).forEach((k) => searchParams.append(k, rest[k]));
+
+    searchParams.append("days", days);
+    return `/explore/${searchParams.toISOString()}`;
+  };
+
   return (
     <div className={classes.root}>
       <Grid container>
@@ -75,7 +87,7 @@ function UserSearchCard({
               variant="text"
               color="primary"
               component={Link}
-              href="/explore"
+              href={searchUrl()}
               className={classes.button}
             >
               Load
@@ -97,6 +109,8 @@ function UserSearchCard({
 UserSearchCard.propTypes = {
   name: PropTypes.string,
   query: PropTypes.shape({
+    end_date: PropTypes.string,
+    start_date: PropTypes.string,
     term: PropTypes.string,
   }),
   created_at: PropTypes.string,

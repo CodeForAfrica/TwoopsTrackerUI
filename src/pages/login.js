@@ -17,9 +17,11 @@ Home.defaultProps = {
 };
 
 export async function getStaticProps(context) {
+  const providers = await getProviders(context);
+
   return {
     props: {
-      providers: await getProviders(context),
+      providers,
     },
     revalidate: 60 * 60, // 60 minutes
   };

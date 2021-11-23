@@ -9,10 +9,10 @@ import { pagination } from "@/twoopstracker/config";
 import { tweets, tweetsInsights } from "@/twoopstracker/lib";
 
 export default function Explore({
+  days,
   fallback,
   insights,
   tweets: tweetsProp,
-  days,
   ...props
 }) {
   return (

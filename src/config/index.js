@@ -952,6 +952,12 @@ export const pagination = {
   pageSizeOptions: [{ value: "20" }, { value: "50" }],
 };
 
+export const searchPgination = {
+  pageSizeDefaultValue: "3",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+};
+
 const config = {
   tweets,
   tweetsCount,

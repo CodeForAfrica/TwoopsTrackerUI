@@ -1,4 +1,5 @@
 import { subDays } from "date-fns";
+import { getSession } from "next-auth/client";
 
 const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
 
@@ -72,8 +73,8 @@ export async function APIRequest(payload, method, param) {
   return res.json();
 }
 
-export async function fetchJson(url) {
-  const res = await fetch(url);
+export async function fetchJson(url, options = { method: "GET" }) {
+  const res = await fetch(url, options);
   return res.json();
 }
 
@@ -142,38 +143,62 @@ export async function tweetsInsights({ page, pageSize, ...userQuery } = {}) {
   return fetchJson(url);
 }
 
-export async function deleteSavedSearch(searchId, session) {
-  const option = {
+export async function deleteSearch(searchId) {
+  const session = await getSession();
+  const options = {
     method: "DELETE",
     headers: { Authorization: `Bearer ${session?.user?.access_token}` },
     body: JSON.stringify({
       id: searchId,
     }),
   };
-  const res = await fetch(`${BASE_URL}/tweets/searches`, option);
-  return res.json();
+  return fetchJson(`${BASE_URL}/tweets/searches/${searchId}`, options);
 }
 
-export async function getSavedSearches(session) {
-  const option = {
+export async function updateSearch(searchId, payload) {
+  const session = await getSession();
+  const options = {
+    method: "PUT",
+    body: JSON.stringify(payload),
+    headers: { Authorization: `Bearer ${session?.user?.access_token}` },
+  };
+
+  return fetchJson(`${BASE_URL}/tweets/searches/${searchId}`, options);
+}
+
+export async function searches(page, pageSize) {
+  const session = await getSession();
+  const searchParams = URLSearchParams();
+  if (page) {
+    searchParams.append("page", page);
+  }
+  if (pageSize) {
+    searchParams.append("page_size", pageSize);
+  }
+
+  const options = {
     method: "GET",
     headers: { Authorization: `Bearer ${session?.user?.access_token}` },
   };
-  const res = await fetch(`${BASE_URL}/tweets/searches`, option);
-  return res.json();
+  return fetchJson(
+    `${BASE_URL}/tweets/searches/${searchParams.toString()}`,
+    options
+  );
 }
 
-export async function saveSearch(query, theme, location, days, name, session) {
+export async function saveSearch({ name, ...payload }) {
+  const session = await getSession();
+  const {
+    query: queryTerm,
+    location,
+    days,
+  } = tweetsSearchQueryFromUserQuery(payload);
+
   const date = new Date();
   const endDate = date.toISOString().substr(0, 10);
   const startDate = subDays(date, days).toISOString().substr(0, 10);
 
-  let queryTerm = query || theme;
-  if (queryTerm && theme) {
-    queryTerm = `(${queryTerm} AND ${theme})`;
-  }
-
-  const option = {
+  const options = {
     method: "POST",
     headers: { Authorization: `Bearer ${session?.user?.access_token}` },
     body: JSON.stringify({
@@ -187,6 +212,5 @@ export async function saveSearch(query, theme, location, days, name, session) {
     }),
   };
 
-  const res = await fetch(`${BASE_URL}/tweets/searches`, option);
-  return res.json();
+  return fetchJson(`${BASE_URL}/tweets/searches`, options);
 }
