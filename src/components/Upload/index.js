@@ -1,18 +1,29 @@
 import { A } from "@commons-ui/core";
 import { Button, makeStyles, Typography } from "@material-ui/core";
-import { DropzoneArea } from "material-ui-dropzone";
 import PropTypes from "prop-types";
 import React, { useEffect, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 
 import { ReactComponent as IcUpload } from "@/twoopstracker/assets/icons/upload.svg";
 import Section from "@/twoopstracker/components/Section";
 import { createList } from "@/twoopstracker/lib";
 
-const handleUpload = (content) => {
+const handleUpload = async (content) => {
   if (!content) {
     return null;
   }
   return createList(content, "/api/accounts/lists");
+
+  // const session = await getSession();
+  // const headers = new Headers();
+  // headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+
+  // const data = await fetch(process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL, {
+  //   method: "POST",
+  //   body: JSON.stringify(content),
+  // });
+  // const result = await data.json();
+  // return result;
 };
 
 const useStyles = makeStyles(({ typography }) => ({
@@ -20,6 +31,14 @@ const useStyles = makeStyles(({ typography }) => ({
     marginTop: typography.pxToRem(60),
   },
   section: {},
+  dropzone: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "2px dashed #ccc",
+    paddingTop: typography.pxToRem(60),
+  },
   template: {
     textAlign: "center",
     marginTop: typography.pxToRem(60),
@@ -48,14 +67,9 @@ function Upload({
   ...props
 }) {
   const classes = useStyles(props);
-  const [file, setFile] = React.useState();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState();
-
-  const handleChange = (selectedFile) => {
-    setFile(selectedFile);
-  };
-
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
   const processFile = useCallback(async () => {
     setLoading(true);
     try {
@@ -74,61 +88,53 @@ function Upload({
             return acc;
           },
           {
-            name: file[0].name,
+            name: acceptedFiles[0].name,
             accounts: [],
           }
         );
         await handleUpload(result);
         setLoading(false);
       };
-      reader.readAsText(file[0]);
+      reader.readAsText(acceptedFiles[0]);
     } catch (err) {
       setError(true);
       setLoading(false);
     }
-  }, [file]);
+  }, [acceptedFiles]);
 
   useEffect(() => {
-    if (file?.length) {
+    if (acceptedFiles?.length) {
       processFile();
     }
-  }, [file, processFile]);
+  }, [acceptedFiles, processFile]);
 
   return (
     <Section className={classes.section}>
       <div className={classes.root}>
-        <DropzoneArea
-          dropzoneText=""
-          Icon={() => (
-            <>
-              <IcUpload />
-              <Typography variant="body1" className={classes.dragLabel}>
-                {dragLabel}
-              </Typography>
-              <Typography variant="body1" className={classes.dragLabel}>
-                {conjuctionLabel}
-              </Typography>
-              <Button
-                className={classes.button}
-                variant="contained"
-                color="primary"
-                disabled={loading}
-              >
-                {loading ? loadingLabel : uploadLabel}
-              </Button>
-              {!loading && error && (
-                <Typography variant="caption" className={classes.error}>
-                  {errorLabel}
-                </Typography>
-              )}
-            </>
+        <div {...getRootProps({ className: classes.dropzone })}>
+          <input {...getInputProps()} />
+          <IcUpload />
+          <Typography variant="body1" className={classes.dragLabel}>
+            {dragLabel}
+          </Typography>
+          <Typography variant="body1" className={classes.dragLabel}>
+            {conjuctionLabel}
+          </Typography>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            disabled={loading}
+          >
+            {loading ? loadingLabel : uploadLabel}
+          </Button>
+          {!loading && error && (
+            <Typography variant="caption" className={classes.error}>
+              {errorLabel}
+            </Typography>
           )}
-          filesLimit={1}
-          showPreviewsInDropzone={false}
-          showPreviews={false}
-          acceptedFiles={[".csv"]}
-          onChange={handleChange}
-        />
+        </div>
+
         <Typography variant="body1" className={classes.template}>
           {downloadCopy} <A href={templateLink}>{templateName}</A>{" "}
         </Typography>
