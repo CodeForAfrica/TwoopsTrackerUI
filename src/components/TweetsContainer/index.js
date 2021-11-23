@@ -12,29 +12,7 @@ import Pagination from "@/twoopstracker/components/Pagination";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
 import { saveSearch } from "@/twoopstracker/lib";
-
-function getQueryString(query, theme, location, days, page, pageSize) {
-  const searchParams = new URLSearchParams();
-  if (query) {
-    searchParams.append("query", query);
-  }
-  if (theme) {
-    searchParams.append("theme", theme);
-  }
-  if (location) {
-    searchParams.append("location", location);
-  }
-  if (days) {
-    searchParams.append("days", days);
-  }
-  if (page) {
-    searchParams.append("page", page);
-  }
-  if (pageSize) {
-    searchParams.append("pageSize", pageSize);
-  }
-  return searchParams.toString();
-}
+import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 function TweetsContainer({
   days: daysProp,
@@ -83,14 +61,14 @@ function TweetsContainer({
   };
 
   useEffect(() => {
-    const queryString = getQueryString(
+    const queryString = getQueryString({
       query,
       theme,
       location,
       days,
       page,
-      pageSize
-    );
+      pageSize,
+    });
     const { pathname } = router;
     let newPathname = pathname;
     if (queryString) {
@@ -123,14 +101,14 @@ function TweetsContainer({
   };
 
   const shouldFetch = () => {
-    const queryString = getQueryString(
+    const queryString = getQueryString({
       query,
       theme,
       location,
       days,
       page,
-      pageSize
-    );
+      pageSize,
+    });
     let url = "/api/tweets";
     if (queryString) {
       url = `${url}?${queryString}`;
@@ -149,7 +127,7 @@ function TweetsContainer({
       return null;
     }
 
-    const queryString = getQueryString(query, theme, location, days);
+    const queryString = getQueryString({ query, theme, location, days });
     let url = "/api/tweets/insights";
     if (queryString) {
       url = `${url}?${queryString}`;

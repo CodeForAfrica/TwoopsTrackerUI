@@ -1,11 +1,11 @@
-export default function getQueryString(
+export default function getQueryString({
   query,
   theme,
   location,
   days,
   page,
-  pageSize
-) {
+  pageSize,
+}) {
   const searchParams = new URLSearchParams();
   if (query) {
     searchParams.append("query", query);
