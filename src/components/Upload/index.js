@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
 import React, { useEffect, useCallback } from "react";
 
 import { ReactComponent as IcUpload } from "@/twoopstracker/assets/icons/upload.svg";
+import Section from "@/twoopstracker/components/Section";
 import { createList } from "@/twoopstracker/lib";
-// upload file with fetch
+
 const handleUpload = (content) => {
   if (!content) {
     return null;
@@ -17,8 +18,8 @@ const handleUpload = (content) => {
 const useStyles = makeStyles(({ typography }) => ({
   root: {
     marginTop: typography.pxToRem(60),
-    maxWidth: typography.pxToRem(1140),
   },
+  section: {},
   template: {
     textAlign: "center",
     marginTop: typography.pxToRem(60),
@@ -94,43 +95,45 @@ function Upload({
   }, [file, processFile]);
 
   return (
-    <div className={classes.root}>
-      <DropzoneArea
-        dropzoneText=""
-        Icon={() => (
-          <>
-            <IcUpload />
-            <Typography variant="body1" className={classes.dragLabel}>
-              {dragLabel}
-            </Typography>
-            <Typography variant="body1" className={classes.dragLabel}>
-              {conjuctionLabel}
-            </Typography>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-              disabled={loading}
-            >
-              {loading ? loadingLabel : uploadLabel}
-            </Button>
-            {!loading && error && (
-              <Typography variant="caption" className={classes.error}>
-                {errorLabel}
+    <Section className={classes.section}>
+      <div className={classes.root}>
+        <DropzoneArea
+          dropzoneText=""
+          Icon={() => (
+            <>
+              <IcUpload />
+              <Typography variant="body1" className={classes.dragLabel}>
+                {dragLabel}
               </Typography>
-            )}
-          </>
-        )}
-        filesLimit={1}
-        showPreviewsInDropzone={false}
-        showPreviews={false}
-        acceptedFiles={[".csv"]}
-        onChange={handleChange}
-      />
-      <Typography variant="body1" className={classes.template}>
-        {downloadCopy} <A href={templateLink}>{templateName}</A>{" "}
-      </Typography>
-    </div>
+              <Typography variant="body1" className={classes.dragLabel}>
+                {conjuctionLabel}
+              </Typography>
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                disabled={loading}
+              >
+                {loading ? loadingLabel : uploadLabel}
+              </Button>
+              {!loading && error && (
+                <Typography variant="caption" className={classes.error}>
+                  {errorLabel}
+                </Typography>
+              )}
+            </>
+          )}
+          filesLimit={1}
+          showPreviewsInDropzone={false}
+          showPreviews={false}
+          acceptedFiles={[".csv"]}
+          onChange={handleChange}
+        />
+        <Typography variant="body1" className={classes.template}>
+          {downloadCopy} <A href={templateLink}>{templateName}</A>{" "}
+        </Typography>
+      </div>
+    </Section>
   );
 }
 
