@@ -1,8 +1,11 @@
+import { getSession } from "next-auth/client";
+
 import { tweets } from "@/twoopstracker/lib";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const results = await tweets(req.query);
+    const session = await getSession({ req });
+    const results = await tweets(req.query, session);
     return res.status(200).json(results);
   }
 

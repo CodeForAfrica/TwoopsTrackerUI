@@ -1,7 +1,6 @@
-import { providers, useSession } from "next-auth/client";
-import Router from "next/router";
+import { getSession } from "next-auth/client";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React from "react";
 import { SWRConfig } from "swr";
 
 import Page from "@/twoopstracker/components/Page";
@@ -16,14 +15,6 @@ export default function Explore({
   tweets: tweetsProp,
   ...props
 }) {
-  const [session, loading] = useSession();
-
-  useEffect(() => {
-    if (!session && !loading) {
-      Router.push("/login");
-    }
-  }, [session, loading]);
-
   return (
     <Page {...props}>
       <SWRConfig value={{ fallback }}>
@@ -56,19 +47,20 @@ Explore.defaultProps = {
 
 export async function getServerSideProps(context) {
   const days = 14;
-  const foundTweets = await tweets({ days });
-  const insights = await tweetsInsights({ days });
+  const session = await getSession(context);
+  const foundTweets = await tweets({ days }, session);
+  const insights = await tweetsInsights({ days }, session);
 
   return {
     props: {
-      tweets: foundTweets,
-      insights,
       days,
       fallback: {
         "/api/tweets": foundTweets,
         "/api/tweets/insights": insights,
       },
-      providers: await providers(context),
+      insights,
+      session,
+      tweets: foundTweets,
     },
   };
 }

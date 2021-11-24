@@ -1,5 +1,7 @@
 import { subDays } from "date-fns";
 
+import fetchJson from "@/twoopstracker/utils/fetchJson";
+
 const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
 
 export async function lists() {
@@ -72,11 +74,6 @@ export async function APIRequest(payload, method, param) {
   return res.json();
 }
 
-export async function fetchJson(url) {
-  const res = await fetch(url);
-  return res.json();
-}
-
 function tweetsSearchParamFromSearchQuery({
   query,
   location,
@@ -127,17 +124,20 @@ function tweetsSearchQueryFromUserQuery(userQuery) {
   return { query, location, days, page, pageSize };
 }
 
-export async function tweets(userQuery = {}) {
+export async function tweets(userQuery = {}, session) {
   const searchQuery = tweetsSearchQueryFromUserQuery(userQuery);
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
-  return fetchJson(url);
+  return fetchJson(url, session);
 }
 
 // Do not include page or pageSize in searchQuery
-export async function tweetsInsights({ page, pageSize, ...userQuery } = {}) {
+export async function tweetsInsights(
+  { page, pageSize, ...userQuery } = {},
+  session
+) {
   const searchQuery = tweetsSearchQueryFromUserQuery(userQuery);
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/insights?${searchParams.toString()}`;
-  return fetchJson(url);
+  return fetchJson(url, session);
 }
