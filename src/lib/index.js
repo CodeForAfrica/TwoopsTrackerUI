@@ -142,7 +142,7 @@ export async function tweetsInsights({ page, pageSize, ...userQuery } = {}) {
   return fetchJson(url);
 }
 
-export async function deleteSearch(searchId, session) {
+export async function deleteSavedSearch(searchId, session) {
   const options = {
     method: "DELETE",
     headers: {
@@ -153,7 +153,7 @@ export async function deleteSearch(searchId, session) {
   return fetch(`${BASE_URL}/tweets/searches/${searchId}`, options);
 }
 
-export async function updateSearch(searchId, payload, session) {
+export async function updateSavedSearch(searchId, payload, session) {
   const options = {
     method: "PUT",
     body: payload,
@@ -166,7 +166,7 @@ export async function updateSearch(searchId, payload, session) {
   return fetchJson(`${BASE_URL}/tweets/searches/${searchId}`, options);
 }
 
-export async function searches({ page, pageSize }, session) {
+export async function getSavedSearches({ page, pageSize }, session) {
   const searchParams = new URLSearchParams();
   if (page) {
     searchParams.append("page", page);
@@ -187,7 +187,7 @@ export async function searches({ page, pageSize }, session) {
   );
 }
 
-export async function saveSearch(payload, session) {
+export async function postSavedSearch(payload, session) {
   const userQuery = JSON.parse(payload);
   const {
     query: queryTerm,

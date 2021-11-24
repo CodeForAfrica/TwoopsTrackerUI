@@ -9,7 +9,7 @@ import Section from "@/twoopstracker/components/Section";
 import Tabs from "@/twoopstracker/components/Tabs";
 import UserSearch from "@/twoopstracker/components/UserSearch";
 import { searchPgination } from "@/twoopstracker/config";
-import { lists, searches } from "@/twoopstracker/lib";
+import { lists, getSavedSearches } from "@/twoopstracker/lib";
 
 const useStyles = makeStyles(({ typography }) => ({
   section: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
-function Account({ foundSearches, foundLists, activeSlug, ...props }) {
+function Account({ foundLists, activeSlug, searches, ...props }) {
   const classes = useStyles(props);
 
   const tabItems = [
@@ -33,10 +33,7 @@ function Account({ foundSearches, foundLists, activeSlug, ...props }) {
       slug: "searches",
       href: "/account/searches",
       children: (
-        <UserSearch
-          searches={foundSearches}
-          paginationProps={searchPgination}
-        />
+        <UserSearch searches={searches} paginationProps={searchPgination} />
       ),
     },
     {
@@ -67,12 +64,12 @@ function Account({ foundSearches, foundLists, activeSlug, ...props }) {
 
 Account.propTypes = {
   foundLists: PropTypes.arrayOf(PropTypes.shape({})),
-  foundSearches: PropTypes.arrayOf(PropTypes.shape({})),
+  searches: PropTypes.arrayOf(PropTypes.shape({})),
   activeSlug: PropTypes.string,
 };
 
 Account.defaultProps = {
-  foundSearches: undefined,
+  searches: undefined,
   foundLists: undefined,
   activeSlug: undefined,
 };
@@ -91,12 +88,12 @@ export async function getServerSideProps(context) {
 
   const [activeSlug] = params?.slug ?? ["lists"];
   const { results: foundLists } = await lists();
-  const foundSearches = await searches({ pageSize: 3 }, session);
+  const searches = await getSavedSearches({ pageSize: 3 }, session);
 
   return {
     props: {
       activeSlug,
-      foundSearches,
+      searches,
       foundLists,
     },
   };
