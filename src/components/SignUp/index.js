@@ -44,7 +44,7 @@ function SignUp({
             <Typography className={classes.description} variant="body1">
               {description}
             </Typography>
-            {!session?.user ? (
+            {session ? (
               <Button href={buttonLink} variant="contained" color="primary">
                 {buttonText}
               </Button>

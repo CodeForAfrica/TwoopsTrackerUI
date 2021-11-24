@@ -83,7 +83,7 @@ function Hero({
                 {searchLabel}
               </Button>
             </Link>
-            {!session?.user ? (
+            {session ? (
               <Link href={signUpLink}>
                 <Button
                   className={classes.button}
