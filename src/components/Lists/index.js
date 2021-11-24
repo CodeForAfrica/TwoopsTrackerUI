@@ -68,10 +68,6 @@ function Lists({ results: listsProp, ...props }) {
     }
   };
 
-  if (!listsProp.length) {
-    return null;
-  }
-
   return (
     <div className={classes.root}>
       <div className={classes.section}>
@@ -96,14 +92,20 @@ function Lists({ results: listsProp, ...props }) {
           buttonOnClick={onCreate}
         />
       </div>
-      {lists?.map((item) => (
-        <ListCard
-          key={item.name}
-          classes={{ root: classes.listItem }}
-          {...item}
-          setLists={setLists}
-        />
-      ))}
+      {lists?.length ? (
+        <>
+          {lists?.map((item) => (
+            <ListCard
+              key={item.name}
+              classes={{ root: classes.listItem }}
+              {...item}
+              setLists={setLists}
+            />
+          ))}
+        </>
+      ) : (
+        <Typography variant="body1">There are no lists</Typography>
+      )}
     </div>
   );
 }

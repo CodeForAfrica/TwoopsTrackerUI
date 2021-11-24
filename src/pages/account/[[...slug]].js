@@ -87,14 +87,14 @@ export async function getServerSideProps(context) {
   }
 
   const [activeSlug] = params?.slug ?? ["lists"];
-  const { results: foundLists } = await lists();
+  const results = await lists();
   const searches = await getSavedSearches({ pageSize: 3 }, session);
 
   return {
     props: {
       activeSlug,
       searches,
-      foundLists,
+      foundLists: results?.results ?? null,
     },
   };
 }
