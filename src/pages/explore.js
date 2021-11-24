@@ -1,3 +1,4 @@
+import { getSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React from "react";
 import { SWRConfig } from "swr";
@@ -44,20 +45,22 @@ Explore.defaultProps = {
   tweets: undefined,
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const days = 14;
-  const foundTweets = await tweets({ days });
-  const insights = await tweetsInsights({ days });
+  const session = await getSession(context);
+  const foundTweets = await tweets({ days }, session);
+  const insights = await tweetsInsights({ days }, session);
 
   return {
     props: {
-      tweets: foundTweets,
-      insights,
       days,
       fallback: {
         "/api/tweets": foundTweets,
         "/api/tweets/insights": insights,
       },
+      insights,
+      session,
+      tweets: foundTweets,
     },
   };
 }

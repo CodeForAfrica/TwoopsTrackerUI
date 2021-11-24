@@ -1,5 +1,7 @@
 import { subDays } from "date-fns";
 
+import fetchJson from "@/twoopstracker/utils/fetchJson";
+
 const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
 
 export async function lists() {
@@ -72,11 +74,6 @@ export async function APIRequest(payload, method, param) {
   return res.json();
 }
 
-export async function fetchJson(url, options = { method: "GET" }) {
-  const res = await fetch(url, options);
-  return res.json();
-}
-
 function tweetsSearchParamFromSearchQuery({
   query,
   location,
@@ -127,30 +124,32 @@ function tweetsSearchQueryFromUserQuery(userQuery) {
   return { query, location, days, page, pageSize };
 }
 
-export async function tweets(userQuery = {}) {
+export async function tweets(userQuery = {}, session) {
   const searchQuery = tweetsSearchQueryFromUserQuery(userQuery);
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
-  return fetchJson(url);
+  return fetchJson(url, session);
 }
 
 // Do not include page or pageSize in searchQuery
-export async function tweetsInsights({ page, pageSize, ...userQuery } = {}) {
+export async function tweetsInsights(
+  { page, pageSize, ...userQuery } = {},
+  session
+) {
   const searchQuery = tweetsSearchQueryFromUserQuery(userQuery);
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/insights?${searchParams.toString()}`;
-  return fetchJson(url);
+  return fetchJson(url, session);
 }
 
 export async function deleteSavedSearch(searchId, session) {
   const options = {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${session?.accessToken}`,
       "Content-Type": "application/json",
     },
   };
-  return fetch(`${BASE_URL}/tweets/searches/${searchId}`, options);
+  return fetch(`${BASE_URL}/tweets/searches/${searchId}`, session, options);
 }
 
 export async function updateSavedSearch(searchId, payload, session) {
@@ -158,12 +157,11 @@ export async function updateSavedSearch(searchId, payload, session) {
     method: "PUT",
     body: payload,
     headers: {
-      Authorization: `Bearer ${session?.accessToken}`,
       "Content-Type": "application/json",
     },
   };
 
-  return fetchJson(`${BASE_URL}/tweets/searches/${searchId}`, options);
+  return fetchJson(`${BASE_URL}/tweets/searches/${searchId}`, session, options);
 }
 
 export async function getSavedSearches({ page, pageSize }, session) {
@@ -177,12 +175,10 @@ export async function getSavedSearches({ page, pageSize }, session) {
 
   const options = {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${session?.accessToken}`,
-    },
   };
   return fetchJson(
     `${BASE_URL}/tweets/searches?${searchParams.toString()}`,
+    session,
     options
   );
 }
@@ -205,7 +201,6 @@ export async function postSavedSearch(payload, session) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${session?.accessToken}`,
     },
     body: JSON.stringify({
       name: userQuery?.name,
@@ -218,5 +213,5 @@ export async function postSavedSearch(payload, session) {
     }),
   };
 
-  return fetchJson(`${BASE_URL}/tweets/searches`, options);
+  return fetchJson(`${BASE_URL}/tweets/searches`, session, options);
 }
