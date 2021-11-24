@@ -4,7 +4,7 @@ async function fetchJson(url, session, options) {
       fetchOptions = { ...options };
       fetchOptions.headers = {
         ...fetchOptions.headers,
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${session.accessToken}`,
       };
     }
   }
