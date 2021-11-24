@@ -10,7 +10,6 @@ import Loading from "@/twoopstracker/components/Loading";
 import Pagination from "@/twoopstracker/components/Pagination";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
-import { fetchJson } from "@/twoopstracker/lib";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 function TweetsContainer({
@@ -93,7 +92,7 @@ function TweetsContainer({
   };
 
   const handleSaveSearch = async (name) => {
-    await fetchJson(`/api/searches`, {
+    await fetch(`/api/searches`, {
       method: "POST",
       body: JSON.stringify({
         query,

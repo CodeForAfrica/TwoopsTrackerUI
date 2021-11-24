@@ -7,7 +7,6 @@ import useSWR, { useSWRConfig } from "swr";
 import Loading from "@/twoopstracker/components/Loading";
 import Pagination from "@/twoopstracker/components/Pagination";
 import UserSearchCard from "@/twoopstracker/components/UserSearchCard";
-import { fetchJson } from "@/twoopstracker/lib";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 const useStyles = makeStyles(() => ({
@@ -37,7 +36,7 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
 
   const fetchSearches = (url, pg, pSize) => {
     const queryString = getQueryString({ page: pg, pageSize: pSize });
-    return fetchJson(`${url}/?${queryString}`);
+    return fetch(`${url}/?${queryString}`).then((res) => res.json());
   };
 
   const { data, error } = useSWR(
@@ -46,14 +45,14 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
   );
 
   const handleDeleteSearch = async (id) => {
-    await fetchJson(`/api/searches/${id}`, {
+    await fetch(`/api/searches/${id}`, {
       method: "DELETE",
     });
     mutate([`/api/searches`, page, pageSize]);
   };
 
   const handleEditSearch = async (id, name, query) => {
-    await fetchJson(`/api/searches/${id}`, {
+    await fetch(`/api/searches/${id}`, {
       method: "PUT",
       body: JSON.stringify({
         name,
