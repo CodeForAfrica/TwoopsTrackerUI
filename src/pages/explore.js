@@ -1,4 +1,3 @@
-import { getSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React from "react";
 import { SWRConfig } from "swr";
@@ -45,17 +44,7 @@ Explore.defaultProps = {
   tweets: undefined,
 };
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-  if (!(session && session?.user)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-    };
-  }
-
+export async function getServerSideProps() {
   const days = 14;
   const foundTweets = await tweets({ days });
   const insights = await tweetsInsights({ days });
