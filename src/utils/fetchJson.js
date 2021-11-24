@@ -1,8 +1,6 @@
 async function fetchJson(url, session, options) {
   let fetchOptions = options;
-  if (session) {
-    const { accessToken } = session;
-    if (accessToken) {
+  if (session?.accessToken) {
       fetchOptions = { ...options };
       fetchOptions.headers = {
         ...fetchOptions.headers,
