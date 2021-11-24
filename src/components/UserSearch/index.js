@@ -51,6 +51,18 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
     });
     mutate([`/api/account/searches`, page, pageSize]);
   };
+
+  const handleEditSearch = async (id, name, query) => {
+    await fetchJson(`/api/account/searches/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        name,
+        query,
+      }),
+    });
+    mutate([`/api/account/searches`, page, pageSize]);
+  };
+
   useEffect(() => {
     if (data) {
       setSearches(data);
@@ -74,6 +86,7 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
                   {...item}
                   key={item.created_at}
                   onDelete={handleDeleteSearch}
+                  onEdit={handleEditSearch}
                 />
               </Grid>
             ))}

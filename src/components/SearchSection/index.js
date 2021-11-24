@@ -1,10 +1,11 @@
-import { Button, Grid, Dialog, TextField, Typography } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
 import Filter from "@/twoopstracker/components/Filter";
+import SaveSearchDialog from "@/twoopstracker/components/SaveSearchDialog";
 import Search from "@/twoopstracker/components/Search";
 import Section from "@/twoopstracker/components/Section";
 
@@ -18,7 +19,6 @@ const SearchSection = ({
   ...props
 }) => {
   const classes = useStyles(props);
-  const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -29,12 +29,13 @@ const SearchSection = ({
     setOpen(false);
   };
 
-  const onSaveSearch = () => {
-    handleClose();
+  const onSaveSearch = (name) => {
+    setOpen(false);
     if (handleSaveSearch) {
       handleSaveSearch(name);
     }
   };
+
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
@@ -98,37 +99,13 @@ const SearchSection = ({
           </Button>
         </div>
       </Section>
-      <Dialog
+      <SaveSearchDialog
         open={open}
+        onClick={onSaveSearch}
         onClose={handleClose}
-        classes={{ paper: classes.dialog }}
-        maxWidth="md"
-        fullWidth
-      >
-        <Typography variant="h4">Save Search</Typography>
-        <Grid>
-          <Typography variant="body1">Enter a name for your search</Typography>
-          <TextField
-            autoFocus
-            margin="normal"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            label="Name"
-            type="text"
-            color="secondary"
-            fullWidth
-          />
-        </Grid>
-        <Grid>
-          <Button onClick={handleClose} variant="text" color="primary">
-            Cancel
-          </Button>
-          <Button onClick={onSaveSearch} variant="contained" color="primary">
-            Save
-          </Button>
-        </Grid>
-      </Dialog>
+        varinat="add"
+        title="Save Search"
+      />
     </div>
   );
 };

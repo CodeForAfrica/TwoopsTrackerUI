@@ -40,9 +40,6 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
       color: "#000",
     },
   },
-  dialog: {
-    padding: typography.pxToRem(30),
-  },
 }));
 
 export default useStyles;

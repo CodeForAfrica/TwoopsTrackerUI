@@ -2,11 +2,12 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { differenceInCalendarDays } from "date-fns";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
 import Link from "@/twoopstracker/components/Link";
+import SaveSearchDialog from "@/twoopstracker/components/SaveSearchDialog";
 
-const useStyles = makeStyles(({ breakpoints, typography }) => ({
+const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
     borderBottom: "1px solid rgba(0, 0, 0, 0.25)",
     paddingBottom: typography.pxToRem(10),
@@ -15,10 +16,16 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
   button: {
     padding: `${typography.pxToRem(10)} ${typography.pxToRem(20)}`,
     marginRight: typography.pxToRem(10),
+    borderRadius: typography.pxToRem(50),
+    color: palette.text.primary,
   },
   text: {
     fontFamily: typography.h4.fontFamily,
     paddingTop: typography.pxToRem(7),
+  },
+  title: {
+    fontFamily: typography.h1.fontFamily,
+    color: palette.text.primary,
   },
   date: {
     fontFamily: typography.h4.fontFamily,
@@ -38,12 +45,23 @@ function UserSearchCard({
   query,
   created_at: createdAt,
   onDelete,
+  onEdit,
   datePrefix,
   keywordPrefix,
   queryPrefix,
   ...props
 }) {
   const classes = useStyles(props);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const date = new Date(createdAt);
 
   const searchUrl = () => {
@@ -65,11 +83,26 @@ function UserSearchCard({
     }
   };
 
+  const handleEdit = (n) => {
+    setOpen(false);
+    if (onEdit) {
+      onEdit(id, n, query);
+    }
+  };
+
   return (
     <div className={classes.root}>
       <Grid container>
         <Grid item lg={8} xs={12}>
-          <Typography variant="h4">{name}</Typography>
+          <Typography
+            variant="h4"
+            component={Link}
+            href={searchUrl()}
+            underline="none"
+            className={classes.title}
+          >
+            {name}
+          </Typography>
           {query?.term && (
             <Typography
               variant="body1"
@@ -99,16 +132,15 @@ function UserSearchCard({
           </Grid>
           <Grid item>
             <Button
-              variant="text"
+              variant="outlined"
               color="primary"
-              component={Link}
-              href={searchUrl()}
+              onClick={handleClickOpen}
               className={classes.button}
             >
-              Load
+              Edit
             </Button>
             <Button
-              variant="contained"
+              variant="outlined"
               color="primary"
               className={classes.button}
               onClick={handleDelete}
@@ -118,6 +150,14 @@ function UserSearchCard({
           </Grid>
         </Grid>
       </Grid>
+      <SaveSearchDialog
+        open={open}
+        name={name}
+        onClick={handleEdit}
+        onClose={handleClose}
+        varinat="edit"
+        title="Edit Search"
+      />
     </div>
   );
 }
@@ -134,6 +174,7 @@ UserSearchCard.propTypes = {
   datePrefix: PropTypes.string,
   keywordPrefix: PropTypes.string,
   onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
   queryPrefix: PropTypes.string,
 };
 
@@ -143,6 +184,7 @@ UserSearchCard.defaultProps = {
   query: undefined,
   created_at: undefined,
   onDelete: undefined,
+  onEdit: undefined,
   datePrefix: "Saved on ",
   keywordPrefix: "Keyword: ",
   queryPrefix: "Filters applied: ",

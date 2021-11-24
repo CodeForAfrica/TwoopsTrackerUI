@@ -156,7 +156,7 @@ export async function deleteSearch(searchId, session) {
 export async function updateSearch(searchId, payload, session) {
   const options = {
     method: "PUT",
-    body: JSON.stringify(payload),
+    body: payload,
     headers: {
       Authorization: `Bearer ${session?.accessToken}`,
       "Content-Type": "application/json",
