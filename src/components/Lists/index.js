@@ -22,7 +22,7 @@ function Lists({ results: listsProp, ...props }) {
   const { mutate } = useSWRConfig();
 
   const fetcher = (url) => fetch(url).then((results) => results.json());
-  const { data } = useSWR(`/api/account/lists`, fetcher);
+  const { data } = useSWR(`/api/lists`, fetcher);
 
   useEffect(() => {
     if (data) {
@@ -43,8 +43,8 @@ function Lists({ results: listsProp, ...props }) {
     };
 
     try {
-      await createList(payload, "/api/account/lists");
-      mutate("/api/account/lists", { ...data });
+      await createList(payload, "/api/lists");
+      mutate("/api/lists", { ...data });
       setOpen(false);
       setName("");
       setAccounts("");

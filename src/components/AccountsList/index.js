@@ -20,7 +20,7 @@ const AccountList = ({
   const { mutate } = useSWRConfig();
 
   const fetcher = (url) => fetch(url).then((results) => results.json());
-  const { data } = useSWR(`/api/account/lists/${id}`, fetcher);
+  const { data } = useSWR(`/api/lists/${id}`, fetcher);
 
   useEffect(() => {
     if (data) {
@@ -40,8 +40,8 @@ const AccountList = ({
       is_private: privacy,
     };
 
-    await updateList("/api/account/lists", payload, id);
-    mutate(`/api/account/lists/${id}`, { ...data });
+    await updateList("/api/lists", payload, id);
+    mutate(`/api/lists/${id}`, { ...data });
   };
 
   return (
