@@ -1,55 +1,66 @@
-import { providers, useSession } from "next-auth/client";
-import Router from "next/router";
+import { getSession } from "next-auth/client";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React from "react";
 import { SWRConfig } from "swr";
 
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
-import { search } from "@/twoopstracker/lib";
+import { pagination } from "@/twoopstracker/config";
+import { tweets, tweetsInsights } from "@/twoopstracker/lib";
 
-export default function Explore({ fallback, tweets, ...props }) {
-  const [session, loading] = useSession();
-
-  useEffect(() => {
-    if (!session && !loading) {
-      Router.push("/login");
-    }
-  }, [session, loading]);
-
+export default function Explore({
+  days,
+  fallback,
+  insights,
+  tweets: tweetsProp,
+  ...props
+}) {
   return (
-    <>
-      <Page {...props}>
-        <SWRConfig value={{ fallback }}>
-          <TweetsContainer tweets={tweets} />
-        </SWRConfig>
-      </Page>
-    </>
+    <Page {...props}>
+      <SWRConfig value={{ fallback }}>
+        <TweetsContainer
+          days={days}
+          insights={insights}
+          tweets={tweetsProp}
+          paginationProps={pagination}
+        />
+      </SWRConfig>
+    </Page>
   );
 }
 
 Explore.propTypes = {
+  days: PropTypes.number,
   fallback: PropTypes.shape({}),
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  insights: PropTypes.arrayOf(PropTypes.shape({})),
+  query: PropTypes.shape({}),
+  tweets: PropTypes.shape({}),
 };
 
 Explore.defaultProps = {
+  days: undefined,
   fallback: undefined,
+  insights: undefined,
+  query: undefined,
   tweets: undefined,
 };
 
-// TODO(kilemensi): Once search has been moved to the search page, this method
-//                  should be turned into getStaticProps
 export async function getServerSideProps(context) {
-  const tweets = await search({});
+  const days = 14;
+  const session = await getSession(context);
+  const foundTweets = await tweets({ days }, session);
+  const insights = await tweetsInsights({ days }, session);
 
   return {
     props: {
-      providers: await providers(context),
-      tweets,
+      days,
       fallback: {
-        "/api/search": tweets,
+        "/api/tweets": foundTweets,
+        "/api/tweets/insights": insights,
       },
+      insights,
+      session,
+      tweets: foundTweets,
     },
   };
 }

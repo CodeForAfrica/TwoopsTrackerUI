@@ -8,13 +8,13 @@ import Page from "@/twoopstracker/components/Page";
 import Partners from "@/twoopstracker/components/Partners";
 import SignUp from "@/twoopstracker/components/SignUp";
 import { home } from "@/twoopstracker/config";
-import { search } from "@/twoopstracker/lib";
+import { tweetsInsights } from "@/twoopstracker/lib";
 
-export default function Index({ days, tweets, ...props }) {
+export default function Index({ days, insights, ...props }) {
   return (
     <Page {...props}>
       <Hero {...home.hero} />
-      <Chart tweets={tweets} days={days} />
+      <Chart data={insights} days={days} />
       <SignUp {...home.signUp} />
       <InvestigationsPreview {...home.investigation} />
       <Partners {...home.partners} />
@@ -24,25 +24,23 @@ export default function Index({ days, tweets, ...props }) {
 
 Index.propTypes = {
   days: PropTypes.number,
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
+  insights: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Index.defaultProps = {
   days: undefined,
-  tweets: undefined,
+  insights: undefined,
 };
 
-// TODO(kilemensi): Once search has been moved to the search page, this method
-//                  should be turned into getStaticProps
 export async function getStaticProps() {
   const days = 14;
-  const tweets = await search({ days });
+  const insights = await tweetsInsights({ days });
 
   return {
     props: {
-      tweets,
+      insights,
       days,
     },
-    revalidate: 15 * 50, // 15 minutes
+    revalidate: 15 * 60, // 15 minutes
   };
 }

@@ -15,6 +15,37 @@ import cfaSquare from "@/twoopstracker/assets/images/Square-01 1.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
+export const tweetsCount = [
+  {
+    date: "2021-10-08",
+    count: 243,
+  },
+  {
+    date: "2021-10-09",
+    count: 340,
+  },
+  {
+    date: "2021-10-10",
+    count: 567,
+  },
+  {
+    date: "2021-10-11",
+    count: 80,
+  },
+  {
+    date: "2021-10-12",
+    count: 123,
+  },
+  {
+    date: "2021-10-13",
+    count: 342,
+  },
+  {
+    date: "2021-10-14",
+    count: 0,
+  },
+];
+
 export const tweets = [
   {
     tweet_id: 52168038000,
@@ -894,8 +925,15 @@ export const resources = {
   ],
 };
 
+export const pagination = {
+  pageSizeDefaultValue: "20",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "20" }, { value: "50" }],
+};
+
 const config = {
   tweets,
+  tweetsCount,
   navigationArgs,
   url: "http://localhost:3000",
   investigation,
