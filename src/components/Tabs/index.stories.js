@@ -3,8 +3,8 @@ import React from "react";
 import Tabs from ".";
 
 const items = [
-  { label: "News", children: "This is news panel" },
-  { label: "Insights", children: "This is the insights panel" },
+  { label: "Lists", children: <div>Lists Panel</div> },
+  { label: "Saved Searches", children: <div>Saved Search Panel</div> },
 ];
 
 export default {
