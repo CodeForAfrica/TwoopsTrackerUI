@@ -93,7 +93,7 @@ function TweetsContainer({
   };
 
   const handleSaveSearch = async (name) => {
-    await fetchJson(`/api/account/searches`, {
+    await fetchJson(`/api/searches`, {
       method: "POST",
       body: JSON.stringify({
         query,

@@ -41,26 +41,26 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
   };
 
   const { data, error } = useSWR(
-    [`/api/account/searches`, page, pageSize],
+    [`/api/searches`, page, pageSize],
     fetchSearches
   );
 
   const handleDeleteSearch = async (id) => {
-    await fetchJson(`/api/account/searches/${id}`, {
+    await fetchJson(`/api/searches/${id}`, {
       method: "DELETE",
     });
-    mutate([`/api/account/searches`, page, pageSize]);
+    mutate([`/api/searches`, page, pageSize]);
   };
 
   const handleEditSearch = async (id, name, query) => {
-    await fetchJson(`/api/account/searches/${id}`, {
+    await fetchJson(`/api/searches/${id}`, {
       method: "PUT",
       body: JSON.stringify({
         name,
         query,
       }),
     });
-    mutate([`/api/account/searches`, page, pageSize]);
+    mutate([`/api/searches`, page, pageSize]);
   };
 
   useEffect(() => {
