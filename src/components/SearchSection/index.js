@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import useStyles from "./useStyles";
 
 import Filter from "@/twoopstracker/components/Filter";
-import SaveSearchDialog from "@/twoopstracker/components/SaveSearchDialog";
+import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
 import Search from "@/twoopstracker/components/Search";
 import Section from "@/twoopstracker/components/Section";
 
@@ -99,7 +99,7 @@ const SearchSection = ({
           </Button>
         </div>
       </Section>
-      <SaveSearchDialog
+      <SavedSearchDialog
         open={open}
         onClick={onSaveSearch}
         onClose={handleClose}

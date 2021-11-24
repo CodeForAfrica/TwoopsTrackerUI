@@ -23,7 +23,7 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   },
 }));
 
-function SaveSearchDialog({
+function SavedSearchDialog({
   name: nameProp,
   term,
   onClick,
@@ -117,7 +117,7 @@ function SaveSearchDialog({
   );
 }
 
-SaveSearchDialog.propTypes = {
+SavedSearchDialog.propTypes = {
   name: PropTypes.string,
   onClick: PropTypes.func,
   onClose: PropTypes.func,
@@ -127,7 +127,7 @@ SaveSearchDialog.propTypes = {
   variant: PropTypes.oneOf(["add", "edit"]),
 };
 
-SaveSearchDialog.defaultProps = {
+SavedSearchDialog.defaultProps = {
   name: undefined,
   onClick: undefined,
   onClose: undefined,
@@ -137,4 +137,4 @@ SaveSearchDialog.defaultProps = {
   variant: undefined,
 };
 
-export default SaveSearchDialog;
+export default SavedSearchDialog;

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 import Link from "@/twoopstracker/components/Link";
-import SaveSearchDialog from "@/twoopstracker/components/SaveSearchDialog";
+import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
 
 const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
@@ -151,7 +151,7 @@ function UserSearchCard({
           </Grid>
         </Grid>
       </Grid>
-      <SaveSearchDialog
+      <SavedSearchDialog
         open={open}
         name={name}
         term={query?.term}
