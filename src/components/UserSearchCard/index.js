@@ -83,10 +83,11 @@ function UserSearchCard({
     }
   };
 
-  const handleEdit = (n) => {
+  const handleEdit = (n, t) => {
+    const updatedQ = { ...query, term: t };
     setOpen(false);
     if (onEdit) {
-      onEdit(id, n, query);
+      onEdit(id, n, updatedQ);
     }
   };
 
@@ -153,6 +154,7 @@ function UserSearchCard({
       <SaveSearchDialog
         open={open}
         name={name}
+        term={query?.term}
         onClick={handleEdit}
         onClose={handleClose}
         varinat="edit"

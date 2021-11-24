@@ -25,6 +25,7 @@ const useStyles = makeStyles(({ palette, typography }) => ({
 
 function SaveSearchDialog({
   name: nameProp,
+  term,
   onClick,
   onClose,
   open,
@@ -34,10 +35,15 @@ function SaveSearchDialog({
 }) {
   const classes = useStyles(props);
   const [name, setName] = useState(nameProp);
+  const [keyword, setKeyword] = useState(term);
 
   const handleClick = () => {
     if (onClick) {
-      onClick(name);
+      if (variant === "add") {
+        onClick(name);
+      } else {
+        onClick(name, keyword);
+      }
     }
   };
 
@@ -60,6 +66,8 @@ function SaveSearchDialog({
       </Typography>
       <Grid>
         <Typography variant="body1">Enter a name for your search</Typography>
+      </Grid>
+      <Grid>
         <TextField
           autoFocus
           margin="normal"
@@ -72,6 +80,21 @@ function SaveSearchDialog({
           fullWidth
         />
       </Grid>
+      {variant === "edit" && (
+        <Grid>
+          <TextField
+            autoFocus
+            margin="normal"
+            id="keyword"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            label="Keyword"
+            type="text"
+            color="secondary"
+            fullWidth
+          />
+        </Grid>
+      )}
       <Grid>
         <Button
           onClick={handleClose}
@@ -99,6 +122,7 @@ SaveSearchDialog.propTypes = {
   onClick: PropTypes.func,
   onClose: PropTypes.func,
   open: PropTypes.bool,
+  term: PropTypes.string,
   title: PropTypes.string,
   variant: PropTypes.oneOf(["add", "edit"]),
 };
@@ -108,6 +132,7 @@ SaveSearchDialog.defaultProps = {
   onClick: undefined,
   onClose: undefined,
   open: undefined,
+  term: undefined,
   title: undefined,
   variant: undefined,
 };
