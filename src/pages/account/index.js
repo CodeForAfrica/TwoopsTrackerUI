@@ -1,12 +1,12 @@
 import React from "react";
 
 import Page from "@/twoopstracker/components/Page";
-import UserProile from "@/twoopstracker/components/UserProfile";
+import UserProfile from "@/twoopstracker/components/UserProfile";
 
 export default function Resources({ ...props }) {
   return (
     <Page {...props}>
-      <UserProile />
+      <UserProfile />
     </Page>
   );
 }
