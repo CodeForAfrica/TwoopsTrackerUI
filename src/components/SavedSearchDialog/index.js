@@ -26,7 +26,7 @@ const useStyles = makeStyles(({ palette, typography }) => ({
 
 function SavedSearchDialog({
   name: nameProp,
-  term,
+  query: queryProp,
   onClick,
   onClose,
   open,
@@ -36,7 +36,7 @@ function SavedSearchDialog({
 }) {
   const classes = useStyles(props);
   const [name, setName] = useState(nameProp);
-  const [query, setQuery] = useState(term);
+  const [query, setQuery] = useState(queryProp);
 
   const handleClick = () => {
     if (onClick) {
@@ -130,7 +130,7 @@ SavedSearchDialog.propTypes = {
   onClick: PropTypes.func,
   onClose: PropTypes.func,
   open: PropTypes.bool,
-  term: PropTypes.string,
+  query: PropTypes.string,
   title: PropTypes.string,
   variant: PropTypes.oneOf(["add", "edit"]),
 };
@@ -140,7 +140,7 @@ SavedSearchDialog.defaultProps = {
   onClick: undefined,
   onClose: undefined,
   open: undefined,
-  term: undefined,
+  query: undefined,
   title: undefined,
   variant: undefined,
 };

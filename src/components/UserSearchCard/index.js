@@ -2,7 +2,7 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { differenceInCalendarDays } from "date-fns";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Link from "@/twoopstracker/components/Link";
 import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
@@ -42,7 +42,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
 function UserSearchCard({
   id,
   name,
-  query,
+  query: queryObj,
   created_at: createdAt,
   onDelete,
   onEdit,
@@ -53,6 +53,7 @@ function UserSearchCard({
 }) {
   const classes = useStyles(props);
   const [open, setOpen] = useState(false);
+  const [params, setParams] = useState({});
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,41 +63,49 @@ function UserSearchCard({
     setOpen(false);
   };
 
-  const date = new Date(createdAt);
+  useEffect(() => {
+    if (queryObj) {
+      const { startDate, endDate, term, ...rest } = queryObj;
+      const days = differenceInCalendarDays(
+        new Date(endDate),
+        new Date(startDate)
+      );
+      let theme;
+      let query;
 
-  const searchUrl = () => {
-    const { startDate, endDate, term, ...rest } = query;
-    const searchParams = new URLSearchParams();
+      if (term) {
+        const terms = term?.match("[(](.+)(AND)(.+)[)]");
+        if (terms?.length) {
+          const userQuery = terms[1];
+          const userTheme = terms[3];
 
-    const days = differenceInCalendarDays(
-      new Date(endDate),
-      new Date(startDate)
-    );
-    Object.keys(rest).forEach((k) => searchParams.append(k, rest[k]));
-    searchParams.append("days", days);
-
-    if (term) {
-      const terms = term?.match("[(](.+)(AND)(.+)[)]");
-      if (terms?.length) {
-        const userQuery = terms[1];
-        const userTheme = terms[3];
-
-        if (userQuery.trim() === userTheme.trim()) {
-          searchParams.append("theme", userTheme.trim());
+          if (userQuery.trim() === userTheme.trim()) {
+            theme = userTheme.trim();
+          } else {
+            query = userQuery.trim();
+            theme = userTheme.trim();
+          }
         } else {
-          searchParams.append("query", userQuery.trim());
-          searchParams.append("theme", userTheme.trim());
+          query = term;
         }
-      } else {
-        searchParams.append("query", term);
       }
+      let p = { ...rest, days };
+      if (theme) {
+        p = { ...p, theme };
+      }
+      if (query) {
+        p = { ...p, query };
+      }
+      setParams(p);
     }
+  }, [queryObj]);
 
+  const date = new Date(createdAt);
+  const searchUrl = () => {
+    const searchParams = new URLSearchParams();
+    Object.keys(params).forEach((k) => searchParams.append(k, params[k]));
     return `/explore/?${searchParams.toString()}`;
   };
-
-  const href = searchUrl();
-
   const handleDelete = () => {
     if (onDelete) {
       onDelete(id);
@@ -104,7 +113,11 @@ function UserSearchCard({
   };
 
   const handleEdit = (n, t) => {
-    const updatedQ = { ...query, term: t };
+    let sterm = t;
+    if (params?.theme) {
+      sterm = `( ${sterm} AND ${params?.theme})`;
+    }
+    const updatedQ = { ...queryObj, term: sterm };
     setOpen(false);
     if (onEdit) {
       onEdit(id, n, updatedQ);
@@ -118,23 +131,23 @@ function UserSearchCard({
           <Typography
             variant="h4"
             component={Link}
-            href={href}
+            href={searchUrl()}
             underline="none"
             className={classes.title}
           >
             {name}
           </Typography>
-          {query?.term && (
+          {params?.query && (
             <Typography
               variant="body1"
               className={classes.text}
-            >{`${keywordPrefix}${query.term}`}</Typography>
+            >{`${keywordPrefix}${params.query}`}</Typography>
           )}
-          {query && (
+          {params && (
             <Typography
               variant="body1"
               className={classes.text}
-            >{`${queryPrefix}${Object.keys(query).join(", ")}`}</Typography>
+            >{`${queryPrefix}${Object.keys(params).join(", ")}`}</Typography>
           )}
         </Grid>
         <Grid
@@ -174,7 +187,7 @@ function UserSearchCard({
       <SavedSearchDialog
         open={open}
         name={name}
-        term={query?.term}
+        query={params?.query}
         onClick={handleEdit}
         onClose={handleClose}
         variant="edit"
