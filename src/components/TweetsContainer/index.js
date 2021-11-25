@@ -37,7 +37,7 @@ function TweetsContainer({
     location: setLocation,
     page: setPage,
     pageSize: setPageSize,
-    search: setQuery,
+    query: setQuery,
     theme: setTheme,
   };
 
