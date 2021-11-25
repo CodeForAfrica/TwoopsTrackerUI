@@ -157,7 +157,7 @@ function UserSearchCard({
         term={query?.term}
         onClick={handleEdit}
         onClose={handleClose}
-        varinat="edit"
+        variant="edit"
         title="Edit Search"
       />
     </div>
