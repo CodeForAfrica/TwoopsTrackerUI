@@ -36,14 +36,14 @@ function SavedSearchDialog({
 }) {
   const classes = useStyles(props);
   const [name, setName] = useState(nameProp);
-  const [keyword, setKeyword] = useState(term);
+  const [query, setQuery] = useState(term);
 
   const handleClick = () => {
     if (onClick) {
       if (variant === "add") {
         onClick(name);
       } else {
-        onClick(name, keyword);
+        onClick(name, query);
       }
     }
   };
@@ -87,14 +87,14 @@ function SavedSearchDialog({
             <TextField
               autoFocus
               margin="normal"
-              id="keyword"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              label="Keyword"
+              id="query"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              label="Query"
               type="text"
               variant="outlined"
               inputProps={{
-                placeholder: "Keyword",
+                placeholder: "Query",
               }}
               fullWidth
             />
