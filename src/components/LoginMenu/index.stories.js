@@ -7,7 +7,7 @@ import { navigationArgs } from "@/twoopstracker/config";
 export default {
   title: "Components/LoginMenu",
   argTypes: {
-    links: {
+    loginMenu: {
       control: {
         type: "array",
       },
@@ -20,5 +20,5 @@ const Template = ({ ...args }) => <LoginMenu {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  links: navigationArgs.loginMenuProps,
+  loginMenu: navigationArgs.loginMenuProps,
 };

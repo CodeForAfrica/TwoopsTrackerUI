@@ -4,6 +4,7 @@ import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React from "react";
 
+import userAvator from "@/twoopstracker/assets/icons/avator.svg";
 import Link from "@/twoopstracker/components/Link";
 import LoginMenu from "@/twoopstracker/components/LoginMenu";
 import UserProfile from "@/twoopstracker/components/UserProfile";
@@ -79,14 +80,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Menu({
-  links,
-  children,
-  loginMenuProps,
-  avatorProps,
-  label,
-  ...props
-}) {
+function Menu({ children, loginMenuProps, links, ...props }) {
   const classes = useStyles(props);
   const [session] = useSession();
 
@@ -116,11 +110,14 @@ function Menu({
         </Grid>
       ))}
       {session?.user?.name ? (
-        <UserProfile label={session.user.name} avatorProps={avatorProps} />
+        <UserProfile
+          label={session.user.name}
+          alt={session.user.name.toLowerCase()}
+          src={session?.user?.image !== "" ? session?.user?.image : userAvator}
+        />
       ) : (
-        <LoginMenu links={loginMenuProps} />
+        <LoginMenu loginMenu={loginMenuProps} />
       )}
-
       {children}
     </Grid>
   );
@@ -129,21 +126,11 @@ function Menu({
 Menu.propTypes = {
   links: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
-  label: PropTypes.string,
-  avatorProps: PropTypes.shape({
-    alt: PropTypes.string,
-    href: PropTypes.string,
-    src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
-    width: PropTypes.number,
-    height: PropTypes.number,
-  }),
   children: PropTypes.node,
 };
 
 Menu.defaultProps = {
   loginMenuProps: undefined,
-  label: undefined,
-  avatorProps: undefined,
   children: undefined,
 };
 export default Menu;

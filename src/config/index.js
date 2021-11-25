@@ -685,13 +685,8 @@ export const navigationArgs = {
   },
   userProfileArgs: {
     label: "Account Name",
-    avatorProps: {
-      width: 48,
-      height: 48,
-      alt: "desktop logo",
-      href: "https://codeforafrica.org",
-      src: userAvator,
-    },
+    src: userAvator,
+    alt: "Profile",
   },
 };
 

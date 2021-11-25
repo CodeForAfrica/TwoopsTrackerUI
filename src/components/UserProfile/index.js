@@ -1,9 +1,8 @@
-import { Typography, Button } from "@material-ui/core";
+import { Typography, Button, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React from "react";
 
-import Image from "@/twoopstracker/components/Image";
 import Link from "@/twoopstracker/components/Link";
 
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
@@ -43,6 +42,10 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       },
     },
   },
+  large: {
+    width: 48,
+    height: 48,
+  },
   text: {
     "&::after": {
       content: '""',
@@ -66,7 +69,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function UserProfile({ label, avatorProps, ...props }) {
+function UserProfile({ label, src, alt, ...props }) {
   const classes = useStyles(props);
   return (
     <div className={classes.root}>
@@ -80,7 +83,7 @@ function UserProfile({ label, avatorProps, ...props }) {
           root: classes.menuLinks,
           text: classes.text,
         }}
-        endIcon={<Image {...avatorProps} />}
+        endIcon={<Avatar alt={alt} src={src} className={classes.large} />}
       >
         <Typography variant="body1" className={classes.label}>
           {label}
@@ -92,18 +95,14 @@ function UserProfile({ label, avatorProps, ...props }) {
 
 UserProfile.propTypes = {
   label: PropTypes.string,
-  avatorProps: PropTypes.shape({
-    alt: PropTypes.string,
-    href: PropTypes.string,
-    src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
-    width: PropTypes.number,
-    height: PropTypes.number,
-  }),
+  alt: PropTypes.string,
+  src: PropTypes.string,
 };
 
 UserProfile.defaultProps = {
   label: undefined,
-  avatorProps: undefined,
+  alt: undefined,
+  src: undefined,
 };
 
 export default UserProfile;

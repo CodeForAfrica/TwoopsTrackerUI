@@ -91,15 +91,15 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function LoginMenu({ links, children, ...props }) {
+function LoginMenu({ loginMenu, children, ...props }) {
   const classes = useStyles(props);
 
-  if (!links?.length) {
+  if (!loginMenu?.length) {
     return null;
   }
   return (
     <div className={classes.root}>
-      {links.map((item, index) => (
+      {loginMenu.map((item, index) => (
         <Grid item key={item.label} className={classes.menu}>
           <Button
             component={Link}
@@ -109,7 +109,9 @@ function LoginMenu({ links, children, ...props }) {
             href={item.href}
             classes={{
               root:
-                index !== links.length - 1 ? classes.menuLinks : classes.links,
+                index !== loginMenu.length - 1
+                  ? classes.menuLinks
+                  : classes.links,
               text: classes.text,
             }}
             startIcon={<Image {...item.imageProps} />}
@@ -125,7 +127,7 @@ function LoginMenu({ links, children, ...props }) {
 }
 
 LoginMenu.propTypes = {
-  links: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  loginMenu: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   children: PropTypes.node,
 };
 
