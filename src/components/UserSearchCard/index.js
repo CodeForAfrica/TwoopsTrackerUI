@@ -79,13 +79,13 @@ function UserSearchCard({
       const terms = term?.match("[(](.+)(AND)(.+)[)]");
       if (terms?.length) {
         const userQuery = terms[1];
-        const userTerm = terms[3];
+        const userTheme = terms[3];
 
-        if (userQuery.trim() === userTerm.trim()) {
-          searchParams.append("term", userTerm.trim());
+        if (userQuery.trim() === userTheme.trim()) {
+          searchParams.append("theme", userTheme.trim());
         } else {
           searchParams.append("query", userQuery.trim());
-          searchParams.append("term", userTerm.trim());
+          searchParams.append("theme", userTheme.trim());
         }
       } else {
         searchParams.append("query", term);
