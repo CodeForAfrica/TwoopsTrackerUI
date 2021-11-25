@@ -49,6 +49,8 @@ function SavedSearchDialog({
   };
 
   const handleClose = () => {
+    setName("");
+    setQuery("");
     if (onClose) {
       onClose();
     }

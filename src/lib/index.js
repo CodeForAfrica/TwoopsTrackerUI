@@ -149,7 +149,7 @@ export async function deleteSavedSearch(searchId, session) {
       "Content-Type": "application/json",
     },
   };
-  return fetch(`${BASE_URL}/tweets/searches/${searchId}`, session, options);
+  return fetchJson(`${BASE_URL}/tweets/searches/${searchId}`, session, options);
 }
 
 export async function updateSavedSearch(searchId, payload, session) {
