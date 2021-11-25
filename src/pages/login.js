@@ -9,7 +9,7 @@ function Home({ providers }) {
 }
 
 Home.propTypes = {
-  providers: PropTypes.arrayOf(PropTypes.shape({})),
+  providers: PropTypes.PropTypes.shape({}),
 };
 
 Home.defaultProps = {

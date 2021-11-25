@@ -7,6 +7,7 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   button: {
     padding: `${typography.pxToRem(10)} ${typography.pxToRem(20)}`,
     marginLeft: typography.pxToRem(10),
+    marginTop: typography.pxToRem(10),
     borderRadius: typography.pxToRem(50),
     color: palette.text.primary,
   },
@@ -64,54 +65,59 @@ function SavedSearchDialog({
       <Typography variant="h4" className={classes.title}>
         {title}
       </Typography>
-      <Grid>
-        <Typography variant="body1">Enter a name for your search</Typography>
-      </Grid>
-      <Grid>
-        <TextField
-          autoFocus
-          margin="normal"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          label="Name"
-          type="text"
-          color="secondary"
-          fullWidth
-        />
-      </Grid>
-      {variant === "edit" && (
-        <Grid>
+      <Grid container>
+        <Grid item xs={12}>
           <TextField
             autoFocus
             margin="normal"
-            id="keyword"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            label="Keyword"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            label="Name"
             type="text"
-            color="secondary"
+            variant="outlined"
+            inputProps={{
+              placeholder: "Enter Name",
+            }}
             fullWidth
           />
         </Grid>
-      )}
-      <Grid>
-        <Button
-          onClick={handleClose}
-          variant="outlined"
-          color="primary"
-          className={classes.button}
-        >
-          Cancel
-        </Button>
-        <Button
-          onClick={handleClick}
-          variant="outlined"
-          color="primary"
-          className={classes.button}
-        >
-          Save
-        </Button>
+        {variant === "edit" && (
+          <Grid item xs={12}>
+            <TextField
+              autoFocus
+              margin="normal"
+              id="keyword"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              label="Keyword"
+              type="text"
+              variant="outlined"
+              inputProps={{
+                placeholder: "Keyword",
+              }}
+              fullWidth
+            />
+          </Grid>
+        )}
+        <Grid item xs={12}>
+          <Button
+            onClick={handleClose}
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleClick}
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+          >
+            Save
+          </Button>
+        </Grid>
       </Grid>
     </Dialog>
   );
