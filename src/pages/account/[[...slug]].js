@@ -20,7 +20,6 @@ const useStyles = makeStyles(({ typography }) => ({
 
 function Account({ foundLists, activeSlug, searches, ...props }) {
   const classes = useStyles(props);
-
   const tabItems = [
     {
       label: "Lists",
@@ -64,7 +63,7 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
 
 Account.propTypes = {
   foundLists: PropTypes.arrayOf(PropTypes.shape({})),
-  searches: PropTypes.arrayOf(PropTypes.shape({})),
+  searches: PropTypes.shape({}),
   activeSlug: PropTypes.string,
 };
 

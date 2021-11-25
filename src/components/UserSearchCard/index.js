@@ -65,7 +65,7 @@ function UserSearchCard({
   const date = new Date(createdAt);
 
   const searchUrl = () => {
-    const { startDate, endDate, ...rest } = query;
+    const { startDate, endDate, term, ...rest } = query;
     const searchParams = new URLSearchParams();
 
     const days = differenceInCalendarDays(
@@ -74,8 +74,28 @@ function UserSearchCard({
     );
     Object.keys(rest).forEach((k) => searchParams.append(k, rest[k]));
     searchParams.append("days", days);
+
+    if (term) {
+      const terms = term?.match("[(](.+)(AND)(.+)[)]");
+      if (terms?.length) {
+        const userQuery = terms[1];
+        const userTerm = terms[3];
+
+        if (userQuery.trim() === userTerm.trim()) {
+          searchParams.append("term", userTerm.trim());
+        } else {
+          searchParams.append("query", userQuery.trim());
+          searchParams.append("term", userTerm.trim());
+        }
+      } else {
+        searchParams.append("query", term);
+      }
+    }
+
     return `/explore/?${searchParams.toString()}`;
   };
+
+  const href = searchUrl();
 
   const handleDelete = () => {
     if (onDelete) {
@@ -98,7 +118,7 @@ function UserSearchCard({
           <Typography
             variant="h4"
             component={Link}
-            href={searchUrl()}
+            href={href}
             underline="none"
             className={classes.title}
           >
