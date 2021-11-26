@@ -5,7 +5,7 @@ import Chart from ".";
 import { tweetsCount } from "@/twoopstracker/config";
 
 export default {
-  title: "Section/Chart",
+  title: "Sections/Chart",
   argTypes: {},
 };
 

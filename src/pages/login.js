@@ -1,20 +1,27 @@
-import { providers } from "next-auth/client";
+import { getProviders } from "next-auth/client";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Login from "@/twoopstracker/components/LoginForm";
 
-function Home(props) {
-  return (
-    <>
-      <Login {...props} />
-    </>
-  );
+function Home({ providers }) {
+  return <Login providers={providers} />;
 }
 
+Home.propTypes = {
+  providers: PropTypes.PropTypes.shape({}),
+};
+
+Home.defaultProps = {
+  providers: undefined,
+};
+
 export async function getStaticProps(context) {
+  const providers = await getProviders(context);
+
   return {
     props: {
-      providers: await providers(context),
+      providers,
     },
     revalidate: 60 * 60, // 60 minutes
   };
