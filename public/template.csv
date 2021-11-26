@@ -1,4 +1,8 @@
-Usernames,Should this list be private? Anser with Yes/No,Yes
-name1,,
-name2,,
-name3,,
+list_name,username,repository,evidence
+Hackers,esir_kings,Public,https://realpython.com/python-csv/
+Hackers,MikeSonko,Public,
+Hackers,MikeSonko,Public,https://realpython.com/python-csv/
+Hackers,MikeSonko,Private, nothing here
+Hackers,alphagakunga,Private,
+Hackers,esir_kings,Private,
+Hackers,esir_kings3,Private,
