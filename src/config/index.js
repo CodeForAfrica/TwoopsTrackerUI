@@ -842,6 +842,56 @@ export const footerArgs = {
   aboutVariant: "subtitle1",
 };
 
+export const searches = [
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+];
 export const about = {
   banner: {
     description:
@@ -912,12 +962,19 @@ export const upload = {
   uploadLabel: "Select a File",
 };
 
+export const searchPgination = {
+  pageSizeDefaultValue: "3",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+};
+
 const config = {
   tweets,
   tweetsCount,
   navigationArgs,
   url: "http://localhost:3000",
   investigation,
+  searches,
 };
 
 export default config;

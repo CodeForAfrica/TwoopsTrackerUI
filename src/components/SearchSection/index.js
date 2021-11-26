@@ -1,22 +1,40 @@
 import { Button, Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
 import Filter from "@/twoopstracker/components/Filter";
+import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
 import Search from "@/twoopstracker/components/Search";
 import Section from "@/twoopstracker/components/Section";
 
 const SearchSection = ({
   days,
   handleSelection,
+  handleSaveSearch,
   location,
   onSearch,
   theme,
   ...props
 }) => {
   const classes = useStyles(props);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onSaveSearch = (name) => {
+    setOpen(false);
+    if (handleSaveSearch) {
+      handleSaveSearch(name);
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -73,7 +91,7 @@ const SearchSection = ({
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
-          <Button className={classes.saveButton} onClick={onSearch}>
+          <Button className={classes.saveButton} onClick={handleClickOpen}>
             Save Search
           </Button>
           <Button className={classes.button} onClick={onSearch}>
@@ -81,12 +99,20 @@ const SearchSection = ({
           </Button>
         </div>
       </Section>
+      <SavedSearchDialog
+        open={open}
+        onClick={onSaveSearch}
+        onClose={handleClose}
+        varinat="add"
+        title="Save Search"
+      />
     </div>
   );
 };
 
 SearchSection.propTypes = {
   days: PropTypes.string,
+  handleSaveSearch: PropTypes.func,
   handleSearch: PropTypes.func,
   handleSelection: PropTypes.func,
   location: PropTypes.string,
@@ -97,6 +123,7 @@ SearchSection.propTypes = {
 SearchSection.defaultProps = {
   days: undefined,
   handleSearch: undefined,
+  handleSaveSearch: undefined,
   handleSelection: undefined,
   location: undefined,
   onSearch: undefined,

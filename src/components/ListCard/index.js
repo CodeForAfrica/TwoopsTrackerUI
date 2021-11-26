@@ -112,12 +112,12 @@ function ListCard({
         <Typography className={classes.title}>{listName}</Typography>
       </Link>
       <Grid container>
-        <Grid item xs={10}>
+        <Grid item xs={12} md={8}>
           {createdAt && (
             <Typography>{`Saved on ${year} at ${hours}`}</Typography>
           )}
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={12} md={4}>
           <Button onClick={handleOpen} className={classes.editButton}>
             Edit
           </Button>
