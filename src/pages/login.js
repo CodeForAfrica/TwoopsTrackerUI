@@ -3,16 +3,21 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Login from "@/twoopstracker/components/LoginForm";
+import Page from "@/twoopstracker/components/Page";
 
-function Home({ providers }) {
-  return <Login providers={providers} />;
+function SignIn({ providers: providersProp, ...props }) {
+  return (
+    <Page {...props}>
+      <Login providers={providersProp} />
+    </Page>
+  );
 }
 
-Home.propTypes = {
-  providers: PropTypes.PropTypes.shape({}),
+SignIn.propTypes = {
+  providers: PropTypes.shape({}),
 };
 
-Home.defaultProps = {
+SignIn.defaultProps = {
   providers: undefined,
 };
 
@@ -22,9 +27,10 @@ export async function getStaticProps(context) {
   return {
     props: {
       providers,
+      title: "Sign in",
     },
     revalidate: 60 * 60, // 60 minutes
   };
 }
 
-export default Home;
+export default SignIn;

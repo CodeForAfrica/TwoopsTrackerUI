@@ -18,36 +18,43 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
+const accountPages = {
+  lists: {
+    label: "Lists",
+    href: "/account/lists",
+  },
+  searches: {
+    label: "Saved Search",
+    href: "/account/searches",
+  },
+  data: {
+    label: "Upload Data",
+    href: "/account/data",
+  },
+  settings: {
+    label: "Your Account",
+    href: "/account/settings",
+  },
+};
+
 function Account({ foundLists, activeSlug, searches, ...props }) {
   const classes = useStyles(props);
-  const tabItems = [
-    {
-      label: "Lists",
-      slug: "lists",
-      href: "/account/lists",
-      children: <Lists results={foundLists} />,
-    },
-    {
-      label: "Saved Search",
-      slug: "searches",
-      href: "/account/searches",
-      children: (
-        <UserSearch searches={searches} paginationProps={searchPgination} />
-      ),
-    },
-    {
-      label: "Upload Data",
-      slug: "data",
-      href: "/account/data",
-      children: <div />,
-    },
-    {
-      label: "Your Account",
-      slug: "settings",
-      href: "/account/settings",
-      children: <div />,
-    },
-  ];
+  const tabItems = Object.entries(accountPages).map(([slug, values]) => {
+    let children;
+    switch (slug) {
+      case "lists":
+        children = <Lists results={foundLists} />;
+        break;
+      case "searches":
+        children = (
+          <UserSearch searches={searches} paginationProps={searchPgination} />
+        );
+        break;
+      default:
+        children = <div />;
+    }
+    return { ...values, slug, children };
+  });
   return (
     <Page {...props}>
       <Section classes={{ root: classes.section }}>
@@ -85,7 +92,10 @@ export async function getServerSideProps(context) {
     };
   }
 
+  const userName = session?.user?.name;
   const [activeSlug] = params?.slug ?? ["lists"];
+  const activePageTitle = accountPages[activeSlug]?.label ?? "Account";
+  const title = `${activePageTitle}${userName ? ` | ${userName}` : ""}`;
   const results = await lists();
   const searches = await getSavedSearches({ pageSize: 3 }, session);
 
@@ -94,6 +104,7 @@ export async function getServerSideProps(context) {
       activeSlug,
       searches,
       foundLists: results?.results ?? null,
+      title,
     },
   };
 }

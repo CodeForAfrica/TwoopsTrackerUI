@@ -939,11 +939,19 @@ export const about = {
   ],
 };
 
-export const resources = {
+export const watchlists = {
   banner: {
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-    title: "Resources",
+      "Analysing how toxic actors and trolls hide their manipulation",
+    title: "Track the trolls & sock-puppets poisoning our democracies",
+  },
+};
+
+export const lexicons = {
+  banner: {
+    description:
+      "Use these free resources made available by Troll Tracker to aid in your anti-disinformation investigations.",
+    title: "Lexicons",
   },
   items: [
     {
@@ -983,12 +991,13 @@ export const searchPgination = {
 };
 
 const config = {
+  investigation,
+  name: "TwoopsTracker",
+  navigationArgs,
+  searches,
   tweets,
   tweetsCount,
-  navigationArgs,
   url: "http://localhost:3000",
-  investigation,
-  searches,
 };
 
 export default config;
