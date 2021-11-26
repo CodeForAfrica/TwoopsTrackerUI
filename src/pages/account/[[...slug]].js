@@ -7,8 +7,9 @@ import Lists from "@/twoopstracker/components/Lists";
 import Page from "@/twoopstracker/components/Page";
 import Section from "@/twoopstracker/components/Section";
 import Tabs from "@/twoopstracker/components/Tabs";
+import Upload from "@/twoopstracker/components/Upload";
 import UserSearch from "@/twoopstracker/components/UserSearch";
-import { searchPgination } from "@/twoopstracker/config";
+import { searchPgination, upload } from "@/twoopstracker/config";
 import { lists, getSavedSearches } from "@/twoopstracker/lib";
 
 const useStyles = makeStyles(({ typography }) => ({
@@ -39,7 +40,7 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
       label: "Upload Data",
       slug: "data",
       href: "/account/data",
-      children: <div />,
+      children: <Upload {...upload} />,
     },
     {
       label: "Your Account",

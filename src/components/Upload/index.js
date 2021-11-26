@@ -1,23 +1,26 @@
 import { A } from "@commons-ui/core";
 import { Button, makeStyles, Typography } from "@material-ui/core";
+import { getSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
 import { ReactComponent as IcUpload } from "@/twoopstracker/assets/icons/upload.svg";
 import Section from "@/twoopstracker/components/Section";
-import request from "@/twoopstracker/utils/request";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const handleUpload = async (content) => {
   if (!content) {
     return null;
   }
-
-  return request(
+  const session = await getSession();
+  return fetchJson(
     `${process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL}/lists/`,
-    "POST",
-    content,
-    true
+    session,
+    {
+      method: "POST",
+      body: content,
+    }
   );
 };
 
@@ -68,29 +71,9 @@ function Upload({
   const processFile = useCallback(async () => {
     setLoading(true);
     try {
-      const reader = new FileReader();
-      reader.onload = async () => {
-        const text = reader.result;
-        const lines = text.split("\n");
-        const result = lines.reduce(
-          (acc, line, index) => {
-            if (index === 0) {
-              acc.is_private = line.split(",")[0].trim().toLowerCase === "yes";
-            } else {
-              const [screenName] = line.split(",");
-              acc.accounts.push({ screen_name: screenName.trim() });
-            }
-            return acc;
-          },
-          {
-            name: acceptedFiles[0].name,
-            accounts: [],
-          }
-        );
-        await handleUpload(result);
-        setLoading(false);
-      };
-      reader.readAsText(acceptedFiles[0]);
+      const formData = new FormData();
+      formData.append("csv", acceptedFiles[0]);
+      await handleUpload(formData);
     } catch (err) {
       setError(true);
       setLoading(false);
