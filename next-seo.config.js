@@ -7,13 +7,13 @@ export default {
   description: "Explore the tweets they didn't want you to see",
   openGraph: {
     type: "website",
-    url: site.url,
+    url: site.environmentUrl,
     locale: "en",
     site_name: site.name,
     images: [
       {
         /* eslint-disable global-require */
-        url: "",
+        url: `${site.environmentUrl}image.jpg`,
         width: 994,
         height: 511,
         alt: "twoopstracker",
