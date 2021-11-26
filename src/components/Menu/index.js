@@ -83,6 +83,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
 function Menu({ children, loginMenuProps, links, ...props }) {
   const classes = useStyles(props);
   const [session] = useSession();
+  console.log(session?.user?.image);
 
   if (!links?.length) {
     return null;

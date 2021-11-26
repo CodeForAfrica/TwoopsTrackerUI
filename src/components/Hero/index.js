@@ -74,25 +74,25 @@ function Hero({
         </Typography>
         {withCTA && (
           <div className={classes.buttonContainer}>
-            <Link href={searchLink}>
+            <Button
+              component={Link}
+              href={searchLink}
+              className={classes.button}
+              variant="contained"
+              color="primary"
+            >
+              {searchLabel}
+            </Button>
+            {!session ? (
               <Button
+                component={Link}
+                href={signUpLink}
                 className={classes.button}
                 variant="contained"
                 color="primary"
               >
-                {searchLabel}
+                {signUpLabel}
               </Button>
-            </Link>
-            {!session ? (
-              <Link href={signUpLink}>
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                >
-                  {signUpLabel}
-                </Button>
-              </Link>
             ) : null}
           </div>
         )}
