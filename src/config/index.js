@@ -1,3 +1,6 @@
+import userAvator from "@/twoopstracker/assets/icons/avator.svg";
+import login from "@/twoopstracker/assets/icons/login.svg";
+import signup from "@/twoopstracker/assets/icons/signup.svg";
 import fb from "@/twoopstracker/assets/icons/white icon fb.svg";
 import insta from "@/twoopstracker/assets/icons/white icon insta.svg";
 import linkedin from "@/twoopstracker/assets/icons/white icon linkedin.svg";
@@ -10,7 +13,7 @@ import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import cfaSquare from "@/twoopstracker/assets/images/Square-01 1.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
-import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
+import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
 export const tweetsCount = [
   {
@@ -619,28 +622,44 @@ export const tweets = [
 export const navigationArgs = {
   menuProps: [
     {
-      href: "/data",
-      label: "Data",
+      href: "/watchlists",
+      label: "Watchlists",
+    },
+    {
+      href: "/lexicons",
+      label: "Lexicons",
     },
     {
       href: "/investigations",
       label: "Investigations",
     },
     {
-      href: "/resources",
-      label: "Resources",
-    },
-    {
       href: "/about",
       label: "About",
     },
+  ],
+  loginMenuProps: [
     {
+      label: "Sign up",
       href: "/login",
-      label: "Sign in",
+      imageProps: {
+        width: 24,
+        height: 24,
+        alt: "desktop logo",
+        href: "/login",
+        src: signup,
+      },
     },
     {
+      label: "Log In",
       href: "/login",
-      label: "Sign Up",
+      imageProps: {
+        width: 24,
+        height: 24,
+        alt: "desktop logo",
+        href: "/login",
+        src: login,
+      },
     },
   ],
   desktopLogoProps: {
@@ -663,6 +682,11 @@ export const navigationArgs = {
     alt: "drawer logo",
     href: "/",
     src: navLogo,
+  },
+  userProfileArgs: {
+    label: "Account Name",
+    src: userAvator,
+    alt: "Profile",
   },
 };
 
@@ -756,7 +780,7 @@ export const home = {
     title: "Partners & About Us",
   },
   signUp: {
-    buttonLink: "/login",
+    buttonLink: "/signup",
     buttonText: "Sign up",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ",
