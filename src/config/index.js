@@ -619,16 +619,16 @@ export const tweets = [
 export const navigationArgs = {
   menuProps: [
     {
-      href: "/data",
-      label: "Data",
+      href: "/watchlists",
+      label: "Watchlists",
+    },
+    {
+      href: "/lexicons",
+      label: "Lexicons",
     },
     {
       href: "/investigations",
       label: "Investigations",
-    },
-    {
-      href: "/resources",
-      label: "Resources",
     },
     {
       href: "/about",
