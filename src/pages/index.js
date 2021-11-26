@@ -10,7 +10,7 @@ import SignUp from "@/twoopstracker/components/SignUp";
 import { home } from "@/twoopstracker/config";
 import { tweetsInsights } from "@/twoopstracker/lib";
 
-export default function Index({ days, insights, ...props }) {
+function Index({ days, insights, ...props }) {
   return (
     <Page {...props}>
       <Hero {...home.hero} />
@@ -44,3 +44,5 @@ export async function getStaticProps() {
     revalidate: 15 * 60, // 15 minutes
   };
 }
+
+export default Index;
