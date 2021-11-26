@@ -903,11 +903,12 @@ export const pagination = {
 };
 
 const config = {
+  investigation,
+  name: "TwoopsTracker",
+  navigationArgs,
   tweets,
   tweetsCount,
-  navigationArgs,
   url: "http://localhost:3000",
-  investigation,
 };
 
 export default config;
