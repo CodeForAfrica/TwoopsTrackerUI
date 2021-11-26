@@ -12,7 +12,7 @@ import { navigationArgs, footerArgs } from "@/twoopstracker/config";
 function BasePage({ children, ...props }) {
   return (
     <div>
-      <Navigation {...navigationArgs} />
+      <Navigation {...navigationArgs} {...navigationArgs.userProfileArgs} />
       <NextSeo {...props} />
       {children}
       <Footer {...footerArgs} />

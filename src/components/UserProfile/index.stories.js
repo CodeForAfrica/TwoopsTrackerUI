@@ -1,24 +1,23 @@
 import React from "react";
 
-import Navigation from ".";
+import UserProfile from ".";
 
 import { navigationArgs } from "@/twoopstracker/config";
 
 export default {
-  title: "Sections/Navigation",
+  title: "Components/UserProfile",
   argTypes: {},
 };
 
-const Template = ({ ...args }) => <Navigation {...args} />;
+const Template = ({ ...args }) => <UserProfile {...args} />;
 export const Default = Template.bind({});
 
 Default.parameters = {
   nextRouter: {
-    pathname: "/?path=/story/sections-navigation--default",
+    pathname: "/?path=/story/components-userprofile--defaultt",
   },
 };
 
 Default.args = {
-  ...navigationArgs,
   ...navigationArgs.userProfileArgs,
 };
