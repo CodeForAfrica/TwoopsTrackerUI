@@ -1,11 +1,12 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(({ typography }) => ({
-  root: {},
+  root: {
+    flexGrow: 1,
+  },
   section: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: typography.pxToRem(30),
   },
   listItem: {
     marginTop: typography.pxToRem(20),

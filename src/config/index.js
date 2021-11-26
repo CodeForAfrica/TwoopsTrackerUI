@@ -842,6 +842,56 @@ export const footerArgs = {
   aboutVariant: "subtitle1",
 };
 
+export const searches = [
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+];
 export const about = {
   banner: {
     description:
@@ -910,10 +960,17 @@ export const pagination = {
   pageSizeOptions: [{ value: "20" }, { value: "50" }],
 };
 
+export const searchPgination = {
+  pageSizeDefaultValue: "3",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+};
+
 const config = {
   investigation,
   name: "TwoopsTracker",
   navigationArgs,
+  searches,
   tweets,
   tweetsCount,
   url: "http://localhost:3000",

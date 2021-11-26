@@ -1,4 +1,4 @@
-import { providers } from "next-auth/client";
+import { getProviders } from "next-auth/client";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -22,9 +22,11 @@ SignIn.defaultProps = {
 };
 
 export async function getStaticProps(context) {
+  const providers = await getProviders(context);
+
   return {
     props: {
-      providers: await providers(context),
+      providers,
       title: "Sign in",
     },
     revalidate: 60 * 60, // 60 minutes

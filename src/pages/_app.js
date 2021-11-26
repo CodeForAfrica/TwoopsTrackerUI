@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import theme from "@/twoopstracker/theme";
-import SEO from "next-seo.config";
 import "@/twoopstracker/theme/fonts.css";
+import SEO from "next-seo.config";
 
 export default function MyApp({
   Component,
