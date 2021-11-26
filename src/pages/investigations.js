@@ -6,14 +6,25 @@ import InvestigationList from "@/twoopstracker/components/InvestigationList";
 import Page from "@/twoopstracker/components/Page";
 import { investigation } from "@/twoopstracker/config";
 
-export default function Investigations({ ...props }) {
+export default function Investigations({
+  investigation: investigationProp,
+  ...props
+}) {
   return (
     <Page {...props}>
-      <Hero withCTA={false} {...investigation.banner} />
-      <InvestigationList items={investigation.items} />
+      <Hero withCTA={false} {...investigationProp.banner} />
+      <InvestigationList items={investigationProp.items} />
     </Page>
   );
 }
+
+Investigations.propTypes = {
+  investigation: PropTypes.shape({}),
+};
+
+Investigations.defaultProps = {
+  investigation: undefined,
+};
 
 Investigations.propTypes = {
   fallback: PropTypes.arrayOf(PropTypes.shape({})),
@@ -25,8 +36,9 @@ Investigations.defaultProps = {
   tweets: undefined,
 };
 
-export function getStaticProps() {
+export async function getStaticProps() {
   return {
-    props: { investigation },
+    props: { investigation, title: "Investigations" },
+    revalidate: 15 * 60, // 15 minutes
   };
 }
