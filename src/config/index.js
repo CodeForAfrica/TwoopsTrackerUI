@@ -865,6 +865,14 @@ export const about = {
   ],
 };
 
+export const watchlists = {
+  banner: {
+    description:
+      "Analysing how toxic actors and trolls hide their manipulation",
+    title: "Track the trolls & sock-puppets poisoning our democracies",
+  },
+};
+
 export const resources = {
   banner: {
     description:
