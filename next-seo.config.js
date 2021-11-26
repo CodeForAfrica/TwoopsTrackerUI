@@ -1,13 +1,15 @@
 /* eslint-disable import/no-anonymous-default-export */
+import site from "@/twoopstracker/utils/site";
+
 export default {
-  titleTemplate: "%s | TwoopsTracker",
-  defaultTitle: "TwoopsTracker",
+  titleTemplate: `%s | ${site.name}`,
+  defaultTitle: site.name,
   description: "Explore the tweets they didn't want you to see",
   openGraph: {
     type: "website",
-    url: "https://trolltracker.investigate.africa/",
+    url: site.url,
     locale: "en",
-    site_name: "TwoopsTracker",
+    site_name: site.name,
     images: [
       {
         /* eslint-disable global-require */
