@@ -1,33 +1,31 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import AboutContent from "@/twoopstracker/components/AboutContent";
 import Hero from "@/twoopstracker/components/Hero";
 import Page from "@/twoopstracker/components/Page";
-import { resources } from "@/twoopstracker/config";
+import { lexicons } from "@/twoopstracker/config";
 
-function Resources({ resources: resourcesProp, ...props }) {
+function Resources({ lexicons: lexiconsProp, ...props }) {
   return (
     <Page {...props}>
-      <Hero withCTA={false} {...resourcesProp.banner} />
-      <AboutContent items={resourcesProp.items} />
+      <Hero withCTA={false} {...lexiconsProp.banner} />
     </Page>
   );
 }
 
 Resources.propTypes = {
-  resources: PropTypes.shape({}),
+  lexicons: PropTypes.shape({}),
 };
 
 Resources.defaultProps = {
-  resources: undefined,
+  lexicons: undefined,
 };
 
 export async function getStaticProps() {
   return {
     props: {
-      resources,
-      title: "Resources",
+      lexicons,
+      title: "Lexicons",
     },
     revalidate: 15 * 60, // 15 minutes
   };

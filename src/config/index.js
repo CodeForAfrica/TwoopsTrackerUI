@@ -873,11 +873,11 @@ export const watchlists = {
   },
 };
 
-export const resources = {
+export const lexicons = {
   banner: {
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-    title: "Resources",
+      "Use these free resources made available by Troll Tracker to aid in your anti-disinformation investigations.",
+    title: "Lexicons",
   },
   items: [
     {
