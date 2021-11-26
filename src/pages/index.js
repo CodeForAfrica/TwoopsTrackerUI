@@ -12,7 +12,7 @@ import { tweetsInsights } from "@/twoopstracker/lib";
 
 function Index({ days, insights, ...props }) {
   return (
-    <Page {...props}>
+    <Page description={home.hero?.description ?? null} {...props}>
       <Hero {...home.hero} />
       <Chart data={insights} days={days} />
       <SignUp {...home.signUp} />

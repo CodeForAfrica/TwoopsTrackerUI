@@ -27,6 +27,7 @@ export async function getStaticProps() {
   return {
     props: {
       about,
+      description: about?.banner?.description ?? null,
       title: "About",
     },
     revalidate: 15 * 60, // 15 minutes

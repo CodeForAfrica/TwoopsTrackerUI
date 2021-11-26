@@ -24,6 +24,7 @@ Watchlists.defaultProps = {
 export async function getStaticProps() {
   return {
     props: {
+      description: watchlists?.banner?.description ?? null,
       watchlists,
       title: "Watchlists",
     },

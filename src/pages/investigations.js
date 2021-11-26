@@ -38,7 +38,11 @@ Investigations.defaultProps = {
 
 export async function getStaticProps() {
   return {
-    props: { investigation, title: "Investigations" },
+    props: {
+      description: investigation?.banner?.description ?? null,
+      investigation,
+      title: "Investigations",
+    },
     revalidate: 15 * 60, // 15 minutes
   };
 }

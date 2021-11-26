@@ -24,6 +24,7 @@ Resources.defaultProps = {
 export async function getStaticProps() {
   return {
     props: {
+      description: lexicons?.banner?.description ?? null,
       lexicons,
       title: "Lexicons",
     },
