@@ -107,7 +107,7 @@ function Login({ providers, ...props }) {
 }
 
 Login.propTypes = {
-  providers: PropTypes.arrayOf(PropTypes.shape({})),
+  providers: PropTypes.shape({}),
 };
 
 Login.defaultProps = {
