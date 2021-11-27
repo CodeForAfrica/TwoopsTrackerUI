@@ -30,17 +30,6 @@ function ListCard({
   const handleDeleteOpen = () => setDeleteOpen(true);
   const handleDeleteClose = () => setDeleteOpen(false);
 
-  let accountsStr = null;
-  listAccounts.forEach((account) => {
-    if (accountsStr === null) {
-      accountsStr = `${account.screen_name}`;
-    } else {
-      accountsStr = `${account.screen_name},${accountsStr}`;
-    }
-  });
-
-  const [accounts, setAccounts] = useState(accountsStr);
-
   const { mutate } = useSWRConfig();
 
   const fetcher = (url) => fetch(url).then((results) => results.json());
@@ -57,24 +46,14 @@ function ListCard({
       setName(event.target.value);
     }
 
-    if (event.target.name === "accounts") {
-      setAccounts(event.target.value);
-    }
-
     if (event.target.name === "privacy") {
       setPrivacy(event.target.checked);
     }
   };
 
   const onUpdate = async () => {
-    const accountsMap = accounts
-      .split(",")
-      .map((item) => ({ screen_name: item }));
-
     const payload = {
       name,
-      accounts: accountsMap,
-      owner: 1,
       is_private: privacy,
     };
 
@@ -131,10 +110,10 @@ function ListCard({
             nameValue={name}
             nameHelper="Name of List"
             nameOnChange={handleChange}
-            accountsLabel="User Accounts"
-            accountsOnChange={handleChange}
-            accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
-            accountsValue={accountsStr}
+            // accountsLabel="User Accounts"
+            // accountsOnChange={handleChange}
+            // accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
+            // accountsValue={accountsStr}
             privacyValue={privacyStatus}
             privacyOnChange={handleChange}
             buttonLabel="Update"

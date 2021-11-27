@@ -1,8 +1,12 @@
+import { getSession } from "next-auth/client";
+
 import { lists, APIRequest } from "@/twoopstracker/lib";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const results = await lists();
+    const session = await getSession({ req });
+
+    const results = await lists(session);
     return res.status(200).json(results);
   }
 

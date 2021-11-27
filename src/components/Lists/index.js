@@ -1,4 +1,6 @@
 import { Button, Typography } from "@material-ui/core";
+import { useSession } from "next-auth/client";
+import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR, { useSWRConfig } from "swr";
@@ -9,10 +11,11 @@ import ListCard from "@/twoopstracker/components/ListCard";
 import ListModal from "@/twoopstracker/components/ListModal";
 import Section from "@/twoopstracker/components/Section";
 import { createList } from "@/twoopstracker/lib";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 function Lists({ results: listsProp, ...props }) {
   const [open, setOpen] = useState(false);
-  const [lists, setLists] = useState(listsProp);
+  const [lists, setLists] = useState(listsProp.results);
   const [name, setName] = useState("");
   const [accounts, setAccounts] = useState("");
   const [privacy, setPrivacy] = useState(false);
@@ -20,10 +23,18 @@ function Lists({ results: listsProp, ...props }) {
   const handleClose = () => setOpen(false);
   const classes = useStyles(props);
 
+  const [session, loading] = useSession();
+
+  useEffect(() => {
+    if (!session && !loading) {
+      Router.push("/login");
+    }
+  }, [session, loading]);
+
   const { mutate } = useSWRConfig();
 
-  const fetcher = (url) => fetch(url).then((results) => results.json());
-  const { data } = useSWR(`/api/accounts/lists`, fetcher);
+  const fetcher = (url, token) => fetchJson(url, token);
+  const { data } = useSWR([`/api/accounts/lists`, session], fetcher);
 
   useEffect(() => {
     if (data) {
@@ -38,9 +49,8 @@ function Lists({ results: listsProp, ...props }) {
 
     const payload = {
       name,
-      accounts: accountsMap,
-      owner: 1,
       is_private: privacy,
+      accounts: accountsMap,
     };
 
     try {
@@ -69,9 +79,9 @@ function Lists({ results: listsProp, ...props }) {
     }
   };
 
-  if (!listsProp.length) {
-    return null;
-  }
+  // if (!listsProp.results.length) {
+  //   return null;
+  // }
 
   return (
     <Section>

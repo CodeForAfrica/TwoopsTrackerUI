@@ -4,33 +4,31 @@ import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
 
-export async function lists() {
-  const res = await fetch(`${BASE_URL}/lists/`);
-  return res.json();
+export async function lists(session) {
+  const result = await fetchJson(`${BASE_URL}/lists/`, session);
+  return result;
 }
 
-export async function fetchList(id) {
-  const res = await fetch(`${BASE_URL}/lists/${id}`);
-  return res.json();
+export async function fetchList(id, session) {
+  const results = await fetchJson(`${BASE_URL}/lists/${id}`, session);
+  return results;
 }
 
-export const createList = async (payload, url) => {
-  const data = await fetch(url, {
+export const createList = async (payload, url, session) => {
+  const options = {
     method: "POST",
     body: JSON.stringify(payload),
-  });
-
-  const result = await data.json();
+  };
+  const result = await fetchJson(url, session, options);
 
   return result;
 };
 
-export const deleteList = async (url, id) => {
-  const data = await fetch(`${url}/${id}`, {
+export const deleteList = async (url, id, session) => {
+  const options = {
     method: "DELETE",
-  });
-
-  const result = await data.json();
+  };
+  const result = await fetchJson(`${url}/${id}`, session, options);
 
   return result;
 };
@@ -40,7 +38,6 @@ export const updateList = async (url, payload, id) => {
     method: "PUT",
     body: JSON.stringify(payload),
   });
-
   const result = await data.json();
 
   return result;

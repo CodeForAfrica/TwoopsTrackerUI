@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/client";
+import { useSession, getSession } from "next-auth/client";
 import Router from "next/router";
 import React, { useEffect } from "react";
 
@@ -22,8 +22,9 @@ export default function Index(props) {
   );
 }
 
-export async function getServerSideProps() {
-  const { results } = await lists();
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  const results = await lists(session);
 
   // Pass data to the page via props
   return { props: { results } };
