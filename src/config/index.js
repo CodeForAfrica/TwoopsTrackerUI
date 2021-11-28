@@ -1,3 +1,6 @@
+import userAvator from "@/twoopstracker/assets/icons/avator.svg";
+import login from "@/twoopstracker/assets/icons/login.svg";
+import signup from "@/twoopstracker/assets/icons/signup.svg";
 import fb from "@/twoopstracker/assets/icons/white icon fb.svg";
 import insta from "@/twoopstracker/assets/icons/white icon insta.svg";
 import linkedin from "@/twoopstracker/assets/icons/white icon linkedin.svg";
@@ -10,7 +13,7 @@ import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import cfaSquare from "@/twoopstracker/assets/images/Square-01 1.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
-import navLogo from "@/twoopstracker/assets/logos/Nav Logo.svg";
+import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
 export const tweetsCount = [
   {
@@ -619,28 +622,44 @@ export const tweets = [
 export const navigationArgs = {
   menuProps: [
     {
-      href: "/data",
-      label: "Data",
+      href: "/watchlists",
+      label: "Watchlists",
+    },
+    {
+      href: "/lexicons",
+      label: "Lexicons",
     },
     {
       href: "/investigations",
       label: "Investigations",
     },
     {
-      href: "/resources",
-      label: "Resources",
-    },
-    {
       href: "/about",
       label: "About",
     },
+  ],
+  loginMenuProps: [
     {
+      label: "Sign up",
       href: "/login",
-      label: "Sign in",
+      imageProps: {
+        width: 24,
+        height: 24,
+        alt: "desktop logo",
+        href: "/login",
+        src: signup,
+      },
     },
     {
+      label: "Log In",
       href: "/login",
-      label: "Sign Up",
+      imageProps: {
+        width: 24,
+        height: 24,
+        alt: "desktop logo",
+        href: "/login",
+        src: login,
+      },
     },
   ],
   desktopLogoProps: {
@@ -663,6 +682,11 @@ export const navigationArgs = {
     alt: "drawer logo",
     href: "/",
     src: navLogo,
+  },
+  userProfileArgs: {
+    label: "Account Name",
+    src: userAvator,
+    alt: "Profile",
   },
 };
 
@@ -756,7 +780,7 @@ export const home = {
     title: "Partners & About Us",
   },
   signUp: {
-    buttonLink: "/login",
+    buttonLink: "/signup",
     buttonText: "Sign up",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ",
@@ -842,6 +866,56 @@ export const footerArgs = {
   aboutVariant: "subtitle1",
 };
 
+export const searches = [
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+  {
+    name: "Search name",
+    created_at: "2021-10-25T14:02:53.844432Z",
+    query: {
+      term: "Crime",
+      location: "Russia",
+    },
+  },
+];
 export const about = {
   banner: {
     description:
@@ -865,11 +939,19 @@ export const about = {
   ],
 };
 
-export const resources = {
+export const watchlists = {
   banner: {
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-    title: "Resources",
+      "Analysing how toxic actors and trolls hide their manipulation",
+    title: "Track the trolls & sock-puppets poisoning our democracies",
+  },
+};
+
+export const lexicons = {
+  banner: {
+    description:
+      "Use these free resources made available by Troll Tracker to aid in your anti-disinformation investigations.",
+    title: "Lexicons",
   },
   items: [
     {
@@ -902,12 +984,20 @@ export const pagination = {
   pageSizeOptions: [{ value: "20" }, { value: "50" }],
 };
 
+export const searchPgination = {
+  pageSizeDefaultValue: "3",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+};
+
 const config = {
+  investigation,
+  name: "TwoopsTracker",
+  navigationArgs,
+  searches,
   tweets,
   tweetsCount,
-  navigationArgs,
   url: "http://localhost:3000",
-  investigation,
 };
 
 export default config;

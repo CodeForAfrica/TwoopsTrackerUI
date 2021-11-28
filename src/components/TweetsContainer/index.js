@@ -10,29 +10,7 @@ import Loading from "@/twoopstracker/components/Loading";
 import Pagination from "@/twoopstracker/components/Pagination";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
-
-function getQueryString(query, theme, location, days, page, pageSize) {
-  const searchParams = new URLSearchParams();
-  if (query) {
-    searchParams.append("query", query);
-  }
-  if (theme) {
-    searchParams.append("theme", theme);
-  }
-  if (location) {
-    searchParams.append("location", location);
-  }
-  if (days) {
-    searchParams.append("days", days);
-  }
-  if (page) {
-    searchParams.append("page", page);
-  }
-  if (pageSize) {
-    searchParams.append("pageSize", pageSize);
-  }
-  return searchParams.toString();
-}
+import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 function TweetsContainer({
   days: daysProp,
@@ -59,7 +37,7 @@ function TweetsContainer({
     location: setLocation,
     page: setPage,
     pageSize: setPageSize,
-    search: setQuery,
+    query: setQuery,
     theme: setTheme,
   };
 
@@ -79,14 +57,14 @@ function TweetsContainer({
   };
 
   useEffect(() => {
-    const queryString = getQueryString(
+    const queryString = getQueryString({
       query,
       theme,
       location,
       days,
       page,
-      pageSize
-    );
+      pageSize,
+    });
     const { pathname } = router;
     let newPathname = pathname;
     if (queryString) {
@@ -113,15 +91,28 @@ function TweetsContainer({
     setPaginating(true);
   };
 
+  const handleSaveSearch = async (name) => {
+    await fetch(`/api/searches`, {
+      method: "POST",
+      body: JSON.stringify({
+        query,
+        theme,
+        location,
+        days,
+        name,
+      }),
+    });
+  };
+
   const shouldFetch = () => {
-    const queryString = getQueryString(
+    const queryString = getQueryString({
       query,
       theme,
       location,
       days,
       page,
-      pageSize
-    );
+      pageSize,
+    });
     let url = "/api/tweets";
     if (queryString) {
       url = `${url}?${queryString}`;
@@ -140,7 +131,7 @@ function TweetsContainer({
       return null;
     }
 
-    const queryString = getQueryString(query, theme, location, days);
+    const queryString = getQueryString({ query, theme, location, days });
     let url = "/api/tweets/insights";
     if (queryString) {
       url = `${url}?${queryString}`;
@@ -161,6 +152,7 @@ function TweetsContainer({
       <SearchSection
         days={days}
         handleSelection={handleSelection}
+        handleSaveSearch={handleSaveSearch}
         location={location}
         onSearch={handleSearch}
         theme={theme}

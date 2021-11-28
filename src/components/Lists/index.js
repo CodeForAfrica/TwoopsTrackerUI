@@ -9,7 +9,6 @@ import useStyles from "./useStyles";
 
 import ListCard from "@/twoopstracker/components/ListCard";
 import ListModal from "@/twoopstracker/components/ListModal";
-import Section from "@/twoopstracker/components/Section";
 import { createList } from "@/twoopstracker/lib";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
@@ -34,7 +33,7 @@ function Lists({ results: listsProp, ...props }) {
   const { mutate } = useSWRConfig();
 
   const fetcher = (url, token) => fetchJson(url, token);
-  const { data } = useSWR([`/api/accounts/lists`, session], fetcher);
+  const { data } = useSWR([`/api/lists`, session], fetcher);
 
   useEffect(() => {
     if (data) {
@@ -54,8 +53,8 @@ function Lists({ results: listsProp, ...props }) {
     };
 
     try {
-      await createList(payload, "/api/accounts/lists");
-      mutate("/api/accounts/lists", { ...data });
+      await createList(payload, "/api/lists");
+      mutate("/api/lists", { ...data });
       setOpen(false);
       setName("");
       setAccounts("");
@@ -84,7 +83,7 @@ function Lists({ results: listsProp, ...props }) {
   // }
 
   return (
-    <Section>
+    <div className={classes.root}>
       <div className={classes.section}>
         <Typography className={classes.listTitle}>Your Lists</Typography>
         <Button onClick={handleOpen} className={classes.button}>
@@ -107,15 +106,21 @@ function Lists({ results: listsProp, ...props }) {
           buttonOnClick={onCreate}
         />
       </div>
-      {lists?.map((item) => (
-        <ListCard
-          key={item.name}
-          classes={{ root: classes.listItem }}
-          {...item}
-          setLists={setLists}
-        />
-      ))}
-    </Section>
+      {lists?.length ? (
+        <>
+          {lists?.map((item) => (
+            <ListCard
+              key={item.name}
+              classes={{ root: classes.listItem }}
+              {...item}
+              setLists={setLists}
+            />
+          ))}
+        </>
+      ) : (
+        <Typography variant="body1">There are no lists</Typography>
+      )}
+    </div>
   );
 }
 

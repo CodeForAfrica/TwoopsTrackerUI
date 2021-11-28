@@ -8,7 +8,7 @@ const Search = ({ handleSelection, ...props }) => {
   const classes = useStyles(props);
 
   const handleChange = (event) => {
-    handleSelection({ name: "search", value: event.target.value });
+    handleSelection({ name: "query", value: event.target.value });
   };
 
   return (

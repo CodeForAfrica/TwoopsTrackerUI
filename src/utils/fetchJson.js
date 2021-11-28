@@ -9,7 +9,9 @@ async function fetchJson(url, session, options = {}) {
   }
 
   const res = await fetch(url, fetchOptions);
-
+  if (fetchOptions?.method === "DELETE") {
+    return res;
+  }
   return res.json();
 }
 
