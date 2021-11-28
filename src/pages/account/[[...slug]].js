@@ -96,7 +96,7 @@ export async function getServerSideProps(context) {
   const [activeSlug] = params?.slug ?? ["lists"];
   const activePageTitle = accountPages[activeSlug]?.label ?? "Account";
   const title = `${activePageTitle}${userName ? ` | ${userName}` : ""}`;
-  const results = await lists();
+  const results = await lists(session);
   const searches = await getSavedSearches({ pageSize: 3 }, session);
 
   return {

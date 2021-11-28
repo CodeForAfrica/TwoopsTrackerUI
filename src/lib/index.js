@@ -33,17 +33,16 @@ export const deleteList = async (url, id, session) => {
   return result;
 };
 
-export const updateList = async (url, payload, id) => {
-  const data = await fetch(`${url}/${id}`, {
+export const updateList = async (url, payload, id, session) => {
+  const data = await fetchJson(`${url}/${id}`, session, {
     method: "PUT",
     body: JSON.stringify(payload),
   });
-  const result = await data.json();
 
-  return result;
+  return data;
 };
 
-export async function APIRequest(payload, method, param) {
+export async function APIRequest(payload, method, param, session) {
   let url = BASE_URL;
 
   if (param) {
@@ -63,12 +62,13 @@ export async function APIRequest(payload, method, param) {
     options.body = payload;
   }
 
-  const res = await fetch(url, options);
+  const res = await fetchJson(url, session, options);
 
   if (method === "DELETE") {
     return res;
   }
-  return res.json();
+  // return res.json();
+  return res;
 }
 
 function tweetsSearchParamFromSearchQuery({

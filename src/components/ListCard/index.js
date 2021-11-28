@@ -1,13 +1,15 @@
 import { Typography, Button, Grid } from "@material-ui/core";
+import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 
 import useStyles from "./useStyles";
 
 import Link from "@/twoopstracker/components/Link";
 import ListModal from "@/twoopstracker/components/ListModal";
 import { updateList, deleteList } from "@/twoopstracker/lib";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 function ListCard({
   name: listName,
@@ -18,6 +20,8 @@ function ListCard({
   setLists,
   ...props
 }) {
+  const [session] = useSession();
+
   const [open, setOpen] = useState(false);
   const [deleteopen, setDeleteOpen] = useState(false);
 
@@ -30,10 +34,8 @@ function ListCard({
   const handleDeleteOpen = () => setDeleteOpen(true);
   const handleDeleteClose = () => setDeleteOpen(false);
 
-  const { mutate } = useSWRConfig();
-
-  const fetcher = (url) => fetch(url).then((results) => results.json());
-  const { data } = useSWR(`/api/accounts/lists`, fetcher);
+  const fetcher = (url, token) => fetchJson(url, token);
+  const { data, mutate } = useSWR([`/api/lists`, session], fetcher);
 
   useEffect(() => {
     if (data) {
@@ -55,12 +57,13 @@ function ListCard({
     const payload = {
       name,
       is_private: privacy,
+      accounts: [{ screen_name: "michaeljackson" }], // to be deleted
     };
 
     try {
-      await updateList("/api/accounts/lists", payload, id);
-      mutate("/api/accounts/lists", { ...data });
+      await updateList("/api/lists", payload, id, session);
 
+      mutate({ ...data });
       setOpen(false);
     } catch (e) {
       setOpen(true);
@@ -69,9 +72,8 @@ function ListCard({
 
   const onDelete = async () => {
     try {
-      await deleteList("/api/accounts/lists", id);
-      mutate("/api/accounts/lists", { ...data });
-
+      await deleteList("/api/lists", id);
+      mutate("/api/lists", { ...data });
       setDeleteOpen(false);
     } catch (e) {
       setDeleteOpen(true);
@@ -87,7 +89,7 @@ function ListCard({
 
   return (
     <div className={classes.root}>
-      <Link href={`/accounts/lists/${id}`}>
+      <Link href={`/account/lists/${id}`}>
         <Typography className={classes.title}>{listName}</Typography>
       </Link>
       <Grid container>

@@ -11,8 +11,18 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
+    const session = await getSession({ req });
+
     const { body, method } = req;
-    const results = await APIRequest(body, method);
+    const results = await APIRequest(body, method, null, session);
+    return res.status(200).json(results);
+  }
+
+  if (req.method === "PUT") {
+    const session = await getSession({ req });
+
+    const { body, method } = req;
+    const results = await APIRequest(body, method, null, session);
     return res.status(200).json(results);
   }
 

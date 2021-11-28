@@ -14,7 +14,7 @@ import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 function Lists({ results: listsProp, ...props }) {
   const [open, setOpen] = useState(false);
-  const [lists, setLists] = useState(listsProp.results);
+  const [lists, setLists] = useState(listsProp ? listsProp.results : []);
   const [name, setName] = useState("");
   const [accounts, setAccounts] = useState("");
   const [privacy, setPrivacy] = useState(false);
