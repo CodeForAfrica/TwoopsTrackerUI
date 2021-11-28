@@ -7,7 +7,7 @@ import useStyles from "./useStyles";
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 import Section from "@/twoopstracker/components/Section";
 
-function UserProfile() {
+function UserAccount() {
   const classes = useStyles();
   return (
     <Section>
@@ -35,4 +35,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default UserAccount;
