@@ -7,8 +7,8 @@ import {
   Grow,
   Paper,
   Popper,
+  ClickAwayListener,
 } from "@material-ui/core";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
@@ -25,6 +25,9 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       flexDirection: "row",
       justifyContent: "flex-start",
     },
+  },
+  paper: {
+    marginLeft: typography.pxToRem(64),
   },
   label: {
     fontSize: typography.pxToRem(24),
@@ -151,7 +154,7 @@ function UserProfile({ label, src, alt, ...props }) {
                 placement === "bottom" ? "center top" : "center bottom",
             }}
           >
-            <Paper>
+            <Paper classes={{ root: classes.paper }}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
