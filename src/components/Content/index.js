@@ -8,7 +8,7 @@ import useStyles from "./useStyles";
 import Image from "@/twoopstracker/components/Image";
 import Section from "@/twoopstracker/components/Section";
 
-function AboutContent({ items, ...props }) {
+function Content({ items, size, ...props }) {
   const classes = useStyles(props);
 
   if (!items?.length) {
@@ -21,24 +21,30 @@ function AboutContent({ items, ...props }) {
           <Grid
             className={classes.row}
             container
-            alignItems="center"
+            alignItems="stretch"
             spacing={4}
             item
             lg={12}
             key={title}
           >
-            <Grid item xs={12} md={3}>
-              <A href={href}>
+            <Grid item xs={12} md={size === "large" ? 6 : 3}>
+              <A className={classes.imageContainer} href={href}>
                 <Image
                   objectFit="contain"
-                  height={225}
-                  width={225}
+                  width={size === "large" ? 768 : 225}
+                  height={size === "large" ? 429 : 225}
                   src={image}
                   alt={title}
                 />
               </A>
             </Grid>
-            <Grid container alignItems="center" item xs={12} md={9}>
+            <Grid
+              container
+              alignItems="center"
+              item
+              xs={12}
+              md={size === "large" ? 6 : 9}
+            >
               {title && (
                 <A className={classes.link} href={href}>
                   <Typography className={classes.title} variant="h4">
@@ -51,6 +57,15 @@ function AboutContent({ items, ...props }) {
                   {description}
                 </RichTypography>
               )}
+              {size === "large" && (
+                <A
+                  underline="always"
+                  className={classes.viewWebsite}
+                  href={href}
+                >
+                  <Typography>View Website</Typography>
+                </A>
+              )}
             </Grid>
           </Grid>
         ))}
@@ -59,10 +74,12 @@ function AboutContent({ items, ...props }) {
   );
 }
 
-AboutContent.propTypes = {
+Content.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({})),
+  size: PropTypes.string,
 };
-AboutContent.defaultProps = {
+Content.defaultProps = {
   items: undefined,
+  size: undefined,
 };
-export default AboutContent;
+export default Content;

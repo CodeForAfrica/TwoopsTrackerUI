@@ -1,14 +1,14 @@
 import React from "react";
 
-import AboutContent from ".";
+import Content from ".";
 
 import { investigation } from "@/twoopstracker/config";
 
 export default {
-  title: "Components/AboutContent",
+  title: "Components/Content",
 };
 
-const Template = (args) => <AboutContent {...args} />;
+const Template = (args) => <Content {...args} />;
 
 export const Default = Template.bind({});
 
