@@ -1,26 +1,34 @@
 import { Typography } from "@material-ui/core";
+import { useSession } from "next-auth/client";
+import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 
 import useStyles from "./useStyles";
 
 import Account from "@/twoopstracker/components/Account";
 import Section from "@/twoopstracker/components/Section";
 import { updateList } from "@/twoopstracker/lib";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const AccountList = ({
   data: { name, accounts, is_private: privacy, id },
   ...props
 }) => {
   const classes = useStyles(props);
+  const [session, loading] = useSession();
+
+  useEffect(() => {
+    if (!session && !loading) {
+      Router.push("/login");
+    }
+  }, [session, loading]);
 
   const [listAccounts, setListAccounts] = useState(accounts);
 
-  const { mutate } = useSWRConfig();
-
-  const fetcher = (url) => fetch(url).then((results) => results.json());
-  const { data } = useSWR(`/api/lists/${id}`, fetcher);
+  const fetcher = (url, token) => fetchJson(url, token);
+  const { data, mutate } = useSWR([`/api/lists/${id}`, session], fetcher);
 
   useEffect(() => {
     if (data) {
@@ -40,8 +48,8 @@ const AccountList = ({
       is_private: privacy,
     };
 
-    await updateList("/api/lists", payload, id);
-    mutate(`/api/lists/${id}`, { ...data });
+    await updateList("/api/lists", payload, id, session);
+    mutate({ ...data });
   };
 
   return (

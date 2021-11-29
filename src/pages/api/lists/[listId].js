@@ -12,7 +12,9 @@ export default async function handler(req, res) {
   }
 
   if (method === "GET" || method === "DELETE") {
-    const results = await APIRequest(null, method, query.listId);
+    const session = await getSession({ req });
+
+    const results = await APIRequest(null, method, query.listId, session);
     return res.status(200).json(results);
   }
 

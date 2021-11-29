@@ -3,7 +3,7 @@ import { useSession } from "next-auth/client";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 
 import useStyles from "./useStyles";
 
@@ -30,10 +30,8 @@ function Lists({ results: listsProp, ...props }) {
     }
   }, [session, loading]);
 
-  const { mutate } = useSWRConfig();
-
   const fetcher = (url, token) => fetchJson(url, token);
-  const { data } = useSWR([`/api/lists`, session], fetcher);
+  const { data, mutate } = useSWR([`/api/lists`, session], fetcher);
 
   useEffect(() => {
     if (data) {
@@ -53,8 +51,8 @@ function Lists({ results: listsProp, ...props }) {
     };
 
     try {
-      await createList(payload, "/api/lists");
-      mutate("/api/lists", { ...data });
+      await createList(payload, "/api/lists", session);
+      mutate({ ...data });
       setOpen(false);
       setName("");
       setAccounts("");

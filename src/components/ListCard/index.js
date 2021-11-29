@@ -72,8 +72,8 @@ function ListCard({
 
   const onDelete = async () => {
     try {
-      await deleteList("/api/lists", id);
-      mutate("/api/lists", { ...data });
+      await deleteList("/api/lists", id, session);
+      mutate({ ...data });
       setDeleteOpen(false);
     } catch (e) {
       setDeleteOpen(true);
