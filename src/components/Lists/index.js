@@ -9,7 +9,6 @@ import useStyles from "./useStyles";
 
 import ListCard from "@/twoopstracker/components/ListCard";
 import ListModal from "@/twoopstracker/components/ListModal";
-import { createList } from "@/twoopstracker/lib";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 function Lists({ results: listsProp, ...props }) {
@@ -51,7 +50,11 @@ function Lists({ results: listsProp, ...props }) {
     };
 
     try {
-      await createList(payload, "/api/lists", session);
+      await fetchJson("/api/lists", session, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+
       mutate({ ...data });
       setOpen(false);
       setName("");

@@ -9,7 +9,6 @@ import useStyles from "./useStyles";
 
 import Account from "@/twoopstracker/components/Account";
 import Section from "@/twoopstracker/components/Section";
-import { updateList } from "@/twoopstracker/lib";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const AccountList = ({
@@ -48,7 +47,11 @@ const AccountList = ({
       is_private: privacy,
     };
 
-    await updateList("/api/lists", payload, id, session);
+    await fetchJson(`/api/lists/${id}`, session, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    });
+
     mutate({ ...data });
   };
 

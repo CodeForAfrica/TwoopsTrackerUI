@@ -8,7 +8,6 @@ import useStyles from "./useStyles";
 
 import Link from "@/twoopstracker/components/Link";
 import ListModal from "@/twoopstracker/components/ListModal";
-import { updateList, deleteList } from "@/twoopstracker/lib";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 function ListCard({
@@ -61,7 +60,10 @@ function ListCard({
     };
 
     try {
-      await updateList("/api/lists", payload, id, session);
+      await fetchJson(`/api/lists/${id}`, session, {
+        method: "PUT",
+        body: JSON.stringify(payload),
+      });
 
       mutate({ ...data });
       setOpen(false);
@@ -72,7 +74,10 @@ function ListCard({
 
   const onDelete = async () => {
     try {
-      await deleteList("/api/lists", id, session);
+      await fetchJson(`/api/lists/${id}`, session, {
+        method: "DELETE",
+      });
+
       mutate({ ...data });
       setDeleteOpen(false);
     } catch (e) {

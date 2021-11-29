@@ -14,34 +14,6 @@ export async function fetchList(id, session) {
   return results;
 }
 
-export const createList = async (payload, url, session) => {
-  const options = {
-    method: "POST",
-    body: JSON.stringify(payload),
-  };
-  const result = await fetchJson(url, session, options);
-
-  return result;
-};
-
-export const deleteList = async (url, id, session) => {
-  const options = {
-    method: "DELETE",
-  };
-  const result = await fetchJson(`${url}/${id}`, session, options);
-
-  return result;
-};
-
-export const updateList = async (url, payload, id, session) => {
-  const data = await fetchJson(`${url}/${id}`, session, {
-    method: "PUT",
-    body: JSON.stringify(payload),
-  });
-
-  return data;
-};
-
 export async function APIRequest(payload, method, param, session) {
   let url = BASE_URL;
 
@@ -67,7 +39,6 @@ export async function APIRequest(payload, method, param, session) {
   if (method === "DELETE") {
     return res;
   }
-  // return res.json();
   return res;
 }
 
