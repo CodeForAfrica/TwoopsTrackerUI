@@ -5,13 +5,14 @@ import fb from "@/twoopstracker/assets/icons/white icon fb.svg";
 import insta from "@/twoopstracker/assets/icons/white icon insta.svg";
 import linkedin from "@/twoopstracker/assets/icons/white icon linkedin.svg";
 import twitter from "@/twoopstracker/assets/icons/white icon twitter.svg";
+import ancir from "@/twoopstracker/assets/images/ancir.png";
 import codeForAll from "@/twoopstracker/assets/images/Artboard 1@2x 1.png";
 import codeForAfrica from "@/twoopstracker/assets/images/CFA Editable Logo-01 1.png";
-import crowdtangle from "@/twoopstracker/assets/images/image 5.png";
-import github from "@/twoopstracker/assets/images/Rectangle 10.png";
+import hatebase from "@/twoopstracker/assets/images/hatebase.png";
+import mediacloud from "@/twoopstracker/assets/images/mediacloud.png";
+import pesaCheckLab from "@/twoopstracker/assets/images/pesachecklab.png";
 import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
-import cfaSquare from "@/twoopstracker/assets/images/Square-01 1.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
@@ -955,24 +956,31 @@ export const lexicons = {
   },
   items: [
     {
-      image: cfaSquare,
+      image: ancir,
       description:
-        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-      title: "Existing website - ANCIR ",
+        "ANCIR’s iLAB uses open-source investigative techniques to study disinformation narratives to identify indicators of coordinated inauthentic behaviour and disinformation campaigns both from domestic and foreign actors.",
+      title: "ANCIR’s ILAB",
       href: "https://www.cfa.org/",
     },
     {
-      image: github,
+      image: mediacloud,
       description:
-        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-      title: "Github",
+        "CivicSignal’s MediaCloud is an open-source platform for media analysis. By tracking millions of stories published online, our suite of tools allows researchers to track how stories and ideas spread through media. Our tools are designed to aggregate, analyze, deliver and visualise information, answering complex quantitative and qualitative questions about the content of online media.",
+      title: "MediaCloud",
       href: "https://github.com/CodeForAfrica/TwoopsTrackerUI",
     },
     {
-      image: crowdtangle,
+      image: hatebase,
       description:
-        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-      title: "Crowdtangle",
+        "Hatebase is a service built to help organizations and online communities detect, monitor and analyze hate speech. The company’s algorithms analyze public conversations using a broad vocabulary based on nationality, ethnicity, religion, gender, sexual orientation, disability and class, with data across 95+ languages and 175+ countries.",
+      title: "Hatebase",
+      href: "https://crowdtangle.com",
+    },
+    {
+      image: pesaCheckLab,
+      description:
+        "PeaceTech Lab’s series of hate speech Lexicons identify and explain inflammatory language on social media while offering alternative words and phrases that can be used to combat the spread of hate speech in conflict-affected countries. Our Lexicons serve as a pivotal resource for local peacebuilders, social media companies, and organizations working to stop and prevent hate speech worldwide.",
+      title: "PeaceTech Lab",
       href: "https://crowdtangle.com",
     },
   ],
