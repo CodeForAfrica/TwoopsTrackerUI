@@ -182,6 +182,7 @@ function UserProfile({ label, src, alt, ...props }) {
                     onClick={() =>
                       signOut({
                         callbackUrl: `/`,
+                        handleClose,
                       })
                     }
                   >
