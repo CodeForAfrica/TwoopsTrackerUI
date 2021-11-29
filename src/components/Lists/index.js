@@ -1,6 +1,4 @@
 import { Button, Typography } from "@material-ui/core";
-import { useSession } from "next-auth/client";
-import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
@@ -11,7 +9,7 @@ import ListCard from "@/twoopstracker/components/ListCard";
 import ListModal from "@/twoopstracker/components/ListModal";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-function Lists({ results: listsProp, ...props }) {
+function Lists({ session, results: listsProp, ...props }) {
   const [open, setOpen] = useState(false);
   const [lists, setLists] = useState(listsProp ? listsProp.results : []);
   const [name, setName] = useState("");
@@ -20,14 +18,6 @@ function Lists({ results: listsProp, ...props }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = useStyles(props);
-
-  const [session, loading] = useSession();
-
-  useEffect(() => {
-    if (!session && !loading) {
-      Router.push("/login");
-    }
-  }, [session, loading]);
 
   const fetcher = (url, token) => fetchJson(url, token);
   const { data, mutate } = useSWR([`/api/lists`, session], fetcher);
@@ -127,10 +117,12 @@ function Lists({ results: listsProp, ...props }) {
 
 Lists.propTypes = {
   results: PropTypes.arrayOf(PropTypes.shape({})),
+  session: PropTypes.string,
 };
 
 Lists.defaultProps = {
   results: undefined,
+  session: undefined,
 };
 
 export default Lists;
