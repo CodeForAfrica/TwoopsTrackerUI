@@ -7,6 +7,7 @@ import Lists from "@/twoopstracker/components/Lists";
 import Page from "@/twoopstracker/components/Page";
 import Section from "@/twoopstracker/components/Section";
 import Tabs from "@/twoopstracker/components/Tabs";
+import UserAccount from "@/twoopstracker/components/UserAccount";
 import UserSearch from "@/twoopstracker/components/UserSearch";
 import { searchPgination } from "@/twoopstracker/config";
 import { lists, getSavedSearches } from "@/twoopstracker/lib";
@@ -37,7 +38,7 @@ const accountPages = {
   },
 };
 
-function Account({ foundLists, activeSlug, searches, ...props }) {
+function Account({ foundLists, activeSlug, searches, user, ...props }) {
   const classes = useStyles(props);
   const tabItems = Object.entries(accountPages).map(([slug, values]) => {
     let children;
@@ -49,6 +50,9 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
         children = (
           <UserSearch searches={searches} paginationProps={searchPgination} />
         );
+        break;
+      case "settings":
+        children = <UserAccount {...user} />;
         break;
       default:
         children = <div />;
@@ -71,6 +75,7 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
 Account.propTypes = {
   foundLists: PropTypes.arrayOf(PropTypes.shape({})),
   searches: PropTypes.shape({}),
+  user: PropTypes.shape({}),
   activeSlug: PropTypes.string,
 };
 
@@ -78,6 +83,7 @@ Account.defaultProps = {
   searches: undefined,
   foundLists: undefined,
   activeSlug: undefined,
+  user: undefined,
 };
 
 export async function getServerSideProps(context) {
@@ -92,6 +98,7 @@ export async function getServerSideProps(context) {
     };
   }
 
+  const user = session?.user;
   const userName = session?.user?.name;
   const [activeSlug] = params?.slug ?? ["lists"];
   const activePageTitle = accountPages[activeSlug]?.label ?? "Account";
@@ -105,6 +112,7 @@ export async function getServerSideProps(context) {
       searches,
       foundLists: results?.results ?? null,
       title,
+      user,
     },
   };
 }

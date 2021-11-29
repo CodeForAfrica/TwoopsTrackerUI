@@ -1,5 +1,6 @@
 import { Typography, Divider, Grid, Button } from "@material-ui/core";
 import Image from "next/image";
+import PropTypes from "prop-types";
 import React from "react";
 
 import useStyles from "./useStyles";
@@ -7,8 +8,8 @@ import useStyles from "./useStyles";
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 import Section from "@/twoopstracker/components/Section";
 
-function UserAccount() {
-  const classes = useStyles();
+function UserAccount({ name, email, ...props }) {
+  const classes = useStyles(props);
   return (
     <Section>
       <div className={classes.card}>
@@ -19,10 +20,8 @@ function UserAccount() {
             </div>
           </Grid>
           <Grid item lg={10} className={classes.userDetails}>
-            <Typography className={classes.username}>
-              Trolltracker Username
-            </Typography>
-            <Typography>City, Country</Typography>
+            <Typography className={classes.username}>{name}</Typography>
+            <Typography>{email}</Typography>
           </Grid>
         </Grid>
         <Divider />
@@ -34,5 +33,14 @@ function UserAccount() {
     </Section>
   );
 }
+UserAccount.propTypes = {
+  name: PropTypes.string,
+  email: PropTypes.string,
+};
+
+UserAccount.defaultProps = {
+  name: undefined,
+  email: undefined,
+};
 
 export default UserAccount;

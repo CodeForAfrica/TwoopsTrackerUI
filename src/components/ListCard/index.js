@@ -57,7 +57,7 @@ function ListCard({
     const payload = {
       name,
       is_private: privacy,
-      accounts: [{ screen_name: "michaeljackson" }], // to be deleted
+      accounts: [{ screen_name: "code4africa" }], // to be deleted
     };
 
     try {

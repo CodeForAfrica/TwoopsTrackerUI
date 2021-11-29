@@ -24,6 +24,7 @@ const useStyles = makeStyles(({ typography }) => ({
   },
   userDetails: {
     marginLeft: typography.pxToRem(30),
+    marginBottom: typography.pxToRem(30),
   },
   buttons: {
     margin: `${typography.pxToRem(10)} 0`,
