@@ -10,6 +10,7 @@ import {
   ClickAwayListener,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { signOut } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -28,6 +29,14 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   paper: {
     marginLeft: typography.pxToRem(64),
+  },
+  menuItem: {
+    color: "black",
+    "&:hover, &:focus, &:focus-within": {
+      backgroundColor: "transparent",
+      textDecoration: "none",
+      color: "#DB1111",
+    },
   },
   label: {
     fontSize: typography.pxToRem(24),
@@ -107,7 +116,7 @@ function UserProfile({ label, src, alt, ...props }) {
   };
 
   // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
+  const prevOpen = useRef(open);
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
@@ -119,11 +128,9 @@ function UserProfile({ label, src, alt, ...props }) {
   return (
     <div className={classes.root}>
       <Button
-        /*   component={Link} */
         color="default"
         variant="text"
         size="large"
-        /*  href="/account" */
         ref={anchorRef}
         aria-controls={open ? "menu-list-grow" : undefined}
         aria-haspopup="true"
@@ -165,15 +172,19 @@ function UserProfile({ label, src, alt, ...props }) {
                     onClick={handleClose}
                     component={Link}
                     href="/account"
+                    className={classes.menuItem}
                   >
-                    My account
+                    Your account
                   </MenuItem>
                   <MenuItem
-                    onClick={handleClose}
-                    component={Link}
-                    href="/logout"
+                    className={classes.menuItem}
+                    onClick={() =>
+                      signOut({
+                        callbackUrl: `/`,
+                      })
+                    }
                   >
-                    Logout
+                    Log Out
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>
