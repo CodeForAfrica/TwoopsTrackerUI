@@ -32,7 +32,8 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   menuItem: {
     color: "black",
-    "&:hover, &:focus, &:focus-within": {
+    padding: typography.pxToRem(12.8),
+    "&:hover": {
       backgroundColor: "transparent",
       textDecoration: "none",
       color: "#DB1111",
