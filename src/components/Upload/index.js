@@ -6,7 +6,6 @@ import React, { useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
 import { ReactComponent as IcUpload } from "@/twoopstracker/assets/icons/upload.svg";
-import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const handleUpload = async (content) => {
@@ -15,7 +14,7 @@ const handleUpload = async (content) => {
   }
   const session = await getSession();
   return fetchJson(
-    `${process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL}/lists/`,
+    `${process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL}/upload`,
     session,
     {
       method: "POST",
@@ -25,10 +24,7 @@ const handleUpload = async (content) => {
 };
 
 const useStyles = makeStyles(({ typography }) => ({
-  root: {
-    marginTop: typography.pxToRem(60),
-  },
-  section: {},
+  root: {},
   dropzone: {
     display: "flex",
     flexDirection: "column",
@@ -66,16 +62,20 @@ function Upload({
 }) {
   const classes = useStyles(props);
   const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState();
+  const [message, setMessage] = React.useState();
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
   const processFile = useCallback(async () => {
     setLoading(true);
+    setLoading();
     try {
       const formData = new FormData();
-      formData.append("csv", acceptedFiles[0]);
-      await handleUpload(formData);
+      formData.append("file", acceptedFiles[0]);
+      const response = await handleUpload(formData);
+      setLoading(false);
+      if (response.errors) {
+        setMessage(response.errors);
+      }
     } catch (err) {
-      setError(true);
       setLoading(false);
     }
   }, [acceptedFiles]);
@@ -87,37 +87,35 @@ function Upload({
   }, [acceptedFiles, processFile]);
 
   return (
-    <Section className={classes.section}>
-      <div className={classes.root}>
-        <div {...getRootProps({ className: classes.dropzone })}>
-          <input {...getInputProps()} />
-          <IcUpload />
-          <Typography variant="body1" className={classes.dragLabel}>
-            {dragLabel}
-          </Typography>
-          <Typography variant="body1" className={classes.dragLabel}>
-            {conjuctionLabel}
-          </Typography>
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            disabled={loading}
-          >
-            {loading ? loadingLabel : uploadLabel}
-          </Button>
-          {!loading && error && (
-            <Typography variant="caption" className={classes.error}>
-              {errorLabel}
-            </Typography>
-          )}
-        </div>
-
-        <Typography variant="body1" className={classes.template}>
-          {downloadCopy} <A href={templateLink}>{templateName}</A>{" "}
+    <div className={classes.root}>
+      <div {...getRootProps({ className: classes.dropzone })}>
+        <input {...getInputProps()} />
+        <IcUpload />
+        <Typography variant="body1" className={classes.dragLabel}>
+          {dragLabel}
         </Typography>
+        <Typography variant="body1" className={classes.dragLabel}>
+          {conjuctionLabel}
+        </Typography>
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          disabled={loading}
+        >
+          {loading ? loadingLabel : uploadLabel}
+        </Button>
+        {!loading && message && (
+          <Typography variant="caption" className={classes.error}>
+            {errorLabel}
+          </Typography>
+        )}
       </div>
-    </Section>
+
+      <Typography variant="body1" className={classes.template}>
+        {downloadCopy} <A href={templateLink}>{templateName}</A>{" "}
+      </Typography>
+    </div>
   );
 }
 
