@@ -28,7 +28,11 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   paper: {
-    marginLeft: typography.pxToRem(64),
+    width: "15rem",
+    marginTop: "1rem",
+  },
+  menuList: {
+    marginTop: "1.2rem",
   },
   menuItem: {
     color: "black",
@@ -162,20 +166,49 @@ function UserProfile({ label, src, alt, ...props }) {
                 placement === "bottom" ? "center top" : "center bottom",
             }}
           >
-            <Paper classes={{ root: classes.paper }}>
+            <Paper
+              classes={{
+                root: classes.paper,
+              }}
+            >
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown}
+                  className={{ classes: classes.menuList }}
                 >
                   <MenuItem
                     onClick={handleClose}
                     component={Link}
-                    href="/account"
+                    href="/lists"
                     className={classes.menuItem}
                   >
-                    Your account
+                    List
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    href="/searches"
+                    className={classes.menuItem}
+                  >
+                    Saved searches
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    href="/data"
+                    className={classes.menuItem}
+                  >
+                    Upload data
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    href="/account/settings"
+                    className={classes.menuItem}
+                  >
+                    Account
                   </MenuItem>
                   <MenuItem
                     className={classes.menuItem}
