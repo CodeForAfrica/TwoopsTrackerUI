@@ -623,7 +623,7 @@ export const tweets = [
 export const navigationArgs = {
   menuProps: [
     {
-      href: "/watchlists",
+      href: "/explore",
       label: "Watchlists",
     },
     {
