@@ -2,10 +2,10 @@ import React from "react";
 
 import Content from ".";
 
-import { investigation } from "@/twoopstracker/config";
+import { about } from "@/twoopstracker/config";
 
 export default {
-  title: "Components/Content",
+  title: "Section/Content",
 };
 
 const Template = (args) => <Content {...args} />;
@@ -19,5 +19,5 @@ Default.parameters = {
 };
 
 Default.args = {
-  items: investigation.items,
+  items: about.items,
 };

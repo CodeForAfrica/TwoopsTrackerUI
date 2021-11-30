@@ -21,8 +21,14 @@ const useStyles = makeStyles(({ typography }) => ({
   imageContainer: {
     position: "relative",
     display: "block",
-    width: "100%",
-    height: "100%",
+    width: "max-content",
+    height: "max-content",
+    maxWidth: "100%",
+  },
+  shadow: {
+    background: "#FFFFFF",
+    boxShadow: "2px 2px 10px 5px rgba(0, 0, 0, 0.1)",
+    padding: typography.pxToRem(24),
   },
   viewWebsite: {
     marginTop: typography.pxToRem(50),

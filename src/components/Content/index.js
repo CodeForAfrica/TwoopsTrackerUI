@@ -1,5 +1,6 @@
 import { RichTypography, A } from "@commons-ui/core";
 import { Grid, Typography } from "@material-ui/core";
+import clsx from "clsx";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -8,7 +9,7 @@ import useStyles from "./useStyles";
 import Image from "@/twoopstracker/components/Image";
 import Section from "@/twoopstracker/components/Section";
 
-function Content({ items, size, ...props }) {
+function Content({ items, size, ctaLabel, ...props }) {
   const classes = useStyles(props);
 
   if (!items?.length) {
@@ -28,11 +29,17 @@ function Content({ items, size, ...props }) {
             key={title}
           >
             <Grid item xs={12} md={size === "large" ? 6 : 3}>
-              <A className={classes.imageContainer} href={href}>
+              <A
+                className={clsx({
+                  [classes.imageContainer]: true,
+                  [classes.shadow]: size !== "large",
+                })}
+                href={href}
+              >
                 <Image
                   objectFit="contain"
-                  width={size === "large" ? 768 : 225}
-                  height={size === "large" ? 429 : 225}
+                  width={size === "large" ? 768 : 200}
+                  height={size === "large" ? 500 : 200}
                   src={image}
                   alt={title}
                 />
@@ -63,7 +70,7 @@ function Content({ items, size, ...props }) {
                   className={classes.viewWebsite}
                   href={href}
                 >
-                  <Typography>View Website</Typography>
+                  <Typography>{ctaLabel}</Typography>
                 </A>
               )}
             </Grid>
@@ -75,11 +82,13 @@ function Content({ items, size, ...props }) {
 }
 
 Content.propTypes = {
+  ctaLabel: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.shape({})),
   size: PropTypes.string,
 };
 Content.defaultProps = {
   items: undefined,
   size: undefined,
+  ctaLabel: undefined,
 };
 export default Content;
