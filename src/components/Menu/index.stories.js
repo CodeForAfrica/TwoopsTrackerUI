@@ -44,5 +44,5 @@ Default.args = {
   loginMenuProps: navigationArgs.loginMenuProps,
   label: navigationArgs.userProfileArgs.label,
   avatorProps: navigationArgs.userProfileArgs.avatorProps,
-  profileList: navigationArgs.userProfileArgs.profileList,
+  profilePages: navigationArgs.userProfileArgs.profilePages,
 };

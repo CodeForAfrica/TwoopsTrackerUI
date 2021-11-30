@@ -687,21 +687,21 @@ export const navigationArgs = {
     label: "Account Name",
     src: userAvator,
     alt: "Profile",
-    profileList: [
+    profilePages: [
       {
-        href: "/list",
+        href: "/account/lists",
         label: "My Lists",
       },
       {
-        href: "/searches",
+        href: "/account/searches",
         label: "My Saved searches",
       },
       {
-        href: "/data",
+        href: "//account/data",
         label: "Upload Data",
       },
       {
-        href: "/account",
+        href: "/account/settings",
         label: "My Account",
       },
     ],

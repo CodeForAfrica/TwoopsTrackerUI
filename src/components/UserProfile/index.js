@@ -126,7 +126,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function UserProfile({ label, src, alt, profileList, ...props }) {
+function UserProfile({ label, src, alt, profilePages, ...props }) {
   const classes = useStyles(props);
   const [session] = useSession();
 
@@ -230,11 +230,11 @@ function UserProfile({ label, src, alt, profileList, ...props }) {
                   onKeyDown={handleListKeyDown}
                   className={classes.menuList}
                 >
-                  {profileList?.map((item) => (
+                  {profilePages?.map((item) => (
                     <MenuItem
                       onClick={handleClose}
-                      component={!profileList.length - 1 ? Link : null}
-                      href={!profileList.length - 1 ? item.href : ""}
+                      component={Link}
+                      href={item.href}
                       className={classes.menuItem}
                     >
                       {item.label}
@@ -273,7 +273,7 @@ UserProfile.propTypes = {
   label: PropTypes.string,
   alt: PropTypes.string,
   src: PropTypes.string,
-  profileList: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  profilePages: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
 };
 
 UserProfile.defaultProps = {

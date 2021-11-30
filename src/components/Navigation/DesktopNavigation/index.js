@@ -25,7 +25,7 @@ function DesktopNavigation({
   menuProps,
   desktopLogoProps,
   loginMenuProps,
-  profileList,
+  profilePages,
   ...props
 }) {
   const classes = useStyles(props);
@@ -54,7 +54,7 @@ function DesktopNavigation({
             <Menu
               links={menuProps}
               loginMenuProps={loginMenuProps}
-              profileList={profileList}
+              profilePages={profilePages}
             />
           </Grid>
           <Grid />
@@ -68,7 +68,7 @@ function DesktopNavigation({
 DesktopNavigation.propTypes = {
   menuProps: PropTypes.arrayOf(PropTypes.shape({})),
   loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
-  profileList: PropTypes.arrayOf(PropTypes.shape({})),
+  profilePages: PropTypes.arrayOf(PropTypes.shape({})),
   desktopLogoProps: PropTypes.shape({
     alt: PropTypes.string,
     href: PropTypes.string,
@@ -82,7 +82,7 @@ DesktopNavigation.defaultProps = {
   menuProps: undefined,
   loginMenuProps: undefined,
   desktopLogoProps: undefined,
-  profileList: undefined,
+  profilePages: undefined,
 };
 
 export default DesktopNavigation;
