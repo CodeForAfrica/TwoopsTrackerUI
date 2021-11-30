@@ -7,10 +7,12 @@ import {
   Grow,
   Paper,
   Popper,
+  Grid,
+  Divider,
   ClickAwayListener,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { signOut } from "next-auth/client";
+import { signOut, useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -28,20 +30,28 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   paper: {
-    width: "15rem",
+    width: "20rem",
     marginTop: "1rem",
+    padding: "0rem 1rem",
+    marginLeft: "-3rem",
   },
   menuList: {
     marginTop: "1.2rem",
   },
   menuItem: {
     color: "black",
+    fontSize: "24px",
     padding: typography.pxToRem(12.8),
     "&:hover": {
       backgroundColor: "transparent",
       textDecoration: "none",
       color: "#DB1111",
     },
+  },
+  caption: {
+    fontSize: "24px",
+    fontWeight: "normal",
+    display: "inline-block",
   },
   label: {
     fontSize: typography.pxToRem(24),
@@ -98,6 +108,8 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
 
 function UserProfile({ label, src, alt, ...props }) {
   const classes = useStyles(props);
+  const [session] = useSession();
+
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
 
@@ -171,6 +183,27 @@ function UserProfile({ label, src, alt, ...props }) {
                 root: classes.paper,
               }}
             >
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                style={{ padding: "2rem 0rem" }}
+              >
+                <Avatar
+                  alt={alt}
+                  src={session?.user?.image}
+                  className={classes.large}
+                />
+                <Typography variant="body2" className={classes.caption}>
+                  {session?.user?.name}
+                </Typography>
+                <Typography variant="body2" className={classes.caption}>
+                  {session?.user?.email}
+                </Typography>
+              </Grid>
+              <Divider />
+
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
@@ -210,6 +243,9 @@ function UserProfile({ label, src, alt, ...props }) {
                   >
                     Account
                   </MenuItem>
+
+                  <Divider />
+
                   <MenuItem
                     className={classes.menuItem}
                     onClick={() =>
