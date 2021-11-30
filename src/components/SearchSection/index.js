@@ -1,4 +1,5 @@
 import { Button, Grid } from "@material-ui/core";
+import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -20,15 +21,14 @@ const SearchSection = ({
 }) => {
   const classes = useStyles(props);
   const [open, setOpen] = useState(false);
+  const [session] = useSession();
 
   const handleClickSaveSearch = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
-
   const handleClickSaveSavedSearch = (name) => {
     setOpen(false);
     if (onSaveSearch) {
@@ -97,12 +97,14 @@ const SearchSection = ({
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
-          <Button
-            className={classes.saveButton}
-            onClick={handleClickSaveSearch}
-          >
-            Save Search
-          </Button>
+          {session ? (
+            <Button
+              className={classes.saveButton}
+              onClick={handleClickSaveSearch}
+            >
+              Save Search
+            </Button>
+          ) : null}
           <Button className={classes.button} onClick={onSearch}>
             Search
           </Button>
