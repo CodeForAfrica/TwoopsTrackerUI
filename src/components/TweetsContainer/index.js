@@ -60,22 +60,24 @@ function TweetsContainer({
   };
 
   useEffect(() => {
-    const queryString = getQueryString({
-      query,
-      theme,
-      location,
-      days,
-      page,
-      pageSize,
-    });
-    const { pathname } = router;
-    let newPathname = pathname;
-    if (queryString) {
-      newPathname = `${newPathname}?${queryString}`;
+    if (router.isReady) {
+      const queryString = getQueryString({
+        query,
+        theme,
+        location,
+        days,
+        page,
+        pageSize,
+      });
+      const { pathname } = router;
+      let newPathname = pathname;
+      if (queryString) {
+        newPathname = `${newPathname}?${queryString}`;
+      }
+      router.push(newPathname, newPathname, { shallow: true });
     }
-    router.push(newPathname, newPathname, { shallow: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, theme, location, days, page, pageSize]);
+  }, [query, theme, location, days, page, pageSize, router.isReady]);
 
   const handleSelection = ({ name, value }) => {
     setStateObject[name](value);
