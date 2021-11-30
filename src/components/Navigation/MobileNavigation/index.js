@@ -66,7 +66,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
   },
   dialogPaper: {
     background: "white",
-    maxHeight: typography.pxToRem(844),
+    maxHeight: "100%",
     position: "absolute",
     left: 0,
     top: 0,

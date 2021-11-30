@@ -33,7 +33,10 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     width: typography.pxToRem(320),
     marginTop: typography.pxToRem(16),
     padding: `${typography.pxToRem(0)} ${typography.pxToRem(16)}`,
-    marginLeft: typography.pxToRem(-48),
+    marginLeft: 0,
+    [breakpoints.up("md")]: {
+      marginLeft: typography.pxToRem(-48),
+    },
   },
   menuList: {
     padding: typography.pxToRem(24),
@@ -43,7 +46,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   logOutMenuItem: {
     color: "black",
-    fontSize: typography.pxToRem(24),
+    fontSize: typography.pxToRem(20),
     padding: typography.pxToRem(12.8),
     borderTop: "2px solid red",
     "&:hover, &:focus, &:focus-within": {
@@ -55,7 +58,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
 
   menuItem: {
     color: "black",
-    fontSize: typography.pxToRem(24),
+    fontSize: typography.pxToRem(20),
     padding: typography.pxToRem(12.8),
     "&:hover, &:focus, &:focus-within": {
       backgroundColor: "transparent",
@@ -64,9 +67,10 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   logOutText: {
-    fontSize: typography.pxToRem(24),
+    fontSize: typography.pxToRem(20),
     padding: `${typography.pxToRem(16)} ${typography.pxToRem(38)}`,
     fontFamily: typography.fontFamily,
+    fontWeight: 500,
     "&:hover, &:focus, &:focus-within": {
       backgroundColor: "transparent",
       textDecoration: "none",
@@ -74,7 +78,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   caption: {
-    fontSize: typography.pxToRem(24),
+    fontSize: typography.pxToRem(20),
     fontWeight: "normal",
     display: "inline-block",
   },
