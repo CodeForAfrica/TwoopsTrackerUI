@@ -8,7 +8,9 @@ const Search = ({ name, onChange, placeholder, ...props }) => {
   const classes = useStyles(props);
 
   const handleChange = (event) => {
-    onChange({ name, value: event.target.value });
+    if (onChange) {
+      onChange({ name, value: event.target.value });
+    }
   };
 
   return (
