@@ -48,6 +48,7 @@ function TweetsContainer({
       Object.keys(queryParams).forEach((k) =>
         setStateObject?.[k]?.(queryParams[k])
       );
+      console.log("BOOMR", { router });
     }
     // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependenc
     //                  e.g. https://github.com/vercel/next.js/issues/18127
@@ -75,6 +76,7 @@ function TweetsContainer({
         newPathname = `${newPathname}?${queryString}`;
       }
       router.push(newPathname, newPathname, { shallow: true });
+      console.log("BOOMW", { router });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, theme, location, days, page, pageSize, router.isReady]);
@@ -150,6 +152,7 @@ function TweetsContainer({
     }
   }, [newInsights]);
   const isLoading = isLoadingTweets || isLoadingInsights;
+  console.log("BOOMF", { router });
 
   return (
     <>
