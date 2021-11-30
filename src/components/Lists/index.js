@@ -1,5 +1,4 @@
 import { Button, Typography } from "@material-ui/core";
-import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
@@ -20,10 +19,8 @@ function Lists({ results: listsProp, ...props }) {
   const handleClose = () => setOpen(false);
   const classes = useStyles(props);
 
-  const [session] = useSession();
-
-  const fetcher = (url, token) => fetchJson(url, token);
-  const { data, mutate } = useSWR([`/api/lists`, session], fetcher);
+  const fetcher = (url) => fetchJson(url);
+  const { data, mutate } = useSWR(`/api/lists`, fetcher);
 
   useEffect(() => {
     if (data) {
@@ -43,7 +40,7 @@ function Lists({ results: listsProp, ...props }) {
     };
 
     try {
-      await fetchJson("/api/lists", session, {
+      await fetchJson("/api/lists", null, {
         method: "POST",
         body: JSON.stringify(payload),
       });

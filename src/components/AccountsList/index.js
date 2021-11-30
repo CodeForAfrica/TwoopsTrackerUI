@@ -1,5 +1,4 @@
 import { Typography } from "@material-ui/core";
-import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
@@ -17,10 +16,9 @@ const AccountList = ({
   const classes = useStyles(props);
 
   const [listAccounts, setListAccounts] = useState(accounts);
-  const [session] = useSession();
 
-  const fetcher = (url, token) => fetchJson(url, token);
-  const { data, mutate } = useSWR([`/api/lists/${id}`, session], fetcher);
+  const fetcher = (url) => fetchJson(url);
+  const { data, mutate } = useSWR(`/api/lists/${id}`, fetcher);
 
   useEffect(() => {
     if (data) {
