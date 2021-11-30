@@ -113,6 +113,7 @@ export async function getServerSideProps(context) {
       foundLists: results?.results ?? null,
       title,
       user,
+      session,
     },
   };
 }

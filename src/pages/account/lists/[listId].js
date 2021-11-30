@@ -29,5 +29,5 @@ export async function getServerSideProps(context) {
   const data = await fetchList(paramData.listId, session);
 
   // Pass data to the page via props
-  return { props: { data } };
+  return { props: { data, session } };
 }
