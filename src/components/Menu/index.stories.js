@@ -12,7 +12,7 @@ export default {
         type: "array",
       },
     },
-    socialLinks: {
+    loginMenuProps: {
       control: {
         type: "array",
       },
@@ -26,5 +26,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   links: navigationArgs.menuProps,
-  socialLinks: navigationArgs.socialLinks,
+  loginMenuProps: navigationArgs.loginMenuProps,
+  label: navigationArgs.userProfileArgs.label,
+  avatorProps: navigationArgs.userProfileArgs.avatorProps,
 };

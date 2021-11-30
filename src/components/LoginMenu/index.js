@@ -1,13 +1,10 @@
 import { Grid, Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React from "react";
 
-import userAvator from "@/twoopstracker/assets/icons/avator.svg";
+import Image from "@/twoopstracker/components/Image";
 import Link from "@/twoopstracker/components/Link";
-import LoginMenu from "@/twoopstracker/components/LoginMenu";
-import UserProfile from "@/twoopstracker/components/UserProfile";
 
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
@@ -17,12 +14,26 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     [breakpoints.up("lg")]: {
       padding: 0,
       flexDirection: "row",
-      justifyContent: "flex-end",
+      justifyContent: "flex-start",
     },
   },
   links: {
-    marginTop: "0.5rem",
-    borderRadius: 0,
+    color: "black",
+    margin: `${typography.pxToRem(10)} ${typography.pxToRem(-8)}`,
+    "&:hover, &:focus, &:focus-within": {
+      backgroundColor: "transparent",
+      textDecoration: "none",
+      color: "black",
+    },
+    [breakpoints.up("lg")]: {
+      padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
+      color: "black",
+      "&:hover, &:focus, &:focus-within": {
+        color: "black",
+        backgroundColor: "transparent",
+        textDecoration: "none",
+      },
+    },
   },
   label: {
     fontSize: typography.pxToRem(24),
@@ -61,18 +72,18 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   menuLinks: {
-    color: "black",
+    color: "#DB1111",
     margin: `${typography.pxToRem(10)} ${typography.pxToRem(-8)}`,
     "&:hover, &:focus, &:focus-within": {
       backgroundColor: "transparent",
       textDecoration: "none",
-      color: "black",
+      color: "#DB1111",
     },
     [breakpoints.up("lg")]: {
       padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
-      color: "black",
+      color: "#DB1111",
       "&:hover, &:focus, &:focus-within": {
-        color: "black",
+        color: "#DB1111",
         backgroundColor: "transparent",
         textDecoration: "none",
       },
@@ -80,18 +91,15 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Menu({ children, loginMenuProps, links, ...props }) {
+function LoginMenu({ loginMenu, children, ...props }) {
   const classes = useStyles(props);
-  const [session] = useSession();
-  console.log(session?.user?.image);
 
-  if (!links?.length) {
+  if (!loginMenu?.length) {
     return null;
   }
-
   return (
-    <Grid container className={classes.root}>
-      {links.map((item) => (
+    <div className={classes.root}>
+      {loginMenu.map((item, index) => (
         <Grid item key={item.label} className={classes.menu}>
           <Button
             component={Link}
@@ -100,9 +108,13 @@ function Menu({ children, loginMenuProps, links, ...props }) {
             size="large"
             href={item.href}
             classes={{
-              root: classes.menuLinks,
+              root:
+                index !== loginMenu.length - 1
+                  ? classes.menuLinks
+                  : classes.links,
               text: classes.text,
             }}
+            startIcon={<Image {...item.imageProps} />}
           >
             <Typography variant="body1" className={classes.label}>
               {item.label}
@@ -110,28 +122,16 @@ function Menu({ children, loginMenuProps, links, ...props }) {
           </Button>
         </Grid>
       ))}
-      {session?.user?.name ? (
-        <UserProfile
-          label={session.user.name}
-          alt={session.user.name.toLowerCase()}
-          src={session?.user?.image !== "" ? session?.user?.image : userAvator}
-        />
-      ) : (
-        <LoginMenu loginMenu={loginMenuProps} />
-      )}
-      {children}
-    </Grid>
+    </div>
   );
 }
 
-Menu.propTypes = {
-  links: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
-  loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
+LoginMenu.propTypes = {
+  loginMenu: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   children: PropTypes.node,
 };
 
-Menu.defaultProps = {
-  loginMenuProps: undefined,
+LoginMenu.defaultProps = {
   children: undefined,
 };
-export default Menu;
+export default LoginMenu;

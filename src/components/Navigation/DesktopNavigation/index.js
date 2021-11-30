@@ -21,7 +21,12 @@ const useStyles = makeStyles(() => ({
   section: {},
 }));
 
-function DesktopNavigation({ menuProps, desktopLogoProps, ...props }) {
+function DesktopNavigation({
+  menuProps,
+  desktopLogoProps,
+  loginMenuProps,
+  ...props
+}) {
   const classes = useStyles(props);
 
   return (
@@ -45,8 +50,9 @@ function DesktopNavigation({ menuProps, desktopLogoProps, ...props }) {
             justifyContent="flex-end"
             alignItems="center"
           >
-            <Menu links={menuProps} />
+            <Menu links={menuProps} loginMenuProps={loginMenuProps} />
           </Grid>
+          <Grid />
           <Grid />
         </Grid>
       </Section>
@@ -56,6 +62,7 @@ function DesktopNavigation({ menuProps, desktopLogoProps, ...props }) {
 
 DesktopNavigation.propTypes = {
   menuProps: PropTypes.arrayOf(PropTypes.shape({})),
+  loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
   desktopLogoProps: PropTypes.shape({
     alt: PropTypes.string,
     href: PropTypes.string,
@@ -67,6 +74,7 @@ DesktopNavigation.propTypes = {
 
 DesktopNavigation.defaultProps = {
   menuProps: undefined,
+  loginMenuProps: undefined,
   desktopLogoProps: undefined,
 };
 

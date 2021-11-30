@@ -8,13 +8,7 @@ import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
 import { pagination } from "@/twoopstracker/config";
 import { tweets, tweetsInsights } from "@/twoopstracker/lib";
 
-export default function Explore({
-  days,
-  fallback,
-  insights,
-  tweets: tweetsProp,
-  ...props
-}) {
+function Explore({ days, fallback, insights, tweets: tweetsProp, ...props }) {
   return (
     <Page {...props}>
       <SWRConfig value={{ fallback }}>
@@ -60,7 +54,10 @@ export async function getServerSideProps(context) {
       },
       insights,
       session,
+      title: "Explore",
       tweets: foundTweets,
     },
   };
 }
+
+export default Explore;
