@@ -8,7 +8,6 @@ async function fetchJson(url, session, options) {
     };
   }
 
-  console.log("URLS", url);
   const res = await fetch(url, fetchOptions);
 
   if (fetchOptions?.method === "DELETE") {

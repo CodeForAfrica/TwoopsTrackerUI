@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
@@ -6,6 +6,7 @@ import useSWR from "swr";
 import useStyles from "./useStyles";
 
 import Account from "@/twoopstracker/components/Account";
+import ListModal from "@/twoopstracker/components/ListModal";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
@@ -15,7 +16,11 @@ const AccountList = ({
 }) => {
   const classes = useStyles(props);
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [listAccounts, setListAccounts] = useState(accounts);
+  const [newAccounts, setNewAccounts] = useState("");
 
   const fetcher = (url) => fetchJson(url);
   const { data, mutate } = useSWR(`/api/lists/${id}`, fetcher);
@@ -27,14 +32,13 @@ const AccountList = ({
   }, [data]);
 
   const onDelete = async (account) => {
-    const newAccounts = listAccounts.filter(
+    const filteredAccounts = listAccounts.filter(
       (acc) => acc.screen_name !== account
     );
 
     const payload = {
       name,
-      accounts: newAccounts,
-      owner: 1,
+      accounts: filteredAccounts,
       is_private: privacy,
     };
 
@@ -46,9 +50,54 @@ const AccountList = ({
     mutate({ ...data });
   };
 
+  const handleChange = (event) => {
+    if (event.target.name === "accounts") {
+      setNewAccounts(event.target.value);
+    }
+  };
+
+  const onCreate = async () => {
+    const accountsMap = newAccounts
+      .split(",")
+      .map((item) => ({ screen_name: item }));
+
+    const payload = {
+      name,
+      is_private: privacy,
+      accounts: [...accountsMap, ...accounts],
+    };
+
+    try {
+      await fetchJson(`/api/lists/${id}`, null, {
+        method: "PUT",
+        body: JSON.stringify(payload),
+      });
+
+      mutate({ ...data });
+      setOpen(false);
+      setNewAccounts("");
+    } catch (e) {
+      setOpen(true);
+    }
+  };
+
   return (
     <Section className={classes.root}>
-      {name && <Typography className={classes.listName}>{name}</Typography>}
+      <div className={classes.section}>
+        {name && <Typography className={classes.listName}>{name}</Typography>}
+        <Button onClick={handleOpen} className={classes.button}>
+          Add Account
+        </Button>
+      </div>
+      <ListModal
+        open={open}
+        onClose={handleClose}
+        accountsLabel="User Accounts"
+        accountsOnChange={handleChange}
+        accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
+        buttonLabel="Add"
+        buttonOnClick={onCreate}
+      />
       {listAccounts?.map((account) => (
         <Account
           key={account.screen_name}

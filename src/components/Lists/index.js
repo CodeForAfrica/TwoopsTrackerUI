@@ -69,10 +69,6 @@ function Lists({ results: listsProp, ...props }) {
     }
   };
 
-  // if (!listsProp.results.length) {
-  //   return null;
-  // }
-
   return (
     <div className={classes.root}>
       <div className={classes.section}>
