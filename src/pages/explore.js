@@ -1,7 +1,7 @@
 import { getSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React from "react";
-import { SWRConfig } from "swr";
+// import { SWRConfig } from "swr";
 
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
@@ -11,14 +11,14 @@ import { tweets, tweetsInsights } from "@/twoopstracker/lib";
 function Explore({ days, fallback, insights, tweets: tweetsProp, ...props }) {
   return (
     <Page {...props}>
-      <SWRConfig value={{ fallback }}>
-        <TweetsContainer
-          days={days}
-          insights={insights}
-          tweets={tweetsProp}
-          paginationProps={pagination}
-        />
-      </SWRConfig>
+      {/* <SWRConfig value={{ fallback }}> */}
+      <TweetsContainer
+        days={days}
+        insights={insights}
+        tweets={tweetsProp}
+        paginationProps={pagination}
+      />
+      {/* </SWRConfig> */}
     </Page>
   );
 }
