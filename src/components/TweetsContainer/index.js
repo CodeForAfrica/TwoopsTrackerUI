@@ -43,13 +43,16 @@ function TweetsContainer({
 
   // Handle initial query parameters from server (if any)
   useEffect(() => {
-    const { query: queryParams } = router;
-    Object.keys(queryParams).forEach((k) =>
-      setStateObject?.[k]?.(queryParams[k])
-    );
-    // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependency
+    if (router.isReady) {
+      const { query: queryParams } = router;
+      Object.keys(queryParams).forEach((k) =>
+        setStateObject?.[k]?.(queryParams[k])
+      );
+    }
+    // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependenc
+    //                  e.g. https://github.com/vercel/next.js/issues/18127
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router.isReady]);
 
   const handleSearch = async () => {
     // NOOP Search is performed automatically whenever parameters change
@@ -71,7 +74,6 @@ function TweetsContainer({
       newPathname = `${newPathname}?${queryString}`;
     }
     router.push(newPathname, newPathname, { shallow: true });
-    // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, theme, location, days, page, pageSize]);
 
