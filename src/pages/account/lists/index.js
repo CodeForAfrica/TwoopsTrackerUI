@@ -27,5 +27,5 @@ export async function getServerSideProps(context) {
   }
 
   // Pass data to the page via props
-  return { props: { results, session } };
+  return { props: { results } };
 }

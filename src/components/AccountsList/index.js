@@ -1,4 +1,5 @@
 import { Typography } from "@material-ui/core";
+import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
@@ -10,12 +11,13 @@ import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const AccountList = ({
-  data: { name, session, accounts, is_private: privacy, id },
+  data: { name, accounts, is_private: privacy, id },
   ...props
 }) => {
   const classes = useStyles(props);
 
   const [listAccounts, setListAccounts] = useState(accounts);
+  const [session] = useSession();
 
   const fetcher = (url, token) => fetchJson(url, token);
   const { data, mutate } = useSWR([`/api/lists/${id}`, session], fetcher);
@@ -38,7 +40,7 @@ const AccountList = ({
       is_private: privacy,
     };
 
-    await fetchJson(`/api/lists/${id}`, session, {
+    await fetchJson(`/api/lists/${id}`, null, {
       method: "PUT",
       body: JSON.stringify(payload),
     });
@@ -65,7 +67,6 @@ AccountList.propTypes = {
   data: PropTypes.shape({
     accounts: PropTypes.arrayOf(PropTypes.shape({})),
     name: PropTypes.string,
-    session: PropTypes.string,
     is_private: PropTypes.bool,
     id: PropTypes.number,
   }),
