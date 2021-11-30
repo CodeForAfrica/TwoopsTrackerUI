@@ -5,7 +5,7 @@ import Content from ".";
 import { about } from "@/twoopstracker/config";
 
 export default {
-  title: "Section/Content",
+  title: "Sections/Content",
 };
 
 const Template = (args) => <Content {...args} />;
