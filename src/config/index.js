@@ -694,10 +694,10 @@ export const navigationArgs = {
       },
       {
         href: "/account/searches",
-        label: "My Saved searches",
+        label: "My Saved Searches",
       },
       {
-        href: "//account/data",
+        href: "/account/data",
         label: "Upload Data",
       },
       {
