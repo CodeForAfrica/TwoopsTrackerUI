@@ -162,6 +162,13 @@ function UserProfile({ label, src, alt, profilePages, ...props }) {
     prevOpen.current = open;
   }, [open]);
 
+  const handleSignOut = () => {
+    signOut({
+      callbackUrl: `/`,
+      handleClose,
+    });
+  };
+
   return (
     <div className={classes.root}>
       <Button
@@ -225,7 +232,6 @@ function UserProfile({ label, src, alt, profilePages, ...props }) {
               <Divider />
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
-                  autoFocusItem={open}
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown}
                   className={classes.menuList}
@@ -248,12 +254,7 @@ function UserProfile({ label, src, alt, profilePages, ...props }) {
                 color="default"
                 variant="text"
                 size="small"
-                onClick={() =>
-                  signOut({
-                    callbackUrl: `/`,
-                    handleClose,
-                  })
-                }
+                onClick={handleSignOut}
                 classes={{
                   text: classes.logOutText,
                 }}
