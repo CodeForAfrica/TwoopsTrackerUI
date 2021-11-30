@@ -48,10 +48,10 @@ export async function getServerSideProps(context) {
   return {
     props: {
       days,
-      fallback: {
-        "/api/tweets": foundTweets,
-        "/api/tweets/insights": insights,
-      },
+      // fallback: {
+      //   "/api/tweets": foundTweets,
+      //   "/api/tweets/insights": insights,
+      // },
       insights,
       session,
       title: "Explore",
