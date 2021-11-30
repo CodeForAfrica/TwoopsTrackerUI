@@ -36,9 +36,6 @@ export async function APIRequest(payload, method, param, session) {
 
   const res = await fetchJson(url, session, options);
 
-  if (method === "DELETE") {
-    return res;
-  }
   return res;
 }
 
