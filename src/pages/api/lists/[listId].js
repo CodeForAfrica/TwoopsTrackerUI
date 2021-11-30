@@ -4,7 +4,7 @@ import { APIRequest } from "@/twoopstracker/lib";
 
 export default async function handler(req, res) {
   const { body, method, query } = req;
-  if (method === "PUT") {
+  if (method === "PUT" || method === "PATCH") {
     const session = await getSession({ req });
 
     const results = await APIRequest(body, method, query.listId, session);
