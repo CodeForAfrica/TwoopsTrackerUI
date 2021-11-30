@@ -11,9 +11,9 @@ import Section from "@/twoopstracker/components/Section";
 
 const SearchSection = ({
   days,
-  handleSelection,
-  handleSaveSearch,
+  onSelection,
   location,
+  onSaveSearch,
   onSearch,
   theme,
   ...props
@@ -21,7 +21,7 @@ const SearchSection = ({
   const classes = useStyles(props);
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickSaveSearch = () => {
     setOpen(true);
   };
 
@@ -29,10 +29,16 @@ const SearchSection = ({
     setOpen(false);
   };
 
-  const onSaveSearch = (name) => {
+  const handleClickSaveSavedSearch = (name) => {
     setOpen(false);
-    if (handleSaveSearch) {
-      handleSaveSearch(name);
+    if (onSaveSearch) {
+      onSaveSearch(name);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (onSearch && e.key === "Enter") {
+      onSearch(e);
     }
   };
 
@@ -41,7 +47,7 @@ const SearchSection = ({
       <Section className={classes.section}>
         <Grid container>
           <Grid item lg={8} md={12} sm={12} xs={12}>
-            <Search handleSelection={handleSelection} />
+            <Search onChange={onSelection} onKeyDown={handleKeyDown} />
           </Grid>
           <Grid
             item
@@ -54,7 +60,7 @@ const SearchSection = ({
             <Filter
               key={days}
               label="Days"
-              handleSelection={handleSelection}
+              handleSelection={onSelection}
               menuItems={[
                 { name: "Last 1 Day", value: "1" },
                 { name: "Last 3 Days", value: "3" },
@@ -67,7 +73,7 @@ const SearchSection = ({
             <Filter
               key={theme}
               label="Theme"
-              handleSelection={handleSelection}
+              handleSelection={onSelection}
               menuItems={[
                 { name: "Covid-19", value: "Covid-19" },
                 { name: "Anti-vaxx", value: "Anti-vaxx" },
@@ -79,7 +85,7 @@ const SearchSection = ({
             <Filter
               key={location}
               label="Location"
-              handleSelection={handleSelection}
+              handleSelection={onSelection}
               menuItems={[
                 { name: "Russia", value: "Russia" },
                 { name: "Jamaica", value: "Jamaica" },
@@ -91,7 +97,10 @@ const SearchSection = ({
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
-          <Button className={classes.saveButton} onClick={handleClickOpen}>
+          <Button
+            className={classes.saveButton}
+            onClick={handleClickSaveSearch}
+          >
             Save Search
           </Button>
           <Button className={classes.button} onClick={onSearch}>
@@ -101,7 +110,7 @@ const SearchSection = ({
       </Section>
       <SavedSearchDialog
         open={open}
-        onClick={onSaveSearch}
+        onClick={handleClickSaveSavedSearch}
         onClose={handleClose}
         varinat="add"
         title="Save Search"
@@ -112,20 +121,18 @@ const SearchSection = ({
 
 SearchSection.propTypes = {
   days: PropTypes.string,
-  handleSaveSearch: PropTypes.func,
-  handleSearch: PropTypes.func,
-  handleSelection: PropTypes.func,
+  onSelection: PropTypes.func,
   location: PropTypes.string,
+  onSaveSearch: PropTypes.func,
   onSearch: PropTypes.func,
   theme: PropTypes.string,
 };
 
 SearchSection.defaultProps = {
   days: undefined,
-  handleSearch: undefined,
-  handleSaveSearch: undefined,
-  handleSelection: undefined,
+  onSelection: undefined,
   location: undefined,
+  onSaveSearch: undefined,
   onSearch: undefined,
   theme: undefined,
 };
