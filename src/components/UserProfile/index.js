@@ -44,11 +44,10 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   profile: {
     padding: `${typography.pxToRem(16)} ${typography.pxToRem(0)}`,
   },
-  logOutMenuItem: {
-    color: "black",
+  logOutLabel: {
     fontSize: typography.pxToRem(20),
-    padding: typography.pxToRem(12.8),
-    borderTop: "2px solid red",
+    fontFamily: typography.fontFamily,
+    fontWeight: 500,
     "&:hover, &:focus, &:focus-within": {
       backgroundColor: "transparent",
       textDecoration: "none",
@@ -266,7 +265,7 @@ function UserProfile({ label, src, alt, profileList, ...props }) {
                   text: classes.logOutText,
                 }}
               >
-                <Typography variant="body1" className={classes.label}>
+                <Typography variant="body1" className={classes.logOutLabel}>
                   Log out
                 </Typography>
               </Button>
