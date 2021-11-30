@@ -34,6 +34,7 @@ function TweetsContainer({
   const [paginating, setPaginating] = useState(false);
   const [pageSize, setPageSize] = useState(pageSizeProp);
   const [query, setQuery] = useState(queryProp);
+  const [search, setSearch] = useState(false);
   const [theme, setTheme] = useState(themeProp);
   const [tweets, setTweets] = useState(tweetsProp);
 
@@ -60,8 +61,7 @@ function TweetsContainer({
   }, [router.isReady]);
 
   const handleSearch = async () => {
-    // NOOP Search is performed automatically whenever parameters change
-    //      i.e. handleSelection below triggers search.
+    setSearch(true);
   };
 
   useEffect(() => {
@@ -85,6 +85,7 @@ function TweetsContainer({
   }, [query, theme, location, days, page, pageSize, router.isReady]);
 
   const handleSelection = ({ name, value }) => {
+    setSearch(false);
     setStateObject[name](value);
     setPaginating(false);
   };
@@ -114,6 +115,10 @@ function TweetsContainer({
   };
 
   const shouldFetch = () => {
+    if (!search) {
+      return null;
+    }
+
     const queryString = getQueryString({
       query,
       theme,
@@ -136,7 +141,7 @@ function TweetsContainer({
     }
   }, [newTweets]);
   const shouldFetchInsights = () => {
-    if (paginating) {
+    if (paginating || !search) {
       return null;
     }
 
@@ -160,8 +165,8 @@ function TweetsContainer({
     <>
       <SearchSection
         days={days}
-        handleSelection={handleSelection}
-        handleSaveSearch={handleSaveSearch}
+        onSelection={handleSelection}
+        onSaveSearch={handleSaveSearch}
         location={location}
         onSearch={handleSearch}
         theme={theme}
@@ -183,11 +188,11 @@ function TweetsContainer({
 }
 
 TweetsContainer.propTypes = {
-  days: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+  days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
-  page: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
-  pageSize: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+  page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   paginationProps: PropTypes.shape({}),
   query: PropTypes.string,
   theme: PropTypes.number,
