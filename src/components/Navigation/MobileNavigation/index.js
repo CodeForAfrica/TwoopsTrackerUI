@@ -150,6 +150,7 @@ function MobileNavigation({
   mobileLogoProps,
   drawerLogoProps,
   loginMenuProps,
+  profileList,
   ...props
 }) {
   const classes = useStyles(props);
@@ -247,6 +248,7 @@ function MobileNavigation({
                     menu: classes.buttonMenu,
                   }}
                   loginMenuProps={loginMenuProps}
+                  profileList={profileList}
                 />
               </Section>
             </DialogContent>
@@ -260,6 +262,7 @@ function MobileNavigation({
 MobileNavigation.propTypes = {
   menuProps: PropTypes.arrayOf(PropTypes.shape({})),
   loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
+  profileList: PropTypes.arrayOf(PropTypes.shape({})),
   mobileLogoProps: PropTypes.shape({
     alt: PropTypes.string,
     href: PropTypes.string,
@@ -281,6 +284,7 @@ MobileNavigation.defaultProps = {
   menuProps: undefined,
   loginMenuProps: undefined,
   mobileLogoProps: undefined,
+  profileList: undefined,
 };
 
 export default MobileNavigation;
