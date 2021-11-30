@@ -10,7 +10,11 @@ function Resources({ lexicons: lexiconsProp, ...props }) {
   return (
     <Page {...props}>
       <Hero withCTA={false} {...lexiconsProp.banner} />
-      <Content size="large" items={lexiconsProp.items} />
+      <Content
+        size="large"
+        ctaLabel={lexiconsProp.ctaLabel}
+        items={lexiconsProp.items}
+      />
     </Page>
   );
 }
