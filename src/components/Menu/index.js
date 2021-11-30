@@ -80,10 +80,9 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Menu({ children, loginMenuProps, links, ...props }) {
+function Menu({ children, loginMenuProps, profileList, links, ...props }) {
   const classes = useStyles(props);
   const [session] = useSession();
-  console.log(session?.user?.image);
 
   if (!links?.length) {
     return null;
@@ -115,6 +114,7 @@ function Menu({ children, loginMenuProps, links, ...props }) {
           label={session.user.name}
           alt={session.user.name.toLowerCase()}
           src={session?.user?.image !== "" ? session?.user?.image : userAvator}
+          profileList={profileList}
         />
       ) : (
         <LoginMenu loginMenu={loginMenuProps} />
@@ -126,6 +126,7 @@ function Menu({ children, loginMenuProps, links, ...props }) {
 
 Menu.propTypes = {
   links: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  profileList: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
   children: PropTypes.node,
 };

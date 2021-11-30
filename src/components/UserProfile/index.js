@@ -30,26 +30,51 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   paper: {
-    width: "20rem",
-    marginTop: "1rem",
-    padding: "0rem 1rem",
-    marginLeft: "-3rem",
+    width: typography.pxToRem(320),
+    marginTop: typography.pxToRem(16),
+    padding: `${typography.pxToRem(0)} ${typography.pxToRem(16)}`,
+    marginLeft: typography.pxToRem(-48),
   },
   menuList: {
-    marginTop: "1.2rem",
+    padding: typography.pxToRem(24),
   },
+  profile: {
+    padding: `${typography.pxToRem(16)} ${typography.pxToRem(0)}`,
+  },
+  logOutMenuItem: {
+    color: "black",
+    fontSize: typography.pxToRem(24),
+    padding: typography.pxToRem(12.8),
+    borderTop: "2px solid red",
+    "&:hover, &:focus, &:focus-within": {
+      backgroundColor: "transparent",
+      textDecoration: "none",
+      color: "#DB1111",
+    },
+  },
+
   menuItem: {
     color: "black",
-    fontSize: "24px",
+    fontSize: typography.pxToRem(24),
     padding: typography.pxToRem(12.8),
-    "&:hover": {
+    "&:hover, &:focus, &:focus-within": {
+      backgroundColor: "transparent",
+      textDecoration: "none",
+      color: "#DB1111",
+    },
+  },
+  logOutText: {
+    fontSize: typography.pxToRem(24),
+    padding: `${typography.pxToRem(16)} ${typography.pxToRem(38)}`,
+    fontFamily: typography.fontFamily,
+    "&:hover, &:focus, &:focus-within": {
       backgroundColor: "transparent",
       textDecoration: "none",
       color: "#DB1111",
     },
   },
   caption: {
-    fontSize: "24px",
+    fontSize: typography.pxToRem(24),
     fontWeight: "normal",
     display: "inline-block",
   },
@@ -106,7 +131,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function UserProfile({ label, src, alt, ...props }) {
+function UserProfile({ label, src, alt, profileList, ...props }) {
   const classes = useStyles(props);
   const [session] = useSession();
 
@@ -188,7 +213,7 @@ function UserProfile({ label, src, alt, ...props }) {
                 direction="column"
                 justify="center"
                 alignItems="center"
-                style={{ padding: "2rem 0rem" }}
+                className={classes.profile}
               >
                 <Avatar
                   alt={alt}
@@ -203,62 +228,44 @@ function UserProfile({ label, src, alt, ...props }) {
                 </Typography>
               </Grid>
               <Divider />
-
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown}
-                  className={{ classes: classes.menuList }}
+                  className={classes.menuList}
                 >
-                  <MenuItem
-                    onClick={handleClose}
-                    component={Link}
-                    href="/lists"
-                    className={classes.menuItem}
-                  >
-                    List
-                  </MenuItem>
-                  <MenuItem
-                    onClick={handleClose}
-                    component={Link}
-                    href="/searches"
-                    className={classes.menuItem}
-                  >
-                    Saved searches
-                  </MenuItem>
-                  <MenuItem
-                    onClick={handleClose}
-                    component={Link}
-                    href="/data"
-                    className={classes.menuItem}
-                  >
-                    Upload data
-                  </MenuItem>
-                  <MenuItem
-                    onClick={handleClose}
-                    component={Link}
-                    href="/account/settings"
-                    className={classes.menuItem}
-                  >
-                    Account
-                  </MenuItem>
-
-                  <Divider />
-
-                  <MenuItem
-                    className={classes.menuItem}
-                    onClick={() =>
-                      signOut({
-                        callbackUrl: `/`,
-                        handleClose,
-                      })
-                    }
-                  >
-                    Log Out
-                  </MenuItem>
+                  {profileList?.map((item) => (
+                    <MenuItem
+                      onClick={handleClose}
+                      component={!profileList.length - 1 ? Link : null}
+                      href={!profileList.length - 1 ? item.href : ""}
+                      className={classes.menuItem}
+                    >
+                      {item.label}
+                    </MenuItem>
+                  ))}
                 </MenuList>
               </ClickAwayListener>
+              <Divider />
+              <Button
+                color="default"
+                variant="text"
+                size="small"
+                onClick={() =>
+                  signOut({
+                    callbackUrl: `/`,
+                    handleClose,
+                  })
+                }
+                classes={{
+                  text: classes.logOutText,
+                }}
+              >
+                <Typography variant="body1" className={classes.label}>
+                  Log out
+                </Typography>
+              </Button>
             </Paper>
           </Grow>
         )}
@@ -271,6 +278,7 @@ UserProfile.propTypes = {
   label: PropTypes.string,
   alt: PropTypes.string,
   src: PropTypes.string,
+  profileList: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
 };
 
 UserProfile.defaultProps = {

@@ -17,6 +17,21 @@ export default {
         type: "array",
       },
     },
+    label: {
+      control: {
+        label: "text",
+      },
+    },
+    avatorProps: {
+      control: {
+        label: "array",
+      },
+    },
+    profileList: {
+      control: {
+        label: "array",
+      },
+    },
   },
 };
 
@@ -29,4 +44,5 @@ Default.args = {
   loginMenuProps: navigationArgs.loginMenuProps,
   label: navigationArgs.userProfileArgs.label,
   avatorProps: navigationArgs.userProfileArgs.avatorProps,
+  profileList: navigationArgs.userProfileArgs.profileList,
 };

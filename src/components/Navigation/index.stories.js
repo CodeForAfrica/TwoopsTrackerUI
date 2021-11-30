@@ -21,4 +21,5 @@ Default.parameters = {
 Default.args = {
   ...navigationArgs,
   ...navigationArgs.userProfileArgs,
+  ...navigationArgs.userProfileArgs.profileList,
 };
