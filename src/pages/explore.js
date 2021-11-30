@@ -41,12 +41,12 @@ function Explore({
 }
 
 Explore.propTypes = {
-  days: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+  days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   fallback: PropTypes.shape({}),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
-  page: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
-  pageSize: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+  page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   query: PropTypes.string,
   theme: PropTypes.number,
   tweets: PropTypes.shape({}),
