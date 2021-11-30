@@ -235,6 +235,7 @@ function UserProfile({ label, src, alt, profilePages, ...props }) {
                       onClick={handleClose}
                       component={Link}
                       href={item.href}
+                      key={item.href}
                       className={classes.menuItem}
                     >
                       {item.label}
