@@ -48,11 +48,6 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     fontSize: typography.pxToRem(20),
     fontFamily: typography.fontFamily,
     fontWeight: 500,
-    "&:hover, &:focus, &:focus-within": {
-      backgroundColor: "transparent",
-      textDecoration: "none",
-      color: "#DB1111",
-    },
   },
 
   menuItem: {
@@ -66,10 +61,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   logOutText: {
-    fontSize: typography.pxToRem(20),
     padding: `${typography.pxToRem(16)} ${typography.pxToRem(38)}`,
-    fontFamily: typography.fontFamily,
-    fontWeight: 500,
     "&:hover, &:focus, &:focus-within": {
       backgroundColor: "transparent",
       textDecoration: "none",
@@ -266,7 +258,7 @@ function UserProfile({ label, src, alt, profileList, ...props }) {
                 }}
               >
                 <Typography variant="body1" className={classes.logOutLabel}>
-                  Log out
+                  Log Out
                 </Typography>
               </Button>
             </Paper>
