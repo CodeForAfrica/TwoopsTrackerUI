@@ -14,7 +14,7 @@ const handleUpload = async (content) => {
   }
   const session = await getSession();
   return fetchJson(
-    `${process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL}/upload`,
+    `${process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL}/lists/upload`,
     session,
     {
       method: "POST",
@@ -32,6 +32,7 @@ const useStyles = makeStyles(({ typography }) => ({
     justifyContent: "center",
     border: "2px dashed #ccc",
     paddingTop: typography.pxToRem(60),
+    paddingBottom: typography.pxToRem(30),
   },
   template: {
     textAlign: "center",
@@ -47,12 +48,18 @@ const useStyles = makeStyles(({ typography }) => ({
   button: {
     marginBottom: typography.pxToRem(30),
   },
+  success: {
+    color: "green",
+  },
+  error: {
+    color: "#f44336",
+  },
 }));
 
 function Upload({
   conjuctionLabel,
   downloadCopy,
-  errorLabel,
+  successLabel,
   loadingLabel,
   uploadLabel,
   templateLink,
@@ -62,23 +69,26 @@ function Upload({
 }) {
   const classes = useStyles(props);
   const [loading, setLoading] = React.useState(false);
-  const [message, setMessage] = React.useState();
+  const [messages, setmessages] = React.useState();
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
   const processFile = useCallback(async () => {
     setLoading(true);
     setLoading();
+    setmessages();
     try {
       const formData = new FormData();
       formData.append("file", acceptedFiles[0]);
       const response = await handleUpload(formData);
       setLoading(false);
       if (response.errors) {
-        setMessage(response.errors);
+        setmessages(response);
+      } else {
+        setmessages({ success: successLabel });
       }
     } catch (err) {
       setLoading(false);
     }
-  }, [acceptedFiles]);
+  }, [acceptedFiles, successLabel]);
 
   useEffect(() => {
     if (acceptedFiles?.length) {
@@ -105,9 +115,15 @@ function Upload({
         >
           {loading ? loadingLabel : uploadLabel}
         </Button>
-        {!loading && message && (
-          <Typography variant="caption" className={classes.error}>
-            {errorLabel}
+        {!loading &&
+          messages?.errors?.map(({ message }) => (
+            <Typography variant="caption" className={classes.error}>
+              {message}
+            </Typography>
+          ))}
+        {!loading && messages?.success && (
+          <Typography variant="caption" className={classes.success}>
+            {messages?.success}
           </Typography>
         )}
       </div>
@@ -123,7 +139,7 @@ Upload.propTypes = {
   conjuctionLabel: PropTypes.string,
   downloadCopy: PropTypes.string,
   dragLabel: PropTypes.string,
-  errorLabel: PropTypes.string,
+  successLabel: PropTypes.string,
   loadingLabel: PropTypes.string,
   templateLink: PropTypes.string,
   templateName: PropTypes.string,
@@ -134,7 +150,7 @@ Upload.defaultProps = {
   conjuctionLabel: undefined,
   downloadCopy: undefined,
   dragLabel: undefined,
-  errorLabel: undefined,
+  successLabel: undefined,
   loadingLabel: undefined,
   templateLink: undefined,
   templateName: undefined,

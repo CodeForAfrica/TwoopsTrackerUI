@@ -1,7 +1,7 @@
 list_name,username,repository,evidence
-Hackers,esir_kings,Public,https://realpython.com/python-csv/
-Hackers,MikeSonko,Public,
-Hackers,MikeSonko,Public,https://realpython.com/python-csv/
+Public Hackers,esir_kings,Public,https://realpython.com/python-csv/
+Public Hackers,MikeSonko,Public,
+Public Hackers,MikeSonko,Public,https://realpython.com/python-csv/
 Hackers,MikeSonko,Private, nothing here
 Hackers,alphagakunga,Private,
 Hackers,esir_kings,Private,
