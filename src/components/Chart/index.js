@@ -8,6 +8,7 @@ import embed from "vega-embed";
 import LineScope from "./LineScope";
 
 import Section from "@/twoopstracker/components/Section";
+import Share from "@/twoopstracker/components/Share";
 
 const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
@@ -133,6 +134,7 @@ function Chart({ data, ...props }) {
   return (
     <div className={classes.root}>
       <Section classes={{ root: classes.section }}>
+        <Share />
         <div ref={chartRef} className={classes.chart} />
       </Section>
     </div>

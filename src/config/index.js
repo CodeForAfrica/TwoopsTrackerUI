@@ -20,6 +20,26 @@ import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
+export const shareData = (title) => {
+  return [
+    {
+      name: "Twitter",
+      props: { title, via: "TrollTracker", related: ["Code4Africa"] },
+    },
+    {
+      name: "LinkedIn",
+      props: {
+        summary: title,
+        source: process.env.NEXT_PUBLIC_APP_URL,
+      },
+    },
+    {
+      name: "Facebook",
+      props: { quote: title, hashtag: "#TrollTracker" },
+    },
+  ];
+};
+
 export const tweetsCount = [
   {
     date: "2021-10-08",
