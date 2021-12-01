@@ -201,8 +201,7 @@ function UserProfile({ label, src, alt, profilePages, ...props }) {
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin:
-                placement === "bottom" ? "center top" : "center bottom",
+              transformOrigin: placement === "bottom",
             }}
           >
             <Paper
