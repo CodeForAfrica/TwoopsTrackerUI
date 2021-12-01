@@ -82,7 +82,6 @@ export async function getServerSideProps(context) {
 
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/explore?${unpaginatedQueryString}`;
   const openGraph = {
-    title: "Explore",
     url,
     images: [{ url: image }],
   };
