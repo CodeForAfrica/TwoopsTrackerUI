@@ -80,7 +80,15 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Menu({ children, loginMenuProps, links, ...props }) {
+function Menu({
+  children,
+  logOutLabel,
+  loginMenuProps,
+  profilePages,
+  links,
+  accountLink,
+  ...props
+}) {
   const classes = useStyles(props);
   const [session] = useSession();
 
@@ -111,9 +119,12 @@ function Menu({ children, loginMenuProps, links, ...props }) {
       ))}
       {session?.user?.name ? (
         <UserProfile
-          label={session.user.name}
+          label={session.user.name.split(" ")[0]}
           alt={session.user.name.toLowerCase()}
           src={session?.user?.image !== "" ? session?.user?.image : userAvator}
+          logOutLabel={logOutLabel}
+          profilePages={profilePages}
+          accountLink={accountLink}
         />
       ) : (
         <LoginMenu loginMenu={loginMenuProps} />
@@ -124,7 +135,10 @@ function Menu({ children, loginMenuProps, links, ...props }) {
 }
 
 Menu.propTypes = {
+  logOutLabel: PropTypes.string.isRequired,
   links: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  profilePages: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  accountLink: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
   children: PropTypes.node,
 };
