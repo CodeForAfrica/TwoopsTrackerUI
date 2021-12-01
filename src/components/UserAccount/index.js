@@ -33,6 +33,7 @@ function UserAccount({ name, email, ...props }) {
     </Section>
   );
 }
+
 UserAccount.propTypes = {
   name: PropTypes.string,
   email: PropTypes.string,

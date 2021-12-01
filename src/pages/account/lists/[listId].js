@@ -17,7 +17,7 @@ export async function getServerSideProps(context) {
   const { params: paramData } = context;
   const session = await getSession(context);
 
-  if (!(session && session?.user)) {
+  if (!session) {
     return {
       redirect: {
         permanent: false,

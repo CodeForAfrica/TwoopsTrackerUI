@@ -13,7 +13,7 @@ function ListCard({
   name: listName,
   created_at: createdAt,
   accounts: listAccounts,
-  is_private: privacyStatus,
+  is_private: isPrivate,
   id,
   setLists,
   ...props
@@ -22,7 +22,7 @@ function ListCard({
   const [deleteopen, setDeleteOpen] = useState(false);
 
   const [name, setName] = useState(listName);
-  const [privacy, setPrivacy] = useState(privacyStatus);
+  const [privacy, setPrivacy] = useState(isPrivate);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -113,7 +113,7 @@ function ListCard({
             nameValue={name}
             nameHelper="Name of List"
             nameOnChange={handleChange}
-            privacyValue={privacyStatus}
+            privacyValue={isPrivate}
             privacyOnChange={handleChange}
             buttonLabel="Update"
             buttonOnClick={handleUpdate}

@@ -1,13 +1,13 @@
 import React from "react";
 
-import UserProfile from ".";
+import UserAccount from ".";
 
 export default {
-  title: "Components/UserProfile",
+  title: "Sections/UserAccount",
   argTypes: {},
 };
 
-const Template = () => <UserProfile />;
+const Template = () => <UserAccount />;
 
 export const Default = Template.bind({});
 
