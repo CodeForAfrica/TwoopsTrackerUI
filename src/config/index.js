@@ -986,6 +986,7 @@ export const pagination = {
 export const upload = {
   conjuctionLabel: "or",
   downloadCopy: "Download the template",
+  errorLabel: "Something happened, please check the document and try again",
   successLabel: "Upload successful",
   loadingLabel: "Uploading...",
   templateLink: "/template.csv",

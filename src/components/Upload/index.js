@@ -59,6 +59,7 @@ const useStyles = makeStyles(({ typography }) => ({
 function Upload({
   conjuctionLabel,
   downloadCopy,
+  errorLabel,
   successLabel,
   loadingLabel,
   uploadLabel,
@@ -69,26 +70,28 @@ function Upload({
 }) {
   const classes = useStyles(props);
   const [loading, setLoading] = React.useState(false);
-  const [messages, setmessages] = React.useState();
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+  const [messages, setMessages] = React.useState();
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    accept: "text/csv",
+  });
   const processFile = useCallback(async () => {
     setLoading(true);
     setLoading();
-    setmessages();
+    setMessages();
     try {
       const formData = new FormData();
       formData.append("file", acceptedFiles[0]);
       const response = await handleUpload(formData);
       setLoading(false);
       if (response.errors) {
-        setmessages(response);
+        setMessages(response);
       } else {
-        setmessages({ success: successLabel });
+        setMessages({ success: successLabel });
       }
     } catch (err) {
-      setLoading(false);
+      setMessages({ errors: [{ message: errorLabel }] });
     }
-  }, [acceptedFiles, successLabel]);
+  }, [acceptedFiles, successLabel, errorLabel]);
 
   useEffect(() => {
     if (acceptedFiles?.length) {
@@ -116,7 +119,8 @@ function Upload({
           {loading ? loadingLabel : uploadLabel}
         </Button>
         {!loading &&
-          messages?.errors?.map(({ message }) => (
+          messages?.errors &&
+          messages.errors?.map(({ message }) => (
             <Typography variant="caption" className={classes.error}>
               {message}
             </Typography>
@@ -139,8 +143,9 @@ Upload.propTypes = {
   conjuctionLabel: PropTypes.string,
   downloadCopy: PropTypes.string,
   dragLabel: PropTypes.string,
-  successLabel: PropTypes.string,
+  errorLabel: PropTypes.string,
   loadingLabel: PropTypes.string,
+  successLabel: PropTypes.string,
   templateLink: PropTypes.string,
   templateName: PropTypes.string,
   uploadLabel: PropTypes.string,
@@ -150,6 +155,7 @@ Upload.defaultProps = {
   conjuctionLabel: undefined,
   downloadCopy: undefined,
   dragLabel: undefined,
+  errorLabel: undefined,
   successLabel: undefined,
   loadingLabel: undefined,
   templateLink: undefined,
