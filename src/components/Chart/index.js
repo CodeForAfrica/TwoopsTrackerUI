@@ -50,6 +50,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   share: {
     position: "absolute",
     right: 30,
+    zIndex: 1000,
   },
 }));
 

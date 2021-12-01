@@ -33,7 +33,7 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   },
 }));
 
-function Share({ title, ...props }) {
+function Share({ title, url, ...props }) {
   const classes = useStyles(props);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -66,7 +66,7 @@ function Share({ title, ...props }) {
                   <ShareButton
                     name={social.name}
                     key={social.name}
-                    url="/"
+                    url={url}
                     {...social.props}
                     classes={{ root: classes.social }}
                   />
@@ -82,10 +82,12 @@ function Share({ title, ...props }) {
 
 Share.propTypes = {
   title: PropTypes.string,
+  url: PropTypes.string,
 };
 
 Share.defaultProps = {
   title: undefined,
+  url: undefined,
 };
 
 export default Share;

@@ -29,7 +29,7 @@ export default async function createChartImage(data, query) {
   const spec = LineScope(data, true);
   const view = new vega.View(vega.parse(spec), { renderer: "none" });
 
-  const title = view?.signal("charTitle");
+  const title = view?.signal("chartTitle");
   const subtitle = view?.signal("chartSubTitle");
   const total = view?.signal("total");
   const highlight = view?.signal("highlight");
@@ -41,7 +41,7 @@ export default async function createChartImage(data, query) {
 
   const searchQuery = tweetsSearchQueryFromUserQuery(tweetsUserQuery(query));
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
-  const uniqueQueryString = searchParams?.delete("format").toString();
+  const uniqueQueryString = searchParams?.delete("format")?.toString();
 
   const Key = `media/images/twoopstracker-${uniqueQueryString}.png`;
   const config = {
