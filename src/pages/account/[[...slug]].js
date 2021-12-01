@@ -62,6 +62,7 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
           name="account"
           activeTab={tabItems?.map(({ slug }) => slug)?.indexOf(activeSlug)}
           items={tabItems}
+          key={activeSlug}
         />
       </Section>
     </Page>
