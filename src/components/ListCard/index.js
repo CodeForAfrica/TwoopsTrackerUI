@@ -44,7 +44,7 @@ function ListCard({
       setName(event.target.value);
     }
 
-    if (event.target.name === "privacy") {
+    if (event.target.name === "status") {
       setPrivacy(event.target.checked);
     }
   };
