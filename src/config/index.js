@@ -984,7 +984,13 @@ export const pagination = {
   pageSizeOptions: [{ value: "20" }, { value: "50" }],
 };
 
-export const searchPgination = {
+export const searchPagination = {
+  pageSizeDefaultValue: "3",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+};
+
+export const listPagination = {
   pageSizeDefaultValue: "3",
   pageSizeLabel: "Results on Page",
   pageSizeOptions: [{ value: "10" }, { value: "20" }],

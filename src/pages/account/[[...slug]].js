@@ -9,7 +9,7 @@ import Section from "@/twoopstracker/components/Section";
 import Tabs from "@/twoopstracker/components/Tabs";
 import UserAccount from "@/twoopstracker/components/UserAccount";
 import UserSearch from "@/twoopstracker/components/UserSearch";
-import { searchPgination } from "@/twoopstracker/config";
+import { searchPagination, listPagination } from "@/twoopstracker/config";
 import { lists, getSavedSearches } from "@/twoopstracker/lib";
 
 const useStyles = makeStyles(({ typography }) => ({
@@ -44,11 +44,13 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
     let children;
     switch (slug) {
       case "lists":
-        children = <Lists results={foundLists} />;
+        children = (
+          <Lists results={foundLists} paginationProps={listPagination} />
+        );
         break;
       case "searches":
         children = (
-          <UserSearch searches={searches} paginationProps={searchPgination} />
+          <UserSearch searches={searches} paginationProps={searchPagination} />
         );
         break;
       case "settings":
@@ -103,11 +105,13 @@ export async function getServerSideProps(context) {
   const results = await lists(session);
   const searches = await getSavedSearches({ pageSize: 3 }, session);
 
+  console.log("LISTS", results);
+
   return {
     props: {
       activeSlug,
       searches,
-      foundLists: results?.results ?? null,
+      foundLists: results,
       title,
       session,
     },

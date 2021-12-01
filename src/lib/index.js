@@ -10,8 +10,7 @@ export async function lists(session) {
 }
 
 export async function list(id, session) {
-  const results = await fetchJson(`${BASE_URL}/lists/${id}`, session);
-  return results;
+  return fetchJson(`${BASE_URL}/lists/${id}`, session);
 }
 
 export async function APIRequest(payload, method, param, session) {

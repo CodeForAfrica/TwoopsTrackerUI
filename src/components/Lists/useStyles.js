@@ -11,6 +11,9 @@ const useStyles = makeStyles(({ typography }) => ({
   listItem: {
     marginTop: typography.pxToRem(20),
   },
+  pagination: {
+    width: "100%",
+  },
   button: {
     backgroundColor: "red",
     color: "#fff",

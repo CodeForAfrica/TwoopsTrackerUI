@@ -6,6 +6,7 @@ export default async function handler(req, res) {
   const session = await getSession({ req });
 
   if (req.method === "GET") {
+    console.log("EISH");
     const results = await lists(session);
     return res.status(200).json(results);
   }
