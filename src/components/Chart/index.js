@@ -47,6 +47,10 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     fontWeight: 500,
     lineHeight: typography.pxToRem(18),
   },
+  share: {
+    position: "absolute",
+    right: 30,
+  },
 }));
 
 function Chart({ data, ...props }) {
@@ -134,7 +138,7 @@ function Chart({ data, ...props }) {
   return (
     <div className={classes.root}>
       <Section classes={{ root: classes.section }}>
-        <Share />
+        <Share {...props} classes={{ root: classes.share }} />
         <div ref={chartRef} className={classes.chart} />
       </Section>
     </div>
