@@ -10,8 +10,8 @@ import ListModal from "@/twoopstracker/components/ListModal";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-const AccountList = ({
-  data: { name, accounts, is_private: privacy, id },
+const AccountsList = ({
+  data: { name, accounts, is_private: isPrivate, id },
   ...props
 }) => {
   const classes = useStyles(props);
@@ -31,7 +31,7 @@ const AccountList = ({
     }
   }, [data]);
 
-  const onDelete = async (account) => {
+  const handleDelete = async (account) => {
     const filteredAccounts = listAccounts.filter(
       (acc) => acc.screen_name !== account
     );
@@ -39,7 +39,8 @@ const AccountList = ({
     const payload = {
       name,
       accounts: filteredAccounts,
-      is_private: privacy,
+      owner: 1,
+      is_private: isPrivate,
     };
 
     await fetchJson(`/api/lists/${id}`, null, {
@@ -63,7 +64,7 @@ const AccountList = ({
 
     const payload = {
       name,
-      is_private: privacy,
+      is_private: isPrivate,
       accounts: [...accountsMap, ...accounts],
     };
 
@@ -103,14 +104,14 @@ const AccountList = ({
           key={account.screen_name}
           account={account}
           items={listAccounts.length}
-          onDelete={onDelete}
+          handleDelete={handleDelete}
         />
       ))}
     </Section>
   );
 };
 
-AccountList.propTypes = {
+AccountsList.propTypes = {
   data: PropTypes.shape({
     accounts: PropTypes.arrayOf(PropTypes.shape({})),
     name: PropTypes.string,
@@ -119,8 +120,8 @@ AccountList.propTypes = {
   }),
 };
 
-AccountList.defaultProps = {
+AccountsList.defaultProps = {
   data: undefined,
 };
 
-export default AccountList;
+export default AccountsList;
