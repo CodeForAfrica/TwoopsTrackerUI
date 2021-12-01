@@ -37,6 +37,10 @@ export const shareData = (title) => {
       name: "Facebook",
       props: { quote: title, hashtag: "#TrollTracker" },
     },
+    {
+      name: "WhatsApp",
+      props: {},
+    },
   ];
 };
 

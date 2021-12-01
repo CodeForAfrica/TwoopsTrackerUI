@@ -5,17 +5,13 @@ import {
   TwitterShareButton,
   LinkedinShareButton,
   FacebookShareButton,
-  EmailShareButton,
   WhatsappShareButton,
 } from "react-share";
 
 import { ReactComponent as FacebookIcon } from "@/twoopstracker/assets/icons/facebook-icon.svg";
 import { ReactComponent as LinkedInIcon } from "@/twoopstracker/assets/icons/linkedin-icon.svg";
-import {
-  ReactComponent as EmailIcon,
-  ReactComponent as TwitterIcon,
-  ReactComponent as WhatsAppIcon,
-} from "@/twoopstracker/assets/icons/twitter-icon.svg";
+import { ReactComponent as TwitterIcon } from "@/twoopstracker/assets/icons/twitter-icon.svg";
+import { ReactComponent as WhatsAppIcon } from "@/twoopstracker/assets/icons/whatsApp-icon.svg";
 
 const useStyles = makeStyles(({ typography }) => ({
   root: {},
@@ -30,7 +26,6 @@ const componentMap = {
   Twitter: { icon: TwitterIcon, button: TwitterShareButton },
   LinkedIn: { icon: LinkedInIcon, button: LinkedinShareButton },
   WhatsApp: { icon: WhatsAppIcon, button: WhatsappShareButton },
-  Email: { icon: EmailIcon, button: EmailShareButton },
 };
 
 const ShareButton = ({ name, url, ...props }) => {
