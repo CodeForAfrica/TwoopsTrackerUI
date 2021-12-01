@@ -53,7 +53,7 @@ function Share({ title, url, ...props }) {
       </IconButton>
       <Popper
         open={Boolean(anchorEl)}
-        placement="left"
+        placement="left-start"
         anchorEl={anchorEl}
         className={classes.popper}
         transition

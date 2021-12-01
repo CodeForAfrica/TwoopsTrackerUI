@@ -1,7 +1,7 @@
 import { Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme, ThemeProvider } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 import embed from "vega-embed";
 
@@ -57,6 +57,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
 function Chart({ data, ...props }) {
   const classes = useStyles(props);
   const chartRef = useRef();
+  const [title, setTitle] = useState("");
 
   const theme = useTheme();
   const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
@@ -121,11 +122,17 @@ function Chart({ data, ...props }) {
     async function renderChart() {
       const spec = LineScope(data, !isUpLg);
       if (chartRef?.current) {
-        await embed(chartRef.current, spec, {
+        const view = await embed(chartRef.current, spec, {
           renderer: "svg",
           actions: false,
           tooltip: handler,
         });
+
+        if (view) {
+          const titleSignal = view.view?.signal("chartTitle");
+          const subtitle = view.view?.signal("chartSubTitle");
+          setTitle(`${titleSignal} ${subtitle}`);
+        }
       }
     }
     if (data) {
@@ -139,7 +146,7 @@ function Chart({ data, ...props }) {
   return (
     <div className={classes.root}>
       <Section classes={{ root: classes.section }}>
-        <Share {...props} classes={{ root: classes.share }} />
+        <Share {...props} classes={{ root: classes.share }} title={title} />
         <div ref={chartRef} className={classes.chart} />
       </Section>
     </div>

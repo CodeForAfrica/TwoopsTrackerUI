@@ -35,6 +35,7 @@ function Explore({
           query={query}
           theme={theme}
           tweets={tweetsProp}
+          {...props}
         />
       </SWRConfig>
     </Page>
@@ -77,14 +78,11 @@ export async function getServerSideProps(context) {
   const { pageSize, page, ...unpaginatedQuery } = query;
   const unpaginatedQueryString = getQueryString(unpaginatedQuery);
 
-  const { image, title, description } = await createChartImage(
-    insights,
-    unpaginatedQuery
-  );
-  const url = `${process.env.NEXT_PUBLIC_APP_URL}explore?${unpaginatedQueryString}`;
+  const image = await createChartImage(insights, unpaginatedQuery);
+
+  const url = `${process.env.NEXT_PUBLIC_APP_URL}/explore?${unpaginatedQueryString}`;
   const openGraph = {
-    title,
-    description,
+    title: "Explore",
     url,
     images: [{ url: image }],
   };
@@ -95,7 +93,6 @@ export async function getServerSideProps(context) {
   return {
     props: {
       ...query,
-      description,
       fallback: {
         [`/api/tweets${searchQueryString}`]: foundTweets,
         [`/api/tweets/insights${searchQueryString}`]: insights,
@@ -104,9 +101,10 @@ export async function getServerSideProps(context) {
       insights,
       openGraph,
       session,
-      title,
+      title: "Explore",
       tweets: foundTweets,
       twitter,
+      url,
     },
   };
 }

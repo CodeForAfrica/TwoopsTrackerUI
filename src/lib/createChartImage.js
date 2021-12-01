@@ -29,13 +29,6 @@ export default async function createChartImage(data, query) {
   const spec = LineScope(data, true);
   const view = new vega.View(vega.parse(spec), { renderer: "none" });
 
-  const title = view?.signal("chartTitle");
-  const subtitle = view?.signal("chartSubTitle");
-  const total = view?.signal("total");
-  const highlight = view?.signal("highlight");
-
-  const description = `${highlight} ${subtitle} was ${total}`;
-
   const svg = await view.toSVG();
   const Body = await sharp(Buffer.from(svg)).png().toBuffer();
 
@@ -43,7 +36,7 @@ export default async function createChartImage(data, query) {
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
   const uniqueQueryString = searchParams?.delete("format")?.toString();
 
-  const Key = `media/images/twoopstracker-${uniqueQueryString}.png`;
+  const Key = `media/images/trolltracker-${uniqueQueryString}.png`;
   const config = {
     accessKeyId: process.env.S3_UPLOAD_KEY,
     secretAccessKey: process.env.S3_UPLOAD_SECRET,
@@ -59,10 +52,5 @@ export default async function createChartImage(data, query) {
     ContentType,
   };
   const s3 = new AWS.S3(config);
-  const image = await uploadAsync(s3, params);
-  return {
-    image,
-    title: `${title} ${subtitle}`,
-    description,
-  };
+  return uploadAsync(s3, params);
 }
