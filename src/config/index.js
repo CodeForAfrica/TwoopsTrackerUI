@@ -685,6 +685,7 @@ export const navigationArgs = {
   },
   userProfileArgs: {
     label: "Account Name",
+    logOutLabel: "Log Out",
     src: userAvator,
     alt: "Profile",
     profilePages: [
@@ -699,6 +700,12 @@ export const navigationArgs = {
       {
         href: "/account/data",
         label: "Upload Data",
+      },
+    ],
+    accountLink: [
+      {
+        href: "/account/settings",
+        label: "My Account",
       },
     ],
   },

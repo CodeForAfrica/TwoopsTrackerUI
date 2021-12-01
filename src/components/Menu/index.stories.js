@@ -22,12 +22,22 @@ export default {
         label: "text",
       },
     },
+    logOutLabel: {
+      control: {
+        label: "text",
+      },
+    },
     avatorProps: {
       control: {
         label: "array",
       },
     },
     profileList: {
+      control: {
+        label: "array",
+      },
+    },
+    accountLinks: {
       control: {
         label: "array",
       },
@@ -43,6 +53,8 @@ Default.args = {
   links: navigationArgs.menuProps,
   loginMenuProps: navigationArgs.loginMenuProps,
   label: navigationArgs.userProfileArgs.label,
+  logOutLabel: navigationArgs.userProfileArgs.logOutLabel,
   avatorProps: navigationArgs.userProfileArgs.avatorProps,
   profilePages: navigationArgs.userProfileArgs.profilePages,
+  accountLinks: navigationArgs.userProfileArgs.accountLinks,
 };

@@ -26,6 +26,8 @@ function DesktopNavigation({
   desktopLogoProps,
   loginMenuProps,
   profilePages,
+  accountLink,
+  logOutLabel,
   ...props
 }) {
   const classes = useStyles(props);
@@ -55,6 +57,8 @@ function DesktopNavigation({
               links={menuProps}
               loginMenuProps={loginMenuProps}
               profilePages={profilePages}
+              accountLink={accountLink}
+              logOutLabel={logOutLabel}
             />
           </Grid>
           <Grid />
@@ -66,9 +70,11 @@ function DesktopNavigation({
 }
 
 DesktopNavigation.propTypes = {
+  logOutLabel: PropTypes.string,
   menuProps: PropTypes.arrayOf(PropTypes.shape({})),
   loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
   profilePages: PropTypes.arrayOf(PropTypes.shape({})),
+  accountLink: PropTypes.arrayOf(PropTypes.shape({})),
   desktopLogoProps: PropTypes.shape({
     alt: PropTypes.string,
     href: PropTypes.string,
@@ -80,9 +86,11 @@ DesktopNavigation.propTypes = {
 
 DesktopNavigation.defaultProps = {
   menuProps: undefined,
+  logOutLabel: undefined,
   loginMenuProps: undefined,
   desktopLogoProps: undefined,
   profilePages: undefined,
+  accountLink: undefined,
 };
 
 export default DesktopNavigation;

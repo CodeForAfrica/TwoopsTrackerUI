@@ -126,7 +126,15 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function UserProfile({ label, src, alt, profilePages, ...props }) {
+function UserProfile({
+  label,
+  logOutLabel,
+  src,
+  alt,
+  profilePages,
+  accountLink,
+  ...props
+}) {
   const classes = useStyles(props);
   const [session] = useSession();
 
@@ -249,37 +257,43 @@ function UserProfile({ label, src, alt, profilePages, ...props }) {
                 </MenuList>
               </ClickAwayListener>
 
-              <Divider />
-              <Button
-                color="default"
-                variant="text"
-                size="small"
-                component={Link}
-                href="/account/settings"
-                onClick={handleSignOut}
-                classes={{
-                  text: classes.logOutText,
-                }}
-              >
-                <Typography variant="body1" className={classes.logOutLabel}>
-                  My Account
-                </Typography>
-              </Button>
+              {accountLink?.map((item) => (
+                <div>
+                  <Divider />
+                  <Button
+                    color="default"
+                    variant="text"
+                    size="small"
+                    href={item.href}
+                    component={Link}
+                    onClick={handleClose}
+                    classes={{
+                      text: classes.logOutText,
+                    }}
+                  >
+                    <Typography variant="body1" className={classes.logOutLabel}>
+                      {item.label}
+                    </Typography>
+                  </Button>
+                </div>
+              ))}
 
-              <Divider />
-              <Button
-                color="default"
-                variant="text"
-                size="small"
-                onClick={handleSignOut}
-                classes={{
-                  text: classes.logOutText,
-                }}
-              >
-                <Typography variant="body1" className={classes.logOutLabel}>
-                  Log Out
-                </Typography>
-              </Button>
+              <div>
+                <Divider />
+                <Button
+                  color="default"
+                  variant="text"
+                  size="small"
+                  onClick={handleSignOut}
+                  classes={{
+                    text: classes.logOutText,
+                  }}
+                >
+                  <Typography variant="body1" className={classes.logOutLabel}>
+                    {logOutLabel}
+                  </Typography>
+                </Button>
+              </div>
             </Paper>
           </Grow>
         )}
@@ -290,13 +304,16 @@ function UserProfile({ label, src, alt, profilePages, ...props }) {
 
 UserProfile.propTypes = {
   label: PropTypes.string,
+  logOutLabel: PropTypes.string,
   alt: PropTypes.string,
   src: PropTypes.string,
   profilePages: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  accountLink: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
 };
 
 UserProfile.defaultProps = {
   label: undefined,
+  logOutLabel: undefined,
   alt: undefined,
   src: undefined,
 };
