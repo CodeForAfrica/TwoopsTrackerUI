@@ -1,6 +1,6 @@
 import { Typography, Divider, Grid, Button } from "@material-ui/core";
+import { useSession } from "next-auth/client";
 import Image from "next/image";
-import PropTypes from "prop-types";
 import React from "react";
 
 import useStyles from "./useStyles";
@@ -8,8 +8,18 @@ import useStyles from "./useStyles";
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 import Section from "@/twoopstracker/components/Section";
 
-function UserAccount({ name, email, ...props }) {
+function UserAccount({ ...props }) {
   const classes = useStyles(props);
+  const [session] = useSession();
+
+  if (!session) {
+    return null;
+  }
+
+  const {
+    user: { email, name },
+  } = session;
+
   return (
     <Section>
       <div className={classes.card}>
@@ -34,14 +44,8 @@ function UserAccount({ name, email, ...props }) {
   );
 }
 
-UserAccount.propTypes = {
-  name: PropTypes.string,
-  email: PropTypes.string,
-};
+UserAccount.propTypes = {};
 
-UserAccount.defaultProps = {
-  name: undefined,
-  email: undefined,
-};
+UserAccount.defaultProps = {};
 
 export default UserAccount;

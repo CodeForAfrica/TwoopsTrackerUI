@@ -34,9 +34,7 @@ export async function APIRequest(payload, method, param, session) {
     options.body = payload;
   }
 
-  const res = await fetchJson(url, session, options);
-
-  return res;
+  return fetchJson(url, session, options);
 }
 
 function tweetsSearchParamFromSearchQuery({

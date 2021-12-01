@@ -38,7 +38,7 @@ const accountPages = {
   },
 };
 
-function Account({ foundLists, activeSlug, searches, user, ...props }) {
+function Account({ foundLists, activeSlug, searches, ...props }) {
   const classes = useStyles(props);
   const tabItems = Object.entries(accountPages).map(([slug, values]) => {
     let children;
@@ -52,7 +52,7 @@ function Account({ foundLists, activeSlug, searches, user, ...props }) {
         );
         break;
       case "settings":
-        children = <UserAccount {...user} />;
+        children = <UserAccount />;
         break;
       default:
         children = <div />;
@@ -75,7 +75,6 @@ function Account({ foundLists, activeSlug, searches, user, ...props }) {
 Account.propTypes = {
   foundLists: PropTypes.arrayOf(PropTypes.shape({})),
   searches: PropTypes.shape({}),
-  user: PropTypes.shape({}),
   activeSlug: PropTypes.string,
 };
 
@@ -83,7 +82,6 @@ Account.defaultProps = {
   searches: undefined,
   foundLists: undefined,
   activeSlug: undefined,
-  user: undefined,
 };
 
 export async function getServerSideProps(context) {
@@ -98,7 +96,6 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const user = session?.user;
   const userName = session?.user?.name;
   const [activeSlug] = params?.slug ?? ["lists"];
   const activePageTitle = accountPages[activeSlug]?.label ?? "Account";
@@ -112,7 +109,6 @@ export async function getServerSideProps(context) {
       searches,
       foundLists: results?.results ?? null,
       title,
-      user,
       session,
     },
   };
