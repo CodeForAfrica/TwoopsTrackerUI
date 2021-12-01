@@ -26,7 +26,7 @@ const CacheControl = "max-age=630720000, public";
 const ContentType = "image/png";
 
 export default async function createChartImage(data, query) {
-  const spec = LineScope(data, true);
+  const spec = LineScope(data, false);
   const view = new vega.View(vega.parse(spec), { renderer: "none" });
 
   const svg = await view.toSVG();
@@ -34,7 +34,8 @@ export default async function createChartImage(data, query) {
 
   const searchQuery = tweetsSearchQueryFromUserQuery(tweetsUserQuery(query));
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
-  const uniqueQueryString = searchParams?.delete("format")?.toString();
+  searchParams.delete("format");
+  const uniqueQueryString = searchParams.toString();
 
   const Key = `media/images/trolltracker-${uniqueQueryString}.png`;
   const config = {
