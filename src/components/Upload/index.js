@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import React, { useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
+import Prgress from "./Progress";
+
 import { ReactComponent as IcUpload } from "@/twoopstracker/assets/icons/upload.svg";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
@@ -103,13 +105,26 @@ function Upload({
     <div className={classes.root}>
       <div {...getRootProps({ className: classes.dropzone })}>
         <input {...getInputProps()} />
-        <IcUpload />
-        <Typography variant="body1" className={classes.dragLabel}>
-          {dragLabel}
-        </Typography>
-        <Typography variant="body1" className={classes.dragLabel}>
-          {conjuctionLabel}
-        </Typography>
+        {!messages && (
+          <>
+            <IcUpload />
+            <Typography variant="body1" className={classes.dragLabel}>
+              {dragLabel}
+            </Typography>
+            <Typography variant="body1" className={classes.dragLabel}>
+              {conjuctionLabel}
+            </Typography>
+          </>
+        )}
+        {messages.lists_proccessed && (
+          <Prgress
+            value={
+              (messages.lists_proccessed.success * 100) /
+              (messages?.lists_proccessed?.success +
+                messages?.lists_proccessed?.failed)
+            }
+          />
+        )}
         <Button
           className={classes.button}
           variant="contained"
