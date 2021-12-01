@@ -104,7 +104,7 @@ const AccountsList = ({
           key={account.screen_name}
           account={account}
           items={listAccounts.length}
-          handleDelete={handleDelete}
+          onDelete={handleDelete}
         />
       ))}
     </Section>

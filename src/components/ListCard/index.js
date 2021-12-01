@@ -1,5 +1,4 @@
 import { Typography, Button, Grid } from "@material-ui/core";
-import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
@@ -19,8 +18,6 @@ function ListCard({
   setLists,
   ...props
 }) {
-  const [session] = useSession();
-
   const [open, setOpen] = useState(false);
   const [deleteopen, setDeleteOpen] = useState(false);
 
@@ -33,8 +30,8 @@ function ListCard({
   const handleDeleteOpen = () => setDeleteOpen(true);
   const handleDeleteClose = () => setDeleteOpen(false);
 
-  const fetcher = (url, token) => fetchJson(url, token);
-  const { data, mutate } = useSWR([`/api/lists`, session], fetcher);
+  const fetcher = (url) => fetchJson(url);
+  const { data, mutate } = useSWR(`/api/lists`, fetcher);
 
   useEffect(() => {
     if (data) {
@@ -59,7 +56,7 @@ function ListCard({
     };
 
     try {
-      await fetchJson(`/api/lists/${id}`, session, {
+      await fetchJson(`/api/lists/${id}`, null, {
         method: "PATCH",
         body: JSON.stringify(payload),
       });
@@ -73,7 +70,7 @@ function ListCard({
 
   const onDelete = async () => {
     try {
-      await fetchJson(`/api/lists/${id}`, session, {
+      await fetchJson(`/api/lists/${id}`, null, {
         method: "DELETE",
       });
 
