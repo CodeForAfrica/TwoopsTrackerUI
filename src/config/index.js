@@ -700,10 +700,6 @@ export const navigationArgs = {
         href: "/account/data",
         label: "Upload Data",
       },
-      {
-        href: "/account/settings",
-        label: "My Account",
-      },
     ],
   },
 };

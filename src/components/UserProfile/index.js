@@ -249,6 +249,24 @@ function UserProfile({ label, src, alt, profilePages, ...props }) {
                   ))}
                 </MenuList>
               </ClickAwayListener>
+
+              <Divider />
+              <Button
+                color="default"
+                variant="text"
+                size="small"
+                component={Link}
+                href="/account/settings"
+                onClick={handleSignOut}
+                classes={{
+                  text: classes.logOutText,
+                }}
+              >
+                <Typography variant="body1" className={classes.logOutLabel}>
+                  My Account
+                </Typography>
+              </Button>
+
               <Divider />
               <Button
                 color="default"
