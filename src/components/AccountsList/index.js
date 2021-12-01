@@ -57,7 +57,7 @@ const AccountsList = ({
     }
   };
 
-  const onCreate = async () => {
+  const handleCreate = async () => {
     const accountsMap = newAccounts
       .split(",")
       .map((item) => ({ screen_name: item }));
@@ -97,7 +97,7 @@ const AccountsList = ({
         accountsOnChange={handleChange}
         accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
         buttonLabel="Add"
-        buttonOnClick={onCreate}
+        buttonOnClick={handleCreate}
       />
       {listAccounts?.map((account) => (
         <Account

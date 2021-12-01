@@ -49,7 +49,7 @@ function ListCard({
     }
   };
 
-  const onUpdate = async () => {
+  const handleUpdate = async () => {
     const payload = {
       name,
       is_private: privacy,
@@ -68,7 +68,7 @@ function ListCard({
     }
   };
 
-  const onDelete = async () => {
+  const handleDelete = async () => {
     try {
       await fetchJson(`/api/lists/${id}`, null, {
         method: "DELETE",
@@ -90,9 +90,9 @@ function ListCard({
 
   return (
     <div className={classes.root}>
-      <Link href={`/account/lists/${id}`}>
-        <Typography className={classes.title}>{listName}</Typography>
-      </Link>
+      <Typography className={classes.title}>
+        <Link href={`/account/lists/${id}`}>{listName}</Link>
+      </Typography>
       <Grid container>
         <Grid item xs={12} md={8}>
           {createdAt && (
@@ -113,20 +113,16 @@ function ListCard({
             nameValue={name}
             nameHelper="Name of List"
             nameOnChange={handleChange}
-            // accountsLabel="User Accounts"
-            // accountsOnChange={handleChange}
-            // accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
-            // accountsValue={accountsStr}
             privacyValue={privacyStatus}
             privacyOnChange={handleChange}
             buttonLabel="Update"
-            buttonOnClick={onUpdate}
+            buttonOnClick={handleUpdate}
           />
           <ListModal
             open={deleteopen}
             onClose={handleDeleteClose}
             buttonLabel="Delete"
-            buttonOnClick={onDelete}
+            buttonOnClick={handleDelete}
             deleteDescription="Are you sure you want to delete this List?"
           />
         </Grid>
