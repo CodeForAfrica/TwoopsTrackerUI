@@ -61,7 +61,7 @@ function ListCard({
         body: JSON.stringify(payload),
       });
 
-      mutate({ ...data });
+      mutate();
       setOpen(false);
     } catch (e) {
       setOpen(true);
@@ -74,7 +74,7 @@ function ListCard({
         method: "DELETE",
       });
 
-      mutate({ ...data });
+      mutate();
       setDeleteOpen(false);
     } catch (e) {
       setDeleteOpen(true);

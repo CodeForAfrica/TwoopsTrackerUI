@@ -45,7 +45,7 @@ function Lists({ results: listsProp, ...props }) {
         body: JSON.stringify(payload),
       });
 
-      mutate({ ...data });
+      mutate();
       setOpen(false);
       setName("");
       setAccounts("");
