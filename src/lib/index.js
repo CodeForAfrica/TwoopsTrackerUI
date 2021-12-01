@@ -9,7 +9,7 @@ export async function lists(session) {
   return result;
 }
 
-export async function fetchList(id, session) {
+export async function list(id, session) {
   const results = await fetchJson(`${BASE_URL}/lists/${id}`, session);
   return results;
 }

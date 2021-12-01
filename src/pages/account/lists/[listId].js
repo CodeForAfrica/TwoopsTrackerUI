@@ -3,7 +3,7 @@ import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
-import { fetchList } from "@/twoopstracker/lib";
+import { list } from "@/twoopstracker/lib";
 
 export default function Index(props) {
   return (
@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const data = await fetchList(paramData.listId, session);
+  const data = await list(paramData.listId, session);
 
   // Pass data to the page via props
   return { props: { data, session } };
