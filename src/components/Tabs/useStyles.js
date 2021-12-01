@@ -11,6 +11,9 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   indicator: {
     width: 0,
   },
+  vertical: {
+    background: "transparent",
+  },
   tabs: {},
   tab: {
     color: palette.secondary.main,
