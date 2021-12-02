@@ -4,16 +4,19 @@ import React from "react";
 
 import useStyles from "./useStyles";
 
-const Search = ({ handleSelection, ...props }) => {
+const Search = ({ name, onChange, placeholder, ...props }) => {
   const classes = useStyles(props);
 
   const handleChange = (event) => {
-    handleSelection({ name: "query", value: event.target.value });
+    if (onChange) {
+      onChange({ name, value: event.target.value });
+    }
   };
 
   return (
     <InputBase
-      placeholder="Search"
+      {...props}
+      placeholder={placeholder}
       onChange={handleChange}
       classes={{
         root: classes.root,
@@ -24,11 +27,15 @@ const Search = ({ handleSelection, ...props }) => {
 };
 
 Search.propTypes = {
-  handleSelection: PropTypes.func,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
 };
 
 Search.defaultProps = {
-  handleSelection: undefined,
+  name: "query",
+  onChange: undefined,
+  placeholder: "Search",
 };
 
 export default Search;

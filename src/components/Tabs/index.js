@@ -49,6 +49,9 @@ function Tabs({ activeTab, items, name: nameProp, ...props }) {
           <Tab
             key={label}
             label={label}
+            TabIndicatorProps={{
+              style: { transition: "none" },
+            }}
             onClick={
               href
                 ? (e) => {

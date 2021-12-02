@@ -45,7 +45,7 @@ function PageSize({ value, onChange, label, options, ...props }) {
 PageSize.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func,
-  options: PropTypes.number,
+  options: PropTypes.arrayOf(PropTypes.shape({})),
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

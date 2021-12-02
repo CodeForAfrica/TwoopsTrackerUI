@@ -104,6 +104,12 @@ function tweetsSearchParamFromSearchQuery({
   return searchParams;
 }
 
+export function tweetsUserQuery(requestQuery) {
+  const { query, theme, location, days, page, pageSize } = requestQuery;
+
+  return { query, theme, location, days, page, pageSize };
+}
+
 function tweetsSearchQueryFromUserQuery(userQuery) {
   const {
     query: term,
@@ -124,8 +130,10 @@ function tweetsSearchQueryFromUserQuery(userQuery) {
   return { query, location, days, page, pageSize };
 }
 
-export async function tweets(userQuery = {}, session) {
-  const searchQuery = tweetsSearchQueryFromUserQuery(userQuery);
+export async function tweets(requestQuery = {}, session) {
+  const searchQuery = tweetsSearchQueryFromUserQuery(
+    tweetsUserQuery(requestQuery)
+  );
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
   return fetchJson(url, session);
@@ -133,10 +141,12 @@ export async function tweets(userQuery = {}, session) {
 
 // Do not include page or pageSize in searchQuery
 export async function tweetsInsights(
-  { page, pageSize, ...userQuery } = {},
+  { page, pageSize, ...requestQueryQuery } = {},
   session
 ) {
-  const searchQuery = tweetsSearchQueryFromUserQuery(userQuery);
+  const searchQuery = tweetsSearchQueryFromUserQuery(
+    tweetsUserQuery(requestQueryQuery)
+  );
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/insights?${searchParams.toString()}`;
   return fetchJson(url, session);
