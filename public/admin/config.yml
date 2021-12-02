@@ -1,5 +1,5 @@
 backend:
-  name: git-gateway Set to github when deploying
+  name: git-gateway # Set to github when deploying
   branch: main # Branch to update (optional; defaults to main)
 media_folder: "public/images"
 public_folder: "/images"
