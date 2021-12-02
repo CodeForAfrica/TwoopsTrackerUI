@@ -5,30 +5,39 @@ import AboutContent from "@/twoopstracker/components/AboutContent";
 import Hero from "@/twoopstracker/components/Hero";
 import Page from "@/twoopstracker/components/Page";
 import { about } from "@/twoopstracker/config";
+import * as md from "@/twoopstracker/lib/md";
+import aboutContent from "content/about.md";
 
-function About({ about: aboutProp, ...props }) {
+function About({ items, ...props }) {
+  const { description, title } = props;
+
   return (
-    <Page {...props}>
-      <Hero withCTA={false} {...aboutProp.banner} />
-      <AboutContent items={aboutProp.items} />
+    <Page description={description} title={title} {...props}>
+      <Hero description={description} title={title} withCTA={false} />
+      <AboutContent items={items} />
     </Page>
   );
 }
 
 About.propTypes = {
-  about: PropTypes.shape({}),
+  description: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.shape({})),
+  title: PropTypes.string,
 };
 
 About.defaultProps = {
-  about: undefined,
+  description: undefined,
+  items: undefined,
+  title: undefined,
 };
 
 export async function getStaticProps() {
+  const attributes = md.renderObjectValuesInline(aboutContent.attributes);
+
   return {
     props: {
-      about,
-      description: about?.banner?.description ?? null,
-      title: "About",
+      ...about,
+      ...attributes,
     },
     revalidate: 15 * 60, // 15 minutes
   };
