@@ -5,7 +5,7 @@ import Upload from ".";
 import { upload } from "@/twoopstracker/config";
 
 export default {
-  title: "Components/Upload",
+  title: "Sections/Upload",
   argTypes: {},
 };
 
