@@ -21,7 +21,6 @@ const useStyles = makeStyles(({ typography }) => ({
     height: typography.pxToRem(322),
     width: typography.pxToRem(228),
   },
-  mediaImage: {},
 }));
 
 export default useStyles;
