@@ -74,7 +74,7 @@ export async function APIRequest(payload, method, param) {
   return res.json();
 }
 
-function tweetsSearchParamFromSearchQuery({
+export function tweetsSearchParamFromSearchQuery({
   query,
   location,
   days = 7,
@@ -110,7 +110,7 @@ export function tweetsUserQuery(requestQuery) {
   return { query, theme, location, days, page, pageSize };
 }
 
-function tweetsSearchQueryFromUserQuery(userQuery) {
+export function tweetsSearchQueryFromUserQuery(userQuery) {
   const {
     query: term,
     theme,
