@@ -9,6 +9,7 @@ import ListCard from "@/twoopstracker/components/ListCard";
 import ListModal from "@/twoopstracker/components/ListModal";
 import Pagination from "@/twoopstracker/components/Pagination";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
+import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 function Lists({ results: listsProp, paginationProps, ...props }) {
   const [open, setOpen] = useState(false);
@@ -17,18 +18,16 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
   const [accounts, setAccounts] = useState("");
   const [privacy, setPrivacy] = useState(false);
   const [page, setPage] = useState();
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(5);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = useStyles(props);
 
-  const fetcher = (url) => {
-    console.log("FETCHER", url);
-    return fetchJson(url);
+  const fetcher = (url, pg) => {
+    const queryString = getQueryString({ page: pg });
+    return fetchJson(`${url}/?${queryString}`);
   };
-  const { data, mutate } = useSWR(`/api/lists/?page=${page}`, fetcher);
-
-  console.log("LIST PROP", page, pageSize);
+  const { data, mutate } = useSWR([`/api/lists`, page], fetcher);
 
   useEffect(() => {
     if (data) {

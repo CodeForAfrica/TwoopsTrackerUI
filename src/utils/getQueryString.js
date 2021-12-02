@@ -23,7 +23,7 @@ export default function getQueryString({
     searchParams.append("page", page);
   }
   if (pageSize) {
-    searchParams.append("pageSize", pageSize);
+    searchParams.append("page_size", pageSize);
   }
   return searchParams.toString();
 }

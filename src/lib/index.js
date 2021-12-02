@@ -1,11 +1,14 @@
 import { subDays } from "date-fns";
 
 import fetchJson from "@/twoopstracker/utils/fetchJson";
+import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
 
-export async function lists(session) {
-  const result = await fetchJson(`${BASE_URL}/lists/`, session);
+export async function lists(session, pageData) {
+  const queryString = getQueryString(pageData);
+
+  const result = await fetchJson(`${BASE_URL}/lists/?${queryString}`, session);
   return result;
 }
 

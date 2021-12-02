@@ -1,5 +1,4 @@
 async function fetchJson(url, session, options) {
-  console.log("HAAY", url);
   let fetchOptions = options;
   if (session?.accessToken) {
     fetchOptions = { ...options };
