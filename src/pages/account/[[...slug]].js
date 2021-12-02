@@ -84,7 +84,7 @@ Account.defaultProps = {
 export async function getServerSideProps(context) {
   const { params } = context;
   const session = await getSession(context);
-  if (!(session && session?.user)) {
+  if (!(session && session?.user) || session.error) {
     return {
       redirect: {
         permanent: false,

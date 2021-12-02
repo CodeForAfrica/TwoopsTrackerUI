@@ -4,7 +4,9 @@ import { updateSavedSearch, deleteSavedSearch } from "@/twoopstracker/lib";
 
 export default async function handler(req, res) {
   const session = await getSession({ req });
-
+  if (session.error) {
+    return res.redirect(302, "/login");
+  }
   if (req.method === "PUT") {
     const results = await updateSavedSearch(req.query?.id, req?.body, session);
     return res.status(200).json(results);

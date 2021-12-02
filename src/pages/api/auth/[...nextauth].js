@@ -106,14 +106,19 @@ const options = {
     // Attach user and token to be available in the frontend https://next-auth.js.org/v3/tutorials/refresh-token-rotation#server-side
     session: async (session, token) => {
       const newSession = session;
+
+      if (token.error) {
+        newSession.error = token.error;
+        return newSession;
+      }
+
       newSession.user = token.user;
       newSession.accessToken = token.accessToken;
-      newSession.error = token.error;
       return newSession;
     },
   },
   pages: {
-    // signIn: "/",
+    signIn: "/login",
     error: "/404", // Error code passed in query string as ?error=
   },
 };

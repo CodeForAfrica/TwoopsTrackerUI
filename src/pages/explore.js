@@ -68,6 +68,14 @@ export async function getServerSideProps(context) {
   const { query: userQuery } = context;
   const query = { days: 14, ...userQuery };
   const session = await getSession(context);
+  if (!session.error) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+    };
+  }
   const foundTweets = await tweets(query, session);
   const insights = await tweetsInsights(query, session);
   const queryString = getQueryString(query);
