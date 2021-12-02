@@ -65,7 +65,6 @@ function Upload({
   conjuctionLabel,
   downloadCopy,
   errorLabel,
-  successLabel,
   loadingLabel,
   uploadLabel,
   templateLink,
@@ -133,7 +132,7 @@ function Upload({
             ))
           ) : (
             <Typography variant="caption" className={classes.success}>
-              {messages?.message || successLabel}
+              {messages?.message}
             </Typography>
           )}
         </>
@@ -160,7 +159,6 @@ Upload.propTypes = {
   dragLabel: PropTypes.string,
   errorLabel: PropTypes.string,
   loadingLabel: PropTypes.string,
-  successLabel: PropTypes.string,
   templateLink: PropTypes.string,
   templateName: PropTypes.string,
   uploadLabel: PropTypes.string,
@@ -171,7 +169,6 @@ Upload.defaultProps = {
   downloadCopy: undefined,
   dragLabel: undefined,
   errorLabel: undefined,
-  successLabel: undefined,
   loadingLabel: undefined,
   templateLink: undefined,
   templateName: undefined,
