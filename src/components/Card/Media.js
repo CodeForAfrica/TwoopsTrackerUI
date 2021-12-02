@@ -14,7 +14,7 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
     },
   },
   image: {
-    objectFit: "cover !important",
+    /*  objectFit: "cover !important", */
   },
 }));
 

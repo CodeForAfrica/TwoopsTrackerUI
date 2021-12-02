@@ -17,7 +17,11 @@ function InvestigationList({ items, ...props }) {
     <Section>
       <Grid container justifyContent="space-between" className={classes.root}>
         <Grid item>
-          <InvestigationCard featured {...items[0]} />
+          <InvestigationCard
+            featured
+            {...items[0]}
+            className={{ root: classes.media }}
+          />
         </Grid>
 
         {items.slice(1).map((item) => (

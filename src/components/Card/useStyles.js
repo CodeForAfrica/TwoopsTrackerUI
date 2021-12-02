@@ -22,7 +22,7 @@ const useStyles = makeStyles(({ typography }) => ({
     width: typography.pxToRem(228),
   },
   mediaImage: {
-    objectFit: "contain !important",
+    /* objectFit: "contain !important", */
   },
 }));
 
