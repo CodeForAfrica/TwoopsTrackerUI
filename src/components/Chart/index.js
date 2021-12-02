@@ -130,8 +130,8 @@ function Chart({ data, ...props }) {
 
         if (view) {
           const titleSignal = view.view?.signal("chartTitle");
-          const subtitle = view.view?.signal("chartSubTitle");
-          setTitle(`${titleSignal} ${subtitle}`);
+          const subtitleSignal = view.view?.signal("chartSubTitle");
+          setTitle(`${titleSignal} ${subtitleSignal}`);
         }
       }
     }
