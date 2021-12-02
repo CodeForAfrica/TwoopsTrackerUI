@@ -1,3 +1,4 @@
+import { RichTypography } from "@commons-ui/core";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
@@ -63,15 +64,16 @@ function Hero({
 }) {
   const classes = useStyles(props);
   const [session] = useSession();
+
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
         <Typography className={classes.title} variant="h1">
           {title}
         </Typography>
-        <Typography className={classes.description} variant="h3">
+        <RichTypography className={classes.description} variant="h3">
           {description}
-        </Typography>
+        </RichTypography>
         {withCTA && (
           <div className={classes.buttonContainer}>
             <Button
