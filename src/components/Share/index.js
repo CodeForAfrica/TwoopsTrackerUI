@@ -67,6 +67,7 @@ function Share({ title, url, ...props }) {
                     name={social.name}
                     key={social.name}
                     url={url}
+                    onShareWindowClose={onClose}
                     {...social.props}
                     classes={{ root: classes.social }}
                   />

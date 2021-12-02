@@ -31,7 +31,6 @@ const componentMap = {
 const ShareButton = ({ name, url, ...props }) => {
   const classes = useStyles(props);
   const { button: SocialButton, icon: SocialIcon } = componentMap[name];
-  
   return (
     <SocialButton url={url} {...props} className={classes.root}>
       <SocialIcon className={classes.icon} />
