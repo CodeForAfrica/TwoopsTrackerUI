@@ -917,11 +917,6 @@ export const searches = [
   },
 ];
 export const about = {
-  banner: {
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-    title: "About Us",
-  },
   items: [
     {
       image: codeForAfrica,
