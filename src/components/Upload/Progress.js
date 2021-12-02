@@ -8,7 +8,7 @@ import React from "react";
 const useStyles = makeStyles(({ typography }) => ({
   root: {
     minWidth: typography.pxToRem(200),
-    marginBottom: typography.pxToRem(60),
+    marginBottom: typography.pxToRem(20),
   },
 }));
 
@@ -17,7 +17,12 @@ function Progress({ value, ...props }) {
   return (
     <Box className={classes.root} display="flex" alignItems="center">
       <Box width="100%" mr={1}>
-        <LinearProgress color="primary" variant="determinate" {...props} />
+        <LinearProgress
+          value={value}
+          color="primary"
+          variant="determinate"
+          {...props}
+        />
       </Box>
       <Box minWidth={35}>
         <Typography variant="body2">{`${Math.round(value)}%`}</Typography>
