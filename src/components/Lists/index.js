@@ -79,7 +79,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
       setAccounts(event.target.value);
     }
 
-    if (event.target.name === "privacy") {
+    if (event.target.name === "status") {
       setPrivacy(event.target.checked);
     }
   };
@@ -115,7 +115,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
               key={item.name}
               classes={{ root: classes.listItem }}
               {...item}
-              setLists={setLists}
+              mutate={mutate}
             />
           ))}
         </>

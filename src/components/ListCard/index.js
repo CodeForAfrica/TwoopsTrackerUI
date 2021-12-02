@@ -1,7 +1,6 @@
 import { Typography, Button, Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
-import useSWR from "swr";
+import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
@@ -15,7 +14,7 @@ function ListCard({
   accounts: listAccounts,
   is_private: isPrivate,
   id,
-  setLists,
+  mutate,
   ...props
 }) {
   const [open, setOpen] = useState(false);
@@ -29,15 +28,6 @@ function ListCard({
 
   const handleDeleteOpen = () => setDeleteOpen(true);
   const handleDeleteClose = () => setDeleteOpen(false);
-
-  const fetcher = (url) => fetchJson(url);
-  const { data, mutate } = useSWR(`/api/lists`, fetcher);
-
-  useEffect(() => {
-    if (data) {
-      setLists(data.results);
-    }
-  }, [data, setLists]);
 
   const handleChange = (event) => {
     if (event.target.name === "name") {
@@ -133,6 +123,7 @@ function ListCard({
 
 ListCard.propTypes = {
   name: PropTypes.string,
+  mutate: PropTypes.func,
   accounts: PropTypes.arrayOf(PropTypes.shape({})),
   id: PropTypes.number,
   is_private: PropTypes.bool,
@@ -142,6 +133,7 @@ ListCard.propTypes = {
 
 ListCard.defaultProps = {
   name: undefined,
+  mutate: undefined,
   accounts: undefined,
   id: undefined,
   is_private: undefined,
