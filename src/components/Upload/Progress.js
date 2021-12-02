@@ -1,28 +1,33 @@
 import Box from "@material-ui/core/Box";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React from "react";
 
+const useStyles = makeStyles(({ typography }) => ({
+  root: {
+    minWidth: typography.pxToRem(200),
+    marginBottom: typography.pxToRem(60),
+  },
+}));
+
 function Progress({ value, ...props }) {
+  const classes = useStyles(props);
   return (
-    <Box display="flex" alignItems="center">
+    <Box className={classes.root} display="flex" alignItems="center">
       <Box width="100%" mr={1}>
-        <LinearProgress variant="determinate" {...props} />
+        <LinearProgress color="primary" variant="determinate" {...props} />
       </Box>
       <Box minWidth={35}>
-        <Typography variant="body2" color="textSecondary">{`${Math.round(
-          value
-        )}%`}</Typography>
+        <Typography variant="body2">{`${Math.round(value)}%`}</Typography>
       </Box>
     </Box>
   );
 }
 
 Progress.propTypes = {
-  /**
-   * The value of the progress indicator for the determinate and buffer variants.
-   * Value between 0 and 100.
-   */
   value: PropTypes.number.isRequired,
 };
+
+export default Progress;

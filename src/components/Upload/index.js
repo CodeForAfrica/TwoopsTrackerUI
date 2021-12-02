@@ -116,12 +116,12 @@ function Upload({
             </Typography>
           </>
         )}
-        {messages.lists_proccessed && (
+        {messages?.lists_proccessed && (
           <Prgress
             value={
               (messages.lists_proccessed.success * 100) /
-              (messages?.lists_proccessed?.success +
-                messages?.lists_proccessed?.failed)
+              (messages.lists_proccessed?.success +
+                messages.lists_proccessed?.failed)
             }
           />
         )}
