@@ -37,7 +37,7 @@ Index.defaultProps = {
 export async function getStaticProps() {
   const days = 14;
   const insights = await tweetsInsights({ days });
-  const chartUrl = `${process.env.NEXT_PUBLIC_APP_URL}explore?days=${days}`;
+  const chartUrl = `${process.env.NEXT_PUBLIC_APP_URL}/explore?days=${days}`;
 
   return {
     props: {
