@@ -26,6 +26,7 @@ function Footer({
   ...props
 }) {
   const classes = useStyles(props);
+
   return (
     <div className={classes.root}>
       <Section
@@ -80,11 +81,11 @@ function Footer({
             xs={12}
             lg={4}
           >
-            {quickLinksProp?.map((column) => (
-              <Grid container item xs={12} lg={6}>
+            {quickLinksProp?.map((qL) => (
+              <Grid key={qL.title} container item xs={12} lg={6}>
                 <QuickLinks
                   linkComponent={Link}
-                  {...column}
+                  {...qL}
                   classes={{
                     root: classes.quickLinkRoot,
                     list: classes.quickList,

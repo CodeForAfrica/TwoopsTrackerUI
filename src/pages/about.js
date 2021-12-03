@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import AboutContent from "@/twoopstracker/components/AboutContent";
+import Content from "@/twoopstracker/components/Content";
 import Hero from "@/twoopstracker/components/Hero";
 import Page from "@/twoopstracker/components/Page";
 import { about } from "@/twoopstracker/config";
@@ -12,9 +12,9 @@ function About({ items, ...props }) {
   const { description, title } = props;
 
   return (
-    <Page description={description} title={title} {...props}>
+    <Page {...props}>
       <Hero description={description} title={title} withCTA={false} />
-      <AboutContent items={items} />
+      <Content items={items} />
     </Page>
   );
 }

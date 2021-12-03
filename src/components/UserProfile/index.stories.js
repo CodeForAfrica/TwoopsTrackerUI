@@ -1,3 +1,4 @@
+import { Grid } from "@material-ui/core";
 import React from "react";
 
 import UserProfile from ".";
@@ -9,7 +10,11 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ ...args }) => <UserProfile {...args} />;
+const Template = ({ ...args }) => (
+  <Grid container="row" justifyContent="flex-end" alignItems="center">
+    <UserProfile {...args} />
+  </Grid>
+);
 export const Default = Template.bind({});
 
 Default.parameters = {

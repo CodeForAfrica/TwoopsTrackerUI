@@ -1,8 +1,9 @@
+import { getSession } from "next-auth/client";
 import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
-import { fetchList } from "@/twoopstracker/lib";
+import { list } from "@/twoopstracker/lib";
 
 export default function Index(props) {
   return (
@@ -12,10 +13,21 @@ export default function Index(props) {
   );
 }
 
-export async function getServerSideProps(params) {
-  const { params: paramData } = params;
-  const data = await fetchList(paramData.listId);
+export async function getServerSideProps(context) {
+  const { params: paramData } = context;
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+    };
+  }
+
+  const data = await list(paramData.listId, session);
 
   // Pass data to the page via props
-  return { props: { data } };
+  return { props: { data, session } };
 }

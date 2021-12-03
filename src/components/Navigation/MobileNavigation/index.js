@@ -66,7 +66,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
   },
   dialogPaper: {
     background: "white",
-    maxHeight: typography.pxToRem(844),
+    maxHeight: "100%",
     position: "absolute",
     left: 0,
     top: 0,
@@ -150,6 +150,9 @@ function MobileNavigation({
   mobileLogoProps,
   drawerLogoProps,
   loginMenuProps,
+  profilePages,
+  accountLink,
+  logOutLabel,
   ...props
 }) {
   const classes = useStyles(props);
@@ -247,6 +250,9 @@ function MobileNavigation({
                     menu: classes.buttonMenu,
                   }}
                   loginMenuProps={loginMenuProps}
+                  profilePages={profilePages}
+                  accountLink={accountLink}
+                  logOutLabel={logOutLabel}
                 />
               </Section>
             </DialogContent>
@@ -258,8 +264,11 @@ function MobileNavigation({
 }
 
 MobileNavigation.propTypes = {
+  logOutLabel: PropTypes.arrayOf(PropTypes.shape({})),
   menuProps: PropTypes.arrayOf(PropTypes.shape({})),
   loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
+  profilePages: PropTypes.arrayOf(PropTypes.shape({})),
+  accountLink: PropTypes.arrayOf(PropTypes.shape({})),
   mobileLogoProps: PropTypes.shape({
     alt: PropTypes.string,
     href: PropTypes.string,
@@ -277,10 +286,13 @@ MobileNavigation.propTypes = {
 };
 
 MobileNavigation.defaultProps = {
+  logOutLabel: undefined,
   drawerLogoProps: undefined,
   menuProps: undefined,
   loginMenuProps: undefined,
   mobileLogoProps: undefined,
+  profilePages: undefined,
+  accountLink: undefined,
 };
 
 export default MobileNavigation;

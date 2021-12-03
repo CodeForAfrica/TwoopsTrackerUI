@@ -5,15 +5,44 @@ import fb from "@/twoopstracker/assets/icons/white icon fb.svg";
 import insta from "@/twoopstracker/assets/icons/white icon insta.svg";
 import linkedin from "@/twoopstracker/assets/icons/white icon linkedin.svg";
 import twitter from "@/twoopstracker/assets/icons/white icon twitter.svg";
+import ancirLogo from "@/twoopstracker/assets/images/ancir-logo.png";
+import ancir from "@/twoopstracker/assets/images/ancir.png";
 import codeForAll from "@/twoopstracker/assets/images/Artboard 1@2x 1.png";
 import codeForAfrica from "@/twoopstracker/assets/images/CFA Editable Logo-01 1.png";
-import crowdtangle from "@/twoopstracker/assets/images/image 5.png";
-import github from "@/twoopstracker/assets/images/Rectangle 10.png";
+import civicSignal from "@/twoopstracker/assets/images/civic-signal-logo.png";
+import dfrlab from "@/twoopstracker/assets/images/dfrlab.png";
+import hatebase from "@/twoopstracker/assets/images/hatebase.png";
+import mediacloud from "@/twoopstracker/assets/images/mediacloud.png";
+import pesacheckLogo from "@/twoopstracker/assets/images/pesacheck-logo.png";
+import pesaCheckLab from "@/twoopstracker/assets/images/pesachecklab.png";
 import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
-import cfaSquare from "@/twoopstracker/assets/images/Square-01 1.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
+
+export const shareData = (title) => {
+  return [
+    {
+      name: "Twitter",
+      props: { title, via: "TrollTracker", related: ["Code4Africa"] },
+    },
+    {
+      name: "LinkedIn",
+      props: {
+        summary: title,
+        source: process.env.NEXT_PUBLIC_APP_URL,
+      },
+    },
+    {
+      name: "Facebook",
+      props: { quote: title, hashtag: "#TrollTracker" },
+    },
+    {
+      name: "WhatsApp",
+      props: {},
+    },
+  ];
+};
 
 export const tweetsCount = [
   {
@@ -622,7 +651,7 @@ export const tweets = [
 export const navigationArgs = {
   menuProps: [
     {
-      href: "/watchlists",
+      href: "/explore",
       label: "Watchlists",
     },
     {
@@ -685,8 +714,29 @@ export const navigationArgs = {
   },
   userProfileArgs: {
     label: "Account Name",
+    logOutLabel: "Log Out",
     src: userAvator,
     alt: "Profile",
+    profilePages: [
+      {
+        href: "/account/lists",
+        label: "My Lists",
+      },
+      {
+        href: "/account/searches",
+        label: "My Saved Searches",
+      },
+      {
+        href: "/account/data",
+        label: "Upload Data",
+      },
+    ],
+    accountLink: [
+      {
+        href: "/account/settings",
+        label: "My Account",
+      },
+    ],
   },
 };
 
@@ -921,15 +971,39 @@ export const about = {
     {
       image: codeForAfrica,
       description:
-        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+        "<a rel='noopener noreferrer' target='_blank' href='https://www.codeforafrica.org/'>Code for Africa (CfA)</a> is the continent’s largest network of civic technology and data journalism labs, with teams in 21 countries. CfA builds digital democracy solutions that give citizens unfettered access to actionable information that empowers them to make informed decisions, and that strengthens civic engagement for improved public governance and accountability. This includes building infrastructure like the continent’s largest open data portals at openAFRICA and sourceAFRICA. CfA incubates initiatives as diverse as the africanDRONE network, the PesaCheck fact-checking initiative, the sensors.AFRICA air quality sensor network and the research and analysis programme Civic Signal.",
       href: "https://www.codeforafrica.org/",
     },
 
     {
       image: codeForAll,
       description:
-        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+        "<a rel='noopener noreferrer' target='_blank' href='https://www.cfa.org/'>Code for All</a> is a global network composed of 30+ civic tech organisations from around the world. Our mission is to connect civic tech organisations so they can learn from each other, leading to greater impact in their local communities. With the support of this international network, each of our member organisations have access to tool-kits, projects, and expertise from people doing similar work in different corners of the world. We believe in driving social change through digital technology, citizen participation and collaborative decision-making, while improving the relationship between governments and citizens.",
       href: "https://www.cfa.org/",
+    },
+    {
+      image: dfrlab,
+      description:
+        "<a rel='noopener noreferrer' target='_blank' href='https://www.cfa.org/'>Code for All</a> is a global network composed of 30+ civic tech organisations from around the world. Our mission is to connect civic tech organisations so they can learn from each other, leading to greater impact in their local communities. With the support of this international network, each of our member organisations have access to tool-kits, projects, and expertise from people doing similar work in different corners of the world. We believe in driving social change through digital technology, citizen participation and collaborative decision-making, while improving the relationship between governments and citizens.",
+      href: "https://www.cfa.org/",
+    },
+    {
+      image: ancirLogo,
+      description:
+        "<a rel='noopener noreferrer' target='_blank' href='https://investigate.africa/'>ANCIR’s iLAB</a> provides grantees, collaborators, partners and formalised members with round-the-clock investigative support services. This includes editorial, cross-examination, data, technology, forensics, financial and other services to assist in addressing and resolving investigative queries.",
+      href: "https://investigate.africa/",
+    },
+    {
+      image: pesacheckLogo,
+      description:
+        "<a rel='noopener noreferrer' target='_blank' href='https://pesacheck.org/'>PesaCheck</a> is a pioneering verification initiative that is kickstarting fact-checking across Africa. Initially focused on verifying the financial and other statistical numbers quoted by public figures in Kenya, Tanzania and Uganda, PesaCheck is now Africa’s largest with full-time fact-checkers in 12 countries in both east and west Africa, as well as across the Sahel. PesaCheck fact-checks in two international languages (English and French), as well as major African languages such as Kiswahili and Amharic.",
+      href: "https://pesacheck.org/",
+    },
+    {
+      image: civicSignal,
+      description:
+        "<a rel='noopener noreferrer' target='_blank' href='https://civicsignal.africa/'>CivicSignal</a> is the research and analysis programme of Code for Africa, the continent’s largest network of indigenous African civic technology and investigative data journalism laboratories. CivicSignal’s data analysis is powered by MIT’s Media Cloud platform, and research partners include the Reuters Institute for Journalism and the Global Disinformation Index.",
+      href: "https://civicsignal.africa/",
     },
   ],
 };
@@ -950,27 +1024,35 @@ export const lexicons = {
   },
   items: [
     {
-      image: cfaSquare,
+      image: ancir,
       description:
-        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-      title: "Existing website - ANCIR ",
-      href: "https://www.cfa.org/",
+        "ANCIR’s iLAB uses open-source investigative techniques to study disinformation narratives to identify indicators of coordinated inauthentic behaviour and disinformation campaigns both from domestic and foreign actors.",
+      title: "ANCIR’s ILAB",
+      href: "https://investigate.africa/",
     },
     {
-      image: github,
+      image: mediacloud,
       description:
-        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-      title: "Github",
-      href: "https://github.com/CodeForAfrica/TwoopsTrackerUI",
+        "CivicSignal’s MediaCloud is an open-source platform for media analysis. By tracking millions of stories published online, our suite of tools allows researchers to track how stories and ideas spread through media. Our tools are designed to aggregate, analyze, deliver and visualise information, answering complex quantitative and qualitative questions about the content of online media.",
+      title: "MediaCloud",
+      href: "https://civicsignal.africa/",
     },
     {
-      image: crowdtangle,
+      image: hatebase,
       description:
-        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-      title: "Crowdtangle",
-      href: "https://crowdtangle.com",
+        "Hatebase is a service built to help organizations and online communities detect, monitor and analyze hate speech. The company’s algorithms analyze public conversations using a broad vocabulary based on nationality, ethnicity, religion, gender, sexual orientation, disability and class, with data across 95+ languages and 175+ countries.",
+      title: "Hatebase",
+      href: "https://hatebase.org/",
+    },
+    {
+      image: pesaCheckLab,
+      description:
+        "PeaceTech Lab’s series of hate speech Lexicons identify and explain inflammatory language on social media while offering alternative words and phrases that can be used to combat the spread of hate speech in conflict-affected countries. Our Lexicons serve as a pivotal resource for local peacebuilders, social media companies, and organizations working to stop and prevent hate speech worldwide.",
+      title: "PeaceTech Lab",
+      href: "https://pesacheck.org/",
     },
   ],
+  ctaLabel: "View Website",
 };
 
 export const pagination = {
@@ -979,7 +1061,13 @@ export const pagination = {
   pageSizeOptions: [{ value: "20" }, { value: "50" }],
 };
 
-export const searchPgination = {
+export const searchPagination = {
+  pageSizeDefaultValue: "3",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+};
+
+export const listPagination = {
   pageSizeDefaultValue: "3",
   pageSizeLabel: "Results on Page",
   pageSizeOptions: [{ value: "10" }, { value: "20" }],

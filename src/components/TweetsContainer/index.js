@@ -15,22 +15,28 @@ import getQueryString from "@/twoopstracker/utils/getQueryString";
 function TweetsContainer({
   days: daysProp,
   insights: insightsProp,
+  location: locationProp,
+  page: pageProp,
+  pageSize: pageSizeProp,
   paginationProps,
+  query: queryProp,
+  theme: themeProp,
   tweets: tweetsProp,
   ...props
 }) {
   const classes = useStyles(props);
 
   const router = useRouter();
-  const [days, setDays] = useState();
-  const [insights, setInsights] = useState();
-  const [location, setLocation] = useState();
-  const [page, setPage] = useState();
+  const [days, setDays] = useState(daysProp);
+  const [insights, setInsights] = useState(insightsProp);
+  const [location, setLocation] = useState(locationProp);
+  const [page, setPage] = useState(pageProp);
   const [paginating, setPaginating] = useState(false);
-  const [pageSize, setPageSize] = useState();
-  const [query, setQuery] = useState("");
-  const [theme, setTheme] = useState();
-  const [tweets, setTweets] = useState();
+  const [pageSize, setPageSize] = useState(pageSizeProp);
+  const [query, setQuery] = useState(queryProp);
+  const [search, setSearch] = useState(false);
+  const [theme, setTheme] = useState(themeProp);
+  const [tweets, setTweets] = useState(tweetsProp);
 
   const setStateObject = {
     days: setDays,
@@ -43,39 +49,43 @@ function TweetsContainer({
 
   // Handle initial query parameters from server (if any)
   useEffect(() => {
-    const { query: queryParams } = router;
-    Object.keys(queryParams).forEach((k) =>
-      setStateObject?.[k]?.(queryParams[k])
-    );
-    // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependency
+    if (router.isReady) {
+      const { query: queryParams } = router;
+      Object.keys(queryParams).forEach((k) =>
+        setStateObject?.[k]?.(queryParams[k])
+      );
+    }
+    // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependenc
+    //                  e.g. https://github.com/vercel/next.js/issues/18127
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router.isReady]);
 
   const handleSearch = async () => {
-    // NOOP Search is performed automatically whenever parameters change
-    //      i.e. handleSelection below triggers search.
+    setSearch(true);
   };
 
   useEffect(() => {
-    const queryString = getQueryString({
-      query,
-      theme,
-      location,
-      days,
-      page,
-      pageSize,
-    });
-    const { pathname } = router;
-    let newPathname = pathname;
-    if (queryString) {
-      newPathname = `${newPathname}?${queryString}`;
+    if (router.isReady) {
+      const queryString = getQueryString({
+        query,
+        theme,
+        location,
+        days,
+        page,
+        pageSize,
+      });
+      const { pathname } = router;
+      let newPathname = pathname;
+      if (queryString) {
+        newPathname = `${newPathname}?${queryString}`;
+      }
+      router.push(newPathname, newPathname, { shallow: true });
     }
-    router.push(newPathname, newPathname, { shallow: true });
-    // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, theme, location, days, page, pageSize]);
+  }, [query, theme, location, days, page, pageSize, router.isReady]);
 
   const handleSelection = ({ name, value }) => {
+    setSearch(false);
     setStateObject[name](value);
     setPaginating(false);
   };
@@ -105,6 +115,10 @@ function TweetsContainer({
   };
 
   const shouldFetch = () => {
+    if (!search) {
+      return null;
+    }
+
     const queryString = getQueryString({
       query,
       theme,
@@ -127,7 +141,7 @@ function TweetsContainer({
     }
   }, [newTweets]);
   const shouldFetchInsights = () => {
-    if (paginating) {
+    if (paginating || !search) {
       return null;
     }
 
@@ -151,15 +165,15 @@ function TweetsContainer({
     <>
       <SearchSection
         days={days}
-        handleSelection={handleSelection}
-        handleSaveSearch={handleSaveSearch}
+        onSelection={handleSelection}
+        onSaveSearch={handleSaveSearch}
         location={location}
         onSearch={handleSearch}
         theme={theme}
         className={classes.root}
       />
       {isLoading && <Loading />}
-      <Chart data={insights} classes={{ root: classes.chartRoot }} />
+      <Chart {...props} data={insights} classes={{ root: classes.chartRoot }} />
       <Tweets tweets={tweets} />
       <Pagination
         {...paginationProps}
@@ -174,9 +188,14 @@ function TweetsContainer({
 }
 
 TweetsContainer.propTypes = {
+  days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
-  days: PropTypes.number,
+  location: PropTypes.string,
+  page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   paginationProps: PropTypes.shape({}),
+  query: PropTypes.string,
+  theme: PropTypes.number,
   tweets: PropTypes.shape({
     count: PropTypes.number,
   }),
@@ -185,7 +204,12 @@ TweetsContainer.propTypes = {
 TweetsContainer.defaultProps = {
   days: undefined,
   insights: undefined,
+  location: undefined,
+  page: undefined,
+  pageSize: undefined,
   paginationProps: undefined,
+  query: undefined,
+  theme: undefined,
   tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
 

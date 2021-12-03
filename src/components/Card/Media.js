@@ -13,9 +13,7 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
       width: typography.pxToRem(228),
     },
   },
-  image: {
-    objectFit: "cover !important",
-  },
+  image: {},
 }));
 
 function Media({ image, imageProps, media: mediaProp, ...props }) {

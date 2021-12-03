@@ -4,49 +4,28 @@ import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
 
-export async function lists() {
-  const res = await fetch(`${BASE_URL}/lists/`);
-  return res.json();
+export async function lists(session, pageData) {
+  const listParams = new URLSearchParams();
+
+  if (pageData.page) {
+    listParams.append("page", pageData.page);
+  }
+  if (pageData.pageSize) {
+    listParams.append("page_size", pageData.pageSize);
+  }
+
+  const result = await fetchJson(
+    `${BASE_URL}/lists/?${listParams.toString()}`,
+    session
+  );
+  return result;
 }
 
-export async function fetchList(id) {
-  const res = await fetch(`${BASE_URL}/lists/${id}`);
-  return res.json();
+export async function list(id, session) {
+  return fetchJson(`${BASE_URL}/lists/${id}`, session);
 }
 
-export const createList = async (payload, url) => {
-  const data = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-
-  const result = await data.json();
-
-  return result;
-};
-
-export const deleteList = async (url, id) => {
-  const data = await fetch(`${url}/${id}`, {
-    method: "DELETE",
-  });
-
-  const result = await data.json();
-
-  return result;
-};
-
-export const updateList = async (url, payload, id) => {
-  const data = await fetch(`${url}/${id}`, {
-    method: "PUT",
-    body: JSON.stringify(payload),
-  });
-
-  const result = await data.json();
-
-  return result;
-};
-
-export async function APIRequest(payload, method, param) {
+export async function APIRequest(payload, method, param, session) {
   let url = BASE_URL;
 
   if (param) {
@@ -66,15 +45,10 @@ export async function APIRequest(payload, method, param) {
     options.body = payload;
   }
 
-  const res = await fetch(url, options);
-
-  if (method === "DELETE") {
-    return res;
-  }
-  return res.json();
+  return fetchJson(url, session, options);
 }
 
-function tweetsSearchParamFromSearchQuery({
+export function tweetsSearchParamFromSearchQuery({
   query,
   location,
   days = 7,
@@ -104,7 +78,13 @@ function tweetsSearchParamFromSearchQuery({
   return searchParams;
 }
 
-function tweetsSearchQueryFromUserQuery(userQuery) {
+export function tweetsUserQuery(requestQuery) {
+  const { query, theme, location, days, page, pageSize } = requestQuery;
+
+  return { query, theme, location, days, page, pageSize };
+}
+
+export function tweetsSearchQueryFromUserQuery(userQuery) {
   const {
     query: term,
     theme,
@@ -124,8 +104,10 @@ function tweetsSearchQueryFromUserQuery(userQuery) {
   return { query, location, days, page, pageSize };
 }
 
-export async function tweets(userQuery = {}, session) {
-  const searchQuery = tweetsSearchQueryFromUserQuery(userQuery);
+export async function tweets(requestQuery = {}, session) {
+  const searchQuery = tweetsSearchQueryFromUserQuery(
+    tweetsUserQuery(requestQuery)
+  );
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
   return fetchJson(url, session);
@@ -133,10 +115,12 @@ export async function tweets(userQuery = {}, session) {
 
 // Do not include page or pageSize in searchQuery
 export async function tweetsInsights(
-  { page, pageSize, ...userQuery } = {},
+  { page, pageSize, ...requestQueryQuery } = {},
   session
 ) {
-  const searchQuery = tweetsSearchQueryFromUserQuery(userQuery);
+  const searchQuery = tweetsSearchQueryFromUserQuery(
+    tweetsUserQuery(requestQueryQuery)
+  );
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/insights?${searchParams.toString()}`;
   return fetchJson(url, session);

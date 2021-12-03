@@ -112,7 +112,7 @@ function ModalComponent({
                   defaultChecked={privacyValue}
                   className={classes.checkbox}
                   onChange={privacyOnChange}
-                  name="privacy"
+                  name="status"
                 />
               }
               label="Is Private"

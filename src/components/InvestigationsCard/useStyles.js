@@ -30,8 +30,8 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
     width: typography.pxToRem(228),
   },
   featured: {
-    height: typography.pxToRem(421),
-    width: typography.pxToRem(300),
+    height: `${typography.pxToRem(421)} !important`,
+    width: `${typography.pxToRem(300)} !important`,
   },
   title: {
     overflow: "hidden",
