@@ -1,6 +1,15 @@
 const markdownIt = require("markdown-it");
+const mila = require("markdown-it-link-attributes");
 
 const md = markdownIt({ html: true });
+// Handle "external" URLs
+md.use(mila, {
+  pattern: /^(https?:|www\.|\/\/)/,
+  attrs: {
+    target: "_blank",
+    rel: "noopener noreferrer",
+  },
+});
 
 export function render(src) {
   return md.render(src);
