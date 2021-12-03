@@ -4,6 +4,8 @@ import Script from "next/script";
 import PropTypes from "prop-types";
 import React from "react";
 
+import content from "content/admin.md";
+
 function AdminPage(props) {
   return (
     <>
@@ -31,9 +33,11 @@ AdminPage.defaultProps = {
 };
 
 export async function getStaticProps() {
+  const { attributes } = content;
+
   return {
     props: {
-      title: "Dashboard",
+      ...attributes,
     },
   };
 }

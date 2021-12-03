@@ -18,7 +18,44 @@ collections:
           - {
               label: "Description",
               name: "description",
-              widget: "markdown",
+              widget: "text",
+              required: true,
+            }
+          - {
+              label: "Publish Date",
+              name: "date",
+              widget: "datetime",
+              required: true,
+            }
+          - label: "Partners"
+            name: "partners"
+            widget: "list"
+            collapsed: true
+            minimize_collapsed: true
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - {
+                  label: "Logo",
+                  name: "logo",
+                  widget: "image",
+                  choose_url: true,
+                }
+              - {
+                  label: "Description",
+                  name: "description",
+                  widget: "markdown",
+                  required: true,
+                }
+      - label: "Admin"
+        name: "admin"
+        file: "content/admin.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string", required: true }
+          - {
+              label: "Description",
+              name: "description",
+              widget: "text",
               required: true,
             }
           - {
