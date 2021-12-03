@@ -20,7 +20,7 @@ import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
-export const shareData = (title) => {
+export function shareData(title) {
   return [
     {
       name: "Twitter",
@@ -42,17 +42,7 @@ export const shareData = (title) => {
       props: {},
     },
   ];
-};
-
-export const contentActionsProps = {
-  download: {
-    label: "Download:",
-    fileTypes: ["CSV", "Excel"],
-  },
-  upload: {
-    label: "Upload your own data",
-  },
-};
+}
 
 export const tweetsCount = [
   {
@@ -1074,6 +1064,17 @@ export const pagination = {
   pageSizeDefaultValue: "20",
   pageSizeLabel: "Results on Page",
   pageSizeOptions: [{ value: "20" }, { value: "50" }],
+};
+export const upload = {
+  conjuctionLabel: "or",
+  downloadCopy: "Download the template",
+  errorLabel: "Something happened, please check the document and try again",
+  successLabel: "Upload successful",
+  loadingLabel: "Uploading...",
+  templateLink: "/template.csv",
+  templateName: "template.csv",
+  dragLabel: "Drag and drop your CSV files here",
+  uploadLabel: "Select a File",
 };
 
 export const searchPagination = {
