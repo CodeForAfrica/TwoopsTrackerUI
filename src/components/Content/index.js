@@ -1,4 +1,4 @@
-import { RichTypography, A } from "@commons-ui/core";
+import { RichTypography } from "@commons-ui/core";
 import { Grid, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import PropTypes from "prop-types";
@@ -7,6 +7,7 @@ import React from "react";
 import useStyles from "./useStyles";
 
 import Image from "@/twoopstracker/components/Image";
+import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
 function Content({ items, size, ctaLabel, ...props }) {
@@ -29,7 +30,7 @@ function Content({ items, size, ctaLabel, ...props }) {
             key={title}
           >
             <Grid item xs={12} md={size === "large" ? 6 : 3}>
-              <A
+              <Link
                 className={clsx({
                   [classes.imageContainer]: true,
                   [classes.shadow]: size !== "large",
@@ -43,7 +44,7 @@ function Content({ items, size, ctaLabel, ...props }) {
                   src={image}
                   alt={title}
                 />
-              </A>
+              </Link>
             </Grid>
             <Grid
               container
@@ -52,26 +53,19 @@ function Content({ items, size, ctaLabel, ...props }) {
               xs={12}
               md={size === "large" ? 6 : 9}
             >
-              {title && (
-                <A className={classes.link} href={href}>
-                  <Typography className={classes.title} variant="h4">
-                    {title}
-                  </Typography>
-                </A>
-              )}
               {description && (
                 <RichTypography className={classes.description} variant="body1">
                   {description}
                 </RichTypography>
               )}
               {size === "large" && (
-                <A
+                <Link
                   underline="always"
                   className={classes.viewWebsite}
                   href={href}
                 >
                   <Typography>{ctaLabel}</Typography>
-                </A>
+                </Link>
               )}
             </Grid>
           </Grid>
