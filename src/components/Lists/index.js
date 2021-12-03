@@ -5,6 +5,7 @@ import useSWR from "swr";
 
 import useStyles from "./useStyles";
 
+import ContentActions from "@/twoopstracker/components/ContentActions";
 import ListCard from "@/twoopstracker/components/ListCard";
 import ListModal from "@/twoopstracker/components/ListModal";
 import Pagination from "@/twoopstracker/components/Pagination";
@@ -113,6 +114,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
           buttonOnClick={onCreate}
         />
       </div>
+      <ContentActions classes={{ section: classes.actions }} />
       {lists?.length ? (
         <>
           <Grid container>

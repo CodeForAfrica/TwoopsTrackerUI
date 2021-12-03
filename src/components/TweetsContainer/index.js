@@ -6,6 +6,7 @@ import useStyles from "./useStyles";
 import useTweets from "./useTweets";
 
 import Chart from "@/twoopstracker/components/Chart";
+import ContentActions from "@/twoopstracker/components/ContentActions";
 import Loading from "@/twoopstracker/components/Loading";
 import Pagination from "@/twoopstracker/components/Pagination";
 import SearchSection from "@/twoopstracker/components/SearchSection";
@@ -174,6 +175,7 @@ function TweetsContainer({
       />
       {isLoading && <Loading />}
       <Chart {...props} data={insights} classes={{ root: classes.chartRoot }} />
+      <ContentActions />
       <Tweets tweets={tweets} />
       <Pagination
         {...paginationProps}
