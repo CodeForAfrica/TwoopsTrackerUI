@@ -4,39 +4,46 @@ import React from "react";
 import Content from "@/twoopstracker/components/Content";
 import Hero from "@/twoopstracker/components/Hero";
 import Page from "@/twoopstracker/components/Page";
-import { about } from "@/twoopstracker/config";
 import * as md from "@/twoopstracker/lib/md";
-import aboutContent from "content/about.md";
+import content from "content/about.md";
 
-function About({ items, ...props }) {
+function About({ partners, ...props }) {
   const { description, title } = props;
 
   return (
     <Page {...props}>
       <Hero description={description} title={title} withCTA={false} />
-      <Content items={items} />
+      <Content items={partners} />
     </Page>
   );
 }
 
 About.propTypes = {
   description: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.shape({})),
+  partners: PropTypes.arrayOf(PropTypes.shape({})),
   title: PropTypes.string,
 };
 
 About.defaultProps = {
   description: undefined,
-  items: undefined,
+  partners: undefined,
   title: undefined,
 };
 
 export async function getStaticProps() {
-  const attributes = md.renderObjectValuesInline(aboutContent.attributes);
+  const { attributes } = content;
+  attributes.partners =
+    attributes.partners
+      ?.map(({ logo, name, url, ...others }) => ({
+        title: name,
+        image: logo,
+        href: url,
+        ...others,
+      }))
+      ?.map((partner) => md.renderObjectValuesInline(partner)) ?? null;
 
   return {
     props: {
-      ...about,
       ...attributes,
     },
     revalidate: 15 * 60, // 15 minutes
