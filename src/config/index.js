@@ -44,6 +44,16 @@ export const shareData = (title) => {
   ];
 };
 
+export const contentActionsProps = {
+  download: {
+    label: "Download:",
+    fileTypes: ["CSV", "Excel"],
+  },
+  upload: {
+    label: "Upload your own data",
+  },
+};
+
 export const tweetsCount = [
   {
     date: "2021-10-08",
