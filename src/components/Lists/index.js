@@ -1,34 +1,52 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography, Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 
 import useStyles from "./useStyles";
 
 import ListCard from "@/twoopstracker/components/ListCard";
 import ListModal from "@/twoopstracker/components/ListModal";
-import { createList } from "@/twoopstracker/lib";
+import Pagination from "@/twoopstracker/components/Pagination";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-function Lists({ results: listsProp, ...props }) {
+function Lists({ results: listsProp, paginationProps, ...props }) {
   const [open, setOpen] = useState(false);
-  const [lists, setLists] = useState(listsProp);
+  const [lists, setLists] = useState(listsProp ? listsProp.results : []);
   const [name, setName] = useState("");
   const [accounts, setAccounts] = useState("");
   const [privacy, setPrivacy] = useState(false);
+  const [page, setPage] = useState();
+  const [pageSize, setPageSize] = useState(5);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = useStyles(props);
 
-  const { mutate } = useSWRConfig();
+  const fetcher = (url, pg, pSize) => {
+    let listURL;
+    if (pg) {
+      listURL = `${url}/?page=${pg}&page_size=${pSize}`;
+    } else {
+      listURL = `${url}/?page_size=${pSize}`;
+    }
 
-  const fetcher = (url) => fetch(url).then((results) => results.json());
-  const { data } = useSWR(`/api/lists`, fetcher);
+    return fetchJson(listURL);
+  };
+  const { data, mutate } = useSWR([`/api/lists`, page, pageSize], fetcher);
 
   useEffect(() => {
     if (data) {
       setLists(data.results);
     }
   }, [data]);
+
+  const handleClickPage = (e, value) => {
+    setPage(value);
+  };
+  const handleClickPageSize = (e, value) => {
+    setPage(1);
+    setPageSize(value);
+  };
 
   const onCreate = async () => {
     const accountsMap = accounts
@@ -37,14 +55,17 @@ function Lists({ results: listsProp, ...props }) {
 
     const payload = {
       name,
-      accounts: accountsMap,
-      owner: 1,
       is_private: privacy,
+      accounts: accountsMap,
     };
 
     try {
-      await createList(payload, "/api/lists");
-      mutate("/api/lists", { ...data });
+      await fetchJson("/api/lists", null, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+
+      mutate();
       setOpen(false);
       setName("");
       setAccounts("");
@@ -63,7 +84,7 @@ function Lists({ results: listsProp, ...props }) {
       setAccounts(event.target.value);
     }
 
-    if (event.target.name === "privacy") {
+    if (event.target.name === "status") {
       setPrivacy(event.target.checked);
     }
   };
@@ -94,14 +115,27 @@ function Lists({ results: listsProp, ...props }) {
       </div>
       {lists?.length ? (
         <>
-          {lists?.map((item) => (
-            <ListCard
-              key={item.name}
-              classes={{ root: classes.listItem }}
-              {...item}
-              setLists={setLists}
-            />
-          ))}
+          <Grid container>
+            {lists?.map((item) => (
+              <Grid item xs={12}>
+                <ListCard
+                  key={item.name}
+                  classes={{ root: classes.listItem }}
+                  {...item}
+                  mutate={mutate}
+                />
+              </Grid>
+            ))}
+          </Grid>
+          <Pagination
+            {...paginationProps}
+            count={Math.ceil(data?.count / (pageSize || 10))}
+            onChangePage={handleClickPage}
+            onChangePageSize={handleClickPageSize}
+            page={page}
+            pageSize={pageSize}
+            classes={{ section: classes.pagination }}
+          />
         </>
       ) : (
         <Typography variant="body1">There are no lists</Typography>
@@ -112,10 +146,12 @@ function Lists({ results: listsProp, ...props }) {
 
 Lists.propTypes = {
   results: PropTypes.arrayOf(PropTypes.shape({})),
+  paginationProps: PropTypes.shape({}),
 };
 
 Lists.defaultProps = {
   results: undefined,
+  paginationProps: undefined,
 };
 
 export default Lists;

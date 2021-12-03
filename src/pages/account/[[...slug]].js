@@ -8,8 +8,13 @@ import Page from "@/twoopstracker/components/Page";
 import Section from "@/twoopstracker/components/Section";
 import Tabs from "@/twoopstracker/components/Tabs";
 import Upload from "@/twoopstracker/components/Upload";
+import UserAccount from "@/twoopstracker/components/UserAccount";
 import UserSearch from "@/twoopstracker/components/UserSearch";
-import { searchPgination, upload } from "@/twoopstracker/config";
+import {
+  searchPagination,
+  upload,
+  listPagination,
+} from "@/twoopstracker/config";
 import { lists, getSavedSearches } from "@/twoopstracker/lib";
 
 const useStyles = makeStyles(({ typography }) => ({
@@ -44,15 +49,20 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
     let children;
     switch (slug) {
       case "lists":
-        children = <Lists results={foundLists} />;
+        children = (
+          <Lists results={foundLists} paginationProps={listPagination} />
+        );
         break;
       case "searches":
         children = (
-          <UserSearch searches={searches} paginationProps={searchPgination} />
+          <UserSearch searches={searches} paginationProps={searchPagination} />
         );
         break;
       case "data":
         children = <Upload {...upload} />;
+        break;
+      case "settings":
+        children = <UserAccount />;
         break;
       default:
         children = <div />;
@@ -101,15 +111,16 @@ export async function getServerSideProps(context) {
   const [activeSlug] = params?.slug ?? ["lists"];
   const activePageTitle = accountPages[activeSlug]?.label ?? "Account";
   const title = `${activePageTitle}${userName ? ` | ${userName}` : ""}`;
-  const results = await lists();
+  const results = await lists(session, { pageSize: 5 });
   const searches = await getSavedSearches({ pageSize: 3 }, session);
 
   return {
     props: {
       activeSlug,
       searches,
-      foundLists: results?.results ?? null,
+      foundLists: results,
       title,
+      session,
     },
   };
 }

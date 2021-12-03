@@ -1,26 +1,29 @@
-import { Typography } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 
 import useStyles from "./useStyles";
 
 import Account from "@/twoopstracker/components/Account";
+import ListModal from "@/twoopstracker/components/ListModal";
 import Section from "@/twoopstracker/components/Section";
-import { updateList } from "@/twoopstracker/lib";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-const AccountList = ({
-  data: { name, accounts, is_private: privacy, id },
+const AccountsList = ({
+  data: { name, accounts, is_private: isPrivate, id },
   ...props
 }) => {
   const classes = useStyles(props);
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [listAccounts, setListAccounts] = useState(accounts);
+  const [newAccounts, setNewAccounts] = useState("");
 
-  const { mutate } = useSWRConfig();
-
-  const fetcher = (url) => fetch(url).then((results) => results.json());
-  const { data } = useSWR(`/api/lists/${id}`, fetcher);
+  const fetcher = (url) => fetchJson(url);
+  const { data, mutate } = useSWR(`/api/lists/${id}`, fetcher);
 
   useEffect(() => {
     if (data) {
@@ -28,38 +31,87 @@ const AccountList = ({
     }
   }, [data]);
 
-  const onDelete = async (account) => {
-    const newAccounts = listAccounts.filter(
+  const handleDelete = async (account) => {
+    const filteredAccounts = listAccounts.filter(
       (acc) => acc.screen_name !== account
     );
 
     const payload = {
       name,
-      accounts: newAccounts,
+      accounts: filteredAccounts,
       owner: 1,
-      is_private: privacy,
+      is_private: isPrivate,
     };
 
-    await updateList("/api/lists", payload, id);
-    mutate(`/api/lists/${id}`, { ...data });
+    await fetchJson(`/api/lists/${id}`, null, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    });
+
+    mutate({ ...data });
+  };
+
+  const handleChange = (event) => {
+    if (event.target.name === "accounts") {
+      setNewAccounts(event.target.value);
+    }
+  };
+
+  const handleCreate = async () => {
+    const accountsMap = newAccounts
+      .split(",")
+      .map((item) => ({ screen_name: item }));
+
+    const payload = {
+      name,
+      is_private: isPrivate,
+      accounts: [...accountsMap, ...accounts],
+    };
+
+    try {
+      await fetchJson(`/api/lists/${id}`, null, {
+        method: "PUT",
+        body: JSON.stringify(payload),
+      });
+
+      mutate({ ...data });
+      setOpen(false);
+      setNewAccounts("");
+    } catch (e) {
+      setOpen(true);
+    }
   };
 
   return (
     <Section className={classes.root}>
-      {name && <Typography className={classes.listName}>{name}</Typography>}
+      <div className={classes.section}>
+        {name && <Typography className={classes.listName}>{name}</Typography>}
+        <Button onClick={handleOpen} className={classes.button}>
+          Add Account
+        </Button>
+      </div>
+      <ListModal
+        open={open}
+        onClose={handleClose}
+        accountsLabel="User Accounts"
+        accountsOnChange={handleChange}
+        accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
+        buttonLabel="Add"
+        buttonOnClick={handleCreate}
+      />
       {listAccounts?.map((account) => (
         <Account
           key={account.screen_name}
           account={account}
           items={listAccounts.length}
-          onDelete={onDelete}
+          onDelete={handleDelete}
         />
       ))}
     </Section>
   );
 };
 
-AccountList.propTypes = {
+AccountsList.propTypes = {
   data: PropTypes.shape({
     accounts: PropTypes.arrayOf(PropTypes.shape({})),
     name: PropTypes.string,
@@ -68,8 +120,8 @@ AccountList.propTypes = {
   }),
 };
 
-AccountList.defaultProps = {
+AccountsList.defaultProps = {
   data: undefined,
 };
 
-export default AccountList;
+export default AccountsList;

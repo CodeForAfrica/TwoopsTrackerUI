@@ -1077,7 +1077,13 @@ export const upload = {
   uploadLabel: "Select a File",
 };
 
-export const searchPgination = {
+export const searchPagination = {
+  pageSizeDefaultValue: "3",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+};
+
+export const listPagination = {
   pageSizeDefaultValue: "3",
   pageSizeLabel: "Results on Page",
   pageSizeOptions: [{ value: "10" }, { value: "20" }],
