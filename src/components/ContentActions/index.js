@@ -39,7 +39,6 @@ function ContentActions({ apiUri, queryParams, ...props }) {
       .then((data) => {
         const a = document.createElement("a");
         if (window.URL.createObjectURL) {
-          // Everything else new.
           const blobObject = new Blob([data], { type: "text/csv" });
           a.href = window.URL.createObjectURL(blobObject);
         } else {
