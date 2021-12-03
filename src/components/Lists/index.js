@@ -114,9 +114,12 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
           buttonOnClick={onCreate}
         />
       </div>
-      <ContentActions classes={{ section: classes.actions }} />
       {lists?.length ? (
         <>
+          <ContentActions
+            apiUri="/api/tweets"
+            classes={{ section: classes.actions }}
+          />
           <Grid container>
             {lists?.map((item) => (
               <Grid item xs={12}>

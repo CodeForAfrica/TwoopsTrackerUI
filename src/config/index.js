@@ -44,6 +44,12 @@ export function shareData(title) {
   ];
 }
 
+export const contentActionsProps = {
+  download: {
+    label: "Download:",
+    fileTypes: ["CSV", "Excel"],
+  },
+};
 export const tweetsCount = [
   {
     date: "2021-10-08",

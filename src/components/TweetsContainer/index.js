@@ -175,7 +175,12 @@ function TweetsContainer({
       />
       {isLoading && <Loading />}
       <Chart {...props} data={insights} classes={{ root: classes.chartRoot }} />
-      <ContentActions />
+      {tweets?.results?.length > 0 && (
+        <ContentActions
+          apiUri="/api/tweets"
+          queryParams={{ query, theme, location, days }}
+        />
+      )}
       <Tweets tweets={tweets} />
       <Pagination
         {...paginationProps}
@@ -200,6 +205,7 @@ TweetsContainer.propTypes = {
   theme: PropTypes.number,
   tweets: PropTypes.shape({
     count: PropTypes.number,
+    results: PropTypes.arrayOf(PropTypes.shape({})),
   }),
 };
 

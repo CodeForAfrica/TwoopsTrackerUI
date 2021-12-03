@@ -5,6 +5,7 @@ import React from "react";
 
 import Section from "@/twoopstracker/components/Section";
 import { contentActionsProps } from "@/twoopstracker/config";
+import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 const useStyles = makeStyles(({ palette, typography }) => ({
   root: {},
@@ -23,11 +24,27 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   },
 }));
 
-function ContentActions({ searches: searchesProp, paginationProps, ...props }) {
+function ContentActions({ apiUri, queryParams, ...props }) {
   const classes = useStyles(props);
   const { download } = contentActionsProps;
 
-  const onClickDownload = () => {};
+  const onClickDownload = async (e, t) => {
+    e.preventDefault();
+
+    const fileType = t.toLowerCase();
+    const fileExtension = fileType === "csv" ? "csv" : "xlsx";
+    const queryString = getQueryString({ ...queryParams, download: fileType });
+    fetch(`${apiUri}?${queryString}`)
+      .then((res) => {
+        return res.blob();
+      })
+      .then((data) => {
+        const a = document.createElement("a");
+        a.href = window.URL.createObjectURL(data);
+        a.download = `download.${fileExtension}`;
+        a.click();
+      });
+  };
 
   return (
     <div className={classes.root}>
@@ -41,7 +58,7 @@ function ContentActions({ searches: searchesProp, paginationProps, ...props }) {
               <Button
                 className={classes.button}
                 variant="text"
-                onClick={onClickDownload}
+                onClick={(e) => onClickDownload(e, type)}
               >
                 {type}
               </Button>
@@ -54,20 +71,13 @@ function ContentActions({ searches: searchesProp, paginationProps, ...props }) {
 }
 
 ContentActions.propTypes = {
-  paginationProps: PropTypes.shape({}),
-  searches: PropTypes.shape({
-    count: PropTypes.number,
-    results: PropTypes.arrayOf(
-      PropTypes.shape({
-        created_at: PropTypes.string,
-      })
-    ),
-  }),
+  apiUri: PropTypes.string,
+  queryParams: PropTypes.shape({}),
 };
 
 ContentActions.defaultProps = {
-  paginationProps: undefined,
-  searches: undefined,
+  apiUri: undefined,
+  queryParams: undefined,
 };
 
 export default ContentActions;

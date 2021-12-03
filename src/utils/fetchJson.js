@@ -9,8 +9,10 @@ async function fetchJson(url, session, options) {
   }
 
   const res = await fetch(url, fetchOptions);
-
-  if (fetchOptions?.method === "DELETE") {
+  if (url.includes("download")) {
+    return res;
+  }
+  if (res.status === 204) {
     return res;
   }
   return res.json();
