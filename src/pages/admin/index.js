@@ -4,7 +4,7 @@ import Script from "next/script";
 import PropTypes from "prop-types";
 import React from "react";
 
-import content from "content/admin.md";
+import content from "content/pages/admin.md";
 
 function AdminPage(props) {
   return (

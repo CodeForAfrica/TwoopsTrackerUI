@@ -5,7 +5,7 @@ import Content from "@/twoopstracker/components/Content";
 import Hero from "@/twoopstracker/components/Hero";
 import Page from "@/twoopstracker/components/Page";
 import * as md from "@/twoopstracker/lib/md";
-import content from "content/about.md";
+import content from "content/pages/about.md";
 
 function About({ partners, ...props }) {
   const { description, title } = props;
