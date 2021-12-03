@@ -182,14 +182,16 @@ function TweetsContainer({
         />
       )}
       <Tweets tweets={tweets} />
-      <Pagination
-        {...paginationProps}
-        count={Math.ceil(tweets?.count / (pageSize || 20))}
-        onChangePage={handleClickPage}
-        onChangePageSize={handleClickPageSize}
-        page={page}
-        pageSize={pageSize}
-      />
+      {tweets?.results?.length > 0 && (
+        <Pagination
+          {...paginationProps}
+          count={Math.ceil(tweets?.count / (pageSize || 20))}
+          onChangePage={handleClickPage}
+          onChangePageSize={handleClickPageSize}
+          page={page}
+          pageSize={pageSize}
+        />
+      )}
     </>
   );
 }

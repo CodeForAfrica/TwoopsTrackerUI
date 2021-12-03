@@ -35,12 +35,18 @@ function ContentActions({ apiUri, queryParams, ...props }) {
     const fileExtension = fileType === "csv" ? "csv" : "xlsx";
     const queryString = getQueryString({ ...queryParams, download: fileType });
     fetch(`${apiUri}?${queryString}`)
-      .then((res) => {
-        return res.blob();
-      })
+      .then((res) => res.text())
       .then((data) => {
         const a = document.createElement("a");
-        a.href = window.URL.createObjectURL(data);
+        if (window.URL.createObjectURL) {
+          // Everything else new.
+          const blobObject = new Blob([data], { type: "text/csv" });
+          a.href = window.URL.createObjectURL(blobObject);
+        } else {
+          // Fallback for older browsers (limited to 2MB on post-2010 Chrome).
+          // Load up the data into the URI for "download."
+          a.href = `data:text/csv;charset=utf-8,${encodeURIComponent(data)}`;
+        }
         a.download = `download.${fileExtension}`;
         a.click();
       });

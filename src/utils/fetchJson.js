@@ -1,4 +1,4 @@
-async function fetchJson(url, session, options) {
+async function fetchJson(url, session, options = {}) {
   let fetchOptions = options;
   if (session?.accessToken) {
     fetchOptions = { ...options };
@@ -7,13 +7,12 @@ async function fetchJson(url, session, options) {
       Authorization: `Bearer ${session.accessToken}`,
     };
   }
-
   const res = await fetch(url, fetchOptions);
-  if (url.includes("download")) {
-    return res;
-  }
   if (res.status === 204) {
     return res;
+  }
+  if (url.includes("download")) {
+    return res.text();
   }
   return res.json();
 }
