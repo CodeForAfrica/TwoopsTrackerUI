@@ -117,8 +117,9 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
       {lists?.length ? (
         <>
           <ContentActions
-            apiUri="/api/tweets"
+            apiUri="/api/lists"
             classes={{ section: classes.actions }}
+            type="lists"
           />
           <Grid container>
             {lists?.map((item) => (

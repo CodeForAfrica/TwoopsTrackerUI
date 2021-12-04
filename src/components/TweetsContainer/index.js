@@ -179,6 +179,7 @@ function TweetsContainer({
         <ContentActions
           apiUri="/api/tweets"
           queryParams={{ query, theme, location, days }}
+          type="tweets"
         />
       )}
       <Tweets tweets={tweets} />

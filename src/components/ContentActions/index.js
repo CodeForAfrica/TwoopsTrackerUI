@@ -2,6 +2,7 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React from "react";
+import XLSX from "xlsx";
 
 import Section from "@/twoopstracker/components/Section";
 import { contentActionsProps } from "@/twoopstracker/config";
@@ -24,7 +25,7 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   },
 }));
 
-function ContentActions({ apiUri, queryParams, ...props }) {
+function ContentActions({ apiUri, queryParams, type, ...props }) {
   const classes = useStyles(props);
   const { download } = contentActionsProps;
 
@@ -32,23 +33,31 @@ function ContentActions({ apiUri, queryParams, ...props }) {
     e.preventDefault();
 
     const fileType = t.toLowerCase();
-    const fileExtension = fileType === "csv" ? "csv" : "xlsx";
+    const fileName = fileType === "csv" ? `${type}.csv` : `${type}.xlsx`;
     const queryString = getQueryString({ ...queryParams, download: fileType });
-    fetch(`${apiUri}?${queryString}`)
-      .then((res) => res.text())
-      .then((data) => {
-        const a = document.createElement("a");
-        if (window.URL.createObjectURL) {
-          const blobObject = new Blob([data], { type: "text/csv" });
-          a.href = window.URL.createObjectURL(blobObject);
-        } else {
-          // Fallback for older browsers (limited to 2MB on post-2010 Chrome).
-          // Load up the data into the URI for "download."
-          a.href = `data:text/csv;charset=utf-8,${encodeURIComponent(data)}`;
-        }
-        a.download = `download.${fileExtension}`;
-        a.click();
-      });
+    const res = await fetch(`${apiUri}?${queryString}`);
+    const data = await res.text();
+
+    if (fileType === "csv") {
+      const a = document.createElement("a");
+      if (window.URL.createObjectURL) {
+        const blobObject = new Blob([data], { type: "text/csv" });
+        a.href = window.URL.createObjectURL(blobObject);
+      } else {
+        // Fallback for older browsers (limited to 2MB on post-2010 Chrome).
+        // Load up the data into the URI for "download."
+        a.href = `data:text/csv;charset=utf-8,${encodeURIComponent(data)}`;
+      }
+      a.download = fileName;
+      a.click();
+    } else {
+      const table = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new(); // make Workbook of Excel
+      // add Worksheet to Workbook
+      XLSX.utils.book_append_sheet(wb, table, type);
+      // export Excel file
+      XLSX.writeFile(wb, fileName);
+    }
   };
 
   return (
@@ -59,13 +68,13 @@ function ContentActions({ apiUri, queryParams, ...props }) {
             <Typography className={classes.label} variant="body2">
               {download.label}
             </Typography>
-            {download.fileTypes?.map((type) => (
+            {download.fileTypes?.map((t) => (
               <Button
                 className={classes.button}
                 variant="text"
-                onClick={(e) => onClickDownload(e, type)}
+                onClick={(e) => onClickDownload(e, t)}
               >
-                {type}
+                {t}
               </Button>
             ))}
           </Grid>
@@ -78,11 +87,13 @@ function ContentActions({ apiUri, queryParams, ...props }) {
 ContentActions.propTypes = {
   apiUri: PropTypes.string,
   queryParams: PropTypes.shape({}),
+  type: PropTypes.string,
 };
 
 ContentActions.defaultProps = {
   apiUri: undefined,
   queryParams: undefined,
+  type: undefined,
 };
 
 export default ContentActions;
