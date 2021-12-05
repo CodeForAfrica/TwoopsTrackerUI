@@ -5,6 +5,7 @@ import Content from "@/twoopstracker/components/Content";
 import Hero from "@/twoopstracker/components/Hero";
 import Page from "@/twoopstracker/components/Page";
 import * as md from "@/twoopstracker/lib/md";
+import { settings } from "@/twoopstracker/lib/settings";
 import content from "content/pages/about.md";
 
 function About({ partners, ...props }) {
@@ -41,9 +42,11 @@ export async function getStaticProps() {
         ...others,
       }))
       ?.map((partner) => md.renderObjectValuesInline(partner)) ?? null;
+  const siteSettings = settings();
 
   return {
     props: {
+      ...siteSettings,
       ...attributes,
     },
     revalidate: 15 * 60, // 15 minutes
