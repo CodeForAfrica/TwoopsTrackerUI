@@ -48,6 +48,43 @@ collections:
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Description", name: "description", widget: "text" }
           - { label: "Publish Date", name: "date", widget: "datetime" }
+      - label: "Lexicons"
+        name: "lexicons"
+        file: "content/pages/lexicons.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string", required: true }
+          - { label: "Description", name: "description", widget: "text" }
+          - {
+              label: "Publish Date",
+              name: "date",
+              widget: "datetime",
+              required: true,
+            }
+          - label: "Resources"
+            name: "resouces"
+            widget: "list"
+            collapsed: true
+            minimize_collapsed: true
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - {
+                  label: "Thumbnail",
+                  name: "thumbnail",
+                  widget: "image",
+                  choose_url: true,
+                }
+              - {
+                  label: "Description",
+                  name: "description",
+                  widget: "markdown",
+                }
+              - {
+                  label: "Call to Action",
+                  name: "cta",
+                  widget: "string",
+                  default: "Visit website",
+                }
   - name: "settings"
     label: "Settings"
     files:
