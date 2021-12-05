@@ -19,7 +19,7 @@ function Content({ items, size, ctaLabel, ...props }) {
   return (
     <Section>
       <Grid container justifyContent="space-between" className={classes.root}>
-        {items.map(({ title, description, image, href }) => (
+        {items.map(({ cta, description, href, image, title }) => (
           <Grid
             className={classes.row}
             container
@@ -53,19 +53,28 @@ function Content({ items, size, ctaLabel, ...props }) {
               xs={12}
               md={size === "large" ? 6 : 9}
             >
+              {title && (
+                <Typography variant="h4" className={classes.title}>
+                  <Link href={href} className={classes.link}>
+                    {title}
+                  </Link>
+                </Typography>
+              )}
               {description && (
-                <RichTypography className={classes.description} variant="body1">
+                <RichTypography variant="body1" className={classes.description}>
                   {description}
                 </RichTypography>
               )}
               {size === "large" && (
-                <Link
-                  underline="always"
-                  className={classes.viewWebsite}
-                  href={href}
-                >
-                  <Typography>{ctaLabel}</Typography>
-                </Link>
+                <Typography>
+                  <Link
+                    href={href}
+                    underline="always"
+                    className={classes.viewWebsite}
+                  >
+                    {cta || ctaLabel}
+                  </Link>
+                </Typography>
               )}
             </Grid>
           </Grid>
@@ -80,9 +89,11 @@ Content.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({})),
   size: PropTypes.string,
 };
+
 Content.defaultProps = {
   items: undefined,
   size: undefined,
   ctaLabel: undefined,
 };
+
 export default Content;
