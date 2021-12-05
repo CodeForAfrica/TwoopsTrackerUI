@@ -35,8 +35,7 @@ export async function getStaticProps() {
   const { attributes } = content;
   attributes.partners =
     attributes.partners
-      ?.map(({ logo, name, url, ...others }) => ({
-        title: name,
+      ?.map(({ logo, url, ...others }) => ({
         image: logo,
         href: url,
         ...others,
