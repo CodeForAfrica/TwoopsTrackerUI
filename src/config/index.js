@@ -1,8 +1,6 @@
 import userAvator from "@/twoopstracker/assets/icons/avator.svg";
 import login from "@/twoopstracker/assets/icons/login.svg";
 import signup from "@/twoopstracker/assets/icons/signup.svg";
-import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
-import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
@@ -726,79 +724,6 @@ export const navigationArgs = {
   },
 };
 
-export const investigation = {
-  banner: {
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-    title: "Investigations",
-  },
-  items: [
-    {
-      image: featuredInvestigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-      description:
-        "Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Information about PDF: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-      title: "Investigation One",
-      href: "https://www.example.com",
-    },
-    {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
-    },
-    {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
-    },
-    {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
-    },
-    {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
-    },
-    {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
-    },
-    {
-      image: investigationImage,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu...",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus est ac #vestibulum eleifend. Suspendisse eget aliquam lorem nu... ",
-      title: "Investigation One",
-      href: "https://www.example.com",
-    },
-  ],
-};
-
 export const home = {
   hero: {
     searchLabel: "Search the Data",
@@ -828,7 +753,7 @@ export const home = {
     buttonText: "Read all reports here",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    items: investigation.items,
+    // items: investigation.items,
     title: "Investigations",
   },
 };
@@ -911,7 +836,6 @@ export const listPagination = {
 };
 
 const config = {
-  investigation,
   name: "TwoopsTracker",
   navigationArgs,
   searches,
