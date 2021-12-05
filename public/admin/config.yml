@@ -12,15 +12,10 @@ collections:
     files:
       - label: "About"
         name: "about"
-        file: "content/about.md"
+        file: "content/pages/about.md"
         fields:
           - { label: "Title", name: "title", widget: "string", required: true }
-          - {
-              label: "Description",
-              name: "description",
-              widget: "text",
-              required: true,
-            }
+          - { label: "Description", name: "description", widget: "text" }
           - {
               label: "Publish Date",
               name: "date",
@@ -45,22 +40,68 @@ collections:
                   label: "Description",
                   name: "description",
                   widget: "markdown",
-                  required: true,
                 }
       - label: "Admin"
         name: "admin"
-        file: "content/admin.md"
+        file: "content/pages/admin.md"
         fields:
-          - { label: "Title", name: "title", widget: "string", required: true }
-          - {
-              label: "Description",
-              name: "description",
-              widget: "text",
-              required: true,
-            }
-          - {
-              label: "Publish Date",
-              name: "date",
-              widget: "datetime",
-              required: true,
-            }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Publish Date", name: "date", widget: "datetime" }
+  - name: "settings"
+    label: "Settings"
+    files:
+      - label: "Footer"
+        name: "footer"
+        file: "content/settings/footer.md"
+        fields:
+          - label: "Project"
+            name: "project"
+            widget: "object"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - {
+                  label: "Logo",
+                  name: "logo",
+                  widget: "image",
+                  choose_url: true,
+                }
+              - {
+                  label: "Description",
+                  name: "description",
+                  widget: "markdown",
+                }
+          - label: "Stay in Touch"
+            name: "contacts"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - label: "Social Media"
+                name: "socialMedia"
+                widget: "list"
+                collapsed: true
+                minimize_collapsed: true
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
+                  - {
+                      label: "Logo",
+                      name: "logo",
+                      widget: "image",
+                      choose_url: true,
+                    }
+          - label: "Quick Links"
+            name: "quickLinks"
+            required: false
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - label: "Links"
+                name: "links"
+                widget: "list"
+                collapsed: true
+                minimize_collapsed: true
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
