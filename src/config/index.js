@@ -1,9 +1,6 @@
 import userAvator from "@/twoopstracker/assets/icons/avator.svg";
 import login from "@/twoopstracker/assets/icons/login.svg";
 import signup from "@/twoopstracker/assets/icons/signup.svg";
-import hatebase from "@/twoopstracker/assets/images/hatebase.png";
-import mediacloud from "@/twoopstracker/assets/images/mediacloud.png";
-import pesaCheckLab from "@/twoopstracker/assets/images/pesachecklab.png";
 import featuredInvestigationImage from "@/twoopstracker/assets/images/Rectangle 34.png";
 import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
@@ -893,45 +890,6 @@ export const watchlists = {
       "Analysing how toxic actors and trolls hide their manipulation",
     title: "Track the trolls & sock-puppets poisoning our democracies",
   },
-};
-
-export const lexicons = {
-  banner: {
-    description:
-      "Use these free resources made available by Troll Tracker to aid in your anti-disinformation investigations.",
-    title: "Lexicons",
-  },
-  items: [
-    {
-      // image: ancir,
-      description:
-        "ANCIR’s iLAB uses open-source investigative techniques to study disinformation narratives to identify indicators of coordinated inauthentic behaviour and disinformation campaigns both from domestic and foreign actors.",
-      title: "ANCIR’s ILAB",
-      href: "https://investigate.africa/",
-    },
-    {
-      image: mediacloud,
-      description:
-        "CivicSignal’s MediaCloud is an open-source platform for media analysis. By tracking millions of stories published online, our suite of tools allows researchers to track how stories and ideas spread through media. Our tools are designed to aggregate, analyze, deliver and visualise information, answering complex quantitative and qualitative questions about the content of online media.",
-      title: "MediaCloud",
-      href: "https://civicsignal.africa/",
-    },
-    {
-      image: hatebase,
-      description:
-        "Hatebase is a service built to help organizations and online communities detect, monitor and analyze hate speech. The company’s algorithms analyze public conversations using a broad vocabulary based on nationality, ethnicity, religion, gender, sexual orientation, disability and class, with data across 95+ languages and 175+ countries.",
-      title: "Hatebase",
-      href: "https://hatebase.org/",
-    },
-    {
-      image: pesaCheckLab,
-      description:
-        "PeaceTech Lab’s series of hate speech Lexicons identify and explain inflammatory language on social media while offering alternative words and phrases that can be used to combat the spread of hate speech in conflict-affected countries. Our Lexicons serve as a pivotal resource for local peacebuilders, social media companies, and organizations working to stop and prevent hate speech worldwide.",
-      title: "PeaceTech Lab",
-      href: "https://pesacheck.org/",
-    },
-  ],
-  ctaLabel: "View Website",
 };
 
 export const pagination = {
