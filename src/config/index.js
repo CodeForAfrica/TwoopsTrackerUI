@@ -1,7 +1,6 @@
 import userAvator from "@/twoopstracker/assets/icons/avator.svg";
 import login from "@/twoopstracker/assets/icons/login.svg";
 import signup from "@/twoopstracker/assets/icons/signup.svg";
-import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
 export const shareData = (title) => {
@@ -721,40 +720,6 @@ export const navigationArgs = {
         label: "My Account",
       },
     ],
-  },
-};
-
-export const home = {
-  hero: {
-    searchLabel: "Search the Data",
-    signUpLink: "/login",
-    description: "Let’s keep disinformation agents accountable.",
-    signUpLabel: "Sign Up",
-    searchLink: "/explore",
-    title: "Track disinformation actors and trolls!",
-    withCTA: true,
-  },
-  partners: {
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    // images: [codeForAll, codeForAll],
-    title: "Partners & About Us",
-  },
-  signUp: {
-    buttonLink: "/signup",
-    buttonText: "Sign up",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ",
-    image: trollImage,
-    title: "Get more data today!",
-  },
-  investigation: {
-    buttonLink: "/investigations",
-    buttonText: "Read all reports here",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    // items: investigation.items,
-    title: "Investigations",
   },
 };
 
