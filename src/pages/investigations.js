@@ -4,51 +4,36 @@ import React from "react";
 import Hero from "@/twoopstracker/components/Hero";
 import InvestigationList from "@/twoopstracker/components/InvestigationList";
 import Page from "@/twoopstracker/components/Page";
-import * as md from "@/twoopstracker/lib/md";
-import { settings } from "@/twoopstracker/lib/settings";
-import content from "content/pages/investigations.md";
+import { investigations, settings } from "@/twoopstracker/lib/cms";
 
-export default function Investigations({ investigations, ...props }) {
+export default function Investigations({ reports, ...props }) {
   const { description, title } = props;
 
   return (
     <Page {...props}>
       <Hero description={description} title={title} withCTA={false} />
-      <InvestigationList items={investigations} />
+      <InvestigationList items={reports} />
     </Page>
   );
 }
 
 Investigations.propTypes = {
   description: PropTypes.string,
-  investigations: PropTypes.arrayOf(PropTypes.shape({})),
+  reports: PropTypes.arrayOf(PropTypes.shape({})),
   title: PropTypes.string,
 };
 
 Investigations.defaultProps = {
   description: undefined,
-  investigations: undefined,
+  reports: undefined,
   title: undefined,
 };
 
 export async function getStaticProps() {
-  const { attributes } = content;
-  attributes.investigations =
-    attributes.investigations
-      ?.map(({ cta, name, thumbnail, url, ...others }) => ({
-        ctaText: cta,
-        image: thumbnail,
-        href: url,
-        title: name,
-        ...others,
-      }))
-      ?.map((i) => md.renderObjectValuesInline(i)) ?? null;
-  const siteSettings = settings();
-
   return {
     props: {
-      ...siteSettings,
-      ...attributes,
+      ...settings(),
+      ...investigations(),
     },
     revalidate: 15 * 60, // 15 minutes
   };
