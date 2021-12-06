@@ -109,6 +109,18 @@ export const pagination = {
   pageSizeLabel: "Results on Page",
   pageSizeOptions: [{ value: "20" }, { value: "50" }],
 };
+export const upload = {
+  conjuctionLabel: "or",
+  downloadCopy: "Download the template",
+  errorLabel: "Something happened, please check the document and try again",
+  failedLabel: "Failed",
+  successLabel: "Upload successful",
+  loadingLabel: "Uploading...",
+  templateLink: "/template.csv",
+  templateName: "template.csv",
+  dragLabel: "Drag and drop your CSV files here",
+  uploadLabel: "Select a File",
+};
 
 export const searchPagination = {
   pageSizeDefaultValue: "3",
