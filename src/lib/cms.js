@@ -3,7 +3,9 @@ import * as md from "./md";
 import aboutContent from "@/cms/pages/about.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
+import lexiconsContent from "@/cms/pages/lexicons.md";
 import footerContent from "@/cms/settings/footer.md";
+import navigationContent from "@/cms/settings/navigation.md";
 
 export function about() {
   const { attributes } = aboutContent;
@@ -65,7 +67,21 @@ export function home() {
       attributes.investigations.cta || null;
     attributes.investigations.cta = null;
   }
-  console.log("BOOM", { attributes: JSON.stringify(attributes, undefined, 2) });
+
+  return attributes;
+}
+
+export function lexicons() {
+  const { attributes } = lexiconsContent;
+  attributes.resouces =
+    attributes.resouces
+      ?.map(({ thumbnail, name, url, ...others }) => ({
+        title: name,
+        image: thumbnail,
+        href: url,
+        ...others,
+      }))
+      ?.map((resource) => md.renderObjectValuesInline(resource)) ?? null;
 
   return attributes;
 }
@@ -102,8 +118,15 @@ export function footer() {
   return attributes;
 }
 
+export function navigation() {
+  const { attributes } = navigationContent;
+
+  return attributes;
+}
+
 export function settings() {
   return {
     footer: footer(),
+    navigation: navigation(),
   };
 }
