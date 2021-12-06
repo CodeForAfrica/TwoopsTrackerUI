@@ -2,8 +2,6 @@ import React from "react";
 
 import InvestigationsCard from ".";
 
-import cardImage from "@/twoopstracker/assets/images/Rectangle 34.png";
-
 export default {
   title: "Components/InvestigationsCard",
   argTypes: {
@@ -51,6 +49,6 @@ Default.args = {
     "Lorem ipsum dolor sit amet consectetur adipiscing elit, magnis mus etiam nam lectus lobortis varius ultrices, donec dapibus dui felis est penatibus.",
   href: "/?path=/story/components-featured-story-card--default",
   ctaText: "Read More",
-  image: cardImage,
+  image: "/images/image-4-s.jpg",
   variant: "news",
 };
