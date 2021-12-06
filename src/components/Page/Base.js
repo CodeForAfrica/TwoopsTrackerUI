@@ -9,10 +9,10 @@ import { navigationArgs } from "@/twoopstracker/config";
 /**
  * Base page that can be used to build all other pages.
  */
-function BasePage({ children, footer, ...props }) {
+function BasePage({ children, footer, navigation, ...props }) {
   return (
     <div>
-      <Navigation {...navigationArgs} {...navigationArgs.userProfileArgs} />
+      <Navigation {...navigation} {...navigationArgs.userProfileArgs} />
       <NextSeo {...props} />
       {children}
       <Footer {...footer} />
@@ -26,11 +26,13 @@ BasePage.propTypes = {
     PropTypes.node,
   ]),
   footer: PropTypes.shape({}),
+  navigation: PropTypes.shape({}),
 };
 
 BasePage.defaultProps = {
   children: undefined,
   footer: undefined,
+  navigation: undefined,
 };
 
 export default BasePage;
