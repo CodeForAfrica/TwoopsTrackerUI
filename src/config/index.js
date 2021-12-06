@@ -1,7 +1,4 @@
 import userAvator from "@/twoopstracker/assets/icons/avator.svg";
-import login from "@/twoopstracker/assets/icons/login.svg";
-import signup from "@/twoopstracker/assets/icons/signup.svg";
-import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
 export const shareData = (title) => {
   return [
@@ -632,69 +629,6 @@ export const tweets = [
 ];
 
 export const navigationArgs = {
-  menuProps: [
-    {
-      href: "/explore",
-      label: "Watchlists",
-    },
-    {
-      href: "/lexicons",
-      label: "Lexicons",
-    },
-    {
-      href: "/investigations",
-      label: "Investigations",
-    },
-    {
-      href: "/about",
-      label: "About",
-    },
-  ],
-  loginMenuProps: [
-    {
-      label: "Sign up",
-      href: "/login",
-      imageProps: {
-        width: 24,
-        height: 24,
-        alt: "desktop logo",
-        href: "/login",
-        src: signup,
-      },
-    },
-    {
-      label: "Log In",
-      href: "/login",
-      imageProps: {
-        width: 24,
-        height: 24,
-        alt: "desktop logo",
-        href: "/login",
-        src: login,
-      },
-    },
-  ],
-  desktopLogoProps: {
-    width: 237,
-    height: 55,
-    alt: "desktop logo",
-    href: "https://codeforafrica.org",
-    src: navLogo,
-  },
-  mobileLogoProps: {
-    width: 254,
-    height: 40,
-    alt: "mobile logo",
-    href: "/",
-    src: navLogo,
-  },
-  drawerLogoProps: {
-    width: 254,
-    height: 40,
-    alt: "drawer logo",
-    href: "/",
-    src: navLogo,
-  },
   userProfileArgs: {
     label: "Account Name",
     logOutLabel: "Log Out",
