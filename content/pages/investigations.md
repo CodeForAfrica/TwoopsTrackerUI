@@ -3,7 +3,7 @@ title: Investigations
 description: View DFRLab, iLab and PesaCheck’s hard-hitting exposés of toxic
   disinformation campaigns and timely debunks of false information.
 date: 2021-12-05T18:05:59.331Z
-investigations:
+reports:
   - cta: View PDF
     name: Covid-19 Lockdown Relief Package Scam
     url: /investigations
@@ -15,11 +15,11 @@ investigations:
     url: /investigations
     description: How the Ethiopian diaspora community spearheaded the Hashtag
       Activism after the assassination...
-    thumbnail: /images/image-4-s.jpg
+    thumbnail: /images/ethiopia-hacktivism.jpg
   - cta: View PDF
     name: Kenya’s Keyboard Warriors
     url: /investigations
-    thumbnail: /images/image-4-s.jpg
+    thumbnail: /images/kenya-keyboard-warrior.jpg
     description: How opposing online groups coordinated to amplify political
       narratives against each other on social media.
   - cta: View PDF
@@ -27,11 +27,11 @@ investigations:
     description: "Operation KOT: User network uses coordinated amplification of
       anti-Ruto hashtags on Twitter, in a likely..."
     url: /investigations
-    thumbnail: /images/image-4-s.jpg
+    thumbnail: /images/online-political-trolls.jpg
   - cta: View PDF
     name: Uganda In Crisis
     url: /investigations
-    thumbnail: /images/image-4-s.jpg
+    thumbnail: /images/uganda-in-crisis.jpg
     description:
       In the lead-up to the East African nation’s January 2021 elections,
       pro-government trolls wielded tweets as a weapon...
