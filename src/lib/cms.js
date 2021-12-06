@@ -111,8 +111,8 @@ export function footer() {
       ...others,
       links: links.map(({ name, url, ...more }) => ({
         ...more,
-        label: name,
-        href: url,
+        label: name || null,
+        href: url || null,
       })),
     })) ?? null;
   return attributes;
