@@ -94,7 +94,6 @@ const options = {
         };
       }
       // Return previous token if the access token has not expired yet
-
       if (
         !token?.error &&
         Date.now() < jwtDecode(token?.accessToken).exp * 1000
