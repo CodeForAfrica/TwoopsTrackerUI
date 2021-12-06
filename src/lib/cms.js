@@ -104,7 +104,7 @@ export function footer() {
     attributes.contacts.socialMedia?.map(({ name, logo, ...others }) => ({
       ...others,
       name,
-      image: { url: logo, alt: name },
+      image: { url: logo || null, alt: name || null },
     })) ?? null;
   attributes.quickLinks =
     attributes.quickLinks?.map(({ links, ...others }) => ({
