@@ -4,9 +4,7 @@ import React from "react";
 import Content from "@/twoopstracker/components/Content";
 import Hero from "@/twoopstracker/components/Hero";
 import Page from "@/twoopstracker/components/Page";
-import * as md from "@/twoopstracker/lib/md";
-import { settings } from "@/twoopstracker/lib/settings";
-import content from "content/pages/lexicons.md";
+import { lexicons, settings } from "@/twoopstracker/lib/cms";
 
 function Lexicons({ resouces, ...props }) {
   const { description, title } = props;
@@ -32,22 +30,10 @@ Lexicons.defaultProps = {
 };
 
 export async function getStaticProps() {
-  const { attributes } = content;
-  attributes.resouces =
-    attributes.resouces
-      ?.map(({ thumbnail, name, url, ...others }) => ({
-        title: name,
-        image: thumbnail,
-        href: url,
-        ...others,
-      }))
-      ?.map((resource) => md.renderObjectValuesInline(resource)) ?? null;
-  const siteSettings = settings();
-
   return {
     props: {
-      ...siteSettings,
-      ...attributes,
+      ...settings(),
+      ...lexicons(),
     },
     revalidate: 15 * 60, // 15 minutes
   };
