@@ -11,6 +11,7 @@ import UserAccount from "@/twoopstracker/components/UserAccount";
 import UserSearch from "@/twoopstracker/components/UserSearch";
 import { searchPagination, listPagination } from "@/twoopstracker/config";
 import { lists, getSavedSearches } from "@/twoopstracker/lib";
+import { settings } from "@/twoopstracker/lib/cms";
 
 const useStyles = makeStyles(({ typography }) => ({
   section: {
@@ -108,6 +109,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      ...settings(),
       activeSlug,
       searches,
       foundLists: results,
