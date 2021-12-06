@@ -146,10 +146,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function MobileNavigation({
-  menuProps,
-  mobileLogoProps,
-  drawerLogoProps,
-  loginMenuProps,
+  logo,
+  main,
+  login,
   profilePages,
   accountLink,
   logOutLabel,
@@ -177,7 +176,7 @@ function MobileNavigation({
               component={Link}
               className={classes.logoButton}
             >
-              <Image {...mobileLogoProps} />
+              <Image height={40} width={254} {...logo} />
             </LogoButton>
           </Grid>
           <Grid item>
@@ -222,7 +221,7 @@ function MobileNavigation({
                       component={Link}
                       className={classes.logoButton}
                     >
-                      <Image {...drawerLogoProps} />
+                      <Image height={40} width={254} {...logo} />
                     </LogoButton>
                   </Grid>
                   <Grid item>
@@ -242,17 +241,17 @@ function MobileNavigation({
             <DialogContent className={classes.dialogContent}>
               <Section className={classes.section}>
                 <Menu
-                  links={menuProps}
+                  main={main}
+                  login={login}
+                  profilePages={profilePages}
+                  accountLink={accountLink}
+                  logOutLabel={logOutLabel}
                   classes={{
                     root: classes.mainMenu,
                     menuLinks: classes.menuLinks,
                     label: classes.label,
                     menu: classes.buttonMenu,
                   }}
-                  loginMenuProps={loginMenuProps}
-                  profilePages={profilePages}
-                  accountLink={accountLink}
-                  logOutLabel={logOutLabel}
                 />
               </Section>
             </DialogContent>
@@ -265,32 +264,24 @@ function MobileNavigation({
 
 MobileNavigation.propTypes = {
   logOutLabel: PropTypes.arrayOf(PropTypes.shape({})),
-  menuProps: PropTypes.arrayOf(PropTypes.shape({})),
-  loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
   profilePages: PropTypes.arrayOf(PropTypes.shape({})),
   accountLink: PropTypes.arrayOf(PropTypes.shape({})),
-  mobileLogoProps: PropTypes.shape({
+  login: PropTypes.arrayOf(PropTypes.shape({})),
+  logo: PropTypes.shape({
     alt: PropTypes.string,
     href: PropTypes.string,
     src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
     width: PropTypes.number,
     height: PropTypes.number,
   }),
-  drawerLogoProps: PropTypes.shape({
-    alt: PropTypes.string,
-    href: PropTypes.string,
-    src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
-    width: PropTypes.number,
-    height: PropTypes.number,
-  }),
+  main: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 MobileNavigation.defaultProps = {
   logOutLabel: undefined,
-  drawerLogoProps: undefined,
-  menuProps: undefined,
-  loginMenuProps: undefined,
-  mobileLogoProps: undefined,
+  login: undefined,
+  logo: undefined,
+  main: undefined,
   profilePages: undefined,
   accountLink: undefined,
 };
