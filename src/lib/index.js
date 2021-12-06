@@ -2,7 +2,7 @@ import { subDays } from "date-fns";
 
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL;
 
 export async function lists(session, pageData) {
   const listParams = new URLSearchParams();
