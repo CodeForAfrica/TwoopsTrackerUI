@@ -4,9 +4,7 @@ import React from "react";
 import Content from "@/twoopstracker/components/Content";
 import Hero from "@/twoopstracker/components/Hero";
 import Page from "@/twoopstracker/components/Page";
-import * as md from "@/twoopstracker/lib/md";
-import { settings } from "@/twoopstracker/lib/settings";
-import content from "content/pages/about.md";
+import { about, settings } from "@/twoopstracker/lib/cms";
 
 function About({ partners, ...props }) {
   const { description, title } = props;
@@ -32,21 +30,10 @@ About.defaultProps = {
 };
 
 export async function getStaticProps() {
-  const { attributes } = content;
-  attributes.partners =
-    attributes.partners
-      ?.map(({ logo, url, ...others }) => ({
-        image: logo,
-        href: url,
-        ...others,
-      }))
-      ?.map((partner) => md.renderObjectValuesInline(partner)) ?? null;
-  const siteSettings = settings();
-
   return {
     props: {
-      ...siteSettings,
-      ...attributes,
+      ...settings(),
+      ...about(),
     },
     revalidate: 15 * 60, // 15 minutes
   };
