@@ -1069,6 +1069,7 @@ export const upload = {
   conjuctionLabel: "or",
   downloadCopy: "Download the template",
   errorLabel: "Something happened, please check the document and try again",
+  failedLabel: "Failed",
   successLabel: "Upload successful",
   loadingLabel: "Uploading...",
   templateLink: "/template.csv",

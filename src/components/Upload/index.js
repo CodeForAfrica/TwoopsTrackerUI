@@ -65,6 +65,7 @@ function Upload({
   conjuctionLabel,
   downloadCopy,
   errorLabel,
+  failedLabel,
   loadingLabel,
   uploadLabel,
   templateLink,
@@ -116,13 +117,18 @@ function Upload({
         )}
         <>
           {messages?.lists_proccessed && (
-            <Progress
-              value={
-                (messages.lists_proccessed.success * 100) /
-                (messages.lists_proccessed?.success +
-                  messages.lists_proccessed?.failed)
-              }
-            />
+            <>
+              <Progress
+                value={
+                  (messages.lists_proccessed.success * 100) /
+                  (messages.lists_proccessed?.success +
+                    messages.lists_proccessed?.failed)
+                }
+              />
+              <Typography variant="caption" className={classes.error}>
+                {messages.lists_proccessed?.failed} {failedLabel}
+              </Typography>
+            </>
           )}
           {!loading && messages?.errors ? (
             messages.errors?.map(({ message }) => (
@@ -158,6 +164,7 @@ Upload.propTypes = {
   downloadCopy: PropTypes.string,
   dragLabel: PropTypes.string,
   errorLabel: PropTypes.string,
+  failedLabel: PropTypes.string,
   loadingLabel: PropTypes.string,
   templateLink: PropTypes.string,
   templateName: PropTypes.string,
@@ -169,6 +176,7 @@ Upload.defaultProps = {
   downloadCopy: undefined,
   dragLabel: undefined,
   errorLabel: undefined,
+  failedLabel: undefined,
   loadingLabel: undefined,
   templateLink: undefined,
   templateName: undefined,
