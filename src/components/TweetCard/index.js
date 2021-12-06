@@ -47,7 +47,9 @@ const TweetCard = ({
             {`@${handle}`}
           </RichTypography>
           <Typography className={classes.accountType}>{accountType}</Typography>
-          <Typography className={classes.list}>Add to List</Typography>
+          <Typography className={classes.list}>
+            <a href="/account/lists">Add to List</a>
+          </Typography>
         </Grid>
         <Grid item lg={5} sm={12}>
           {createdAt && (
