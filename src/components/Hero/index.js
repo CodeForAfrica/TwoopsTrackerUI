@@ -52,16 +52,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
   },
 }));
 
-function Hero({
-  title,
-  description,
-  searchLabel,
-  searchLink,
-  signUpLabel,
-  signUpLink,
-  withCTA,
-  ...props
-}) {
+function Hero({ ctas, description, title, withCTA, ...props }) {
   const classes = useStyles(props);
   const [session] = useSession();
 
@@ -76,24 +67,26 @@ function Hero({
         </RichTypography>
         {withCTA && (
           <div className={classes.buttonContainer}>
-            <Button
-              component={Link}
-              href={searchLink}
-              className={classes.button}
-              variant="contained"
-              color="primary"
-            >
-              {searchLabel}
-            </Button>
-            {!session ? (
+            {ctas.search ? (
               <Button
                 component={Link}
-                href={signUpLink}
+                href={ctas.search.href}
                 className={classes.button}
                 variant="contained"
                 color="primary"
               >
-                {signUpLabel}
+                {ctas.search.label}
+              </Button>
+            ) : null}
+            {!session && ctas.signUp ? (
+              <Button
+                component={Link}
+                href={ctas.signUp.href}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+              >
+                {ctas.signUp.label}
               </Button>
             ) : null}
           </div>
@@ -104,21 +97,24 @@ function Hero({
 }
 
 Hero.propTypes = {
+  ctas: PropTypes.shape({
+    search: PropTypes.shape({
+      href: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+    signUp: PropTypes.shape({
+      href: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  }),
   description: PropTypes.string,
-  searchLabel: PropTypes.string,
-  searchLink: PropTypes.string,
-  signUpLabel: PropTypes.string,
-  signUpLink: PropTypes.string,
   title: PropTypes.string,
   withCTA: PropTypes.string,
 };
 
 Hero.defaultProps = {
-  signUpLabel: undefined,
-  signUpLink: undefined,
+  ctas: undefined,
   description: undefined,
-  searchLabel: undefined,
-  searchLink: undefined,
   title: undefined,
   withCTA: true,
 };
