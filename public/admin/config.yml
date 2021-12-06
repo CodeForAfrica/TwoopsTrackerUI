@@ -251,3 +251,57 @@ collections:
                 fields:
                   - { label: "Name", name: "name", widget: "string" }
                   - { label: "URL", name: "url", widget: "string" }
+      - label: "Navigation"
+        name: "navigation"
+        file: "content/settings/navigation.md"
+        fields:
+          - label: "Logo"
+            name: "logo"
+            widget: "object"
+            fields:
+              - label: "Desktop"
+                name: "desktop"
+                widget: "object"
+                fields:
+                  - {
+                      label: "Image",
+                      name: "src",
+                      widget: "image",
+                      choose_url: true,
+                    }
+              - label: "Mobile"
+                name: "mobile"
+                widget: "object"
+                fields:
+                  - {
+                      label: "Image",
+                      name: "src",
+                      widget: "image",
+                      choose_url: true,
+                    }
+          - label: "Main Menu"
+            name: "main"
+            widget: "list"
+            collapsed: true
+            minimize_collapsed: true
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Link", name: "href", widget: "string" }
+          - label: "Login Menu"
+            name: "login"
+            widget: "list"
+            collapsed: true
+            minimize_collapsed: true
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Link", name: "href", widget: "string" }
+              - label: "Icon"
+                name: "icon"
+                widget: "image"
+                fields:
+                  - {
+                      label: "Image",
+                      name: "src",
+                      widget: "image",
+                      choose_url: true,
+                    }
