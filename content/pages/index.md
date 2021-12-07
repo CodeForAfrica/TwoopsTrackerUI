@@ -5,10 +5,10 @@ date: 2021-12-06T06:36:16.568Z
 ctas:
   search:
     label: Use the tool
-    link: /explore
+    href: /explore
   signUp:
     label: Sign up
-    link: /login
+    href: /login
 tool:
   title: Monitor disinfo-spreaders
   description:
