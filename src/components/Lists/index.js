@@ -3,13 +3,16 @@ import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
 
-import useStyles from "./useStyles";
-
 import ContentActions from "@/twoopstracker/components/ContentActions";
 import ListCard from "@/twoopstracker/components/ListCard";
 import ListModal from "@/twoopstracker/components/ListModal";
 import Pagination from "@/twoopstracker/components/Pagination";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
+
+// NOTE (Gertrude) useStyles needs to be imported at this level, otherwise on page
+// refresh some styles break
+// eslint-disable-next-line import/order
+import useStyles from "./useStyles";
 
 function Lists({ results: listsProp, paginationProps, ...props }) {
   const [open, setOpen] = useState(false);
