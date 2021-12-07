@@ -25,7 +25,12 @@ collections:
             fields:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-              - { label: "Logo", name: "logo", widget: "image" }
+              - {
+                  label: "Logo",
+                  name: "logo",
+                  widget: "image",
+                  choose_url: false,
+                }
               - {
                   label: "Description",
                   name: "description",
@@ -66,7 +71,12 @@ collections:
             widget: "object"
             fields:
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Thumbnail", name: "thumbnail", widget: "image" }
+              - {
+                  label: "Thumbnail",
+                  name: "thumbnail",
+                  widget: "image",
+                  choose_url: false,
+                }
               - {
                   label: "description",
                   name: "description",
@@ -135,7 +145,12 @@ collections:
             fields:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-              - { label: "Thumbnail", name: "thumbnail", widget: "image" }
+              - {
+                  label: "Thumbnail",
+                  name: "thumbnail",
+                  widget: "image",
+                  choose_url: false,
+                }
               - {
                   label: "Description",
                   name: "description",
@@ -162,7 +177,12 @@ collections:
             fields:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-              - { label: "Thumbnail", name: "thumbnail", widget: "image" }
+              - {
+                  label: "Thumbnail",
+                  name: "thumbnail",
+                  widget: "image",
+                  choose_url: false,
+                }
               - {
                   label: "Description",
                   name: "description",
@@ -187,7 +207,12 @@ collections:
             fields:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-              - { label: "Logo", name: "logo", widget: "image" }
+              - {
+                  label: "Logo",
+                  name: "logo",
+                  widget: "image",
+                  choose_url: false,
+                }
               - {
                   label: "Description",
                   name: "description",
@@ -206,7 +231,12 @@ collections:
                 fields:
                   - { label: "Name", name: "name", widget: "string" }
                   - { label: "URL", name: "url", widget: "string" }
-                  - { label: "Logo", name: "logo", widget: "image" }
+                  - {
+                      label: "Logo",
+                      name: "logo",
+                      widget: "image",
+                      choose_url: false,
+                    }
           - label: "Quick Links"
             name: "quickLinks"
             required: false
@@ -233,12 +263,22 @@ collections:
                 name: "desktop"
                 widget: "object"
                 fields:
-                  - { label: "Image", name: "src", widget: "image" }
+                  - {
+                      label: "Image",
+                      name: "src",
+                      widget: "image",
+                      choose_url: false,
+                    }
               - label: "Mobile"
                 name: "mobile"
                 widget: "object"
                 fields:
-                  - { label: "Image", name: "src", widget: "image" }
+                  - {
+                      label: "Image",
+                      name: "src",
+                      widget: "image",
+                      choose_url: false,
+                    }
           - label: "Main Menu"
             name: "main"
             widget: "list"
