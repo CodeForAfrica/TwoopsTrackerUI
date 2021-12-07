@@ -22,9 +22,11 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   imageContainer: {
+    justifyContent: "center",
     marginTop: typography.pxToRem(30),
     [breakpoints.up("md")]: {
       marginTop: "unset",
+      justifyContent: "flex-end",
     },
   },
   section: {},
@@ -60,16 +62,14 @@ function Partners({ images, title, description, ...props }) {
             md={6}
           >
             {images.map((image) => (
-              <Grid item lg={6} md={12} xs={12}>
-                <Image
-                  className={classes.image}
-                  height={370}
-                  width={850}
-                  objectFit="contain"
-                  src={image}
-                  alt={title}
-                />
-              </Grid>
+              <Image
+                className={classes.image}
+                height={170}
+                width={450}
+                objectFit="contain"
+                src={image}
+                alt={title}
+              />
             ))}
           </Grid>
         </Grid>
