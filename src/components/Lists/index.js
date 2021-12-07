@@ -8,6 +8,7 @@ import ListCard from "@/twoopstracker/components/ListCard";
 import ListModal from "@/twoopstracker/components/ListModal";
 import Pagination from "@/twoopstracker/components/Pagination";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
+import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 // NOTE (Gertrude) useStyles needs to be imported at this level, otherwise on page
 // refresh some styles break
@@ -27,11 +28,13 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
   const classes = useStyles(props);
 
   const fetcher = (url, pg, pSize) => {
-    let listURL;
-    if (pg) {
-      listURL = `${url}/?page=${pg}&page_size=${pSize}`;
-    } else {
-      listURL = `${url}/?page_size=${pSize}`;
+    const queryString = getQueryString({
+      page: pg,
+      pageSize: pSize,
+    });
+    let listURL = url;
+    if (queryString) {
+      listURL = `${listURL}?${queryString}`;
     }
 
     return fetchJson(listURL);
