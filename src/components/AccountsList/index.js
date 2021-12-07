@@ -7,13 +7,21 @@ import useStyles from "./useStyles";
 
 import Account from "@/twoopstracker/components/Account";
 import ListModal from "@/twoopstracker/components/ListModal";
+import Pagination from "@/twoopstracker/components/Pagination";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const AccountsList = ({
   apiUrl,
   editable,
-  data: { name, accounts, is_private: isPrivate },
+  paginationProps,
+  data: {
+    page: pageProp,
+    pageSize: pageSizeProp,
+    name,
+    accounts,
+    is_private: isPrivate,
+  },
   ...props
 }) => {
   const classes = useStyles(props);
@@ -23,8 +31,11 @@ const AccountsList = ({
   const handleClose = () => setOpen(false);
   const [listAccounts, setListAccounts] = useState(accounts);
   const [newAccounts, setNewAccounts] = useState("");
+  const [page, setPage] = useState(pageProp);
+  const [pageSize, setPageSize] = useState(pageSizeProp);
   const fetcher = (url) => fetchJson(url);
-  const { data, mutate } = useSWR(apiUrl, fetcher);
+  const paginationString = new URLSearchParams({ page, pageSize }).toString();
+  const { data, mutate } = useSWR(apiUrl + paginationString, fetcher);
 
   useEffect(() => {
     if (data) {
@@ -83,6 +94,17 @@ const AccountsList = ({
     }
   };
 
+  const handleClickPage = (e, value) => {
+    setPage(value);
+    setPaginating(true);
+  };
+  const handleClickPageSize = (e, value) => {
+    // Changing pageSize triggers computation of number of pages.
+    setPage(1);
+    setPageSize(value);
+    setPaginating(true);
+  };
+
   return (
     <Section className={classes.root}>
       <div className={classes.section}>
@@ -110,25 +132,37 @@ const AccountsList = ({
           onDelete={editable ? handleDelete : null}
         />
       ))}
+      <Pagination
+        {...paginationProps}
+        count={Math.ceil(listAccounts?.count / (pageSize || 20))}
+        onChangePage={handleClickPage}
+        onChangePageSize={handleClickPageSize}
+        page={page}
+        pageSize={pageSize}
+      />
     </Section>
   );
 };
 
 AccountsList.propTypes = {
   apiUrl: PropTypes.string,
-  editable: PropTypes.bool,
   data: PropTypes.shape({
     accounts: PropTypes.arrayOf(PropTypes.shape({})),
     id: PropTypes.number,
     is_private: PropTypes.bool,
     name: PropTypes.string,
+    page: PropTypes.number,
+    pageSize: PropTypes.number,
   }),
+  editable: PropTypes.bool,
+  paginationProps: PropTypes.shape({}),
 };
 
 AccountsList.defaultProps = {
   data: undefined,
   apiUrl: undefined,
   editable: false,
+  paginationProps: undefined,
 };
 
 export default AccountsList;
