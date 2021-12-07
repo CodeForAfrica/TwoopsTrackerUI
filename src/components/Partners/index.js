@@ -45,7 +45,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Partners({ images, title, description, ...props }) {
+function Partners({ images, logos, title, description, ...props }) {
   const classes = useStyles(props);
 
   return (
@@ -83,13 +83,13 @@ function Partners({ images, title, description, ...props }) {
       </Section>
       <div className={classes.logos}>
         <Section>
-          {images.map((image) => (
+          {logos.map((logo) => (
             <Image
               className={classes.image}
               height={170}
-              width={450}
+              width={380}
               objectFit="contain"
-              src={image}
+              src={logo}
               alt={title}
             />
           ))}
@@ -102,11 +102,13 @@ function Partners({ images, title, description, ...props }) {
 Partners.propTypes = {
   description: PropTypes.string,
   images: PropTypes.string,
+  logos: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string,
 };
 Partners.defaultProps = {
   description: undefined,
   images: undefined,
+  logos: undefined,
   title: undefined,
 };
 export default Partners;

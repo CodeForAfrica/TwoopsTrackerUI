@@ -9,7 +9,6 @@ import ancirLogo from "@/twoopstracker/assets/images/ancir-logo.png";
 import ancir from "@/twoopstracker/assets/images/ancir.png";
 import codeForAll from "@/twoopstracker/assets/images/Artboard 1@2x 1.png";
 import codeForAfrica from "@/twoopstracker/assets/images/CFA Editable Logo-01 1.png";
-// import cfallLogo from "@/twoopstracker/assets/images/cfa.png";
 import civicSignal from "@/twoopstracker/assets/images/civic-signal-logo.png";
 import dfrlab from "@/twoopstracker/assets/images/dfrlab.png";
 import hatebase from "@/twoopstracker/assets/images/hatebase.png";
@@ -828,6 +827,7 @@ export const home = {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     images: [codeForAll, codeForAfrica],
+    logos: [ancirLogo, pesacheckLogo, civicSignal, dfrlab],
     title: "Partners & About Us",
   },
   signUp: {
