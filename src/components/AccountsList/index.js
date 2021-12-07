@@ -96,13 +96,11 @@ const AccountsList = ({
 
   const handleClickPage = (e, value) => {
     setPage(value);
-    setPaginating(true);
   };
   const handleClickPageSize = (e, value) => {
     // Changing pageSize triggers computation of number of pages.
     setPage(1);
     setPageSize(value);
-    setPaginating(true);
   };
 
   return (
