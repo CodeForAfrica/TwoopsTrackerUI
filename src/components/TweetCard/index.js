@@ -19,6 +19,7 @@ const TweetCard = ({
   number_of_interactions: interaction,
   created_at: createdAt,
   deleted_at: deletedAt,
+  results,
   ...props
 }) => {
   const classes = useStyles(props);
@@ -49,7 +50,7 @@ const TweetCard = ({
             {`@${handle}`}
           </RichTypography>
           <Typography className={classes.accountType}>{accountType}</Typography>
-          <AddToList />
+          <AddToList results={results} />
         </Grid>
         <Grid item lg={5} sm={12}>
           {createdAt && (
@@ -83,6 +84,7 @@ TweetCard.propTypes = {
     name: PropTypes.string,
     protected: PropTypes.bool,
   }),
+  results: PropTypes.arrayOf(PropTypes.shape({})),
   onClick: PropTypes.func,
   deleted_at: PropTypes.string,
   retweeted_user_screen_name: PropTypes.string,
@@ -94,6 +96,7 @@ TweetCard.propTypes = {
 
 TweetCard.defaultProps = {
   owner: undefined,
+  results: undefined,
   onClick: undefined,
   content: undefined,
   deleted_at: undefined,

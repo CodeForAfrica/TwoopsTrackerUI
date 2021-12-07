@@ -6,7 +6,7 @@ import { SWRConfig } from "swr";
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
 import { pagination } from "@/twoopstracker/config";
-import { tweets, tweetsInsights } from "@/twoopstracker/lib";
+import { tweets, tweetsInsights, lists } from "@/twoopstracker/lib";
 import createChartImage from "@/twoopstracker/lib/createChartImage";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
@@ -20,6 +20,7 @@ function Explore({
   query,
   theme,
   tweets: tweetsProp,
+  results,
   ...props
 }) {
   return (
@@ -35,6 +36,7 @@ function Explore({
           query={query}
           theme={theme}
           tweets={tweetsProp}
+          results={results}
           {...props}
         />
       </SWRConfig>
@@ -44,6 +46,7 @@ function Explore({
 
 Explore.propTypes = {
   days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  results: PropTypes.arrayOf(PropTypes.shape({})),
   fallback: PropTypes.shape({}),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
@@ -64,6 +67,7 @@ Explore.defaultProps = {
   query: undefined,
   theme: undefined,
   tweets: undefined,
+  results: undefined,
 };
 
 export async function getServerSideProps(context) {
@@ -74,6 +78,7 @@ export async function getServerSideProps(context) {
   const insights = await tweetsInsights(query, session);
   const queryString = getQueryString(query);
   const searchQueryString = queryString ? `?${queryString}` : "";
+  const results = await lists(session, { pageSize: 5 });
 
   const { pageSize, page, ...unpaginatedQuery } = query;
   const unpaginatedQueryString = getQueryString(unpaginatedQuery);
@@ -102,6 +107,7 @@ export async function getServerSideProps(context) {
       session,
       title: "Explore",
       tweets: foundTweets,
+      results,
       twitter,
       url,
     },

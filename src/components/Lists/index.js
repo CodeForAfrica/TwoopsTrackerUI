@@ -88,7 +88,6 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
       setPrivacy(event.target.checked);
     }
   };
-
   return (
     <div className={classes.root}>
       <div className={classes.section}>
