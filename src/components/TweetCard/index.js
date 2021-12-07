@@ -1,5 +1,5 @@
 import { RichTypography } from "@commons-ui/core";
-import { Grid, Typography, Button } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import Image from "next/image";
 import PropTypes from "prop-types";
@@ -8,6 +8,7 @@ import React from "react";
 import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
+import AddToList from "@/twoopstracker/components/AddToList";
 
 const TweetCard = ({
   owner,
@@ -48,18 +49,7 @@ const TweetCard = ({
             {`@${handle}`}
           </RichTypography>
           <Typography className={classes.accountType}>{accountType}</Typography>
-          <Button
-            color="default"
-            variant="text"
-            size="large"
-            onClick={onClick}
-            classes={{
-              root: classes.addToList,
-              text: classes.text,
-            }}
-          >
-            <Typography className={classes.list}>Add to List</Typography>
-          </Button>
+          <AddToList />
         </Grid>
         <Grid item lg={5} sm={12}>
           {createdAt && (
