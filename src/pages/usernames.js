@@ -3,6 +3,7 @@ import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
+import { accounts } from "@/twoopstracker/config";
 import { allUsernames } from "@/twoopstracker/lib";
 
 export default function Index(props) {
@@ -29,24 +30,10 @@ export async function getServerSideProps(context) {
 
   let data = await allUsernames(session, query);
   if (!data) {
-    data = {
-      count: 1,
-      next: null,
-      previous: null,
-      results: [
-        {
-          name: "Valtteri Bottas",
-          account_id: 1143472657,
-          screen_name: "ValtteriBottas",
-          protected: false,
-          created_at: "2021-12-07T10:11:25.314577Z",
-          updated_at: "2021-12-07T10:11:25.314616Z",
-        },
-      ],
-    };
+    data = accounts;
+    data.accounts = data.results;
+    delete data.results;
   }
-  data.accounts = data.results;
-
   // Pass data to the page via props
   return { props: { data, session } };
 }
