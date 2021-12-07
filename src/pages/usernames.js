@@ -27,7 +27,25 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const data = await allUsernames(session, query);
+  let data = await allUsernames(session, query);
+  if (!data) {
+    data = {
+      count: 1,
+      next: null,
+      previous: null,
+      results: [
+        {
+          name: "Valtteri Bottas",
+          account_id: 1143472657,
+          screen_name: "ValtteriBottas",
+          protected: false,
+          created_at: "2021-12-07T10:11:25.314577Z",
+          updated_at: "2021-12-07T10:11:25.314616Z",
+        },
+      ],
+    };
+  }
+  data.accounts = data.results;
 
   // Pass data to the page via props
   return { props: { data, session } };

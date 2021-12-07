@@ -29,5 +29,12 @@ export async function getServerSideProps(context) {
   const data = await list(paramData.listId, session);
 
   // Pass data to the page via props
-  return { props: { data, session } };
+  return {
+    props: {
+      data,
+      session,
+      apiUrl: `/api/lists/${paramData.listId}`,
+      editable: true,
+    },
+  };
 }
