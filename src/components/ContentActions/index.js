@@ -33,19 +33,22 @@ function ContentActions({ apiUri, queryParams, type, ...props }) {
   const onClickDownload = async (e) => {
     e.preventDefault();
 
-    const fileType = e.currentTarget.dataset.fileType?.toLowerCase();
-    const queryString = getQueryString({ ...queryParams, download: fileType });
+    const fileExtension = e.currentTarget.dataset.fileExtension?.toLowerCase();
+    const queryString = getQueryString({
+      ...queryParams,
+      download: fileExtension,
+    });
     const res = await fetch(`${apiUri}?${queryString}`);
     const blobObject = await res.blob();
 
-    const datedQueryString =
-      tweetsSearchParamFromSearchQuery(queryParams)?.toString() ?? "";
-    const fileName =
-      fileType === "csv"
-        ? `${type}-${datedQueryString?.replace("?", "-")}.csv`
-        : `${type}-${datedQueryString?.replace("?", "-")}.xlsx`;
+    let fileName = type;
+    if (type === "tweets") {
+      const datedQueryString =
+        tweetsSearchParamFromSearchQuery(queryParams)?.toString() ?? "";
+      fileName = `${type}-${datedQueryString?.replace("?", "-")}`;
+    }
 
-    saveAs(blobObject, fileName);
+    saveAs(blobObject, `${fileName}.${fileExtension}`);
   };
 
   return (
@@ -56,14 +59,15 @@ function ContentActions({ apiUri, queryParams, type, ...props }) {
             <Typography className={classes.label} variant="body2">
               {download.label}
             </Typography>
-            {download.fileTypes?.map((t) => (
+            {download.fileTypes?.map(({ name, ext }) => (
               <Button
                 className={classes.button}
                 variant="text"
-                data-file-type={t}
+                data-file-extension={ext}
                 onClick={onClickDownload}
+                key={ext}
               >
-                {t}
+                {name}
               </Button>
             ))}
           </Grid>

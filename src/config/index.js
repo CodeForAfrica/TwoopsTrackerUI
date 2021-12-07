@@ -47,7 +47,10 @@ export function shareData(title) {
 export const contentActionsProps = {
   download: {
     label: "Download:",
-    fileTypes: ["CSV", "Excel"],
+    fileTypes: [
+      { name: "CSV", ext: "csv" },
+      { name: "Excel", ext: "xlsx" },
+    ],
   },
 };
 export const tweetsCount = [
