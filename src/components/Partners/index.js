@@ -8,10 +8,8 @@ import Section from "@/twoopstracker/components/Section";
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
     marginTop: typography.pxToRem(50),
-    marginBottom: typography.pxToRem(60),
     [breakpoints.up("md")]: {
       marginTop: typography.pxToRem(107),
-      marginBottom: typography.pxToRem(111),
     },
   },
   image: {
@@ -29,7 +27,16 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       justifyContent: "flex-end",
     },
   },
-  section: {},
+  logos: {
+    backgroundColor: "#CBCBCB33",
+    padding: `${typography.pxToRem(100)} 0`,
+  },
+  section: {
+    marginBottom: typography.pxToRem(60),
+    [breakpoints.up("md")]: {
+      marginBottom: typography.pxToRem(111),
+    },
+  },
   description: {
     marginTop: typography.pxToRem(50),
     [breakpoints.up("md")]: {
@@ -74,6 +81,20 @@ function Partners({ images, title, description, ...props }) {
           </Grid>
         </Grid>
       </Section>
+      <div className={classes.logos}>
+        <Section>
+          {images.map((image) => (
+            <Image
+              className={classes.image}
+              height={170}
+              width={450}
+              objectFit="contain"
+              src={image}
+              alt={title}
+            />
+          ))}
+        </Section>
+      </div>
     </div>
   );
 }
