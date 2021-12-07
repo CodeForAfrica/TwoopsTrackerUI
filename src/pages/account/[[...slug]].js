@@ -7,9 +7,14 @@ import Lists from "@/twoopstracker/components/Lists";
 import Page from "@/twoopstracker/components/Page";
 import Section from "@/twoopstracker/components/Section";
 import Tabs from "@/twoopstracker/components/Tabs";
+import Upload from "@/twoopstracker/components/Upload";
 import UserAccount from "@/twoopstracker/components/UserAccount";
 import UserSearch from "@/twoopstracker/components/UserSearch";
-import { searchPagination, listPagination } from "@/twoopstracker/config";
+import {
+  searchPagination,
+  upload,
+  listPagination,
+} from "@/twoopstracker/config";
 import { lists, getSavedSearches } from "@/twoopstracker/lib";
 
 const useStyles = makeStyles(({ typography }) => ({
@@ -52,6 +57,9 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
         children = (
           <UserSearch searches={searches} paginationProps={searchPagination} />
         );
+        break;
+      case "data":
+        children = <Upload {...upload} />;
         break;
       case "settings":
         children = <UserAccount />;
