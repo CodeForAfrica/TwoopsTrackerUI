@@ -257,6 +257,6 @@ collections:
               - { label: "Link", name: "href", widget: "string" }
               - label: "Icon"
                 name: "icon"
-                widget: "image"
+                widget: "object"
                 fields:
                   - { label: "Image", name: "src", widget: "image" }
