@@ -173,7 +173,7 @@ function TweetsContainer({
         className={classes.root}
       />
       {isLoading && <Loading />}
-      <Chart data={insights} classes={{ root: classes.chartRoot }} />
+      <Chart {...props} data={insights} classes={{ root: classes.chartRoot }} />
       <Tweets tweets={tweets} />
       <Pagination
         {...paginationProps}

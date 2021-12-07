@@ -2,51 +2,30 @@ import { subDays } from "date-fns";
 
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-const BASE_URL = process.env.TWOOPSTRACKER_API_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL;
 
-export async function lists() {
-  const res = await fetch(`${BASE_URL}/lists/`);
-  return res.json();
+export async function lists(session, pageData) {
+  const listParams = new URLSearchParams();
+
+  if (pageData.page) {
+    listParams.append("page", pageData.page);
+  }
+  if (pageData.pageSize) {
+    listParams.append("page_size", pageData.pageSize);
+  }
+
+  const result = await fetchJson(
+    `${BASE_URL}/lists/?${listParams.toString()}`,
+    session
+  );
+  return result;
 }
 
-export async function fetchList(id) {
-  const res = await fetch(`${BASE_URL}/lists/${id}`);
-  return res.json();
+export async function list(id, session) {
+  return fetchJson(`${BASE_URL}/lists/${id}`, session);
 }
 
-export const createList = async (payload, url) => {
-  const data = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-
-  const result = await data.json();
-
-  return result;
-};
-
-export const deleteList = async (url, id) => {
-  const data = await fetch(`${url}/${id}`, {
-    method: "DELETE",
-  });
-
-  const result = await data.json();
-
-  return result;
-};
-
-export const updateList = async (url, payload, id) => {
-  const data = await fetch(`${url}/${id}`, {
-    method: "PUT",
-    body: JSON.stringify(payload),
-  });
-
-  const result = await data.json();
-
-  return result;
-};
-
-export async function APIRequest(payload, method, param) {
+export async function APIRequest(payload, method, param, session) {
   let url = BASE_URL;
 
   if (param) {
@@ -66,15 +45,10 @@ export async function APIRequest(payload, method, param) {
     options.body = payload;
   }
 
-  const res = await fetch(url, options);
-
-  if (method === "DELETE") {
-    return res;
-  }
-  return res.json();
+  return fetchJson(url, session, options);
 }
 
-function tweetsSearchParamFromSearchQuery({
+export function tweetsSearchParamFromSearchQuery({
   query,
   location,
   days = 7,
@@ -110,7 +84,7 @@ export function tweetsUserQuery(requestQuery) {
   return { query, theme, location, days, page, pageSize };
 }
 
-function tweetsSearchQueryFromUserQuery(userQuery) {
+export function tweetsSearchQueryFromUserQuery(userQuery) {
   const {
     query: term,
     theme,

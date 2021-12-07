@@ -7,6 +7,7 @@ import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
 import { pagination } from "@/twoopstracker/config";
 import { tweets, tweetsInsights } from "@/twoopstracker/lib";
+import createChartImage from "@/twoopstracker/lib/createChartImage";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 function Explore({
@@ -34,6 +35,7 @@ function Explore({
           query={query}
           theme={theme}
           tweets={tweetsProp}
+          {...props}
         />
       </SWRConfig>
     </Page>
@@ -81,6 +83,20 @@ export async function getServerSideProps(context) {
   const queryString = getQueryString(query);
   const searchQueryString = queryString ? `?${queryString}` : "";
 
+  const { pageSize, page, ...unpaginatedQuery } = query;
+  const unpaginatedQueryString = getQueryString(unpaginatedQuery);
+
+  const image = await createChartImage(insights, unpaginatedQuery);
+
+  const url = `${process.env.NEXT_PUBLIC_APP_URL}/explore?${unpaginatedQueryString}`;
+  const openGraph = {
+    url,
+    images: [{ url: image }],
+  };
+  const twitter = {
+    cartType: "summary_large_image",
+  };
+
   return {
     props: {
       ...query,
@@ -88,10 +104,14 @@ export async function getServerSideProps(context) {
         [`/api/tweets${searchQueryString}`]: foundTweets,
         [`/api/tweets/insights${searchQueryString}`]: insights,
       },
+      image,
       insights,
+      openGraph,
       session,
       title: "Explore",
       tweets: foundTweets,
+      twitter,
+      url,
     },
   };
 }

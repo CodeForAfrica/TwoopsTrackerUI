@@ -20,6 +20,30 @@ import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
+export const shareData = (title) => {
+  return [
+    {
+      name: "Twitter",
+      props: { title, via: "TrollTracker", related: ["Code4Africa"] },
+    },
+    {
+      name: "LinkedIn",
+      props: {
+        summary: title,
+        source: process.env.NEXT_PUBLIC_APP_URL,
+      },
+    },
+    {
+      name: "Facebook",
+      props: { quote: title, hashtag: "#TrollTracker" },
+    },
+    {
+      name: "WhatsApp",
+      props: {},
+    },
+  ];
+};
+
 export const tweetsCount = [
   {
     date: "2021-10-08",
@@ -1041,8 +1065,26 @@ export const pagination = {
   pageSizeLabel: "Results on Page",
   pageSizeOptions: [{ value: "20" }, { value: "50" }],
 };
+export const upload = {
+  conjuctionLabel: "or",
+  downloadCopy: "Download the template",
+  errorLabel: "Something happened, please check the document and try again",
+  failedLabel: "Failed",
+  successLabel: "Upload successful",
+  loadingLabel: "Uploading...",
+  templateLink: "/template.csv",
+  templateName: "template.csv",
+  dragLabel: "Drag and drop your CSV files here",
+  uploadLabel: "Select a File",
+};
 
-export const searchPgination = {
+export const searchPagination = {
+  pageSizeDefaultValue: "3",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+};
+
+export const listPagination = {
   pageSizeDefaultValue: "3",
   pageSizeLabel: "Results on Page",
   pageSizeOptions: [{ value: "10" }, { value: "20" }],

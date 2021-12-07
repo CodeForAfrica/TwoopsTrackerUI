@@ -29,10 +29,9 @@ function fetchToken(token, url = process.env.AUTH_URL) {
 async function refreshAccessToken(token) {
   try {
     const refreshedTokens = await fetchToken(
-      { refresh: token.refreshToken, id_token: token.idToken },
+      { refresh: token.refreshToken },
       process.env.REFRESH_URL
     );
-
     return {
       ...token,
       accessToken: refreshedTokens.access,
@@ -40,10 +39,7 @@ async function refreshAccessToken(token) {
       refreshToken: refreshedTokens?.refresh ?? token.refreshToken, // Fall back to old refresh token
     };
   } catch (error) {
-    return {
-      ...token,
-      error: "RefreshAccessTokenError",
-    };
+    return null;
   }
 }
 
@@ -79,6 +75,7 @@ const options = {
     },
     jwt: async (token, user, account) => {
       // Initial sign in
+
       if (account && user) {
         const { access_token: accessToken, refresh_token: refreshToken } =
           await fetchToken({
@@ -97,7 +94,10 @@ const options = {
         };
       }
       // Return previous token if the access token has not expired yet
-      if (Date.now() < token.exp) {
+      if (
+        !token?.error &&
+        Date.now() < jwtDecode(token?.accessToken).exp * 1000
+      ) {
         return token;
       }
       // Access token has expired, try to update it
@@ -105,15 +105,10 @@ const options = {
     },
     // Attach user and token to be available in the frontend https://next-auth.js.org/v3/tutorials/refresh-token-rotation#server-side
     session: async (session, token) => {
-      const newSession = session;
-
-      if (token.error) {
-        newSession.error = token.error;
-        return newSession;
+      if (!session || !token || token.error) {
+        return null;
       }
-
-      newSession.user = token.user;
-      newSession.accessToken = token.accessToken;
+      const newSession = { ...session, ...token };
       return newSession;
     },
   },
