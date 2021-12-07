@@ -11,6 +11,7 @@ import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 
 const TweetCard = ({
   owner,
+  onClick,
   deleted,
   content,
   retweeted_user_screen_name: retweetedUser,
@@ -51,6 +52,7 @@ const TweetCard = ({
             color="default"
             variant="text"
             size="large"
+            onClick={onClick}
             classes={{
               root: classes.addToList,
               text: classes.text,
@@ -91,6 +93,7 @@ TweetCard.propTypes = {
     name: PropTypes.string,
     protected: PropTypes.bool,
   }),
+  onClick: PropTypes.func,
   deleted_at: PropTypes.string,
   retweeted_user_screen_name: PropTypes.string,
   number_of_interactions: PropTypes.number,
@@ -101,6 +104,7 @@ TweetCard.propTypes = {
 
 TweetCard.defaultProps = {
   owner: undefined,
+  onClick: undefined,
   content: undefined,
   deleted_at: undefined,
   retweeted_user_screen_name: undefined,
