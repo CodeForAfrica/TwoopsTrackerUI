@@ -17,6 +17,7 @@ export function about() {
         ...others,
       }))
       ?.map((partner) => md.renderObjectValuesInline(partner)) ?? null;
+
   return attributes;
 }
 
@@ -115,6 +116,7 @@ export function footer() {
         href: url || null,
       })),
     })) ?? null;
+
   return attributes;
 }
 
