@@ -83,16 +83,20 @@ function Partners({ images, logos, title, description, ...props }) {
       </Section>
       <div className={classes.logos}>
         <Section>
-          {logos.map((logo) => (
-            <Image
-              className={classes.image}
-              height={170}
-              width={380}
-              objectFit="contain"
-              src={logo}
-              alt={title}
-            />
-          ))}
+          <Grid container>
+            {logos.map((logo) => (
+              <Grid item lg={3} md={6} xs={12}>
+                <Image
+                  className={classes.image}
+                  height={170}
+                  width={300}
+                  objectFit="contain"
+                  src={logo}
+                  alt={title}
+                />
+              </Grid>
+            ))}
+          </Grid>
         </Section>
       </div>
     </div>
