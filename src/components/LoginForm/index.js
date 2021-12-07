@@ -63,7 +63,7 @@ function Login({ providers, ...props }) {
   const [session] = useSession();
 
   useEffect(() => {
-    if (session?.user) {
+    if (session) {
       Router.push("/explore");
     }
   }, [session]);

@@ -75,7 +75,6 @@ const options = {
     },
     jwt: async (token, user, account) => {
       // Initial sign in
-
       if (account && user) {
         const { access_token: accessToken, refresh_token: refreshToken } =
           await fetchToken({
@@ -94,10 +93,7 @@ const options = {
         };
       }
       // Return previous token if the access token has not expired yet
-      if (
-        !token?.error &&
-        Date.now() < jwtDecode(token?.accessToken).exp * 1000
-      ) {
+      if (token && Date.now() < jwtDecode(token?.accessToken).exp * 1000) {
         return token;
       }
       // Access token has expired, try to update it
