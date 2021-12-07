@@ -25,12 +25,7 @@ collections:
             fields:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-              - {
-                  label: "Logo",
-                  name: "logo",
-                  widget: "image",
-                  choose_url: true,
-                }
+              - { label: "Logo", name: "logo", widget: "image" }
               - {
                   label: "Description",
                   name: "description",
@@ -71,12 +66,7 @@ collections:
             widget: "object"
             fields:
               - { label: "Title", name: "title", widget: "string" }
-              - {
-                  label: "Thumbnail",
-                  name: "thumbnail",
-                  widget: "image",
-                  choose_url: true,
-                }
+              - { label: "Thumbnail", name: "thumbnail", widget: "image" }
               - {
                   label: "description",
                   name: "description",
@@ -145,12 +135,7 @@ collections:
             fields:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-              - {
-                  label: "Thumbnail",
-                  name: "thumbnail",
-                  widget: "image",
-                  choose_url: true,
-                }
+              - { label: "Thumbnail", name: "thumbnail", widget: "image" }
               - {
                   label: "Description",
                   name: "description",
@@ -177,12 +162,7 @@ collections:
             fields:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-              - {
-                  label: "Thumbnail",
-                  name: "thumbnail",
-                  widget: "image",
-                  choose_url: true,
-                }
+              - { label: "Thumbnail", name: "thumbnail", widget: "image" }
               - {
                   label: "Description",
                   name: "description",
@@ -207,12 +187,7 @@ collections:
             fields:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-              - {
-                  label: "Logo",
-                  name: "logo",
-                  widget: "image",
-                  choose_url: true,
-                }
+              - { label: "Logo", name: "logo", widget: "image" }
               - {
                   label: "Description",
                   name: "description",
@@ -231,12 +206,7 @@ collections:
                 fields:
                   - { label: "Name", name: "name", widget: "string" }
                   - { label: "URL", name: "url", widget: "string" }
-                  - {
-                      label: "Logo",
-                      name: "logo",
-                      widget: "image",
-                      choose_url: true,
-                    }
+                  - { label: "Logo", name: "logo", widget: "image" }
           - label: "Quick Links"
             name: "quickLinks"
             required: false
@@ -263,22 +233,12 @@ collections:
                 name: "desktop"
                 widget: "object"
                 fields:
-                  - {
-                      label: "Image",
-                      name: "src",
-                      widget: "image",
-                      choose_url: true,
-                    }
+                  - { label: "Image", name: "src", widget: "image" }
               - label: "Mobile"
                 name: "mobile"
                 widget: "object"
                 fields:
-                  - {
-                      label: "Image",
-                      name: "src",
-                      widget: "image",
-                      choose_url: true,
-                    }
+                  - { label: "Image", name: "src", widget: "image" }
           - label: "Main Menu"
             name: "main"
             widget: "list"
@@ -299,9 +259,4 @@ collections:
                 name: "icon"
                 widget: "image"
                 fields:
-                  - {
-                      label: "Image",
-                      name: "src",
-                      widget: "image",
-                      choose_url: true,
-                    }
+                  - { label: "Image", name: "src", widget: "image" }
