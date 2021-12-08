@@ -12,7 +12,7 @@ async function fetchJson(url, session, options = {}) {
     return res;
   }
   if (url.includes("download")) {
-    if (res.status === 200) {
+    if (res.status.ok) {
       return res.text();
     }
     return null;
