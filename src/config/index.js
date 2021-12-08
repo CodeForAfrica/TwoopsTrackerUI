@@ -20,7 +20,7 @@ import investigationImage from "@/twoopstracker/assets/images/Rectangle 35.png";
 import trollImage from "@/twoopstracker/assets/images/Trolltracker showcase 1.png";
 import navLogo from "@/twoopstracker/assets/logos/navLogo.svg";
 
-export const shareData = (title) => {
+export function shareData(title) {
   return [
     {
       name: "Twitter",
@@ -42,8 +42,17 @@ export const shareData = (title) => {
       props: {},
     },
   ];
-};
+}
 
+export const contentActionsProps = {
+  download: {
+    label: "Download:",
+    fileTypes: [
+      { name: "CSV", ext: "csv" },
+      { name: "Excel", ext: "xlsx" },
+    ],
+  },
+};
 export const tweetsCount = [
   {
     date: "2021-10-08",

@@ -6,6 +6,7 @@ import useStyles from "./useStyles";
 import useTweets from "./useTweets";
 
 import Chart from "@/twoopstracker/components/Chart";
+import ContentActions from "@/twoopstracker/components/ContentActions";
 import Loading from "@/twoopstracker/components/Loading";
 import Pagination from "@/twoopstracker/components/Pagination";
 import SearchSection from "@/twoopstracker/components/SearchSection";
@@ -174,15 +175,24 @@ function TweetsContainer({
       />
       {isLoading && <Loading />}
       <Chart {...props} data={insights} classes={{ root: classes.chartRoot }} />
+      {tweets?.results?.length > 0 && (
+        <ContentActions
+          apiUri="/api/tweets"
+          queryParams={{ query, theme, location, days }}
+          type="tweets"
+        />
+      )}
       <Tweets tweets={tweets} />
-      <Pagination
-        {...paginationProps}
-        count={Math.ceil(tweets?.count / (pageSize || 20))}
-        onChangePage={handleClickPage}
-        onChangePageSize={handleClickPageSize}
-        page={page}
-        pageSize={pageSize}
-      />
+      {tweets?.results?.length > 0 && (
+        <Pagination
+          {...paginationProps}
+          count={Math.ceil(tweets?.count / (pageSize || 20))}
+          onChangePage={handleClickPage}
+          onChangePageSize={handleClickPageSize}
+          page={page}
+          pageSize={pageSize}
+        />
+      )}
     </>
   );
 }
@@ -198,6 +208,7 @@ TweetsContainer.propTypes = {
   theme: PropTypes.number,
   tweets: PropTypes.shape({
     count: PropTypes.number,
+    results: PropTypes.arrayOf(PropTypes.shape({})),
   }),
 };
 
