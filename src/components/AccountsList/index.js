@@ -81,7 +81,6 @@ const AccountsList = ({
       setOpen(true);
     }
   };
-
   return (
     <Section className={classes.root}>
       <div className={classes.section}>

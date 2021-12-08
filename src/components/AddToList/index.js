@@ -11,6 +11,10 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
+import useSWR from "swr";
+
+import ListModal from "@/twoopstracker/components/ListModal";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const useStyles = makeStyles(({ breakpoints, typography }) => ({
   root: {},
@@ -79,11 +83,24 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
   },
 }));
 
-function AddToList({ results, ...props }) {
+function AddToList({ results: listsProp, ...props }) {
   const classes = useStyles(props);
   const anchorRef = useRef(null);
-  const [open, setOpen] = useState(false);
 
+  const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [lists, setLists] = useState(listsProp ? listsProp.results : []);
+
+  const fetcher = (url) => fetchJson(url);
+  const { data } = useSWR(`/api/lists`, fetcher);
+
+  useEffect(() => {
+    if (data) {
+      setLists(data.results);
+    }
+  }, [data]);
+
+  const handleOpen = () => setOpenModal(true);
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -93,6 +110,7 @@ function AddToList({ results, ...props }) {
       return;
     }
     setOpen(false);
+    setOpenModal(false);
   };
 
   const handleListKeyDown = (event) => {
@@ -111,10 +129,6 @@ function AddToList({ results, ...props }) {
 
     prevOpen.current = open;
   }, [open]);
-
-  if (!results?.length) {
-    return null;
-  }
 
   return (
     <div className={classes.root}>
@@ -159,8 +173,12 @@ function AddToList({ results, ...props }) {
                   onKeyDown={handleListKeyDown}
                   className={classes.menuList}
                 >
-                  {results.map((item) => (
-                    <MenuItem key={item.name} className={classes.menuItem}>
+                  {lists?.map((item) => (
+                    <MenuItem
+                      key={item.name}
+                      className={classes.menuItem}
+                      onClick={handleOpen}
+                    >
                       {item.name}
                     </MenuItem>
                   ))}
@@ -170,16 +188,31 @@ function AddToList({ results, ...props }) {
           </Grow>
         )}
       </Popper>
+
+      <ListModal
+        open={openModal}
+        onClose={handleClose}
+        accountsLabel="User Accounts"
+        accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
+        buttonLabel="Add"
+      />
     </div>
   );
 }
 
 AddToList.propTypes = {
   results: PropTypes.arrayOf(PropTypes.shape({})),
+  data: PropTypes.shape({
+    accounts: PropTypes.arrayOf(PropTypes.shape({})),
+    name: PropTypes.string,
+    is_private: PropTypes.bool,
+    id: PropTypes.number,
+  }),
 };
 
 AddToList.defaultProps = {
   results: undefined,
+  data: undefined,
 };
 
 export default AddToList;
