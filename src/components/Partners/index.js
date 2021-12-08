@@ -24,12 +24,19 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     marginTop: typography.pxToRem(30),
     [breakpoints.up("md")]: {
       marginTop: "unset",
-      justifyContent: "flex-end",
     },
   },
   logos: {
     backgroundColor: "#CBCBCB33",
     padding: `${typography.pxToRem(100)} 0`,
+  },
+  title: {
+    textAlign: "center",
+  },
+  images: {
+    marginTop: typography.pxToRem(100),
+    display: "flex",
+    justifyContent: "center",
   },
   section: {
     marginBottom: typography.pxToRem(60),
@@ -51,23 +58,14 @@ function Partners({ images, logos, title, description, ...props }) {
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
-        <Grid container>
-          <Grid item xs={12} md={6}>
-            <Typography className={classes.title} variant="h2">
-              {title}
-            </Typography>
-            <Typography className={classes.description} variant="body1">
-              {description}
-            </Typography>
-          </Grid>
-          <Grid
-            className={classes.imageContainer}
-            container
-            alignItems="flex-start"
-            item
-            xs={12}
-            md={6}
-          >
+        <div>
+          <Typography className={classes.title} variant="h2">
+            {title}
+          </Typography>
+          <Typography className={classes.description} variant="body1">
+            {description}
+          </Typography>
+          <div className={classes.images}>
             {images.map((image) => (
               <Image
                 className={classes.image}
@@ -78,8 +76,8 @@ function Partners({ images, logos, title, description, ...props }) {
                 alt={title}
               />
             ))}
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       </Section>
       <div className={classes.logos}>
         <Section>
