@@ -96,7 +96,6 @@ TweetCard.propTypes = {
 
 TweetCard.defaultProps = {
   owner: undefined,
-  results: undefined,
   onClick: undefined,
   content: undefined,
   deleted_at: undefined,
@@ -104,6 +103,7 @@ TweetCard.defaultProps = {
   number_of_interactions: undefined,
   created_at: undefined,
   deleted: undefined,
+  results: undefined,
 };
 
 export default TweetCard;

@@ -22,7 +22,6 @@ function TweetsContainer({
   query: queryProp,
   theme: themeProp,
   tweets: tweetsProp,
-  results,
   ...props
 }) {
   const classes = useStyles(props);
@@ -175,7 +174,7 @@ function TweetsContainer({
       />
       {isLoading && <Loading />}
       <Chart {...props} data={insights} classes={{ root: classes.chartRoot }} />
-      <Tweets tweets={tweets} results={results} />
+      <Tweets tweets={tweets} />
       <Pagination
         {...paginationProps}
         count={Math.ceil(tweets?.count / (pageSize || 20))}
@@ -190,7 +189,6 @@ function TweetsContainer({
 
 TweetsContainer.propTypes = {
   days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  results: PropTypes.arrayOf(PropTypes.shape({})),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
   page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -205,7 +203,6 @@ TweetsContainer.propTypes = {
 
 TweetsContainer.defaultProps = {
   days: undefined,
-  results: undefined,
   insights: undefined,
   location: undefined,
   page: undefined,
