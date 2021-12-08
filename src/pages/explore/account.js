@@ -3,8 +3,7 @@ import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
-import { accounts } from "@/twoopstracker/config";
-import { allUsernames } from "@/twoopstracker/lib";
+import { allAccounts } from "@/twoopstracker/lib";
 
 export default function Index(props) {
   return (
@@ -28,12 +27,9 @@ export async function getServerSideProps(context) {
     };
   }
 
-  let data = await allUsernames(session, query);
-  if (!data) {
-    data = accounts;
-    data.accounts = data.results;
-    delete data.results;
-  }
+  const data = await allAccounts(session, query);
+  data.accounts = data?.results;
+  delete data.results;
   // Pass data to the page via props
   return { props: { data, session } };
 }

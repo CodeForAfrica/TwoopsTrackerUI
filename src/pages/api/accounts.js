@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/client";
 
-import { allUsernames } from "@/twoopstracker/lib";
+import { allAccounts } from "@/twoopstracker/lib";
 
 export default async function handler(req, res) {
   const session = await getSession({ req });
@@ -11,10 +11,10 @@ export default async function handler(req, res) {
     if (req.query.page) {
       queryParams.page = req.query.page;
     }
-    if (req.query.page_size) {
-      queryParams.pageSize = req.query.page_size;
+    if (req.query.pageSize) {
+      queryParams.pageSize = req.query.pageSize;
     }
-    const results = await allUsernames(session, queryParams);
+    const results = await allAccounts(session, queryParams);
     return res.status(200).json(results);
   }
 

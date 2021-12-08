@@ -25,7 +25,7 @@ export async function list(id, session) {
   return fetchJson(`${BASE_URL}/lists/${id}`, session);
 }
 
-export async function allUsernames(session, pageData) {
+export async function allAccounts(session, pageData) {
   const listParams = new URLSearchParams();
 
   if (pageData.page) {
@@ -34,9 +34,8 @@ export async function allUsernames(session, pageData) {
   if (pageData.pageSize) {
     listParams.append("page_size", pageData.pageSize);
   }
-
   const result = await fetchJson(
-    `${BASE_URL}/lists/?${listParams.toString()}`,
+    `${BASE_URL}/accounts/?${listParams.toString()}`,
     session
   );
   return result;
