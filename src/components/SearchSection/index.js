@@ -97,10 +97,14 @@ const SearchSection = ({
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
-          <Button className={classes.saveButton} href="/explore/accounts">
-            See all Twitter Accounts
-          </Button>
           <div>
+            {session && (
+              <Button className={classes.saveButton} href="/explore/accounts">
+                See all Twitter Accounts
+              </Button>
+            )}
+          </div>
+          <div className={classes.alignRight}>
             {session ? (
               <Button
                 className={classes.saveButton}
