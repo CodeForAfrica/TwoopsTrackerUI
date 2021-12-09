@@ -6,15 +6,7 @@ export default async function handler(req, res) {
   const session = await getSession({ req });
 
   if (req.method === "GET") {
-    const queryParams = {};
-
-    if (req.query.page) {
-      queryParams.page = req.query.page;
-    }
-    if (req.query.pageSize) {
-      queryParams.pageSize = req.query.pageSize;
-    }
-    const results = await allAccounts(session, queryParams);
+    const results = await allAccounts(session, req.query);
     return res.status(200).json(results);
   }
 

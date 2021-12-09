@@ -26,7 +26,6 @@ const AccountsList = ({
   ...props
 }) => {
   const classes = useStyles(props);
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
