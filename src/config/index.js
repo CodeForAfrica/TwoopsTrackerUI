@@ -1099,6 +1099,22 @@ export const listPagination = {
   pageSizeOptions: [{ value: "10" }, { value: "20" }],
 };
 
+export const accounts = {
+  count: 1,
+  next: null,
+  previous: null,
+  results: [
+    {
+      name: "Valtteri Bottas",
+      account_id: 1143472657,
+      screen_name: "ValtteriBottas",
+      protected: false,
+      created_at: "2021-12-07T10:11:25.314577Z",
+      updated_at: "2021-12-07T10:11:25.314616Z",
+    },
+  ],
+};
+
 const config = {
   investigation,
   name: "TwoopsTracker",

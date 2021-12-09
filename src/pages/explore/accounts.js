@@ -3,19 +3,21 @@ import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
-import { list } from "@/twoopstracker/lib";
+import { pagination } from "@/twoopstracker/config";
+import { allAccounts } from "@/twoopstracker/lib";
 
 export default function Index(props) {
   return (
     <Page {...props}>
-      <AccountsList {...props} />
+      <AccountsList {...props} paginationProps={pagination} />
     </Page>
   );
 }
 
 export async function getServerSideProps(context) {
-  const { params: paramData } = context;
   const session = await getSession(context);
+
+  const { query } = context;
 
   if (!session) {
     return {
@@ -26,15 +28,9 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const data = await list(paramData.listId, session);
-
+  const data = await allAccounts(session, query);
+  data.accounts = data?.results;
+  delete data.results;
   // Pass data to the page via props
-  return {
-    props: {
-      data,
-      session,
-      apiUrl: `/api/lists/${paramData.listId}`,
-      editable: true,
-    },
-  };
+  return { props: { data, session } };
 }

@@ -28,6 +28,22 @@ export async function list(id, session) {
   return fetchJson(`${BASE_URL}/lists/${id}`, session);
 }
 
+export async function allAccounts(session, pageData) {
+  const listParams = new URLSearchParams();
+
+  if (pageData.page) {
+    listParams.append("page", pageData.page);
+  }
+  if (pageData.pageSize) {
+    listParams.append("page_size", pageData.pageSize);
+  }
+  const result = await fetchJson(
+    `${BASE_URL}/accounts/?${listParams.toString()}`,
+    session
+  );
+  return result;
+}
+
 export async function APIRequest(payload, method, param, session) {
   let url = BASE_URL;
 
