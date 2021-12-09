@@ -63,6 +63,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   description: {
     marginTop: typography.pxToRem(50),
+    textAlign: "center",
     [breakpoints.up("md")]: {
       marginTop: typography.pxToRem(118),
     },
@@ -85,7 +86,7 @@ function Partners({
           <Typography className={classes.title} variant="h2">
             {title}
           </Typography>
-          <Typography className={classes.description} variant="body1">
+          <Typography className={classes.description} variant="body2">
             {description}
           </Typography>
           <div className={classes.images}>

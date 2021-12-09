@@ -63,6 +63,10 @@ const theme = createTheme({
     body1: {
       fontFamily: FONT_FAMILY_TEXT,
     },
+    body2: {
+      fontFamily: FONT_FAMILY_TEXT2,
+      fontSize: "24px",
+    },
     button: {
       fontFamily: FONT_FAMILY_TEXT2,
       fontStretch: "normal",
