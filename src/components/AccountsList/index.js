@@ -19,6 +19,7 @@ const AccountsList = ({
     page: pageProp,
     pageSize: pageSizeProp,
     name,
+    count,
     accounts,
     is_private: isPrivate,
   },
@@ -132,7 +133,7 @@ const AccountsList = ({
       ))}
       <Pagination
         {...paginationProps}
-        count={Math.ceil(listAccounts?.count / (pageSize || 20))}
+        count={Math.ceil(count / (pageSize || 20))}
         onChangePage={handleClickPage}
         onChangePageSize={handleClickPageSize}
         page={page}
@@ -146,6 +147,7 @@ AccountsList.propTypes = {
   apiUrl: PropTypes.string,
   data: PropTypes.shape({
     accounts: PropTypes.arrayOf(PropTypes.shape({})),
+    count: PropTypes.number,
     id: PropTypes.number,
     is_private: PropTypes.bool,
     name: PropTypes.string,
