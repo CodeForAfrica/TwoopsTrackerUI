@@ -26,6 +26,12 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
     marginLeft: 0,
   },
   menuList: {},
+  snackbar: {
+    maxWidth: 600,
+    "& > * + *": {
+      marginTop: "2rem",
+    },
+  },
   addToList: {
     color: "black",
     display: "flex",
@@ -223,35 +229,30 @@ function AddToList({ handle, results: listsProp, ...props }) {
       </Popper>
 
       {listIncluded ? (
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          open={openSnackBar}
-          autoHideDuration={6000}
-          onClose={handleSnackBarClose}
-          message="Added to List, yeah!!"
-          action={
-            <>
-              <Button
-                color="secondary"
-                size="small"
-                onClick={handleSnackBarClose}
-              >
-                UNDO
-              </Button>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleSnackBarClose}
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </>
-          }
-        />
+        <div className={classes.snackbar}>
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            open={openSnackBar}
+            autoHideDuration={6000}
+            onClose={handleSnackBarClose}
+            message="Added to List, yeah!!"
+            action={
+              <>
+                <IconButton
+                  size="small"
+                  aria-label="close"
+                  color="inherit"
+                  onClick={handleSnackBarClose}
+                >
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </>
+            }
+          />
+        </div>
       ) : null}
     </div>
   );
