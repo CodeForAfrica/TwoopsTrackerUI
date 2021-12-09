@@ -6,9 +6,12 @@ import {
   Grow,
   MenuList,
   MenuItem,
+  Snackbar,
+  IconButton,
   ClickAwayListener,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import CloseIcon from "@material-ui/icons/Close";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
 import useSWR from "swr";
@@ -87,6 +90,8 @@ function AddToList({ handle, results: listsProp, ...props }) {
   const anchorRef = useRef(null);
 
   const [open, setOpen] = useState(false);
+  const [listIncluded, setListIncluded] = useState(false);
+  const [openSnackBar, setOpenSnackBar] = useState(false);
   const [lists, setLists] = useState(listsProp ? listsProp.results : []);
 
   const fetcher = (url) => fetchJson(url);
@@ -98,10 +103,26 @@ function AddToList({ handle, results: listsProp, ...props }) {
     }
   }, [data]);
 
+  const handleSnackBarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackBar(false);
+  };
+
   const handleCreate = async (event) => {
     const listId = event.target.dataset.id;
     const accountData = await fetchJson(`/api/lists/${listId}`, fetcher);
-    accountData.accounts.push({ screen_name: handle });
+    setOpen(false);
+    setOpenSnackBar(true);
+
+    if (accountData.accounts.includes({ screen_name: handle })) {
+      setListIncluded(false);
+    } else {
+      accountData.accounts.push({ screen_name: handle });
+      setListIncluded(true);
+    }
+
     try {
       const results = fetchJson(`/api/lists/${listId}`, null, {
         method: "PUT",
@@ -200,6 +221,38 @@ function AddToList({ handle, results: listsProp, ...props }) {
           </Grow>
         )}
       </Popper>
+
+      {listIncluded ? (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={openSnackBar}
+          autoHideDuration={6000}
+          onClose={handleSnackBarClose}
+          message="Added to List, yeah!!"
+          action={
+            <>
+              <Button
+                color="secondary"
+                size="small"
+                onClick={handleSnackBarClose}
+              >
+                UNDO
+              </Button>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleSnackBarClose}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </>
+          }
+        />
+      ) : null}
     </div>
   );
 }
