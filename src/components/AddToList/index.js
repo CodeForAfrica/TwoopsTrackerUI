@@ -13,7 +13,6 @@ import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
 import useSWR from "swr";
 
-import ListModal from "@/twoopstracker/components/ListModal";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const useStyles = makeStyles(({ breakpoints, typography }) => ({
@@ -83,12 +82,11 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
   },
 }));
 
-function AddToList({ results: listsProp, ...props }) {
+function AddToList({ handle, results: listsProp, ...props }) {
   const classes = useStyles(props);
   const anchorRef = useRef(null);
 
   const [open, setOpen] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
   const [lists, setLists] = useState(listsProp ? listsProp.results : []);
 
   const fetcher = (url) => fetchJson(url);
@@ -100,7 +98,21 @@ function AddToList({ results: listsProp, ...props }) {
     }
   }, [data]);
 
-  const handleOpen = () => setOpenModal(true);
+  const handleCreate = async (event) => {
+    const listId = event.target.dataset.id;
+    const accountData = await fetchJson(`/api/lists/${listId}`, fetcher);
+    accountData.accounts.push({ screen_name: handle });
+    try {
+      const results = fetchJson(`/api/lists/${listId}`, null, {
+        method: "PUT",
+        body: JSON.stringify(accountData),
+      });
+      return results;
+    } catch (error) {
+      return error;
+    }
+  };
+
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -110,7 +122,6 @@ function AddToList({ results: listsProp, ...props }) {
       return;
     }
     setOpen(false);
-    setOpenModal(false);
   };
 
   const handleListKeyDown = (event) => {
@@ -176,8 +187,9 @@ function AddToList({ results: listsProp, ...props }) {
                   {lists?.map((item) => (
                     <MenuItem
                       key={item.name}
+                      data-id={item.id}
                       className={classes.menuItem}
-                      onClick={handleOpen}
+                      onClick={handleCreate}
                     >
                       {item.name}
                     </MenuItem>
@@ -188,14 +200,6 @@ function AddToList({ results: listsProp, ...props }) {
           </Grow>
         )}
       </Popper>
-
-      <ListModal
-        open={openModal}
-        onClose={handleClose}
-        accountsLabel="User Accounts"
-        accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
-        buttonLabel="Add"
-      />
     </div>
   );
 }
@@ -208,9 +212,11 @@ AddToList.propTypes = {
     is_private: PropTypes.bool,
     id: PropTypes.number,
   }),
+  handle: PropTypes.string,
 };
 
 AddToList.defaultProps = {
+  handle: undefined,
   results: undefined,
   data: undefined,
 };

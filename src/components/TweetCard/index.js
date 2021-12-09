@@ -50,7 +50,7 @@ const TweetCard = ({
             {`@${handle}`}
           </RichTypography>
           <Typography className={classes.accountType}>{accountType}</Typography>
-          <AddToList results={results} />
+          <AddToList handle={handle} results={results} />
         </Grid>
         <Grid item lg={5} sm={12}>
           {createdAt && (
