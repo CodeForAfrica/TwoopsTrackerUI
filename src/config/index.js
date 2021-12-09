@@ -825,13 +825,13 @@ export const home = {
   },
   partners: {
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Troll Tracker is a collaborative effort by civic tech industry experts including Code for All, Code for Africa, DFRLab, iLab, PesaCheck and CivicSignal. The team is well positioned to create a tool that empowers investigative projects across Africa with years of experience across all organisations.",
     primaryPartners: [
       { src: codeForAfrica, href: "https://codeforafrica.org" },
       { src: codeForAll, href: "https://codeforall.org" },
     ],
     secondaryPartners: [ancirLogo, pesacheckLogo, civicSignal, dfrlab],
-    title: "Partners & About Us",
+    title: "Anti-disinfo alliance",
   },
   signUp: {
     buttonLink: "/signup",
