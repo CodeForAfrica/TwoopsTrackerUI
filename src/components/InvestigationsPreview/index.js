@@ -52,7 +52,11 @@ function InvestigationsPreview({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Typography variant="h1">{title}</Typography>
-        <Typography align="center" className={classes.description} variant="h4">
+        <Typography
+          align="center"
+          className={classes.description}
+          variant="subtitle1"
+        >
           {description}
         </Typography>
         <Grid container spacing={8}>

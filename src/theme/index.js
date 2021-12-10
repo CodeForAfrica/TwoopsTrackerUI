@@ -158,8 +158,11 @@ deepmerge(
       [breakpoints.up("xl")]: { fontSize: pxToRem(14) },
     },
     subtitle1: {
-      fontSize: typography.pxToRem(36),
-      lineHeight: 39.6 / 36,
+      fontSize: pxToRem(24),
+      [breakpoints.up("xl")]: {
+        fontSize: typography.pxToRem(36),
+        lineHeight: 39.6 / 36,
+      },
     },
     subtitle2: {
       fontSize: 14,
