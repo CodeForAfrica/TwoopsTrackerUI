@@ -16,6 +16,8 @@ import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
 import useSWR from "swr";
 
+import addToList from "@/twoopstracker/assets/icons/Square Plus.svg";
+import Image from "@/twoopstracker/components/Image";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const useStyles = makeStyles(({ breakpoints, typography }) => ({
@@ -182,6 +184,9 @@ function AddToList({ handle, results: listsProp, ...props }) {
           root: classes.addToList,
           text: classes.text,
         }}
+        endIcon={
+          <Image width={24} height={24} alt="Add to list" src={addToList} />
+        }
       >
         <Typography className={classes.list}>Add to List</Typography>
       </Button>
@@ -238,7 +243,7 @@ function AddToList({ handle, results: listsProp, ...props }) {
             open={openSnackBar}
             autoHideDuration={6000}
             onClose={handleSnackBarClose}
-            message="Added to List, yeah!!"
+            message="The account has been addded"
             action={
               <>
                 <IconButton
