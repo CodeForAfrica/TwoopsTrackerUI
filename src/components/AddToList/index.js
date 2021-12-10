@@ -7,11 +7,10 @@ import {
   MenuList,
   MenuItem,
   Snackbar,
-  IconButton,
   ClickAwayListener,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import CloseIcon from "@material-ui/icons/Close";
+import MuiAlert from "@material-ui/lab/Alert";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
 import useSWR from "swr";
@@ -92,6 +91,10 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
     },
   },
 }));
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function AddToList({ handle, results: listsProp, ...props }) {
   const classes = useStyles(props);
@@ -234,30 +237,15 @@ function AddToList({ handle, results: listsProp, ...props }) {
       </Popper>
 
       {listIncluded ? (
-        <div className={classes.snackbar}>
-          <Snackbar
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            open={openSnackBar}
-            autoHideDuration={6000}
-            onClose={handleSnackBarClose}
-            message="The account has been addded"
-            action={
-              <>
-                <IconButton
-                  size="small"
-                  aria-label="close"
-                  color="inherit"
-                  onClick={handleSnackBarClose}
-                >
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </>
-            }
-          />
-        </div>
+        <Snackbar
+          open={openSnackBar}
+          autoHideDuration={6000}
+          onClose={handleSnackBarClose}
+        >
+          <Alert onClose={handleSnackBarClose} severity="success">
+            Account has beeen sucessfully added!
+          </Alert>
+        </Snackbar>
       ) : null}
     </div>
   );
