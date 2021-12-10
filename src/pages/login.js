@@ -4,6 +4,7 @@ import React from "react";
 
 import Login from "@/twoopstracker/components/LoginForm";
 import Page from "@/twoopstracker/components/Page";
+import { settings } from "@/twoopstracker/lib/cms";
 
 function SignIn({ providers: providersProp, ...props }) {
   return (
@@ -26,6 +27,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
+      ...settings(),
       providers,
       title: "Sign in",
     },

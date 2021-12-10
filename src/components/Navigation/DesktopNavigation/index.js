@@ -22,9 +22,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 function DesktopNavigation({
-  menuProps,
-  desktopLogoProps,
-  loginMenuProps,
+  main,
+  login,
+  logo,
   profilePages,
   accountLink,
   logOutLabel,
@@ -42,7 +42,7 @@ function DesktopNavigation({
               href="/"
               className={classes.logoButton}
             >
-              <Image {...desktopLogoProps} />
+              <Image height={55} width={237} {...logo} />
             </LogoButton>
           </Grid>
           <Grid
@@ -54,8 +54,8 @@ function DesktopNavigation({
             alignItems="center"
           >
             <Menu
-              links={menuProps}
-              loginMenuProps={loginMenuProps}
+              main={main}
+              login={login}
               profilePages={profilePages}
               accountLink={accountLink}
               logOutLabel={logOutLabel}
@@ -71,24 +71,18 @@ function DesktopNavigation({
 
 DesktopNavigation.propTypes = {
   logOutLabel: PropTypes.string,
-  menuProps: PropTypes.arrayOf(PropTypes.shape({})),
-  loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
+  login: PropTypes.arrayOf(PropTypes.shape({})),
+  main: PropTypes.arrayOf(PropTypes.shape({})),
   profilePages: PropTypes.arrayOf(PropTypes.shape({})),
   accountLink: PropTypes.arrayOf(PropTypes.shape({})),
-  desktopLogoProps: PropTypes.shape({
-    alt: PropTypes.string,
-    href: PropTypes.string,
-    src: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
-    width: PropTypes.number,
-    height: PropTypes.number,
-  }),
+  logo: PropTypes.shape({}),
 };
 
 DesktopNavigation.defaultProps = {
-  menuProps: undefined,
+  login: undefined,
+  main: undefined,
   logOutLabel: undefined,
-  loginMenuProps: undefined,
-  desktopLogoProps: undefined,
+  logo: undefined,
   profilePages: undefined,
   accountLink: undefined,
 };

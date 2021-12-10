@@ -1,5 +1,6 @@
 import { AppBar, Hidden, Toolbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 import React from "react";
 
 import DesktopNavigation from "./DesktopNavigation";
@@ -26,7 +27,7 @@ const useStyles = makeStyles(
   })
 );
 
-function Navigation({ ...props }) {
+function Navigation({ logo, ...props }) {
   const classes = useStyles(props);
 
   return (
@@ -35,15 +36,27 @@ function Navigation({ ...props }) {
         <Hidden mdDown implementation="css" className={classes.navigation}>
           <DesktopNavigation
             {...props}
+            logo={logo?.desktop || logo}
             classes={{ section: classes.section }}
           />
         </Hidden>
         <Hidden lgUp implementation="css" className={classes.navigation}>
-          <MobileNavigation {...props} />
+          <MobileNavigation {...props} {...props} logo={logo?.mobile || logo} />
         </Hidden>
       </Toolbar>
     </AppBar>
   );
 }
+
+Navigation.propTypes = {
+  logo: PropTypes.shape({
+    desktop: PropTypes.shape({}),
+    mobile: PropTypes.shape({}),
+  }),
+};
+
+Navigation.defaultProps = {
+  logo: undefined,
+};
 
 export default Navigation;

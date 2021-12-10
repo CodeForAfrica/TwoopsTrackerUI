@@ -50,8 +50,32 @@ const Template = ({ ...args }) => <Menu {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  links: navigationArgs.menuProps,
-  loginMenuProps: navigationArgs.loginMenuProps,
+  login: [
+    {
+      label: "Sign up",
+      href: "/login",
+      icon: {
+        src: "/images/signup.svg",
+      },
+    },
+    {
+      label: "Login",
+      href: "/login",
+      icon: {
+        src: "/images/login.svg",
+      },
+    },
+  ],
+  main: [
+    {
+      label: "Watchlists",
+      href: "/explore",
+    },
+    {
+      label: "About",
+      href: "/about",
+    },
+  ],
   label: navigationArgs.userProfileArgs.label,
   logOutLabel: navigationArgs.userProfileArgs.logOutLabel,
   avatorProps: navigationArgs.userProfileArgs.avatorProps,

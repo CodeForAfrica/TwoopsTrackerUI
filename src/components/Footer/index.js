@@ -16,13 +16,10 @@ import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
 function Footer({
-  title,
-  logoProps,
-  aboutVariant,
-  description,
+  project,
   copyrightProps,
   quickLinks: quickLinksProp,
-  socialMedia,
+  contacts,
   ...props
 }) {
   const classes = useStyles(props);
@@ -41,33 +38,33 @@ function Footer({
           justifyContent="space-between"
         >
           <Grid item xs={12} lg={6}>
-            {logoProps && (
+            {project.logoProps && (
               <LogoButton
-                {...logoProps}
+                {...project.logoProps}
                 component={Link}
                 classes={{
                   root: classes.logoButton,
                 }}
               />
             )}
-            {description && (
+            {project.description && (
               <RichTypography
-                variant={aboutVariant}
+                variant="subtitle1"
                 className={classes.description}
               >
-                {description}
+                {project.description}
               </RichTypography>
             )}
-            {socialMedia && (
+            {contacts && (
               <StayInTouch
-                title={title}
-                socialMedia={socialMedia}
+                title={contacts?.title}
+                socialMedia={contacts?.socialMedia}
                 classes={{
                   root: classes.stayInTouch,
                   icon: classes.stayInTouchIcon,
+                  link: classes.stayInTouchLink,
                   links: classes.stayInTouchLinks,
                   text: classes.stayInTouchText,
-                  link: classes.stayInTouchLink,
                 }}
               />
             )}
@@ -103,27 +100,27 @@ function Footer({
 }
 
 Footer.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  socialMedia: PropTypes.arrayOf(PropTypes.shape({})),
-  quickLinks: PropTypes.arrayOf(PropTypes.shape({})),
-  logoProps: PropTypes.shape({
-    src: PropTypes.string,
-    alt: PropTypes.string,
-    href: PropTypes.string,
+  contacts: PropTypes.shape({
+    socialMedia: PropTypes.arrayOf(PropTypes.shape({})),
+    title: PropTypes.string,
   }),
-  aboutVariant: PropTypes.string,
+  project: PropTypes.shape({
+    description: PropTypes.string,
+    logoProps: PropTypes.shape({
+      src: PropTypes.string,
+      alt: PropTypes.string,
+      href: PropTypes.string,
+    }),
+  }),
+  quickLinks: PropTypes.arrayOf(PropTypes.shape({})),
   copyrightProps: PropTypes.shape({}),
 };
 
 Footer.defaultProps = {
-  title: undefined,
-  description: undefined,
-  socialMedia: undefined,
+  contacts: undefined,
+  project: undefined,
   quickLinks: undefined,
   copyrightProps: undefined,
-  logoProps: undefined,
-  aboutVariant: "subtitle1",
 };
 
 export default Footer;

@@ -3,6 +3,7 @@ import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
+import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography, palette }) => ({
@@ -60,29 +61,31 @@ function InvestigationsPreview({
           {description}
         </Typography>
         <Grid container spacing={8}>
-          {items.slice(0, 4).map(({ image, title: bookTitle }) => (
+          {items.slice(0, 4).map(({ href, image, title: bookTitle }) => (
             <Grid item xs={6} md={3}>
-              <Image
-                height={369}
-                width={297}
-                objectFit="contain"
-                src={image}
-                alt={title}
-              />
-              <Typography
-                className={classes.investigationtitle}
-                variant="body1"
-              >
-                {bookTitle}
-              </Typography>
+              <Button href={href} component={href ? Link : undefined}>
+                <Image
+                  height={369}
+                  width={297}
+                  objectFit="contain"
+                  src={image}
+                  alt={bookTitle}
+                />
+                <Typography
+                  className={classes.investigationtitle}
+                  variant="body1"
+                >
+                  {bookTitle}
+                </Typography>
+              </Button>
             </Grid>
           ))}
         </Grid>
         <Button
-          className={classes.button}
+          color="secondary"
           href={buttonLink}
           variant="contained"
-          color="secondary"
+          className={classes.button}
         >
           {buttonText}
         </Button>
