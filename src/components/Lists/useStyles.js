@@ -37,6 +37,9 @@ const useStyles = makeStyles(({ typography }) => ({
   formControl: {
     marginBottom: typography.pxToRem(20),
   },
+  actions: {
+    width: "100%",
+  },
 }));
 
 export default useStyles;

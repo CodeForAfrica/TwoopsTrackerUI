@@ -103,8 +103,6 @@ export async function getServerSideProps(context) {
     cartType: "summary_large_image",
   };
 
-  /*  console.log(results); */
-
   return {
     props: {
       ...query,
