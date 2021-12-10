@@ -10,8 +10,9 @@ const theme = createTheme({
   breakpoints: {
     values: {
       xs: 0, // mobile
-      md: 1080, // tablet
-      lg: 1600, // desktop
+      md: 960, // tablet
+      lg: 1280, // desktop
+      xl: 1920, // exta-large
     },
   },
   palette: {
@@ -84,8 +85,9 @@ const theme = createTheme({
   },
   widths: {
     values: {
-      md: 1080, // 0, 80, 0, 80 margin - to be confirmed for TwoopsTracker
-      lg: 1520, // 0, 140, 0, 140 margin - to be confirmed for TwoopsTracker
+      md: 900, // 0, 80, 0, 80 margin - to be confirmed for TwoopsTracker
+      lg: 1200, // 0, 140, 0, 140 margin - to be confirmed for TwoopsTracker
+      xl: 1520,
     },
   },
 });
@@ -105,7 +107,7 @@ deepmerge(
         fontSize: pxToRem(60),
         lineHeight: 75.6 / 60,
       },
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: pxToRem(96),
         lineHeight: 105.6 / 96,
       },
@@ -117,23 +119,23 @@ deepmerge(
         fontSize: pxToRem(42),
         lineHeight: 49.2 / 24,
       },
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: pxToRem(72),
         lineHeight: 79.2 / 72,
       },
     },
     h3: {
       fontSize: pxToRem(30),
-      [breakpoints.up("lg")]: { fontSize: pxToRem(42) },
+      [breakpoints.up("xl")]: { fontSize: pxToRem(42) },
     },
     h4: {
       fontSize: pxToRem(24),
-      [breakpoints.up("lg")]: { fontSize: pxToRem(36) },
+      [breakpoints.up("xl")]: { fontSize: pxToRem(36) },
     },
     h5: {
       fontSize: pxToRem(14),
       lineHeight: 30 / 14,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: pxToRem(16),
         lineHeight: 30 / 16,
       },
@@ -141,7 +143,7 @@ deepmerge(
     body1: {
       fontSize: pxToRem(18),
       lineHeight: 30 / 18,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: pxToRem(24),
         lineHeight: 35.88 / 24,
       },
@@ -157,7 +159,7 @@ deepmerge(
     },
     caption: {
       fontSize: pxToRem(14),
-      [breakpoints.up("lg")]: { fontSize: pxToRem(14) },
+      [breakpoints.up("xl")]: { fontSize: pxToRem(14) },
     },
     subtitle1: {
       fontSize: typography.pxToRem(24),
@@ -166,14 +168,14 @@ deepmerge(
     subtitle2: {
       fontSize: 14,
       lineHeight: 20 / 14,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: typography.pxToRem(18),
         lineHeight: 30 / 18,
       },
     },
     overline: {
       fontSize: pxToRem(14),
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: pxToRem(14),
       },
     },
