@@ -23,7 +23,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/utils": "^4.11.2",
-    "@svgr/webpack": "^5.5.0",
+    "@svgr/webpack": "^6.1.1",
     "aws-sdk": "^2.1040.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.25.0",
