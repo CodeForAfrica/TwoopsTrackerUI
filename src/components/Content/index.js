@@ -32,21 +32,20 @@ function Content({ items, size, ctaLabel, ...props }) {
               <A
                 className={clsx({
                   [classes.imageContainer]: true,
-                  [classes.shadow]: size !== "large",
+                  [classes.shadow]: size === "large",
                 })}
                 href={href}
               >
                 <Image
                   objectFit="contain"
-                  width={size === "large" ? 768 : 200}
-                  height={size === "large" ? 500 : 200}
+                  width={size === "large" ? 768 : 300}
+                  height={size === "large" ? 500 : 150}
                   src={image}
                   alt={title}
                 />
               </A>
             </Grid>
             <Grid
-              container
               alignItems="center"
               item
               xs={12}
@@ -54,13 +53,13 @@ function Content({ items, size, ctaLabel, ...props }) {
             >
               {title && (
                 <A className={classes.link} href={href}>
-                  <Typography className={classes.title} variant="h4">
+                  <Typography className={classes.title} variant="h2">
                     {title}
                   </Typography>
                 </A>
               )}
               {description && (
-                <RichTypography className={classes.description} variant="body1">
+                <RichTypography className={classes.description} variant="body2">
                   {description}
                 </RichTypography>
               )}
@@ -70,7 +69,7 @@ function Content({ items, size, ctaLabel, ...props }) {
                   className={classes.viewWebsite}
                   href={href}
                 >
-                  <Typography>{ctaLabel}</Typography>
+                  <Typography variant="body2">{ctaLabel}</Typography>
                 </A>
               )}
             </Grid>
