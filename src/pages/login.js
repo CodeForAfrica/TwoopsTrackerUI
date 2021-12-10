@@ -22,8 +22,13 @@ SignIn.defaultProps = {
   providers: undefined,
 };
 
-export async function getStaticProps(context) {
-  const providers = await getProviders(context);
+/**
+ *  NOTE(kilemensi): [getProviders()](https://next-auth.js.org/v3/getting-started/client#getproviders)
+ *                   calls /api/providers, which is not available during build
+ *                   time and hence we can't use it here.
+ */
+export async function getServerSideProps() {
+  const providers = await getProviders();
 
   return {
     props: {
@@ -31,7 +36,6 @@ export async function getStaticProps(context) {
       providers,
       title: "Sign in",
     },
-    revalidate: 60 * 60, // 60 minutes
   };
 }
 
