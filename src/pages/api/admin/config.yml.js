@@ -1,19 +1,12 @@
-import fs from "fs";
-
 import yaml from "js-yaml";
+
+import config from "./config.json";
 
 import site from "@/twoopstracker/utils/site";
 
-// SEE: https://github.com/vercel/next.js/discussions/21666#discussioncomment-322999
-const path = require("path");
-
 export default function handler(req, res) {
   if (req.method === "GET") {
-    const adminDir = path.join(process.cwd(), "public/admin");
-    const filePath = path.join(adminDir, "config.yml");
-    let configFile = fs.readFileSync(filePath, "utf-8");
     if (process.env.NODE_ENV === "production") {
-      const config = yaml.load(configFile);
       // Set production configurations
       config.backend.name = "github";
       config.backend.repo = process.env.ADMIN_BACKEND_REPO;
@@ -22,9 +15,8 @@ export default function handler(req, res) {
       config.publish_mode = "editorial_workflow";
       // Remove dev configurations
       config.local_backend = undefined;
-
-      configFile = yaml.dump(config);
     }
+    const configFile = yaml.dump(config);
 
     res.setHeader("Content-Type", "text/yaml");
     res.setHeader("Content-Disposition", "attachment; filename=config.yml");
