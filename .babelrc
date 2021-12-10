@@ -15,6 +15,7 @@
       {
         "root": ["./"],
         "alias": {
+          "@/cms": "./content",
           "@/twoopstracker": "./src"
         }
       }

@@ -28,7 +28,7 @@ const useStyles = makeStyles(({ typography }) => ({
   shadow: {
     background: "#FFFFFF",
     boxShadow: "2px 2px 10px 5px rgba(0, 0, 0, 0.1)",
-    padding: typography.pxToRem(24),
+    padding: typography.pxToRem(2),
   },
   viewWebsite: {
     marginTop: typography.pxToRem(50),

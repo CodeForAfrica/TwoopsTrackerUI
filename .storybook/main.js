@@ -6,6 +6,7 @@ module.exports = {
     "storybook-addon-material-ui",
     "storybook-addon-next-router",
   ],
+  staticDirs: ["../public"],
   webpackFinal: async (config) => {
     // Need to remove default svg-url-loader first
     // See: https://github.com/webpack/webpack/issues/595

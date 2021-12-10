@@ -91,15 +91,15 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function LoginMenu({ loginMenu, children, ...props }) {
+function LoginMenu({ items, children, ...props }) {
   const classes = useStyles(props);
 
-  if (!loginMenu?.length) {
+  if (!items?.length) {
     return null;
   }
   return (
     <div className={classes.root}>
-      {loginMenu.map((item, index) => (
+      {items.map((item, index) => (
         <Grid item key={item.label} className={classes.menu}>
           <Button
             component={Link}
@@ -109,12 +109,14 @@ function LoginMenu({ loginMenu, children, ...props }) {
             href={item.href}
             classes={{
               root:
-                index !== loginMenu.length - 1
-                  ? classes.menuLinks
-                  : classes.links,
+                index !== items.length - 1 ? classes.menuLinks : classes.links,
               text: classes.text,
             }}
-            startIcon={<Image {...item.imageProps} />}
+            startIcon={
+              item.icon ? (
+                <Image height={24} width={24} {...item.icon} />
+              ) : undefined
+            }
           >
             <Typography variant="body1" className={classes.label}>
               {item.label}
@@ -127,11 +129,12 @@ function LoginMenu({ loginMenu, children, ...props }) {
 }
 
 LoginMenu.propTypes = {
-  loginMenu: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   children: PropTypes.node,
+  items: PropTypes.arrayOf(PropTypes.shape({}).isRequired),
 };
 
 LoginMenu.defaultProps = {
   children: undefined,
+  items: undefined,
 };
 export default LoginMenu;

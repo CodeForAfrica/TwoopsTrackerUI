@@ -1,11 +1,11 @@
 import React from "react";
 
+import { Default as HeroDefault } from "../Hero/index.stories";
+
 import InvestigationList from ".";
 
-import { investigation } from "@/twoopstracker/config";
-
 export default {
-  title: "Components/InvestigationList",
+  title: "Sections/InvestigationList",
 };
 
 const Template = (args) => <InvestigationList {...args} />;
@@ -19,5 +19,5 @@ Default.parameters = {
 };
 
 Default.args = {
-  items: investigation.items,
+  items: HeroDefault.args.items,
 };
