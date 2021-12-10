@@ -12,7 +12,7 @@ import {
   ClickAwayListener,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { signOut, useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -136,7 +136,7 @@ function UserProfile({
   ...props
 }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);

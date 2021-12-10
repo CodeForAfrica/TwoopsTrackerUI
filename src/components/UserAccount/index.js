@@ -1,5 +1,5 @@
 import { Typography, Divider, Grid, Button } from "@material-ui/core";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 
@@ -9,7 +9,7 @@ import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 
 function UserAccount({ ...props }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   if (!session) {
     return null;

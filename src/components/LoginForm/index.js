@@ -1,6 +1,6 @@
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSession, signIn } from "next-auth/client";
+import { useSession, signIn } from "next-auth/react";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Login({ providers, ...props }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (session) {

@@ -9,7 +9,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Upload {...args} />;
+function Template(args) {
+  return <Upload {...args} />;
+}
 
 export const Default = Template.bind({});
 

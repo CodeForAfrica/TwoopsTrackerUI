@@ -7,7 +7,9 @@ export default {
   argTypes: {},
 };
 
-const Template = () => <SearchSection />;
+function Template() {
+  return <SearchSection />;
+}
 
 export const Default = Template.bind({});
 

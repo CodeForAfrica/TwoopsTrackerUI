@@ -8,7 +8,7 @@ import useStyles from "./useStyles";
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 import ListModal from "@/twoopstracker/components/ListModal";
 
-const Account = ({
+function Account({
   account: {
     name,
     screen_name: screenName,
@@ -18,7 +18,7 @@ const Account = ({
   items,
   onDelete,
   ...props
-}) => {
+}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -85,7 +85,7 @@ const Account = ({
       </Grid>
     </div>
   );
-};
+}
 
 Account.propTypes = {
   account: PropTypes.shape({

@@ -1,11 +1,11 @@
 import jwtDecode from "jwt-decode";
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+import GoogleProvider from "next-auth/providers/google";
 
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-function fetchToken(token, url = process.env.AUTH_URL) {
+async function fetchToken(token, url = process.env.AUTH_URL) {
   const raw = JSON.stringify(token);
   const requestOptions = {
     method: "POST",
@@ -46,21 +46,16 @@ async function refreshAccessToken(token) {
 const options = {
   // Configure one or more authentication providers
   providers: [
-    Providers.Google({
+    GoogleProvider({
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
     }),
   ],
 
+  secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
-    /**
-     * @param  {object} user     User object
-     * @param  {object} account  Provider account
-     * @param  {object} profile  Provider profile
-     * @return {boolean}         Return `true` (or a modified JWT) to allow sign in
-     *                           Return `false` to deny access
-     */
-    signIn: async (user, account) => {
+    async signIn({ account }) {
       const token = await fetchToken({
         provider: account?.provider,
         tokens: {
@@ -73,7 +68,7 @@ const options = {
       }
       return false;
     },
-    jwt: async (token, user, account) => {
+    async jwt({ token, user, account }) {
       // Initial sign in
       if (account && user) {
         const { access_token: accessToken, refresh_token: refreshToken } =
@@ -100,7 +95,7 @@ const options = {
       return refreshAccessToken(token);
     },
     // Attach user and token to be available in the frontend https://next-auth.js.org/v3/tutorials/refresh-token-rotation#server-side
-    session: async (session, token) => {
+    async session({ session, token }) {
       if (!session || !token) {
         return null;
       }
@@ -108,10 +103,11 @@ const options = {
       return newSession;
     },
   },
+
   pages: {
     signIn: "/login",
     error: "/404", // Error code passed in query string as ?error=
   },
 };
 
-export default (req, res) => NextAuth(req, res, options);
+export default NextAuth(options);

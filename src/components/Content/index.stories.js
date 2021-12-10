@@ -30,7 +30,9 @@ export default {
   title: "Sections/Content",
 };
 
-const Template = (args) => <Content {...args} />;
+function Template(args) {
+  return <Content {...args} />;
+}
 
 export const Default = Template.bind({});
 

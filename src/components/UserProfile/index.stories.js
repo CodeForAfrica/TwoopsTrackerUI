@@ -10,11 +10,13 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ ...args }) => (
-  <Grid container="row" justifyContent="flex-end" alignItems="center">
-    <UserProfile {...args} />
-  </Grid>
-);
+function Template({ ...args }) {
+  return (
+    <Grid container="row" justifyContent="flex-end" alignItems="center">
+      <UserProfile {...args} />
+    </Grid>
+  );
+}
 export const Default = Template.bind({});
 
 Default.parameters = {

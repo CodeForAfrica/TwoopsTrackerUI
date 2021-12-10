@@ -1,5 +1,5 @@
 import { Typography, Button, Grid, makeStyles } from "@material-ui/core";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
@@ -28,7 +28,7 @@ function SignUp({
   ...props
 }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   return (
     <div className={classes.root}>

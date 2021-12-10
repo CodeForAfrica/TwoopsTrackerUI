@@ -9,7 +9,7 @@ import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 
-const TweetCard = ({
+function TweetCard({
   owner,
   deleted,
   content,
@@ -18,7 +18,7 @@ const TweetCard = ({
   created_at: createdAt,
   deleted_at: deletedAt,
   ...props
-}) => {
+}) {
   const classes = useStyles(props);
 
   const { name, screen_name: screenName, protected: accountStatus } = owner;
@@ -73,7 +73,7 @@ const TweetCard = ({
       )}
     </div>
   );
-};
+}
 
 TweetCard.propTypes = {
   owner: PropTypes.shape({

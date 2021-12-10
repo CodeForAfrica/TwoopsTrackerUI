@@ -119,7 +119,9 @@ export default {
   },
 };
 
-const Template = ({ ...args }) => <Footer {...args} />;
+function Template({ ...args }) {
+  return <Footer {...args} />;
+}
 
 export const Default = Template.bind({});
 

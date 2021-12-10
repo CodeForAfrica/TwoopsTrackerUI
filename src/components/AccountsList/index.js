@@ -11,7 +11,7 @@ import Pagination from "@/twoopstracker/components/Pagination";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-const AccountsList = ({
+function AccountsList({
   apiUrl,
   editable,
   paginationProps,
@@ -24,7 +24,7 @@ const AccountsList = ({
     is_private: isPrivate,
   },
   ...props
-}) => {
+}) {
   const classes = useStyles(props);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -140,7 +140,7 @@ const AccountsList = ({
       />
     </Section>
   );
-};
+}
 
 AccountsList.propTypes = {
   apiUrl: PropTypes.string,

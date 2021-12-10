@@ -7,7 +7,9 @@ export default {
   argTypes: {},
 };
 
-const Template = () => <UserAccount />;
+function Template() {
+  return <UserAccount />;
+}
 
 export const Default = Template.bind({});
 

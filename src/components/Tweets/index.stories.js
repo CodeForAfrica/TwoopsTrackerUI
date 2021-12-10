@@ -580,7 +580,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Tweets {...args} />;
+function Template(args) {
+  return <Tweets {...args} />;
+}
 
 export const Default = Template.bind({});
 

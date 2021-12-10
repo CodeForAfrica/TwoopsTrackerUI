@@ -1,4 +1,4 @@
-import { getProviders } from "next-auth/client";
+import { getProviders } from "next-auth/react";
 import PropTypes from "prop-types";
 import React from "react";
 

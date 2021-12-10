@@ -6,9 +6,9 @@ export default {
   title: "Components/Account",
 };
 
-const Template = () => {
+function Template() {
   return <Account />;
-};
+}
 
 export const Default = Template.bind({});
 

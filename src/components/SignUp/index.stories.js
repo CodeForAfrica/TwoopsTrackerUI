@@ -16,7 +16,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <SignUp {...args} />;
+function Template(args) {
+  return <SignUp {...args} />;
+}
 
 export const Default = Template.bind({});
 

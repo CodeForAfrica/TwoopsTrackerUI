@@ -1,6 +1,6 @@
 import { Grid, Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -90,7 +90,7 @@ function Menu({
   ...props
 }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   if (!main?.length) {
     return null;

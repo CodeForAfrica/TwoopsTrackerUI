@@ -28,7 +28,7 @@ const componentMap = {
   WhatsApp: { icon: WhatsAppIcon, button: WhatsappShareButton },
 };
 
-const ShareButton = ({ name, url, ...props }) => {
+function ShareButton({ name, url, ...props }) {
   const classes = useStyles(props);
   const { button: SocialButton, icon: SocialIcon } = componentMap[name];
   return (
@@ -36,7 +36,7 @@ const ShareButton = ({ name, url, ...props }) => {
       <SocialIcon className={classes.icon} />
     </SocialButton>
   );
-};
+}
 
 ShareButton.propTypes = {
   name: PropTypes.string,

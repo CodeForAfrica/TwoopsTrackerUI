@@ -7,7 +7,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <ListCard {...args} />;
+function Template(args) {
+  return <ListCard {...args} />;
+}
 
 export const Default = Template.bind({});
 

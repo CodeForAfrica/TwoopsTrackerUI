@@ -1,4 +1,4 @@
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
