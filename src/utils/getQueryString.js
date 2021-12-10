@@ -5,6 +5,7 @@ export default function getQueryString({
   days,
   page,
   pageSize,
+  download,
 }) {
   const searchParams = new URLSearchParams();
   if (query) {
@@ -24,6 +25,9 @@ export default function getQueryString({
   }
   if (pageSize) {
     searchParams.append("pageSize", pageSize);
+  }
+  if (download) {
+    searchParams.append("download", download);
   }
   return searchParams.toString();
 }

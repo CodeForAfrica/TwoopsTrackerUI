@@ -1,14 +1,12 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ typography, breakpoints }) => ({
+const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
-    boxShadow: `0 ${typography.pxToRem(4)} ${typography.pxToRem(
-      8
-    )} 0 rgba(0,0,0,0.2)`,
+    borderBottom: "1px solid #00000040",
     marginBottom: `${typography.pxToRem(20)}`,
     padding: `${typography.pxToRem(20)}`,
     "& .highlight": {
-      color: "#DB1111",
+      color: palette.primary.main,
     },
   },
   section: {
@@ -20,7 +18,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   handle: {
     display: "inline",
-    color: "#DB1111",
+    color: palette.primary.main,
   },
   accountType: {
     display: "inline",

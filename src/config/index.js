@@ -1,6 +1,6 @@
 import userAvator from "@/twoopstracker/assets/icons/avator.svg";
 
-export const shareData = (title) => {
+export function shareData(title) {
   return [
     {
       name: "Twitter",
@@ -22,6 +22,16 @@ export const shareData = (title) => {
       props: {},
     },
   ];
+}
+
+export const contentActionsProps = {
+  download: {
+    label: "Download:",
+    fileTypes: [
+      { name: "CSV", ext: "csv" },
+      { name: "Excel", ext: "xlsx" },
+    ],
+  },
 };
 
 export const navigationArgs = {
@@ -132,6 +142,22 @@ export const listPagination = {
   pageSizeDefaultValue: "3",
   pageSizeLabel: "Results on Page",
   pageSizeOptions: [{ value: "10" }, { value: "20" }],
+};
+
+export const accounts = {
+  count: 1,
+  next: null,
+  previous: null,
+  results: [
+    {
+      name: "Valtteri Bottas",
+      account_id: 1143472657,
+      screen_name: "ValtteriBottas",
+      protected: false,
+      created_at: "2021-12-07T10:11:25.314577Z",
+      updated_at: "2021-12-07T10:11:25.314616Z",
+    },
+  ],
 };
 
 const config = {

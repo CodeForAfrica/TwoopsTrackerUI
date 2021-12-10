@@ -13,6 +13,9 @@ export async function lists(session, pageData) {
   if (pageData.pageSize) {
     listParams.append("page_size", pageData.pageSize);
   }
+  if (pageData.download) {
+    listParams.append("download", pageData.download);
+  }
 
   const result = await fetchJson(
     `${BASE_URL}/lists/?${listParams.toString()}`,
@@ -23,6 +26,22 @@ export async function lists(session, pageData) {
 
 export async function list(id, session) {
   return fetchJson(`${BASE_URL}/lists/${id}`, session);
+}
+
+export async function allAccounts(session, pageData) {
+  const listParams = new URLSearchParams();
+
+  if (pageData.page) {
+    listParams.append("page", pageData.page);
+  }
+  if (pageData.pageSize) {
+    listParams.append("page_size", pageData.pageSize);
+  }
+  const result = await fetchJson(
+    `${BASE_URL}/accounts/?${listParams.toString()}`,
+    session
+  );
+  return result;
 }
 
 export async function APIRequest(payload, method, param, session) {
@@ -54,6 +73,7 @@ export function tweetsSearchParamFromSearchQuery({
   days = 7,
   page,
   pageSize,
+  download,
 }) {
   const searchParams = new URLSearchParams();
   if (query) {
@@ -73,15 +93,20 @@ export function tweetsSearchParamFromSearchQuery({
   if (pageSize) {
     searchParams.append("page_size", pageSize);
   }
-  searchParams.append("format", "json");
+  if (download) {
+    searchParams.append("download", download);
+  } else {
+    searchParams.append("format", "json");
+  }
 
   return searchParams;
 }
 
 export function tweetsUserQuery(requestQuery) {
-  const { query, theme, location, days, page, pageSize } = requestQuery;
+  const { query, theme, location, days, page, pageSize, download } =
+    requestQuery;
 
-  return { query, theme, location, days, page, pageSize };
+  return { query, theme, location, days, page, pageSize, download };
 }
 
 export function tweetsSearchQueryFromUserQuery(userQuery) {
@@ -92,6 +117,7 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     days: daysAsString,
     page,
     pageSize,
+    download,
   } = userQuery;
   let query = term || theme;
   if (query && theme) {
@@ -101,7 +127,7 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
   if (days > 30) {
     days = 30;
   }
-  return { query, location, days, page, pageSize };
+  return { query, location, days, page, pageSize, download };
 }
 
 export async function tweets(requestQuery = {}, session) {

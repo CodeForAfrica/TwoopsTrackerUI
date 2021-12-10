@@ -97,17 +97,26 @@ const SearchSection = ({
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
-          {session ? (
-            <Button
-              className={classes.saveButton}
-              onClick={handleClickSaveSearch}
-            >
-              Save Search
+          <div>
+            {session && (
+              <Button className={classes.saveButton} href="/explore/accounts">
+                See all Twitter Accounts
+              </Button>
+            )}
+          </div>
+          <div className={classes.alignRight}>
+            {session ? (
+              <Button
+                className={classes.saveButton}
+                onClick={handleClickSaveSearch}
+              >
+                Save Search
+              </Button>
+            ) : null}
+            <Button className={classes.button} onClick={onSearch}>
+              Search
             </Button>
-          ) : null}
-          <Button className={classes.button} onClick={onSearch}>
-            Search
-          </Button>
+          </div>
         </div>
       </Section>
       <SavedSearchDialog
