@@ -49,10 +49,11 @@ const theme = createTheme({
       fontWeight: "bold",
     },
     h3: {
-      fontFamily: FONT_FAMILY_TEXT2,
+      fontFamily: FONT_FAMILY_HEADING,
+      fontWeight: "bold",
     },
     h4: {
-      fontFamily: FONT_FAMILY_TEXT2,
+      fontFamily: FONT_FAMILY_HEADING,
       fontWeight: "bold",
     },
     h5: {
