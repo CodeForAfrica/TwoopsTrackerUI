@@ -9,6 +9,10 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
       paddingTop: `${typography.pxToRem(58)}`,
       paddingBottom: `${typography.pxToRem(82)}`,
     },
+    [breakpoints.up("lg")]: {
+      paddingTop: `${typography.pxToRem(106)}`,
+      paddingBottom: `${typography.pxToRem(106)}`,
+    },
   },
   section: {},
   logoButton: {
@@ -95,10 +99,11 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   description: {
     color: palette.text.secondary,
-    padding: `${typography.pxToRem(32)} 0`,
+    margin: `${typography.pxToRem(32)} 0`,
     fontSize: typography.subtitle1.fontSize,
     textAlign: "center",
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
+      margin: `${typography.pxToRem(45)} 0`,
       textAlign: "left",
     },
   },
