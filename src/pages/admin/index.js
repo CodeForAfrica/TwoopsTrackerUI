@@ -11,7 +11,11 @@ function AdminPage(props) {
     <>
       <Head>
         {/* Note the "type" and "rel" attribute values, which are required. */}
-        <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+        <link
+          href="/api/admin/config.yml"
+          type="text/yaml"
+          rel="cms-config-url"
+        />
       </Head>
       <NextSeo {...props} />
       <Script
