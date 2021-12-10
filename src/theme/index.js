@@ -100,28 +100,20 @@ deepmerge(
   typography,
   {
     h1: {
-      fontSize: pxToRem(42),
-      lineHeight: 50 / 42,
+      fontSize: pxToRem(60),
+      lineHeight: 75.6 / 60,
       color: palette.text.secondary,
-      [breakpoints.up("md")]: {
-        fontSize: pxToRem(60),
-        lineHeight: 75.6 / 60,
-      },
-      [breakpoints.up("xl")]: {
-        fontSize: pxToRem(96),
-        lineHeight: 105.6 / 96,
-      },
-    },
-    h2: {
-      fontSize: pxToRem(36),
-      lineHeight: 42 / 36,
-      [breakpoints.up("md")]: {
-        fontSize: pxToRem(42),
-        lineHeight: 49.2 / 24,
-      },
       [breakpoints.up("xl")]: {
         fontSize: pxToRem(72),
         lineHeight: 79.2 / 72,
+      },
+    },
+    h2: {
+      fontSize: pxToRem(42),
+      lineHeight: 49.2 / 24,
+      [breakpoints.up("xl")]: {
+        fontSize: pxToRem(64),
+        lineHeight: 64 / 70.4,
       },
     },
     h3: {
