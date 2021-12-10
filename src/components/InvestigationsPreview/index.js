@@ -8,9 +8,6 @@ import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography, palette }) => ({
   root: {
-    marginTop: typography.pxToRem(142.5),
-
-    marginBottom: typography.pxToRem(81.5),
     background: palette.background.secondary,
   },
   button: {

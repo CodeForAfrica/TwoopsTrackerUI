@@ -19,8 +19,17 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     color: palette.text.primary,
   },
   description: {
-    marginTop: typography.pxToRem(62),
-    marginBottom: typography.pxToRem(52),
+    marginTop: typography.pxToRem(35),
+    marginBottom: typography.pxToRem(35),
+    [breakpoints.up("xl")]: {
+      width: typography.pxToRem(561),
+    },
+  },
+  imageGrid: {
+    marginTop: typography.pxToRem(35),
+    [breakpoints.up("xl")]: {
+      marginTop: 0,
+    },
   },
 }));
 
@@ -38,7 +47,7 @@ function ExploreTool({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item lg={5}>
+          <Grid item xl={5}>
             <Typography className={classes.title} variant="h2">
               {title}
             </Typography>
@@ -49,7 +58,7 @@ function ExploreTool({
               {buttonText}
             </Button>
           </Grid>
-          <Grid item lg={7}>
+          <Grid item xl={7} className={classes.imageGrid}>
             <Image height={436} width={790} src={image} alt={title} />
           </Grid>
         </Grid>
