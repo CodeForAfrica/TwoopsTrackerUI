@@ -191,7 +191,7 @@ deepmerge(
         padding: `${typography.pxToRem(10)} ${typography.pxToRem(20)}`,
       },
       contained: {
-        color: "#a0a0a0",
+        color: palette.secondary.main,
         backgroundColor: palette.divider,
         boxShadow: "none",
         borderRadius: pxToRem(5),
@@ -205,7 +205,7 @@ deepmerge(
         },
       },
       containedPrimary: {
-        color: palette.primary.main,
+        color: palette.secondary.main,
         backgroundColor: palette.background.default,
         boxShadow: "none",
         borderRadius: pxToRem(50),
@@ -218,13 +218,13 @@ deepmerge(
         },
       },
       containedSecondary: {
-        color: palette.primary.main,
+        color: palette.secondary.main,
         backgroundColor: palette.background.default,
         boxShadow: "none",
         borderRadius: 0,
         border: "1px solid transparent",
         "&:hover": {
-          color: palette.primary.main,
+          color: palette.secondary.main,
           backgroundColor: palette.background.default,
           borderRadius: pxToRem(5),
           border: `1px solid ${palette.background.default}`,
