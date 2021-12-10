@@ -27,6 +27,7 @@
     "aws-sdk": "^2.1040.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.25.0",
+    "js-yaml": "^4.1.0",
     "jwt-decode": "^3.1.2",
     "markdown-it": "^12.2.0",
     "markdown-it-link-attributes": "^3.0.0",
