@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: "white",
     background: "none",
-    width: "100vw",
     height: "100vh",
     margin: "auto",
   },
@@ -72,7 +71,7 @@ function Login({ providers, ...props }) {
     <Grid
       container
       justify="space-around"
-      alignitems="center"
+      alignItems="center"
       className={classes.root}
     >
       <Grid item xs={12} className={classes.item}>

@@ -4,44 +4,36 @@ import React from "react";
 import Hero from "@/twoopstracker/components/Hero";
 import InvestigationList from "@/twoopstracker/components/InvestigationList";
 import Page from "@/twoopstracker/components/Page";
-import { investigation } from "@/twoopstracker/config";
+import { investigations, settings } from "@/twoopstracker/lib/cms";
 
-export default function Investigations({
-  investigation: investigationProp,
-  ...props
-}) {
+export default function Investigations({ reports, ...props }) {
+  const { description, title } = props;
+
   return (
     <Page {...props}>
-      <Hero withCTA={false} {...investigationProp.banner} />
-      <InvestigationList items={investigationProp.items} />
+      <Hero description={description} title={title} withCTA={false} />
+      <InvestigationList items={reports} />
     </Page>
   );
 }
 
 Investigations.propTypes = {
-  investigation: PropTypes.shape({}),
+  description: PropTypes.string,
+  reports: PropTypes.arrayOf(PropTypes.shape({})),
+  title: PropTypes.string,
 };
 
 Investigations.defaultProps = {
-  investigation: undefined,
-};
-
-Investigations.propTypes = {
-  fallback: PropTypes.arrayOf(PropTypes.shape({})),
-  tweets: PropTypes.arrayOf(PropTypes.shape({})),
-};
-
-Investigations.defaultProps = {
-  fallback: undefined,
-  tweets: undefined,
+  description: undefined,
+  reports: undefined,
+  title: undefined,
 };
 
 export async function getStaticProps() {
   return {
     props: {
-      description: investigation?.banner?.description ?? null,
-      investigation,
-      title: "Investigations",
+      ...settings(),
+      ...investigations(),
     },
     revalidate: 15 * 60, // 15 minutes
   };

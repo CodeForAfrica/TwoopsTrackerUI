@@ -7,6 +7,7 @@ import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
 import { pagination } from "@/twoopstracker/config";
 import { tweets, tweetsInsights } from "@/twoopstracker/lib";
+import { settings } from "@/twoopstracker/lib/cms";
 import createChartImage from "@/twoopstracker/lib/createChartImage";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
@@ -91,6 +92,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      ...settings(),
       ...query,
       fallback: {
         [`/api/tweets${searchQueryString}`]: foundTweets,

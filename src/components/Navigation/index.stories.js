@@ -19,7 +19,40 @@ Default.parameters = {
 };
 
 Default.args = {
-  ...navigationArgs,
+  login: [
+    {
+      label: "Sign up",
+      href: "/login",
+      icon: {
+        src: "/images/signup.svg",
+      },
+    },
+    {
+      label: "Login",
+      href: "/login",
+      icon: {
+        src: "/images/login.svg",
+      },
+    },
+  ],
+  logo: {
+    desktop: {
+      src: "/images/navlogo.svg",
+    },
+    mobile: {
+      src: "/images/navlogo.svg",
+    },
+  },
+  main: [
+    {
+      label: "Watchlists",
+      href: "/explore",
+    },
+    {
+      label: "About",
+      href: "/about",
+    },
+  ],
   ...navigationArgs.userProfileArgs,
   ...navigationArgs.userProfileArgs.profileList,
   ...navigationArgs.userProfileArgs.accountLink,
