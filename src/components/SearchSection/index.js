@@ -46,17 +46,10 @@ const SearchSection = ({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item lg={8} md={12} sm={12} xs={12}>
+          <Grid item xl={8} xs={12}>
             <Search onChange={onSelection} onKeyDown={handleKeyDown} />
           </Grid>
-          <Grid
-            item
-            lg={4}
-            md={12}
-            sm={12}
-            xs={12}
-            className={classes.filterSection}
-          >
+          <Grid item xl={4} xs={12} className={classes.filterSection}>
             <Filter
               key={days}
               label="Days"

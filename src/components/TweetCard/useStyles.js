@@ -14,7 +14,9 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   username: {
     fontWeight: "700",
-    fontSize: typography.pxToRem(36),
+    [breakpoints.up("xl")]: {
+      fontSize: typography.pxToRem(36),
+    },
   },
   handle: {
     display: "inline",

@@ -34,6 +34,10 @@ const useStyles = makeStyles(({ typography }) => ({
   formControl: {
     marginBottom: typography.pxToRem(20),
   },
+  actions: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
 }));
 
 export default useStyles;

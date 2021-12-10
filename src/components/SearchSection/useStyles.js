@@ -16,7 +16,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "column",
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       flexDirection: "row",
     },
   },

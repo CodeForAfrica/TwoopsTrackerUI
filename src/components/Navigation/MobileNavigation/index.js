@@ -178,7 +178,7 @@ function MobileNavigation({
               component={Link}
               className={classes.logoButton}
             >
-              <Image height={40} width={254} {...logo} />
+              <Image height={40} width={164} {...logo} />
             </LogoButton>
           </Grid>
           <Grid item>
