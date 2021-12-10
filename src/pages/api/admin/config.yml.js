@@ -7,8 +7,9 @@ import site from "@/twoopstracker/utils/site";
 
 export default function handler(req, res) {
   if (req.method === "GET") {
-    const filePath = path.resolve(process.cwd(), "public/admin/config.yml");
-    let configFile = fs.readFileSync(filePath);
+    const adminDir = path.join(process.cwd(), "public/admin");
+    const filePath = path.join(adminDir, "config.yml");
+    let configFile = fs.readFileSync(filePath, "utf-8");
     if (process.env.NODE_ENV === "production") {
       const config = yaml.load(configFile);
       // Set production configurations
