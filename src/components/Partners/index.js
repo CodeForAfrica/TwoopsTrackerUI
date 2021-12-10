@@ -113,14 +113,16 @@ function Partners({
           <Grid container>
             {secondaryPartners.map((logo) => (
               <Grid item lg={3} md={6} xs={12}>
-                <Image
-                  className={classes.image}
-                  height={170}
-                  width={300}
-                  objectFit="contain"
-                  src={logo}
-                  alt={title}
-                />
+                <Link key={logo.href} href={logo.href}>
+                  <Image
+                    className={classes.image}
+                    height={170}
+                    width={300}
+                    objectFit="contain"
+                    src={logo.src}
+                    alt={title}
+                  />
+                </Link>
               </Grid>
             ))}
           </Grid>

@@ -830,7 +830,12 @@ export const home = {
       { src: codeForAfrica, href: "https://codeforafrica.org" },
       { src: codeForAll, href: "https://codeforall.org" },
     ],
-    secondaryPartners: [ancirLogo, pesacheckLogo, civicSignal, dfrlab],
+    secondaryPartners: [
+      { src: ancirLogo, href: "https://investigate.africa/" },
+      { src: pesacheckLogo, href: "https://pesacheck.org/" },
+      { src: civicSignal, href: "https://civicsignal.africa" },
+      { src: dfrlab, href: "https://medium.com/dfrlab" },
+    ],
     title: "Anti-disinfo alliance",
   },
   signUp: {
