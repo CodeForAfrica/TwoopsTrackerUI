@@ -12,12 +12,13 @@ import Share from "@/twoopstracker/components/Share";
 
 const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
-    marginTop: typography.pxToRem(30),
-    marginBottom: typography.pxToRem(30),
+    paddingTop: typography.pxToRem(30),
+    paddingBottom: typography.pxToRem(30),
     [breakpoints.up("lg")]: {
-      marginTop: typography.pxToRem(30),
-      marginBottom: typography.pxToRem(100),
+      paddingTop: typography.pxToRem(80),
+      paddingBottom: typography.pxToRem(100),
     },
+    backgroundColor: palette.background.paper,
   },
   section: {
     position: "relative",
@@ -26,6 +27,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     )} ${typography.pxToRem(50)}`,
     boxShadow: "0 4px 6px 0 #0000000D",
     height: typography.pxToRem(578),
+    backgroundColor: palette.background.default,
   },
   chart: {
     width: "100%",

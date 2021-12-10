@@ -82,7 +82,7 @@ function InvestigationsPreview({
           className={classes.button}
           href={buttonLink}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           {buttonText}
         </Button>
