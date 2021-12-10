@@ -13,10 +13,7 @@ const useStyles = makeStyles(({ typography }) => ({
     position: "relative",
     width: typography.pxToRem(100),
     height: typography.pxToRem(100),
-    border: `solid 1px`,
-    "& img": {
-      padding: `${typography.pxToRem(10)} !important`,
-    },
+    border: "solid 1px rgba(0,0,0,0.12)",
   },
   username: {
     fontWeight: "700",
@@ -50,6 +47,11 @@ const useStyles = makeStyles(({ typography }) => ({
     "&:hover": {
       border: "solid 1px red",
     },
+  },
+  avatar: {
+    width: "80%",
+    height: "80%",
+    margin: typography.pxToRem(10),
   },
 }));
 
