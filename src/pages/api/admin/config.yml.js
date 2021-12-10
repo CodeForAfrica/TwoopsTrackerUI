@@ -1,9 +1,11 @@
 import fs from "fs";
-import path from "path";
 
 import yaml from "js-yaml";
 
 import site from "@/twoopstracker/utils/site";
+
+// SEE: https://github.com/vercel/next.js/discussions/21666#discussioncomment-322999
+const path = require("path");
 
 export default function handler(req, res) {
   if (req.method === "GET") {
