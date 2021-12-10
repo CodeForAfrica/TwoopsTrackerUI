@@ -59,8 +59,8 @@ const theme = createTheme({
     h5: {
       fontFamily: FONT_FAMILY_HEADING,
     },
-    h6: {
-      fontFamily: FONT_FAMILY_HEADING,
+    subtitle1: {
+      fontFamily: FONT_FAMILY_TEXT2,
     },
     body1: {
       fontFamily: FONT_FAMILY_TEXT,
@@ -158,8 +158,8 @@ deepmerge(
       [breakpoints.up("xl")]: { fontSize: pxToRem(14) },
     },
     subtitle1: {
-      fontSize: typography.pxToRem(24),
-      lineHeight: 40 / 24,
+      fontSize: typography.pxToRem(36),
+      lineHeight: 39.6 / 36,
     },
     subtitle2: {
       fontSize: 14,
