@@ -26,32 +26,36 @@ const CacheControl = "max-age=630720000, public";
 const ContentType = "image/png";
 
 export default async function createChartImage(data, query) {
-  const spec = LineScope(data, false);
-  const view = new vega.View(vega.parse(spec), { renderer: "none" });
+  try {
+    const spec = LineScope(data, false);
+    const view = new vega.View(vega.parse(spec), { renderer: "none" });
 
-  const svg = await view.toSVG();
-  const Body = await sharp(Buffer.from(svg)).png().toBuffer();
+    const svg = await view.toSVG();
+    const Body = await sharp(Buffer.from(svg)).png().toBuffer();
 
-  const searchQuery = tweetsSearchQueryFromUserQuery(tweetsUserQuery(query));
-  const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
-  searchParams.delete("format");
-  const uniqueQueryString = searchParams.toString();
+    const searchQuery = tweetsSearchQueryFromUserQuery(tweetsUserQuery(query));
+    const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+    searchParams.delete("format");
+    const uniqueQueryString = searchParams.toString();
 
-  const Key = `media/images/trolltracker-${uniqueQueryString}.png`;
-  const config = {
-    accessKeyId: process.env.S3_UPLOAD_KEY,
-    secretAccessKey: process.env.S3_UPLOAD_SECRET,
-    region: process.env.S3_UPLOAD_REGION,
-  };
-  const Bucket = process.env.S3_UPLOAD_BUCKET;
-  const params = {
-    ACL,
-    Bucket,
-    Key,
-    Body,
-    CacheControl,
-    ContentType,
-  };
-  const s3 = new AWS.S3(config);
-  return uploadAsync(s3, params);
+    const Key = `media/images/trolltracker-${uniqueQueryString}.png`;
+    const config = {
+      accessKeyId: process.env.S3_UPLOAD_KEY,
+      secretAccessKey: process.env.S3_UPLOAD_SECRET,
+      region: process.env.S3_UPLOAD_REGION,
+    };
+    const Bucket = process.env.S3_UPLOAD_BUCKET;
+    const params = {
+      ACL,
+      Bucket,
+      Key,
+      Body,
+      CacheControl,
+      ContentType,
+    };
+    const s3 = new AWS.S3(config);
+    return uploadAsync(s3, params);
+  } catch (e) {
+    return null;
+  }
 }
