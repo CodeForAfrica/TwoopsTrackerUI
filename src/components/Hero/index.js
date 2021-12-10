@@ -26,7 +26,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     [breakpoints.up("md")]: {
       flexDirection: "row",
     },
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       marginTop: typography.pxToRem(90),
     },
   },
@@ -37,14 +37,14 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
   description: {
     color: palette.text.secondary,
     marginTop: typography.pxToRem(40),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       marginTop: typography.pxToRem(90),
     },
   },
   section: {
     paddingTop: typography.pxToRem(90),
     paddingBottom: typography.pxToRem(90),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       paddingTop: typography.pxToRem(117),
       paddingBottom: typography.pxToRem(127),
     },

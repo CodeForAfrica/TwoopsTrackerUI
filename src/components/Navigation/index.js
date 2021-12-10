@@ -16,7 +16,7 @@ const useStyles = makeStyles(
       display: "flex",
       alignItems: "center",
       padding: `0`,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         padding: `${typography.pxToRem(12)} 0`,
       },
     },
@@ -32,13 +32,13 @@ function Navigation({ ...props }) {
   return (
     <AppBar color="primary" position="sticky" className={classes.root}>
       <Toolbar disableGutters className={classes.toolbar}>
-        <Hidden mdDown implementation="css" className={classes.navigation}>
+        <Hidden lgDown implementation="css" className={classes.navigation}>
           <DesktopNavigation
             {...props}
             classes={{ section: classes.section }}
           />
         </Hidden>
-        <Hidden lgUp implementation="css" className={classes.navigation}>
+        <Hidden xlUp implementation="css" className={classes.navigation}>
           <MobileNavigation {...props} />
         </Hidden>
       </Toolbar>

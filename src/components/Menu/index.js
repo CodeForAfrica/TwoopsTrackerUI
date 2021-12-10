@@ -14,7 +14,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       padding: 0,
       flexDirection: "row",
       justifyContent: "flex-end",
@@ -35,7 +35,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   menu: {
     margin: 0,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       marginRight: typography.pxToRem(15),
     },
   },
@@ -68,7 +68,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       textDecoration: "none",
       color: "black",
     },
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
       color: "black",
       "&:hover, &:focus, &:focus-within": {

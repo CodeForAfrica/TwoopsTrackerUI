@@ -19,10 +19,12 @@ import Menu from "@/twoopstracker/components/Menu";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
-  root: {},
+  root: {
+    marginBottom: typography.pxToRem(10),
+    marginTop: typography.pxToRem(10),
+  },
   logoButton: {
     padding: 0,
-    width: typography.pxToRem(254),
     "&:hover, &:focus, &:focus-within": {
       backgroundColor: "transparent",
       textDecoration: "none",
