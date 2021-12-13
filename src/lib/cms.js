@@ -50,8 +50,8 @@ export function home() {
   }
   const { partners } = about();
   if (attributes.about) {
-    attributes.about.items =
-      attributes.about.partners
+    attributes.about.primaryPartners =
+      attributes.about.primaryPartners
         ?.map((name) => partners?.find((partner) => partner.name === name))
         ?.filter((partner) => partner) || null;
     attributes.about.partners = null;

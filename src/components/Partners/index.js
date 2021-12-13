@@ -27,9 +27,9 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       marginTop: "unset",
     },
   },
-  logos: {
-    backgroundColor: "#CBCBCB33",
-    padding: `${typography.pxToRem(100)} 0`,
+  secondaryPartners: {
+    borderTop: "1px solid #CBCBCB33",
+    paddingTop: typography.pxToRem(60),
   },
   title: {
     textAlign: "center",
@@ -58,7 +58,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   section: {
     marginBottom: typography.pxToRem(60),
     [breakpoints.up("md")]: {
-      marginBottom: typography.pxToRem(111),
+      marginBottom: typography.pxToRem(90),
     },
   },
   description: {
@@ -68,14 +68,24 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       marginTop: typography.pxToRem(20),
     },
   },
+  primaryPartnerContainer: {
+    marginBottom: typography.pxToRem(40),
+  },
 }));
 
-function Partners({ description, items, secondaryPartners, title, ...props }) {
+// eslint-disable-next-line react/function-component-definition
+function Partners({
+  description,
+  primaryPartners,
+  secondaryPartners,
+  title,
+  ...props
+}) {
   const classes = useStyles(props);
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
-        <div>
+        <div className={classes.primaryPartnerContainer}>
           <Typography className={classes.title} variant="h2">
             {title}
           </Typography>
@@ -83,7 +93,7 @@ function Partners({ description, items, secondaryPartners, title, ...props }) {
             {description}
           </Typography>
           <div className={classes.images}>
-            {items?.map(({ image, href }) => (
+            {primaryPartners?.map(({ image, href }) => (
               <Link key={image} href={href} className={classes.imageLink}>
                 <Image
                   className={classes.image}
@@ -97,9 +107,7 @@ function Partners({ description, items, secondaryPartners, title, ...props }) {
             ))}
           </div>
         </div>
-      </Section>
-      <div className={classes.logos}>
-        <Section>
+        <div className={classes.secondaryPartners}>
           <Grid container>
             {secondaryPartners?.map(({ image, href }) => (
               <Grid item lg={3} md={6} xs={12}>
@@ -116,21 +124,21 @@ function Partners({ description, items, secondaryPartners, title, ...props }) {
               </Grid>
             ))}
           </Grid>
-        </Section>
-      </div>
+        </div>
+      </Section>
     </div>
   );
 }
 
 Partners.propTypes = {
   description: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.shape({})),
+  primaryPartners: PropTypes.arrayOf(PropTypes.shape({})),
   secondaryPartners: PropTypes.arrayOf(PropTypes.shape({})),
   title: PropTypes.string,
 };
 Partners.defaultProps = {
   description: undefined,
-  items: undefined,
+  primaryPartners: undefined,
   secondaryPartners: undefined,
   title: undefined,
 };
