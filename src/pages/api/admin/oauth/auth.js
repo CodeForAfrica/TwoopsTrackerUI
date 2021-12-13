@@ -17,7 +17,7 @@ const client = new AuthorizationCode({
 // Authorization uri definition
 const authorizationUri = client.authorizeURL({
   redirect_uri: new URL(
-    process.env.ADMIN_OAUTH_BACKEND_AUTH_ENDPOINT,
+    process.env.ADMIN_BACKEND_AUTH_ENDPOINT,
     site.url
   ).toString(),
   scope: process.env.ADMIN_OAUTH_SCOPE,
@@ -25,7 +25,7 @@ const authorizationUri = client.authorizeURL({
 });
 
 // Initial page redirecting to Github
-export default async (req, res) => {
+export default async function handler(req, res) {
   res.writeHead(302, { Location: authorizationUri });
   res.end();
-};
+}
