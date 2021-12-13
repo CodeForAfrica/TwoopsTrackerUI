@@ -1,6 +1,7 @@
 import { RichTypography } from "@commons-ui/core";
 import { Grid, Typography } from "@material-ui/core";
 import clsx from "clsx";
+import { useSession } from "next-auth/client";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
@@ -25,7 +26,7 @@ const TweetCard = ({
   const classes = useStyles(props);
 
   const { name, screen_name: screenName, protected: accountStatus } = owner;
-
+  const [session] = useSession();
   const username = name;
   const handle = screenName?.replace(/\s/g, "");
   const accountType = accountStatus ? "Private" : "Public";
@@ -50,7 +51,7 @@ const TweetCard = ({
             {`@${handle}`}
           </RichTypography>
           <Typography className={classes.accountType}>{accountType}</Typography>
-          <AddToList handle={handle} results={results} />
+          {session && <AddToList handle={handle} results={results} />}
         </Grid>
         <Grid item lg={5} sm={12}>
           {createdAt && (

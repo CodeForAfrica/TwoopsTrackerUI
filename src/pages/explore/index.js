@@ -72,23 +72,17 @@ Explore.defaultProps = {
 };
 
 export async function getServerSideProps(context) {
+  let results = null;
   const { query: userQuery } = context;
   const query = { days: 14, ...userQuery };
   const session = await getSession(context);
-  if (!(session && session?.user)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-    };
-  }
-
   const foundTweets = await tweets(query, session);
   const insights = await tweetsInsights(query, session);
   const queryString = getQueryString(query);
-  const results = await lists(session, { pageSize: 5 });
   const searchQueryString = queryString ? `?${queryString}` : "";
+  if (session) {
+    results = await lists(session, { pageSize: 10 });
+  }
 
   const { pageSize, page, ...unpaginatedQuery } = query;
   const unpaginatedQueryString = getQueryString(unpaginatedQuery);
