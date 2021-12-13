@@ -54,10 +54,9 @@ const socialMedia = [
 const footerArgs = {
   project: {
     description:
-      "This site is an openAFRICA project of Code for Africa.\n" +
-      "        All content is released under a Creative Commons 4 Attribution Licence. \n" +
-      "        Reuse it to help empower your own community.\n" +
-      "        The code is available on GitHub and data is available on openAFRICA.\n",
+      "This site is a project of Code for Africa, the continent’s largest network of civic \n" +
+      "        technology and data journalism labs. All content is released under a Creative \n" +
+      "        Commons 4 Attribution Licence. Reuse it to help empower your own community\n",
     logoProps: {
       src: "/images/group-4426.svg",
       alt: "Code for Africa",
@@ -65,7 +64,7 @@ const footerArgs = {
     },
   },
   contacts: {
-    title: "Stay in touch with us",
+    title: "STAY IN TOUCH",
     socialMedia,
   },
   quickLinks: QUICK_LINKS,

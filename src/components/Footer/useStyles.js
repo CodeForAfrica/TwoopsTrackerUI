@@ -96,7 +96,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   description: {
     color: palette.text.secondary,
     padding: `${typography.pxToRem(32)} 0`,
-    fontSize: typography.subtitle1.fontSize,
+    fontSize: typography.subtitle2.fontSize,
     textAlign: "center",
     [breakpoints.up("lg")]: {
       textAlign: "left",
