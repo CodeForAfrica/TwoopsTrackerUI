@@ -23,9 +23,6 @@ const useStyles = makeStyles(({ typography, palette }) => ({
     paddingTop: typography.pxToRem(113),
     paddingBottom: typography.pxToRem(123),
   },
-  title: {
-    color: palette.text.secondary,
-  },
   description: {
     marginTop: typography.pxToRem(39),
     marginBottom: typography.pxToRem(80),
@@ -54,10 +51,12 @@ function InvestigationsPreview({
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
-        <Typography className={classes.title} variant="h2">
-          {title}
-        </Typography>
-        <Typography align="center" className={classes.description} variant="h4">
+        <Typography variant="h1">{title}</Typography>
+        <Typography
+          align="center"
+          className={classes.description}
+          variant="subtitle1"
+        >
           {description}
         </Typography>
         <Grid container spacing={8}>

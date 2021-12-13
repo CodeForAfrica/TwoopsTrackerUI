@@ -6,7 +6,7 @@ import React from "react";
 
 import Section from "@/twoopstracker/components/Section";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ palette, typography }) => ({
   root: {
     marginTop: typography.pxToRem(142.5),
 
@@ -16,6 +16,9 @@ const useStyles = makeStyles(({ typography }) => ({
   description: {
     marginTop: typography.pxToRem(62),
     marginBottom: typography.pxToRem(52),
+  },
+  title: {
+    color: palette.text.primary,
   },
 }));
 
@@ -38,7 +41,7 @@ function SignUp({
             <Image height={376} width={870} src={image} alt={title} />
           </Grid>
           <Grid item xs={12} md={5}>
-            <Typography className={classes.title} variant="h4">
+            <Typography className={classes.title} variant="h1">
               {title}
             </Typography>
             <Typography className={classes.description} variant="body1">

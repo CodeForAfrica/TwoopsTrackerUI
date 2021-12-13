@@ -46,9 +46,7 @@ function Partners({ description, items, title, ...props }) {
       <Section className={classes.section}>
         <Grid container>
           <Grid item xs={12} md={6}>
-            <Typography className={classes.title} variant="h2">
-              {title}
-            </Typography>
+            <Typography variant="h3">{title}</Typography>
             <Typography className={classes.description} variant="body1">
               {description}
             </Typography>
