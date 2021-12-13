@@ -37,4 +37,12 @@ about:
   partners:
     - Code for All
     - Code for Africa
+  secondaryPartners:
+    - ANCIR’s iLAB
+    - PesaCheck
+    - CivicSignal
+    - DRFLab
+  primaryPartners:
+    - Code for All
+    - Code for Africa
 ---

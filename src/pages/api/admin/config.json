@@ -227,8 +227,8 @@
                   "widget": "markdown"
                 },
                 {
-                  "label": "Partners",
-                  "name": "partners",
+                  "label": "Primary Partners",
+                  "name": "primaryPartners",
                   "widget": "relation",
                   "collection": "pages",
                   "value_field": "partners.*.name",
@@ -240,6 +240,21 @@
                   "display_fields": ["partners.*.name"],
                   "multiple": true,
                   "max": 2
+                },
+                {
+                  "label": "Supporting Partners",
+                  "name": "secondaryPartners",
+                  "widget": "relation",
+                  "collection": "pages",
+                  "value_field": "partners.*.name",
+                  "search_fields": [
+                    "partners.*.name",
+                    "partners.*.description"
+                  ],
+                  "file": "about",
+                  "display_fields": ["partners.*.name"],
+                  "multiple": true,
+                  "max": 4
                 }
               ]
             }
