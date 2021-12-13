@@ -28,9 +28,11 @@
     "clsx": "^1.1.1",
     "date-fns": "^2.25.0",
     "file-saver": "^2.0.5",
+    "js-yaml": "^4.1.0",
     "jwt-decode": "^3.1.2",
     "markdown-it": "^12.2.0",
     "markdown-it-link-attributes": "^3.0.0",
+    "nanoid": "^3.1.30",
     "next": "^11.1.2",
     "next-auth": "^3.29.0",
     "next-seo": "^4.23.0",
@@ -40,6 +42,7 @@
     "react-dropzone": "^11.4.2",
     "react-share": "^4.4.0",
     "sharp": "^0.29.3",
+    "simple-oauth2": "^4.2.0",
     "swr": "^1.0.1",
     "vega": "^5.21.0",
     "vega-embed": "^6.20.0",
@@ -106,7 +109,7 @@
     ]
   },
   "engines": {
-    "node": ">=12.18.0 <15.x",
+    "node": ">=12.18.0",
     "yarn": ">=1.19.2 <2.x"
   }
 }

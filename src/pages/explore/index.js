@@ -10,6 +10,7 @@ import { tweets, tweetsInsights } from "@/twoopstracker/lib";
 import { settings } from "@/twoopstracker/lib/cms";
 import createChartImage from "@/twoopstracker/lib/createChartImage";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
+import site from "@/twoopstracker/utils/site";
 
 function Explore({
   days,
@@ -81,7 +82,7 @@ export async function getServerSideProps(context) {
 
   const image = await createChartImage(insights, unpaginatedQuery);
 
-  const url = `${process.env.NEXT_PUBLIC_APP_URL}/explore?${unpaginatedQueryString}`;
+  const url = `${site.environmentUrl}/explore?${unpaginatedQueryString}`;
   const openGraph = {
     url,
     images: [{ url: image }],

@@ -99,7 +99,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
   return (
     <div className={classes.root}>
       <div className={classes.section}>
-        <Typography className={classes.listTitle}>Your Lists</Typography>
+        <Typography variant="h2">Your Lists</Typography>
         <Button onClick={handleOpen} className={classes.button}>
           Create New List
         </Button>

@@ -49,20 +49,21 @@ const theme = createTheme({
       fontWeight: "bold",
     },
     h3: {
-      fontFamily: FONT_FAMILY_TEXT2,
+      fontFamily: FONT_FAMILY_HEADING,
+      fontWeight: "bold",
     },
     h4: {
-      fontFamily: FONT_FAMILY_TEXT2,
+      fontFamily: FONT_FAMILY_HEADING,
       fontWeight: "bold",
     },
     h5: {
       fontFamily: FONT_FAMILY_HEADING,
     },
-    h6: {
-      fontFamily: FONT_FAMILY_HEADING,
+    subtitle1: {
+      fontFamily: FONT_FAMILY_TEXT2,
     },
     body1: {
-      fontFamily: FONT_FAMILY_TEXT,
+      fontFamily: FONT_FAMILY_TEXT2,
     },
     button: {
       fontFamily: FONT_FAMILY_TEXT2,
@@ -100,37 +101,32 @@ deepmerge(
   typography,
   {
     h1: {
-      fontSize: pxToRem(42),
-      lineHeight: 50 / 42,
+      fontSize: pxToRem(60),
+      lineHeight: 75.6 / 60,
       color: palette.text.secondary,
-      [breakpoints.up("md")]: {
-        fontSize: pxToRem(60),
-        lineHeight: 75.6 / 60,
-      },
-      [breakpoints.up("xl")]: {
-        fontSize: pxToRem(96),
-        lineHeight: 105.6 / 96,
-      },
-    },
-    h2: {
-      fontSize: pxToRem(36),
-      lineHeight: 42 / 36,
-      [breakpoints.up("md")]: {
-        fontSize: pxToRem(42),
-        lineHeight: 49.2 / 24,
-      },
       [breakpoints.up("xl")]: {
         fontSize: pxToRem(72),
         lineHeight: 79.2 / 72,
       },
     },
+    h2: {
+      fontSize: pxToRem(42),
+      lineHeight: 49.2 / 24,
+      [breakpoints.up("xl")]: {
+        fontSize: pxToRem(64),
+        lineHeight: 70.4 / 64,
+      },
+    },
     h3: {
       fontSize: pxToRem(30),
-      [breakpoints.up("xl")]: { fontSize: pxToRem(42) },
+      [breakpoints.up("xl")]: {
+        fontSize: pxToRem(53.33),
+        lineHeight: 58.67 / 53.33,
+      },
     },
     h4: {
       fontSize: pxToRem(24),
-      [breakpoints.up("xl")]: { fontSize: pxToRem(36) },
+      [breakpoints.up("xl")]: { fontSize: pxToRem(36), lineHeight: 53.82 / 36 },
     },
     h5: {
       fontSize: pxToRem(14),
@@ -162,8 +158,11 @@ deepmerge(
       [breakpoints.up("xl")]: { fontSize: pxToRem(14) },
     },
     subtitle1: {
-      fontSize: typography.pxToRem(24),
-      lineHeight: 40 / 24,
+      fontSize: pxToRem(24),
+      [breakpoints.up("xl")]: {
+        fontSize: typography.pxToRem(36),
+        lineHeight: 39.6 / 36,
+      },
     },
     subtitle2: {
       fontSize: 14,

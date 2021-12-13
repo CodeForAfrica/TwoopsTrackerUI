@@ -6,8 +6,6 @@ const useStyles = makeStyles(({ typography }) => ({
     paddingBottom: typography.pxToRem(15),
   },
   title: {
-    fontWeight: "bold",
-    fontSize: typography.pxToRem(36),
     marginBottom: typography.pxToRem(10),
   },
   editButton: {

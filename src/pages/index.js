@@ -9,6 +9,7 @@ import Page from "@/twoopstracker/components/Page";
 import Partners from "@/twoopstracker/components/Partners";
 import { tweetsInsights } from "@/twoopstracker/lib";
 import { home, settings } from "@/twoopstracker/lib/cms";
+import site from "@/twoopstracker/utils/site";
 
 function Index({
   about,
@@ -60,7 +61,7 @@ Index.defaultProps = {
 export async function getStaticProps() {
   const days = 14;
   const insights = await tweetsInsights({ days });
-  const chartUrl = `${process.env.NEXT_PUBLIC_APP_URL}/explore?days=${days}`;
+  const chartUrl = `${site.environmentUrl}/explore?days=${days}`;
 
   return {
     props: {
