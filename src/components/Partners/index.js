@@ -86,10 +86,10 @@ function Partners({
     <div className={classes.root}>
       <Section className={classes.section}>
         <div className={classes.primaryPartnerContainer}>
-          <Typography className={classes.title} variant="h2">
+          <Typography className={classes.title} variant="h3">
             {title}
           </Typography>
-          <Typography className={classes.description} variant="body2">
+          <Typography className={classes.description} variant="body1">
             {description}
           </Typography>
           <div className={classes.images}>

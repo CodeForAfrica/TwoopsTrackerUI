@@ -8,9 +8,6 @@ import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography, palette }) => ({
   root: {
-    marginTop: typography.pxToRem(142.5),
-
-    marginBottom: typography.pxToRem(81.5),
     background: palette.background.secondary,
   },
   button: {
@@ -22,9 +19,6 @@ const useStyles = makeStyles(({ typography, palette }) => ({
     alignItems: "center",
     paddingTop: typography.pxToRem(113),
     paddingBottom: typography.pxToRem(123),
-  },
-  title: {
-    color: palette.text.secondary,
   },
   description: {
     marginTop: typography.pxToRem(39),
@@ -54,10 +48,12 @@ function InvestigationsPreview({
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
-        <Typography className={classes.title} variant="h2">
-          {title}
-        </Typography>
-        <Typography align="center" className={classes.description} variant="h4">
+        <Typography variant="h1">{title}</Typography>
+        <Typography
+          align="center"
+          className={classes.description}
+          variant="subtitle1"
+        >
           {description}
         </Typography>
         <Grid container spacing={8}>

@@ -124,7 +124,7 @@ export default function LineChartScope(data, smallScreen) {
       },
       {
         name: "titleFont",
-        value: theme.typography.chart.fontFamily,
+        value: theme.typography.h1.fontFamily,
       },
       {
         name: "titleWeight",

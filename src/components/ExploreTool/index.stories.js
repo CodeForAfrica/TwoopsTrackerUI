@@ -1,25 +1,25 @@
 import React from "react";
 
-import SignUp from ".";
+import ExploreTool from ".";
 
-const signUp = {
-  buttonLink: "/signup",
-  buttonText: "Sign up",
+const props = {
+  buttonLink: "/explore",
+  buttonText: "Explore the tool",
   description:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ",
-  image: "/images/trolltracker-showcase-1.png",
+  image: "/images/Group 40.png",
   title: "Get more data today!",
 };
 
 export default {
-  title: "Components/SignUp",
+  title: "Components/ExploreTool",
   argTypes: {},
 };
 
-const Template = (args) => <SignUp {...args} />;
+const Template = (args) => <ExploreTool {...args} />;
 
 export const Default = Template.bind({});
 
 Default.args = {
-  ...signUp,
+  ...props,
 };

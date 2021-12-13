@@ -8,7 +8,7 @@ import backgroundImage from "@/twoopstracker/assets/images/banner background.png
 import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
-const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
+const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
   root: {
     backgroundImage: `url('${backgroundImage.src || backgroundImage}')`,
     backgroundSize: "cover",
@@ -27,25 +27,27 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     [breakpoints.up("md")]: {
       flexDirection: "row",
     },
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       marginTop: typography.pxToRem(90),
     },
   },
   title: {
-    width: typography.pxToRem(1000),
     maxWidth: "80%",
+    [breakpoints.up("xl")]: {
+      width: typography.pxToRem(1077),
+    },
   },
   description: {
     color: palette.text.secondary,
     marginTop: typography.pxToRem(40),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       marginTop: typography.pxToRem(90),
     },
   },
   section: {
     paddingTop: typography.pxToRem(90),
     paddingBottom: typography.pxToRem(90),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       paddingTop: typography.pxToRem(117),
       paddingBottom: typography.pxToRem(127),
     },
@@ -62,7 +64,7 @@ function Hero({ ctas, description, title, withCTA, ...props }) {
         <Typography className={classes.title} variant="h1">
           {title}
         </Typography>
-        <RichTypography className={classes.description} variant="h3">
+        <RichTypography className={classes.description} variant="subtitle1">
           {description}
         </RichTypography>
         {withCTA && (
