@@ -10,7 +10,7 @@ export default function handler(req, res) {
       // Set production configurations
       config.backend.name = "github";
       config.backend.repo = process.env.ADMIN_BACKEND_REPO;
-      config.backend.base_url = site.url;
+      config.backend.base_url = site.url.replace(/\/+$/, "");
       config.backend.auth_endpoint = process.env.ADMIN_BACKEND_AUTH_ENDPOINT;
       config.publish_mode = "editorial_workflow";
       // Remove dev configurations
