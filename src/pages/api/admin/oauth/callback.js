@@ -13,7 +13,7 @@ const client = new AuthorizationCode({
 });
 
 // Callback service parsing the authorization token and asking for the access token
-export default async (req, res) => {
+export default async function handler(req, res) {
   const { code, state } = req.query;
   const tokenParams = {
     code,
@@ -47,4 +47,4 @@ export default async (req, res) => {
     })()
     </script>`;
   return res.end(script);
-};
+}
