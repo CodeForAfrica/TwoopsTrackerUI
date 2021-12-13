@@ -63,7 +63,7 @@ const theme = createTheme({
       fontFamily: FONT_FAMILY_TEXT2,
     },
     body1: {
-      fontFamily: FONT_FAMILY_TEXT,
+      fontFamily: FONT_FAMILY_TEXT2,
     },
     button: {
       fontFamily: FONT_FAMILY_TEXT2,
