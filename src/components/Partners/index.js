@@ -35,7 +35,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     textAlign: "center",
   },
   images: {
-    marginTop: typography.pxToRem(100),
+    marginTop: typography.pxToRem(40),
     display: "flex",
     flexDirection: "column",
     [breakpoints.up("md")]: {
@@ -64,6 +64,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   description: {
     marginTop: typography.pxToRem(50),
     textAlign: "center",
+    maxWidth: typography.pxToRem(1194),
     [breakpoints.up("md")]: {
       marginTop: typography.pxToRem(20),
     },
