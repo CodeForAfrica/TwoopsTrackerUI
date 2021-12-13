@@ -2,8 +2,6 @@ import React from "react";
 
 import LoginMenu from ".";
 
-import { navigationArgs } from "@/twoopstracker/config";
-
 export default {
   title: "Components/LoginMenu",
   argTypes: {
@@ -20,5 +18,20 @@ const Template = ({ ...args }) => <LoginMenu {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  loginMenu: navigationArgs.loginMenuProps,
+  items: [
+    {
+      label: "Sign up",
+      href: "/login",
+      icon: {
+        src: "/images/signup.svg",
+      },
+    },
+    {
+      label: "Login",
+      href: "/login",
+      icon: {
+        src: "/images/login.svg",
+      },
+    },
+  ],
 };

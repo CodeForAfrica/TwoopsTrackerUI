@@ -65,13 +65,15 @@ const Account = ({
           )}
         </Grid>
         <Grid item lg={5} sm={12} className={classes.buttonSection}>
-          <Button
-            onClick={handleOpen}
-            disabled={items === 1}
-            className={classes.delete}
-          >
-            Delete
-          </Button>
+          {onDelete && (
+            <Button
+              onClick={handleOpen}
+              disabled={items === 1}
+              className={classes.delete}
+            >
+              Delete
+            </Button>
+          )}
           <ListModal
             open={open}
             onClose={handleClose}

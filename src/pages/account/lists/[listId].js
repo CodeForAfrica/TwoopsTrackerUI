@@ -1,17 +1,27 @@
 import { getSession } from "next-auth/client";
+import PropTypes from "prop-types";
 import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
 import { list } from "@/twoopstracker/lib";
+import { settings } from "@/twoopstracker/lib/cms";
 
-export default function Index(props) {
+export default function Index({ data, ...props }) {
   return (
     <Page {...props}>
-      <AccountsList {...props} />
+      <AccountsList data={data} />
     </Page>
   );
 }
+
+Index.propTypes = {
+  data: PropTypes.shape({}),
+};
+
+Index.defaultProps = {
+  data: undefined,
+};
 
 export async function getServerSideProps(context) {
   const { params: paramData } = context;
@@ -28,6 +38,13 @@ export async function getServerSideProps(context) {
 
   const data = await list(paramData.listId, session);
 
-  // Pass data to the page via props
-  return { props: { data, session } };
+  return {
+    props: {
+      ...settings(),
+      data,
+      session,
+      apiUrl: `/api/lists/${paramData.listId}`,
+      editable: true,
+    },
+  };
 }

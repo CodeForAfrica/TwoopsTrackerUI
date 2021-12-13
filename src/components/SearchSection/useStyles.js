@@ -22,7 +22,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   },
   buttonSection: {
     display: "flex",
-    justifyContent: "end",
+    justifyContent: "space-between",
     marginTop: typography.pxToRem(40),
   },
   saveButton: {

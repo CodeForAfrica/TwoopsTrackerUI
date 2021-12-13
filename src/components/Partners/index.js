@@ -70,15 +70,8 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Partners({
-  primaryPartners,
-  secondaryPartners,
-  title,
-  description,
-  ...props
-}) {
+function Partners({ description, items, secondaryPartners, title, ...props }) {
   const classes = useStyles(props);
-
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
@@ -90,17 +83,14 @@ function Partners({
             {description}
           </Typography>
           <div className={classes.images}>
-            {primaryPartners.map((image) => (
-              <Link
-                key={image.href}
-                href={image.href}
-                className={classes.imageLink}
-              >
+            {items?.map(({ image, href }) => (
+              <Link key={image} href={href} className={classes.imageLink}>
                 <Image
                   className={classes.image}
-                  height={300}
+                  height={174}
+                  width={305}
                   objectFit="contain"
-                  src={image.src}
+                  src={image}
                   alt={title}
                 />
               </Link>
@@ -111,15 +101,15 @@ function Partners({
       <div className={classes.logos}>
         <Section>
           <Grid container>
-            {secondaryPartners.map((logo) => (
+            {secondaryPartners?.map(({ image, href }) => (
               <Grid item lg={3} md={6} xs={12}>
-                <Link key={logo.href} href={logo.href}>
+                <Link key={href} href={href}>
                   <Image
                     className={classes.image}
                     height={170}
                     width={300}
                     objectFit="contain"
-                    src={logo.src}
+                    src={image}
                     alt={title}
                   />
                 </Link>
@@ -134,13 +124,13 @@ function Partners({
 
 Partners.propTypes = {
   description: PropTypes.string,
-  primaryPartners: PropTypes.string,
-  secondaryPartners: PropTypes.arrayOf(PropTypes.string),
+  items: PropTypes.arrayOf(PropTypes.shape({})),
+  secondaryPartners: PropTypes.arrayOf(PropTypes.shape({})),
   title: PropTypes.string,
 };
 Partners.defaultProps = {
   description: undefined,
-  primaryPartners: undefined,
+  items: undefined,
   secondaryPartners: undefined,
   title: undefined,
 };

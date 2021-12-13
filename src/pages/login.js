@@ -4,6 +4,7 @@ import React from "react";
 
 import Login from "@/twoopstracker/components/LoginForm";
 import Page from "@/twoopstracker/components/Page";
+import { settings } from "@/twoopstracker/lib/cms";
 
 function SignIn({ providers: providersProp, ...props }) {
   return (
@@ -21,15 +22,20 @@ SignIn.defaultProps = {
   providers: undefined,
 };
 
-export async function getStaticProps(context) {
-  const providers = await getProviders(context);
+/**
+ *  NOTE(kilemensi): [getProviders()](https://next-auth.js.org/v3/getting-started/client#getproviders)
+ *                   calls /api/providers, which is not available during build
+ *                   time and hence we can't use it here.
+ */
+export async function getServerSideProps() {
+  const providers = await getProviders();
 
   return {
     props: {
+      ...settings(),
       providers,
       title: "Sign in",
     },
-    revalidate: 60 * 60, // 60 minutes
   };
 }
 
