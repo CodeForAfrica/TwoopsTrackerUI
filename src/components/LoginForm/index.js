@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login({ providers, ...props }) {
+function Login({ providers: providersProp, ...props }) {
   const classes = useStyles(props);
   const { data: session } = useSession();
 
@@ -67,6 +67,10 @@ function Login({ providers, ...props }) {
     }
   }, [session]);
 
+  const providers = Object.values(providersProp ?? {});
+  if (!providers?.length) {
+    return null;
+  }
   return (
     <Grid
       container
@@ -77,27 +81,22 @@ function Login({ providers, ...props }) {
       <Grid item xs={12} className={classes.item}>
         <form noValidate className={classes.formStyles}>
           <div className={classes.buttonContainer}>
-            {!session &&
-              providers &&
-              Object.values(providers).map((provider) => (
-                <Button
-                  key={provider.name}
-                  value="Subscribe"
-                  name="submit"
-                  id="mc-embedded-subscribe-form"
-                  variant="contained"
-                  className={classes.loginButton}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() =>
-                    signIn(provider.id, {
-                      callbackUrl: `${window.location.origin}/explore`,
-                    })
-                  }
-                >
-                  Sign in with {provider.name}
-                </Button>
-              ))}
+            {providers.map((provider) => (
+              <Button
+                key={provider.name}
+                variant="contained"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  signIn(provider.id, {
+                    callbackUrl: `${window.location.origin}/explore`,
+                  })
+                }
+                className={classes.loginButton}
+              >
+                Sign in with {provider.name}
+              </Button>
+            ))}
           </div>
         </form>
       </Grid>
