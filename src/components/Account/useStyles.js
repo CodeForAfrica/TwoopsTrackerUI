@@ -9,14 +9,16 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       color: "#DB1111",
     },
   },
+  avatar: {
+    width: "80%",
+    height: "80%",
+    margin: typography.pxToRem(10),
+  },
   icon: {
     position: "relative",
     width: typography.pxToRem(100),
     height: typography.pxToRem(100),
     border: `solid 1px`,
-    "& img": {
-      padding: `${typography.pxToRem(10)} !important`,
-    },
   },
   detailSection: {
     marginLeft: 0,
