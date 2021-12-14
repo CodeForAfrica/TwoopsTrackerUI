@@ -59,7 +59,6 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   retweet: {
     margin: `${typography.pxToRem(30)} 0`,
-    height: typography.pxToRem(72),
     overflow: "hidden",
     display: "-webkit-box",
     WebkitLineClamp: 2,
@@ -67,6 +66,9 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     textOverflow: "ellipsis",
     "& .highlight": {
       color: palette.primary.main,
+    },
+    [breakpoints.up("lg")]: {
+      height: typography.pxToRem(72),
     },
   },
 }));
