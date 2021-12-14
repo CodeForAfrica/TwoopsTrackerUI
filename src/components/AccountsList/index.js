@@ -6,6 +6,7 @@ import useSWR from "swr";
 import useStyles from "./useStyles";
 
 import Account from "@/twoopstracker/components/Account";
+import ContentActions from "@/twoopstracker/components/ContentActions";
 import ListModal from "@/twoopstracker/components/ListModal";
 import Pagination from "@/twoopstracker/components/Pagination";
 import Section from "@/twoopstracker/components/Section";
@@ -16,6 +17,7 @@ const AccountsList = ({
   editable,
   paginationProps,
   data: {
+    id,
     page: pageProp,
     pageSize: pageSizeProp,
     name,
@@ -113,6 +115,11 @@ const AccountsList = ({
           </Button>
         )}
       </div>
+      <ContentActions
+        apiUri={`/api/lists/${id}`}
+        classes={{ section: classes.actions }}
+        type="lists"
+      />
       <ListModal
         open={open}
         onClose={handleClose}
