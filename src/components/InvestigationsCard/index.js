@@ -9,8 +9,9 @@ import Card from "@/twoopstracker/components/Card";
 import Content from "@/twoopstracker/components/Card/Content";
 
 function InvestigationsCard({
-  featured,
+  ctaText,
   description,
+  featured,
   href,
   image,
   imageProps,
@@ -19,7 +20,7 @@ function InvestigationsCard({
 }) {
   const classes = useStyles(props);
   const contentProps = {
-    ctaText: "View Pdf",
+    ctaText,
     description,
     href,
     title,
@@ -54,21 +55,23 @@ function InvestigationsCard({
 }
 
 InvestigationsCard.propTypes = {
-  featured: PropTypes.bool,
-  description: PropTypes.string,
-  title: PropTypes.string,
-  image: PropTypes.string,
-  href: PropTypes.string,
   ctaText: PropTypes.string,
+  description: PropTypes.string,
+  featured: PropTypes.bool,
+  href: PropTypes.string,
+  image: PropTypes.string,
   imageProps: PropTypes.shape({}),
+  title: PropTypes.string,
 };
+
 InvestigationsCard.defaultProps = {
-  featured: false,
+  ctaText: "View Investigation",
   description: undefined,
-  title: undefined,
-  image: undefined,
+  featured: false,
   href: undefined,
-  ctaText: undefined,
+  image: undefined,
   imageProps: undefined,
+  title: undefined,
 };
+
 export default InvestigationsCard;

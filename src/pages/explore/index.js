@@ -6,9 +6,11 @@ import { SWRConfig } from "swr";
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
 import { pagination } from "@/twoopstracker/config";
-import { tweets, tweetsInsights } from "@/twoopstracker/lib";
+import { tweets, tweetsInsights, lists } from "@/twoopstracker/lib";
+import { settings } from "@/twoopstracker/lib/cms";
 import createChartImage from "@/twoopstracker/lib/createChartImage";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
+import site from "@/twoopstracker/utils/site";
 
 function Explore({
   days,
@@ -20,6 +22,7 @@ function Explore({
   query,
   theme,
   tweets: tweetsProp,
+  results,
   ...props
 }) {
   return (
@@ -35,6 +38,7 @@ function Explore({
           query={query}
           theme={theme}
           tweets={tweetsProp}
+          results={results}
           {...props}
         />
       </SWRConfig>
@@ -44,6 +48,7 @@ function Explore({
 
 Explore.propTypes = {
   days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  results: PropTypes.arrayOf(PropTypes.shape({})),
   fallback: PropTypes.shape({}),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
@@ -64,9 +69,11 @@ Explore.defaultProps = {
   query: undefined,
   theme: undefined,
   tweets: undefined,
+  results: undefined,
 };
 
 export async function getServerSideProps(context) {
+  let results = null;
   const { query: userQuery } = context;
   const query = { days: 14, ...userQuery };
   const session = await getSession(context);
@@ -74,13 +81,16 @@ export async function getServerSideProps(context) {
   const insights = await tweetsInsights(query, session);
   const queryString = getQueryString(query);
   const searchQueryString = queryString ? `?${queryString}` : "";
+  if (session) {
+    results = await lists(session, { pageSize: 10 });
+  }
 
   const { pageSize, page, ...unpaginatedQuery } = query;
   const unpaginatedQueryString = getQueryString(unpaginatedQuery);
 
   const image = await createChartImage(insights, unpaginatedQuery);
 
-  const url = `${process.env.NEXT_PUBLIC_APP_URL}/explore?${unpaginatedQueryString}`;
+  const url = `${site.environmentUrl}/explore?${unpaginatedQueryString}`;
   const openGraph = {
     url,
     images: [{ url: image }],
@@ -91,6 +101,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      ...settings(),
       ...query,
       fallback: {
         [`/api/tweets${searchQueryString}`]: foundTweets,
@@ -104,6 +115,7 @@ export async function getServerSideProps(context) {
       tweets: foundTweets,
       twitter,
       url,
+      results,
     },
   };
 }

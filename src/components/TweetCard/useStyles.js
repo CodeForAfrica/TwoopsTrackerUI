@@ -14,7 +14,9 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   username: {
     fontWeight: "700",
-    fontSize: typography.pxToRem(36),
+    [breakpoints.up("xl")]: {
+      fontSize: typography.pxToRem(36),
+    },
   },
   handle: {
     display: "inline",
@@ -26,6 +28,23 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   list: {
     marginTop: typography.pxToRem(10),
+  },
+  addToList: {
+    color: "black",
+    display: "flex",
+    "&:hover, &:focus, &:focus-within": {
+      backgroundColor: "transparent",
+      textDecoration: "none",
+      color: "black",
+    },
+    [breakpoints.up("lg")]: {
+      color: "black",
+      "&:hover, &:focus, &:focus-within": {
+        color: "black",
+        backgroundColor: "transparent",
+        textDecoration: "none",
+      },
+    },
   },
   deleteTime: {},
   interactions: {},

@@ -6,20 +6,11 @@ const useStyles = makeStyles(({ typography }) => ({
     paddingBottom: typography.pxToRem(15),
   },
   title: {
-    fontWeight: "bold",
-    fontSize: typography.pxToRem(36),
     marginBottom: typography.pxToRem(10),
   },
-  editButton: {
-    color: "red",
-  },
+  editButton: {},
   deleteButton: {
-    backgroundColor: "red",
-    color: "#fff",
     marginLeft: typography.pxToRem(20),
-    "&:hover": {
-      color: "#DB1111",
-    },
   },
   label: {
     color: "#000",
@@ -33,6 +24,10 @@ const useStyles = makeStyles(({ typography }) => ({
   },
   formControl: {
     marginBottom: typography.pxToRem(20),
+  },
+  actions: {
+    display: "flex",
+    justifyContent: "flex-end",
   },
 }));
 

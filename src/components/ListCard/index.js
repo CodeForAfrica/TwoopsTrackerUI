@@ -80,7 +80,7 @@ function ListCard({
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title}>
+      <Typography className={classes.title} variant="h4">
         <Link href={`/account/lists/${id}`}>{listName}</Link>
       </Typography>
       <Grid container>
@@ -89,11 +89,21 @@ function ListCard({
             <Typography>{`Saved on ${year} at ${hours}`}</Typography>
           )}
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Button onClick={handleOpen} className={classes.editButton}>
+        <Grid item xs={12} md={4} className={classes.actions}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpen}
+            className={classes.editButton}
+          >
             Edit
           </Button>
-          <Button onClick={handleDeleteOpen} className={classes.deleteButton}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleDeleteOpen}
+            className={classes.deleteButton}
+          >
             Delete
           </Button>
           <ListModal

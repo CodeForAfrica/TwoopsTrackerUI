@@ -1,3 +1,4 @@
+import { RichTypography } from "@commons-ui/core";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
@@ -7,7 +8,7 @@ import backgroundImage from "@/twoopstracker/assets/images/banner background.png
 import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
-const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
+const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
   root: {
     backgroundImage: `url('${backgroundImage.src || backgroundImage}')`,
     backgroundSize: "cover",
@@ -26,72 +27,70 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     [breakpoints.up("md")]: {
       flexDirection: "row",
     },
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       marginTop: typography.pxToRem(90),
     },
   },
   title: {
-    width: typography.pxToRem(1000),
     maxWidth: "80%",
+    [breakpoints.up("xl")]: {
+      width: typography.pxToRem(1077),
+    },
   },
   description: {
     color: palette.text.secondary,
     marginTop: typography.pxToRem(40),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       marginTop: typography.pxToRem(90),
     },
   },
   section: {
     paddingTop: typography.pxToRem(90),
     paddingBottom: typography.pxToRem(90),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       paddingTop: typography.pxToRem(117),
       paddingBottom: typography.pxToRem(127),
     },
   },
 }));
 
-function Hero({
-  title,
-  description,
-  searchLabel,
-  searchLink,
-  signUpLabel,
-  signUpLink,
-  withCTA,
-  ...props
-}) {
+function Hero({ ctas, description, title, withCTA, ...props }) {
   const classes = useStyles(props);
   const [session] = useSession();
+
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
         <Typography className={classes.title} variant="h1">
           {title}
         </Typography>
-        <Typography className={classes.description} variant="h3">
+        <RichTypography className={classes.description} variant="subtitle1">
           {description}
-        </Typography>
+        </RichTypography>
         {withCTA && (
           <div className={classes.buttonContainer}>
-            <Button
-              component={Link}
-              href={searchLink}
-              className={classes.button}
-              variant="contained"
-              color="primary"
-            >
-              {searchLabel}
-            </Button>
-            {!session ? (
+            {ctas.search ? (
               <Button
                 component={Link}
-                href={signUpLink}
+                href={ctas.search.href}
                 className={classes.button}
                 variant="contained"
                 color="primary"
+                underline="none"
               >
-                {signUpLabel}
+                {ctas.search.label}
+              </Button>
+            ) : null}
+            {!session && ctas.signUp ? (
+              <Button
+                component={Link}
+                href={ctas.signUp.href}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                underline="none"
+              >
+                {ctas.signUp.label}
               </Button>
             ) : null}
           </div>
@@ -102,21 +101,24 @@ function Hero({
 }
 
 Hero.propTypes = {
+  ctas: PropTypes.shape({
+    search: PropTypes.shape({
+      href: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+    signUp: PropTypes.shape({
+      href: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  }),
   description: PropTypes.string,
-  searchLabel: PropTypes.string,
-  searchLink: PropTypes.string,
-  signUpLabel: PropTypes.string,
-  signUpLink: PropTypes.string,
   title: PropTypes.string,
   withCTA: PropTypes.string,
 };
 
 Hero.defaultProps = {
-  signUpLabel: undefined,
-  signUpLink: undefined,
+  ctas: undefined,
   description: undefined,
-  searchLabel: undefined,
-  searchLink: undefined,
   title: undefined,
   withCTA: true,
 };

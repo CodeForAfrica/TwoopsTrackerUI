@@ -44,12 +44,7 @@ const useStyles = makeStyles(({ typography }) => ({
   },
   button: {
     marginLeft: typography.pxToRem(5),
-    borderRadius: typography.pxToRem(25),
     minWidth: typography.pxToRem(100),
-    border: "solid 1px transparent",
-    "&:hover": {
-      border: "solid 1px red",
-    },
   },
 }));
 
