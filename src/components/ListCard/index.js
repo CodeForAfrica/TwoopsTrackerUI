@@ -90,10 +90,20 @@ function ListCard({
           )}
         </Grid>
         <Grid item xs={12} md={4} className={classes.actions}>
-          <Button onClick={handleOpen} className={classes.editButton}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpen}
+            className={classes.editButton}
+          >
             Edit
           </Button>
-          <Button onClick={handleDeleteOpen} className={classes.deleteButton}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleDeleteOpen}
+            className={classes.deleteButton}
+          >
             Delete
           </Button>
           <ListModal

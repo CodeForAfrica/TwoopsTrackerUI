@@ -1,4 +1,4 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Link } from "@material-ui/core";
 import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -92,21 +92,33 @@ const SearchSection = ({
         <div className={classes.buttonSection}>
           <div>
             {session && (
-              <Button className={classes.saveButton} href="/explore/accounts">
+              <Button
+                variant="outlined"
+                className={classes.saveButton}
+                href="/explore/accounts"
+                component={Link}
+                underline="none"
+              >
                 See all Twitter Accounts
               </Button>
             )}
           </div>
-          <div className={classes.alignRight}>
+          <div>
             {session ? (
               <Button
+                variant="outlined"
                 className={classes.saveButton}
                 onClick={handleClickSaveSearch}
               >
                 Save Search
               </Button>
             ) : null}
-            <Button className={classes.button} onClick={onSearch}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={onSearch}
+            >
               Search
             </Button>
           </div>

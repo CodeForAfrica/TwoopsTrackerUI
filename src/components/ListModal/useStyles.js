@@ -24,10 +24,6 @@ const useStyles = makeStyles(({ typography }) => ({
   checkbox: {
     color: "#000",
   },
-  createButton: {
-    backgroundColor: "red",
-    color: "#fff",
-  },
   formControl: {
     marginBottom: typography.pxToRem(20),
   },

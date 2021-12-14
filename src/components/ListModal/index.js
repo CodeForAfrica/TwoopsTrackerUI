@@ -123,7 +123,7 @@ function ModalComponent({
         {deleteDescription && <Typography>{deleteDescription}</Typography>}
         <div>
           {buttonLabel && (
-            <Button onClick={buttonOnClick} className={classes.createButton}>
+            <Button variant="contained" color="primary" onClick={buttonOnClick}>
               {buttonLabel}
             </Button>
           )}

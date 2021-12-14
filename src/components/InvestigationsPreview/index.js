@@ -59,7 +59,7 @@ function InvestigationsPreview({
         <Grid container spacing={8}>
           {items.slice(0, 4).map(({ href, image, title: bookTitle }) => (
             <Grid item xs={6} md={3}>
-              <Button href={href} component={href ? Link : undefined}>
+              <Link href={href}>
                 <Image
                   height={369}
                   width={297}
@@ -73,15 +73,16 @@ function InvestigationsPreview({
                 >
                   {bookTitle}
                 </Typography>
-              </Button>
+              </Link>
             </Grid>
           ))}
         </Grid>
         <Button
-          color="secondary"
           href={buttonLink}
           variant="contained"
+          color="primary"
           className={classes.button}
+          underline="none"
         >
           {buttonText}
         </Button>
