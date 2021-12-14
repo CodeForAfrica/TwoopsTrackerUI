@@ -1,4 +1,4 @@
-import { RichTypography, A } from "@commons-ui/core";
+import { RichTypography } from "@commons-ui/core";
 import { Grid, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import PropTypes from "prop-types";
@@ -7,6 +7,7 @@ import React from "react";
 import useStyles from "./useStyles";
 
 import Image from "@/twoopstracker/components/Image";
+import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
 function Content({ items, size, ctaLabel, ...props }) {
@@ -18,7 +19,7 @@ function Content({ items, size, ctaLabel, ...props }) {
   return (
     <Section>
       <Grid container justifyContent="space-between" className={classes.root}>
-        {items.map(({ title, description, image, href }) => (
+        {items.map(({ cta, description, href, image, title }) => (
           <Grid
             className={classes.row}
             container
@@ -29,7 +30,7 @@ function Content({ items, size, ctaLabel, ...props }) {
             key={title}
           >
             <Grid item xs={12} md={size === "large" ? 6 : 3}>
-              <A
+              <Link
                 className={clsx({
                   [classes.imageContainer]: true,
                   [classes.shadow]: size === "large",
@@ -38,12 +39,12 @@ function Content({ items, size, ctaLabel, ...props }) {
               >
                 <Image
                   objectFit="contain"
-                  width={size === "large" ? 768 : 300}
-                  height={size === "large" ? 500 : 150}
+                  width={size === "large" ? 768 : 200}
+                  height={size === "large" ? 500 : 200}
                   src={image}
                   alt={title}
                 />
-              </A>
+              </Link>
             </Grid>
             <Grid
               alignItems="center"
@@ -52,25 +53,27 @@ function Content({ items, size, ctaLabel, ...props }) {
               md={size === "large" ? 6 : 9}
             >
               {title && (
-                <A className={classes.link} href={href}>
-                  <Typography className={classes.title} variant="h2">
+                <Typography variant="h4" className={classes.title}>
+                  <Link href={href} className={classes.link}>
                     {title}
-                  </Typography>
-                </A>
+                  </Link>
+                </Typography>
               )}
               {description && (
-                <RichTypography className={classes.description} variant="body2">
+                <RichTypography variant="body1" className={classes.description}>
                   {description}
                 </RichTypography>
               )}
               {size === "large" && (
-                <A
-                  underline="always"
-                  className={classes.viewWebsite}
-                  href={href}
-                >
-                  <Typography variant="body2">{ctaLabel}</Typography>
-                </A>
+                <Typography>
+                  <Link
+                    href={href}
+                    underline="always"
+                    className={classes.viewWebsite}
+                  >
+                    {cta || ctaLabel}
+                  </Link>
+                </Typography>
               )}
             </Grid>
           </Grid>
@@ -85,9 +88,11 @@ Content.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({})),
   size: PropTypes.string,
 };
+
 Content.defaultProps = {
   items: undefined,
   size: undefined,
   ctaLabel: undefined,
 };
+
 export default Content;

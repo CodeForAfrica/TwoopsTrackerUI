@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: "white",
     background: "none",
-    width: "100vw",
     height: "100vh",
     margin: "auto",
   },
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 800,
     fontSize: theme.typography.subtitle2.fontSize,
     height: "3rem",
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up("xl")]: {
       fontSize: theme.typography.subtitle1.fontSize,
       height: "3.5rem",
       paddingLeft: "2rem",
@@ -72,7 +71,7 @@ function Login({ providers, ...props }) {
     <Grid
       container
       justify="space-around"
-      alignitems="center"
+      alignItems="center"
       className={classes.root}
     >
       <Grid item xs={12} className={classes.item}>
