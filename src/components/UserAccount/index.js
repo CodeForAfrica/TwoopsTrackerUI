@@ -1,11 +1,8 @@
-import { Typography, Divider, Grid, Button } from "@material-ui/core";
+import { Typography, Divider, Grid, Button, Avatar } from "@material-ui/core";
 import { useSession } from "next-auth/client";
-import Image from "next/image";
 import React from "react";
 
 import useStyles from "./useStyles";
-
-import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 
 function UserAccount({ ...props }) {
   const classes = useStyles(props);
@@ -16,19 +13,21 @@ function UserAccount({ ...props }) {
   }
 
   const {
-    user: { email, name },
+    user: { email, name, image },
   } = session;
 
   return (
     <div className={classes.card}>
       <Grid container>
-        <Grid item lg={1}>
+        <Grid item>
           <div className={classes.icon}>
-            <Image layout="fill" src={UserIcon} />
+            <Avatar alt={name} src={image} className={classes.avatar} />
           </div>
         </Grid>
         <Grid item lg={10} className={classes.userDetails}>
-          <Typography className={classes.username}>{name}</Typography>
+          <Typography variant="h4" className={classes.username}>
+            {name}
+          </Typography>
           <Typography>{email}</Typography>
         </Grid>
       </Grid>
