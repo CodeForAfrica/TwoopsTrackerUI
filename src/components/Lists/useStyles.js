@@ -1,10 +1,14 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
   root: {},
   section: {
     display: "flex",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    [breakpoints.up("md")]: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
   },
   listItem: {
     marginTop: typography.pxToRem(20),
@@ -12,7 +16,17 @@ const useStyles = makeStyles(({ typography }) => ({
   pagination: {
     width: "100%",
   },
-  button: {},
+  create: {
+    cursor: "pointer",
+    color: palette.primary.main,
+    textDecoration: "underline",
+    padding: `${typography.pxToRem(20)} 0`,
+    [breakpoints.up("md")]: {
+      position: "relative",
+      top: typography.pxToRem(70),
+      padding: 0,
+    },
+  },
   label: {
     color: "#000",
   },
