@@ -106,7 +106,7 @@ const AccountsList = ({
   return (
     <Section className={classes.root}>
       <div className={classes.section}>
-        {name && <Typography className={classes.listName}>{name}</Typography>}
+        {name && <Typography variant="h2">{name}</Typography>}
         {editable && (
           <Button onClick={handleOpen} className={classes.button}>
             Add Account

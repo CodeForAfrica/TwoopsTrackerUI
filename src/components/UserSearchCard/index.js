@@ -23,16 +23,12 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     fontFamily: typography.h4.fontFamily,
     paddingTop: typography.pxToRem(7),
   },
-  title: {
-    fontFamily: typography.h1.fontFamily,
-    color: palette.text.primary,
-  },
   date: {
     fontFamily: typography.h4.fontFamily,
     marginBottom: typography.pxToRem(30),
   },
   grid: {
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       justifyContent: "flex-end",
       alignItems: "flex-end",
     },

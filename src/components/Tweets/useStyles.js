@@ -4,7 +4,7 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
   root: {},
   section: {
     marginTop: typography.pxToRem(20),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       width: typography.pxToRem(1270),
     },
   },

@@ -42,7 +42,7 @@ function DesktopNavigation({
               href="/"
               className={classes.logoButton}
             >
-              <Image height={55} width={237} {...logo} />
+              <Image height={50} width={184} {...logo} />
             </LogoButton>
           </Grid>
           <Grid

@@ -9,7 +9,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   input: {
     marginLeft: typography.pxToRem(10),
     minWidth: "auto",
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       minWidth: typography.pxToRem(600),
     },
   },

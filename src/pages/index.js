@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Chart from "@/twoopstracker/components/Chart";
+import ExploreTool from "@/twoopstracker/components/ExploreTool";
 import Hero from "@/twoopstracker/components/Hero";
 import InvestigationsPreview from "@/twoopstracker/components/InvestigationsPreview";
 import Page from "@/twoopstracker/components/Page";
 import Partners from "@/twoopstracker/components/Partners";
-import SignUp from "@/twoopstracker/components/SignUp";
 import { tweetsInsights } from "@/twoopstracker/lib";
 import { home, settings } from "@/twoopstracker/lib/cms";
 import site from "@/twoopstracker/utils/site";
@@ -27,7 +27,7 @@ function Index({
     <Page {...props}>
       <Hero description={description} title={title} ctas={ctas} />
       <Chart data={insights} days={days} url={chartUrl} />
-      <SignUp {...tool} />
+      <ExploreTool {...tool} />
       <InvestigationsPreview {...investigations} />
       <Partners {...about} />
     </Page>
