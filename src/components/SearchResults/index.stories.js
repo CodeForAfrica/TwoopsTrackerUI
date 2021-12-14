@@ -13,5 +13,5 @@ export const Default = Template.bind({});
 
 Default.args = {
   results: "Kenya",
-  label: "Search for",
+  label: "Search Results",
 };
