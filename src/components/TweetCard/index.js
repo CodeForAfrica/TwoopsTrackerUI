@@ -1,11 +1,12 @@
 import { RichTypography } from "@commons-ui/core";
-import { Grid, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import { format, formatDistanceStrict, formatDistance } from "date-fns";
 import { useSession } from "next-auth/client";
 import Image from "next/image";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
+import TruncateMarkup from "react-truncate-markup";
 
 import useStyles from "./useStyles";
 
@@ -27,6 +28,7 @@ const TweetCard = ({
   ...props
 }) => {
   const classes = useStyles(props);
+  const [expanded, setExpanded] = useState(false);
 
   const {
     name,
@@ -52,6 +54,21 @@ const TweetCard = ({
     .replace(/^RT/, '<span class="highlight">Retweet</span>')
     .replace(/#(\w+)/g, '<span class="highlight">#$1</span>')
     .replace(/@(\w+)/g, '<span class="highlight">@$1</span>');
+
+  const handleMore = (e) => {
+    e.preventDefault();
+    setExpanded((prev) => !prev);
+  };
+
+  const ellipsis = (
+    <span>
+      ...
+      {` `}
+      <Button className={classes.moreButton} onClick={handleMore}>
+        See more
+      </Button>
+    </span>
+  );
 
   return (
     <div className={classes.root}>
@@ -94,7 +111,14 @@ const TweetCard = ({
           </Typography>
         </Grid>
       </Grid>
-      <RichTypography className={classes.retweet}>{content}</RichTypography>
+      <TruncateMarkup lines={expanded ? 10 : 2} ellipsis={ellipsis}>
+        <RichTypography className={classes.retweet}>{content}</RichTypography>
+      </TruncateMarkup>
+      {expanded && (
+        <Button className={classes.moreButton} onClick={handleMore}>
+          See less
+        </Button>
+      )}
       {retweetedUser && (
         <RichTypography variant="body2">
           Original tweet by

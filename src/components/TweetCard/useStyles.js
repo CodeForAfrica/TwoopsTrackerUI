@@ -59,17 +59,13 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   retweet: {
     margin: `${typography.pxToRem(30)} 0`,
-    overflow: "hidden",
-    display: "-webkit-box",
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: "vertical",
-    textOverflow: "ellipsis",
     "& .highlight": {
       color: palette.primary.main,
     },
-    [breakpoints.up("lg")]: {
-      height: typography.pxToRem(72),
-    },
+  },
+  moreButton: {
+    color: palette.primary.main,
+    textDecoration: "underline",
   },
 }));
 
