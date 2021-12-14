@@ -18,6 +18,9 @@ const useStyles = makeStyles(({ typography }) => ({
 const SearchResults = ({ results, ...props }) => {
   const classes = useStyles(props);
 
+  if (!results?.length) {
+    return null;
+  }
   return (
     <Section className={classes.section}>
       <Typography variant="body1" className={classes.searchQuery}>
