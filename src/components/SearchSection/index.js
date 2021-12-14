@@ -104,15 +104,17 @@ const SearchSection = ({
             )}
           </div>
           <div>
-            <Button
-              variant="outlined"
-              className={classes.saveButton}
-              href="/account/searches"
-              component={Link}
-              underline="none"
-            >
-              Load search
-            </Button>
+            {session ? (
+              <Button
+                variant="outlined"
+                className={classes.saveButton}
+                href="/account/searches"
+                component={Link}
+                underline="none"
+              >
+                Load search
+              </Button>
+            ) : null}
 
             {session ? (
               <Button
