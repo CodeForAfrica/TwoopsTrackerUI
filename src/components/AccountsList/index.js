@@ -122,14 +122,16 @@ const AccountsList = ({
         buttonLabel="Add"
         buttonOnClick={handleCreate}
       />
-      {listAccounts?.map((account) => (
-        <Account
-          key={account.screen_name}
-          account={account}
-          items={listAccounts.length}
-          onDelete={editable ? handleDelete : null}
-        />
-      ))}
+      {listAccounts?.map((account) => {
+        return (
+          <Account
+            key={account.screen_name}
+            account={account}
+            items={listAccounts.length}
+            onDelete={editable ? handleDelete : null}
+          />
+        );
+      })}
       <Pagination
         {...paginationProps}
         count={Math.ceil(count / (pageSize || 20))}

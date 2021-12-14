@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
+import Link from "@/twoopstracker/components/Link";
 import ListModal from "@/twoopstracker/components/ListModal";
 
 const Account = ({
@@ -49,9 +50,11 @@ const Account = ({
             {name || "Username Username"}
           </Typography>
           {screenName && (
-            <Typography
-              className={classes.handle}
-            >{`@${screenName}`}</Typography>
+            <Link href={`https://twitter.com/${screenName}`}>
+              <Typography
+                className={classes.handle}
+              >{`@${screenName}`}</Typography>
+            </Link>
           )}
           {accountType && (
             <Typography className={classes.accountType}>
