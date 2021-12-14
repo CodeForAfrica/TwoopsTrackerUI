@@ -5,6 +5,7 @@ const useStyles = makeStyles(({ typography }) => ({
     margin: `${typography.pxToRem(40)} 0`,
   },
   section: {},
+  ul: {},
 }));
 
 export default useStyles;
