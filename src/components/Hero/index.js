@@ -77,6 +77,7 @@ function Hero({ ctas, description, title, withCTA, ...props }) {
                 className={classes.button}
                 variant="contained"
                 color="primary"
+                underline="none"
               >
                 {ctas.search.label}
               </Button>
@@ -88,6 +89,7 @@ function Hero({ ctas, description, title, withCTA, ...props }) {
                 className={classes.button}
                 variant="contained"
                 color="primary"
+                underline="none"
               >
                 {ctas.signUp.label}
               </Button>

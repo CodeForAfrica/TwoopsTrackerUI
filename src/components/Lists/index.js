@@ -99,7 +99,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
     <div className={classes.root}>
       <div className={classes.section}>
         <Typography variant="h2">Your Lists</Typography>
-        <Button onClick={handleOpen} className={classes.button}>
+        <Button variant="contained" color="primary" onClick={handleOpen}>
           Create New List
         </Button>
         <ListModal
