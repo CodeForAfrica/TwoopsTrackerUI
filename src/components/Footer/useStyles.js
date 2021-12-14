@@ -29,7 +29,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     flexDirection: "column",
     alignItems: "center",
     letterspacing: typography.pxToRem(0.7),
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       flexDirection: "row",
     },
   },
@@ -101,7 +101,6 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     padding: `${typography.pxToRem(32)} 0`,
     fontSize: typography.subtitle2.fontSize,
     fontFamily: typography.fontFamilyFooter,
-    textAlign: "center",
     lineHeight: typography.pxToRem(16),
     letterSpacing: typography.pxToRem(0.32),
     [breakpoints.up("xl")]: {
