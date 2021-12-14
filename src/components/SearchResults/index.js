@@ -5,11 +5,13 @@ import React from "react";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography }) => ({
-  section: {},
+  section: {
+    padding: `${typography.pxToRem(48)} ${typography.pxToRem(0)}`,
+  },
   searchQuery: {
     fontStyle: "normal",
     fontWeight: "bold",
-    fontSize: "64px",
+    fontSize: typography.pxToRem(64),
     lineHeight: "110%",
     fontFamily: typography.h1.fontFamily,
   },
