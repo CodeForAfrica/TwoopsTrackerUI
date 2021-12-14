@@ -1,4 +1,4 @@
-import { Button, Grid, Link } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import useStyles from "./useStyles";
 
 import Filter from "@/twoopstracker/components/Filter";
+import Link from "@/twoopstracker/components/Link";
 import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
 import Search from "@/twoopstracker/components/Search";
 import Section from "@/twoopstracker/components/Section";
