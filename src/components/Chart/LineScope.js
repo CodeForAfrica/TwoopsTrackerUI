@@ -373,6 +373,7 @@ export default function LineChartScope(data, smallScreen) {
               update: {
                 x: { signal: "smallScreen ? breadth - 30 : '0'" },
                 y: { value: smallScreen ? 0 : 100 },
+                align: { value: smallScreen ? "right" : "left" },
                 text: { signal: "total" },
                 opacity: { value: 1 },
                 font: { signal: "totalFont" },
