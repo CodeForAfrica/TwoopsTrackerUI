@@ -16,7 +16,7 @@ const useStyles = makeStyles(({ palette, typography }) => ({
     paddingBottom: typography.pxToRem(28),
   },
   button: {
-    maring: `auto ${typography.pxToRem(12)}`,
+    margin: `auto ${typography.pxToRem(12)}`,
     color: palette.secondary.main,
     fontSize: typography.body2.fontSize,
   },
