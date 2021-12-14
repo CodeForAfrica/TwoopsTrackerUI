@@ -59,8 +59,8 @@ const options = {
       const token = await fetchToken({
         provider: account?.provider,
         tokens: {
-          access_token: account?.accessToken,
-          id_token: account?.idToken,
+          access_token: account?.access_token,
+          id_token: account?.id_token,
         },
       });
       if (token.access_token) {
@@ -75,8 +75,8 @@ const options = {
           await fetchToken({
             provider: account?.provider,
             tokens: {
-              access_token: account?.accessToken,
-              id_token: account?.idToken,
+              access_token: account?.access_token,
+              id_token: account?.id_token,
             },
           });
         return {
