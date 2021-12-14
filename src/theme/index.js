@@ -4,7 +4,6 @@ import { deepmerge } from "@material-ui/utils";
 const FONT_FAMILY_HEADING = '"Playfair Display", "serif"';
 const FONT_FAMILY_TEXT = '"Arial", "sans-serif"';
 const FONT_FAMILY_TEXT2 = '"Montserrat", "sans-serif"';
-const FONT_FAMILY_TEXT3 = '"Open Sans", "sans-serif"';
 
 // Create a theme instance.
 const theme = createTheme({
@@ -41,7 +40,6 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: FONT_FAMILY_TEXT,
-    fontFamilyFooter: FONT_FAMILY_TEXT3,
     h1: {
       fontFamily: FONT_FAMILY_HEADING,
       fontWeight: "bold",
