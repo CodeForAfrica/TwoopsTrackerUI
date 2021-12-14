@@ -25,6 +25,7 @@ const theme = createTheme({
     background: {
       default: "#FFF",
       secondary: "#DB1111",
+      paper: "#F8F8F8",
     },
     text: {
       primary: "#000000",
@@ -64,6 +65,10 @@ const theme = createTheme({
     },
     body1: {
       fontFamily: FONT_FAMILY_TEXT2,
+    },
+    body2: {
+      fontFamily: FONT_FAMILY_TEXT2,
+      fontSize: "24px",
     },
     button: {
       fontFamily: FONT_FAMILY_TEXT2,
@@ -189,9 +194,12 @@ deepmerge(
     MuiButton: {
       root: {
         padding: `${typography.pxToRem(10)} ${typography.pxToRem(20)}`,
+        "&:hover": {
+          textDecoration: "none",
+        },
       },
       contained: {
-        color: "#a0a0a0",
+        color: palette.secondary.main,
         backgroundColor: palette.divider,
         boxShadow: "none",
         borderRadius: pxToRem(5),
@@ -205,28 +213,41 @@ deepmerge(
         },
       },
       containedPrimary: {
-        color: palette.text.secondary,
-        backgroundColor: palette.primary.main,
+        color: palette.secondary.main,
+        backgroundColor: palette.background.default,
         boxShadow: "none",
-        borderRadius: 0,
-        border: "1px solid transparent",
+        borderRadius: pxToRem(50),
+        border: `1px solid ${palette.primary.main}`,
         "&:hover": {
-          color: palette.text.secondary,
-          backgroundColor: palette.primary.main,
-          borderRadius: pxToRem(5),
+          color: palette.text.primary,
+          backgroundColor: palette.background.paper,
+          borderRadius: pxToRem(50),
           border: `1px solid ${palette.primary.main}`,
         },
       },
       containedSecondary: {
-        color: palette.primary.main,
+        color: palette.secondary.main,
         backgroundColor: palette.background.default,
         boxShadow: "none",
         borderRadius: 0,
         border: "1px solid transparent",
         "&:hover": {
-          color: palette.primary.main,
+          color: palette.secondary.main,
           backgroundColor: palette.background.default,
           borderRadius: pxToRem(5),
+          border: `1px solid ${palette.background.default}`,
+        },
+      },
+      outlined: {
+        color: palette.text.secondary,
+        backgroundColor: "transparent",
+        boxShadow: "none",
+        borderRadius: pxToRem(50),
+        border: `1px solid ${palette.background.default}`,
+        "&:hover": {
+          color: palette.primary.main,
+          backgroundColor: palette.background.default,
+          borderRadius: pxToRem(50),
           border: `1px solid ${palette.background.default}`,
         },
       },

@@ -9,14 +9,13 @@ import Section from "@/twoopstracker/components/Section";
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
     marginTop: typography.pxToRem(50),
-    marginBottom: typography.pxToRem(60),
     [breakpoints.up("md")]: {
       marginTop: typography.pxToRem(107),
-      marginBottom: typography.pxToRem(111),
     },
   },
   image: {
     width: "100%",
+    filter: "grayscale(1)",
     [breakpoints.up("md")]: {
       width: "unset",
     },
@@ -26,53 +25,107 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     marginTop: typography.pxToRem(30),
     [breakpoints.up("md")]: {
       marginTop: "unset",
-      justifyContent: "flex-end",
     },
   },
-  section: {},
+  secondaryPartners: {
+    borderTop: "1px solid #CBCBCB33",
+    paddingTop: typography.pxToRem(60),
+  },
+  title: {
+    textAlign: "center",
+  },
+  images: {
+    marginTop: typography.pxToRem(40),
+    display: "flex",
+    flexDirection: "column",
+    [breakpoints.up("md")]: {
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+    },
+  },
+  imageLink: {
+    padding: `${typography.pxToRem(25)} ${typography.pxToRem(40)}`,
+    [breakpoints.up("lg")]: {
+      padding: `${typography.pxToRem(50)} ${typography.pxToRem(80)}`,
+    },
+    "&:hover": {
+      boxShadow: `0 4px 8px 0 rgba(0,0,0,0.2)`,
+      "& img": {
+        filter: "none",
+      },
+    },
+  },
+  section: {
+    marginBottom: typography.pxToRem(60),
+    [breakpoints.up("md")]: {
+      marginBottom: typography.pxToRem(90),
+    },
+  },
   description: {
     marginTop: typography.pxToRem(50),
+    textAlign: "center",
+    maxWidth: typography.pxToRem(1194),
     [breakpoints.up("md")]: {
-      marginTop: typography.pxToRem(118),
+      marginTop: typography.pxToRem(20),
     },
+  },
+  primaryPartnerContainer: {
+    marginBottom: typography.pxToRem(40),
   },
 }));
 
-function Partners({ description, items, title, ...props }) {
+// eslint-disable-next-line react/function-component-definition
+function Partners({
+  description,
+  primaryPartners,
+  secondaryPartners,
+  title,
+  ...props
+}) {
   const classes = useStyles(props);
-
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
-        <Grid container>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h3">{title}</Typography>
-            <Typography className={classes.description} variant="body1">
-              {description}
-            </Typography>
-          </Grid>
-          <Grid
-            className={classes.imageContainer}
-            container
-            alignItems="flex-start"
-            item
-            xs={12}
-            md={6}
-          >
-            {items?.map(({ image, href }) => (
-              <Link href={href} key={image}>
+        <div className={classes.primaryPartnerContainer}>
+          <Typography className={classes.title} variant="h3">
+            {title}
+          </Typography>
+          <Typography className={classes.description} variant="body1">
+            {description}
+          </Typography>
+          <div className={classes.images}>
+            {primaryPartners?.map(({ image, href }) => (
+              <Link key={image} href={href} className={classes.imageLink}>
                 <Image
                   className={classes.image}
-                  height={170}
-                  width={450}
+                  height={174}
+                  width={305}
                   objectFit="contain"
                   src={image}
                   alt={title}
                 />
               </Link>
             ))}
+          </div>
+        </div>
+        <div className={classes.secondaryPartners}>
+          <Grid container>
+            {secondaryPartners?.map(({ image, href }) => (
+              <Grid item lg={3} md={6} xs={12}>
+                <Link key={href} href={href}>
+                  <Image
+                    className={classes.image}
+                    height={170}
+                    width={300}
+                    objectFit="contain"
+                    src={image}
+                    alt={title}
+                  />
+                </Link>
+              </Grid>
+            ))}
           </Grid>
-        </Grid>
+        </div>
       </Section>
     </div>
   );
@@ -80,12 +133,14 @@ function Partners({ description, items, title, ...props }) {
 
 Partners.propTypes = {
   description: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.shape({})),
+  primaryPartners: PropTypes.arrayOf(PropTypes.shape({})),
+  secondaryPartners: PropTypes.arrayOf(PropTypes.shape({})),
   title: PropTypes.string,
 };
 Partners.defaultProps = {
   description: undefined,
-  items: undefined,
+  primaryPartners: undefined,
+  secondaryPartners: undefined,
   title: undefined,
 };
 export default Partners;
