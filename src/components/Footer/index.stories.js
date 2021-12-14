@@ -3,6 +3,11 @@ import React from "react";
 
 import Footer from ".";
 
+import facebook from "@/twoopstracker/assets/icons/facebook-footer.svg";
+import instagram from "@/twoopstracker/assets/icons/instagram-footer.svg";
+import linkedin from "@/twoopstracker/assets/icons/linkedin-footer.svg";
+import twitter from "@/twoopstracker/assets/icons/twitter-footer.svg";
+
 const QUICK_LINKS = [
   {
     title: "Resources",
@@ -22,31 +27,31 @@ const QUICK_LINKS = [
 
 const socialMedia = [
   {
-    url: "https://www.instagram.com/code4africa__/",
+    url: "https://twitter.com/Code4Africa",
     image: {
-      url: "/images/white-icon-insta.svg",
-      alt: "Instagram",
+      url: twitter,
+      alt: "Twitter",
+    },
+  },
+  {
+    url: "https://linkedin.com/codeforafrica",
+    image: {
+      url: linkedin,
+      alt: "LinkedIn",
     },
   },
   {
     url: "https://www.facebook.com/CodeForAfrica/",
     image: {
-      url: "/images/white-icon-fb.svg",
+      url: facebook,
       alt: "Facebook",
     },
   },
   {
-    url: "https://twitter.com/Code4Africa",
+    url: "https://www.instagram.com/code4africa__/",
     image: {
-      url: "/images/white-icon-twitter.svg",
-      alt: "Twitter",
-    },
-  },
-  {
-    url: "https://github.com/codeforafrica",
-    image: {
-      url: "/images/white-icon-linkedin.svg",
-      alt: "LinkedIn",
+      url: instagram,
+      alt: "Instagram",
     },
   },
 ];

@@ -55,6 +55,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   stayInTouchLinks: {
     justifyContent: "center",
     marginLeft: typography.pxToRem(-14), // (48 - 20) / 2
+    paddingLeft: "2rem",
     "& > a": {
       height: typography.pxToRem(48),
       width: typography.pxToRem(48),
