@@ -12,18 +12,7 @@ const useStyles = makeStyles(({ typography }) => ({
   pagination: {
     width: "100%",
   },
-  button: {
-    backgroundColor: "red",
-    color: "#fff",
-    "&:hover": {
-      color: "#DB1111",
-    },
-  },
-  listTitle: {
-    fontWeight: "bold",
-    fontSize: typography.pxToRem(36),
-    marginBottom: typography.pxToRem(10),
-  },
+  button: {},
   label: {
     color: "#000",
   },

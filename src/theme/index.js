@@ -10,8 +10,9 @@ const theme = createTheme({
   breakpoints: {
     values: {
       xs: 0, // mobile
-      md: 1080, // tablet
-      lg: 1600, // desktop
+      md: 960, // tablet
+      lg: 1280, // desktop
+      xl: 1920, // exta-large
     },
   },
   palette: {
@@ -24,6 +25,7 @@ const theme = createTheme({
     background: {
       default: "#FFF",
       secondary: "#DB1111",
+      paper: "#F8F8F8",
     },
     text: {
       primary: "#000000",
@@ -48,20 +50,25 @@ const theme = createTheme({
       fontWeight: "bold",
     },
     h3: {
-      fontFamily: FONT_FAMILY_TEXT2,
+      fontFamily: FONT_FAMILY_HEADING,
+      fontWeight: "bold",
     },
     h4: {
-      fontFamily: FONT_FAMILY_TEXT2,
+      fontFamily: FONT_FAMILY_HEADING,
       fontWeight: "bold",
     },
     h5: {
       fontFamily: FONT_FAMILY_HEADING,
     },
-    h6: {
-      fontFamily: FONT_FAMILY_HEADING,
+    subtitle1: {
+      fontFamily: FONT_FAMILY_TEXT2,
     },
     body1: {
-      fontFamily: FONT_FAMILY_TEXT,
+      fontFamily: FONT_FAMILY_TEXT2,
+    },
+    body2: {
+      fontFamily: FONT_FAMILY_TEXT2,
+      fontSize: "24px",
     },
     button: {
       fontFamily: FONT_FAMILY_TEXT2,
@@ -84,8 +91,9 @@ const theme = createTheme({
   },
   widths: {
     values: {
-      md: 1080, // 0, 80, 0, 80 margin - to be confirmed for TwoopsTracker
-      lg: 1520, // 0, 140, 0, 140 margin - to be confirmed for TwoopsTracker
+      md: 900, // 0, 80, 0, 80 margin - to be confirmed for TwoopsTracker
+      lg: 1200, // 0, 140, 0, 140 margin - to be confirmed for TwoopsTracker
+      xl: 1520,
     },
   },
 });
@@ -98,42 +106,37 @@ deepmerge(
   typography,
   {
     h1: {
-      fontSize: pxToRem(42),
-      lineHeight: 50 / 42,
+      fontSize: pxToRem(60),
+      lineHeight: 75.6 / 60,
       color: palette.text.secondary,
-      [breakpoints.up("md")]: {
-        fontSize: pxToRem(60),
-        lineHeight: 75.6 / 60,
-      },
-      [breakpoints.up("lg")]: {
-        fontSize: pxToRem(96),
-        lineHeight: 105.6 / 96,
-      },
-    },
-    h2: {
-      fontSize: pxToRem(36),
-      lineHeight: 42 / 36,
-      [breakpoints.up("md")]: {
-        fontSize: pxToRem(42),
-        lineHeight: 49.2 / 24,
-      },
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: pxToRem(72),
         lineHeight: 79.2 / 72,
       },
     },
+    h2: {
+      fontSize: pxToRem(42),
+      lineHeight: 49.2 / 24,
+      [breakpoints.up("xl")]: {
+        fontSize: pxToRem(64),
+        lineHeight: 70.4 / 64,
+      },
+    },
     h3: {
       fontSize: pxToRem(30),
-      [breakpoints.up("lg")]: { fontSize: pxToRem(42) },
+      [breakpoints.up("xl")]: {
+        fontSize: pxToRem(53.33),
+        lineHeight: 58.67 / 53.33,
+      },
     },
     h4: {
       fontSize: pxToRem(24),
-      [breakpoints.up("lg")]: { fontSize: pxToRem(36) },
+      [breakpoints.up("xl")]: { fontSize: pxToRem(36), lineHeight: 53.82 / 36 },
     },
     h5: {
       fontSize: pxToRem(14),
       lineHeight: 30 / 14,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: pxToRem(16),
         lineHeight: 30 / 16,
       },
@@ -141,7 +144,7 @@ deepmerge(
     body1: {
       fontSize: pxToRem(18),
       lineHeight: 30 / 18,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: pxToRem(24),
         lineHeight: 35.88 / 24,
       },
@@ -157,23 +160,26 @@ deepmerge(
     },
     caption: {
       fontSize: pxToRem(14),
-      [breakpoints.up("lg")]: { fontSize: pxToRem(14) },
+      [breakpoints.up("xl")]: { fontSize: pxToRem(14) },
     },
     subtitle1: {
-      fontSize: typography.pxToRem(24),
-      lineHeight: 40 / 24,
+      fontSize: pxToRem(24),
+      [breakpoints.up("xl")]: {
+        fontSize: typography.pxToRem(36),
+        lineHeight: 39.6 / 36,
+      },
     },
     subtitle2: {
       fontSize: 14,
       lineHeight: 20 / 14,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: typography.pxToRem(18),
         lineHeight: 30 / 18,
       },
     },
     overline: {
       fontSize: pxToRem(14),
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("xl")]: {
         fontSize: pxToRem(14),
       },
     },
@@ -188,9 +194,12 @@ deepmerge(
     MuiButton: {
       root: {
         padding: `${typography.pxToRem(10)} ${typography.pxToRem(20)}`,
+        "&:hover": {
+          textDecoration: "none",
+        },
       },
       contained: {
-        color: "#a0a0a0",
+        color: palette.secondary.main,
         backgroundColor: palette.divider,
         boxShadow: "none",
         borderRadius: pxToRem(5),
@@ -204,28 +213,41 @@ deepmerge(
         },
       },
       containedPrimary: {
-        color: palette.text.secondary,
-        backgroundColor: palette.primary.main,
+        color: palette.secondary.main,
+        backgroundColor: palette.background.default,
         boxShadow: "none",
-        borderRadius: 0,
-        border: "1px solid transparent",
+        borderRadius: pxToRem(50),
+        border: `1px solid ${palette.primary.main}`,
         "&:hover": {
-          color: palette.text.secondary,
-          backgroundColor: palette.primary.main,
-          borderRadius: pxToRem(5),
+          color: palette.text.primary,
+          backgroundColor: palette.background.paper,
+          borderRadius: pxToRem(50),
           border: `1px solid ${palette.primary.main}`,
         },
       },
       containedSecondary: {
-        color: palette.primary.main,
+        color: palette.secondary.main,
         backgroundColor: palette.background.default,
         boxShadow: "none",
         borderRadius: 0,
         border: "1px solid transparent",
         "&:hover": {
-          color: palette.primary.main,
+          color: palette.secondary.main,
           backgroundColor: palette.background.default,
           borderRadius: pxToRem(5),
+          border: `1px solid ${palette.background.default}`,
+        },
+      },
+      outlined: {
+        color: palette.text.secondary,
+        backgroundColor: "transparent",
+        boxShadow: "none",
+        borderRadius: pxToRem(50),
+        border: `1px solid ${palette.background.default}`,
+        "&:hover": {
+          color: palette.primary.main,
+          backgroundColor: palette.background.default,
+          borderRadius: pxToRem(50),
           border: `1px solid ${palette.background.default}`,
         },
       },

@@ -14,7 +14,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   logoButton: {
     margin: "0 auto",
     padding: 0,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       margin: 0,
     },
   },
@@ -29,7 +29,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     flexDirection: "column",
     alignItems: "center",
     letterspacing: typography.pxToRem(0.7),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       flexDirection: "row",
     },
   },
@@ -45,7 +45,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     fontWeight: "bold",
     marginRight: typography.pxToRem(16),
     padding: `${typography.pxToRem(10)} ${typography.pxToRem(8)}`,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       padding: 0,
     },
   },
@@ -66,7 +66,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   quickLinkRoot: {
     textAlign: "center",
     padding: `${typography.pxToRem(32)} 0 `,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       textAlign: "inherit",
       padding: 0,
     },
@@ -98,7 +98,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     padding: `${typography.pxToRem(32)} 0`,
     fontSize: typography.subtitle1.fontSize,
     textAlign: "center",
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       textAlign: "left",
     },
   },
@@ -108,7 +108,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     flexWrap: "wrap",
     flexDirection: "row",
     justifyContent: "center",
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       justifyContent: "flex-start",
     },
     "& > a": {
@@ -119,7 +119,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     color: palette.text.secondary,
     order: 5,
     padding: `0 ${typography.pxToRem(5)}`,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       padding: `0 ${typography.pxToRem(10)}`,
     },
   },

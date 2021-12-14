@@ -1,4 +1,4 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Link } from "@material-ui/core";
 import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -46,17 +46,10 @@ function SearchSection({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item lg={8} md={12} sm={12} xs={12}>
+          <Grid item xl={8} xs={12}>
             <Search onChange={onSelection} onKeyDown={handleKeyDown} />
           </Grid>
-          <Grid
-            item
-            lg={4}
-            md={12}
-            sm={12}
-            xs={12}
-            className={classes.filterSection}
-          >
+          <Grid item xl={4} xs={12} className={classes.filterSection}>
             <Filter
               key={days}
               label="Days"
@@ -99,21 +92,33 @@ function SearchSection({
         <div className={classes.buttonSection}>
           <div>
             {session && (
-              <Button className={classes.saveButton} href="/explore/accounts">
+              <Button
+                variant="outlined"
+                className={classes.saveButton}
+                href="/explore/accounts"
+                component={Link}
+                underline="none"
+              >
                 See all Twitter Accounts
               </Button>
             )}
           </div>
-          <div className={classes.alignRight}>
+          <div>
             {session ? (
               <Button
+                variant="outlined"
                 className={classes.saveButton}
                 onClick={handleClickSaveSearch}
               >
                 Save Search
               </Button>
             ) : null}
-            <Button className={classes.button} onClick={onSearch}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={onSearch}
+            >
               Search
             </Button>
           </div>

@@ -1,6 +1,7 @@
 import { RichTypography } from "@commons-ui/core";
 import { Grid, Typography } from "@material-ui/core";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
@@ -8,21 +9,24 @@ import React from "react";
 import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
+import AddToList from "@/twoopstracker/components/AddToList";
 
 function TweetCard({
   owner,
+  onClick,
   deleted,
   content,
   retweeted_user_screen_name: retweetedUser,
   number_of_interactions: interaction,
   created_at: createdAt,
   deleted_at: deletedAt,
+  results,
   ...props
 }) {
   const classes = useStyles(props);
 
   const { name, screen_name: screenName, protected: accountStatus } = owner;
-
+  const { data: session } = useSession();
   const username = name;
   const handle = screenName?.replace(/\s/g, "");
   const accountType = accountStatus ? "Private" : "Public";
@@ -47,7 +51,7 @@ function TweetCard({
             {`@${handle}`}
           </RichTypography>
           <Typography className={classes.accountType}>{accountType}</Typography>
-          <Typography className={classes.list}>Add to List</Typography>
+          {session && <AddToList handle={handle} results={results} />}
         </Grid>
         <Grid item lg={5} sm={12}>
           {createdAt && (
@@ -81,6 +85,8 @@ TweetCard.propTypes = {
     name: PropTypes.string,
     protected: PropTypes.bool,
   }),
+  results: PropTypes.arrayOf(PropTypes.shape({})),
+  onClick: PropTypes.func,
   deleted_at: PropTypes.string,
   retweeted_user_screen_name: PropTypes.string,
   number_of_interactions: PropTypes.number,
@@ -91,12 +97,14 @@ TweetCard.propTypes = {
 
 TweetCard.defaultProps = {
   owner: undefined,
+  onClick: undefined,
   content: undefined,
   deleted_at: undefined,
   retweeted_user_screen_name: undefined,
   number_of_interactions: undefined,
   created_at: undefined,
   deleted: undefined,
+  results: undefined,
 };
 
 export default TweetCard;

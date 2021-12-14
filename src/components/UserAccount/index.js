@@ -34,8 +34,12 @@ function UserAccount({ ...props }) {
       </Grid>
       <Divider />
       <div className={classes.buttons}>
-        <Button className={classes.button}>Edit</Button>
-        <Button className={classes.button}>Delete</Button>
+        <Button variant="contained" color="primary" className={classes.button}>
+          Edit
+        </Button>
+        <Button variant="contained" color="primary" className={classes.button}>
+          Delete
+        </Button>
       </div>
     </div>
   );

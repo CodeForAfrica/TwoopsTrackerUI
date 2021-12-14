@@ -95,12 +95,11 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
       setPrivacy(event.target.checked);
     }
   };
-
   return (
     <div className={classes.root}>
       <div className={classes.section}>
-        <Typography className={classes.listTitle}>Your Lists</Typography>
-        <Button onClick={handleOpen} className={classes.button}>
+        <Typography variant="h2">Your Lists</Typography>
+        <Button variant="contained" color="primary" onClick={handleOpen}>
           Create New List
         </Button>
         <ListModal

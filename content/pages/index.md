@@ -14,7 +14,7 @@ tool:
   description:
     Troll Tracker monitors and umasks disinformation actors who try to
     evade responsibility by deleting their inflammatory posts.
-  thumbnail: /images/trolltracker-showcase-1.png
+  thumbnail: /images/Group 40.png
   cta: Explore the tool
 investigations:
   title: Investigations
@@ -35,6 +35,14 @@ about:
     investigative projects across Africa with years of experience across all
     organisations.
   partners:
+    - Code for All
+    - Code for Africa
+  secondaryPartners:
+    - ANCIR’s iLAB
+    - PesaCheck
+    - CivicSignal
+    - DRFLab
+  primaryPartners:
     - Code for All
     - Code for Africa
 ---
