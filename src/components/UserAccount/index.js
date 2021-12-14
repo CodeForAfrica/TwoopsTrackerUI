@@ -25,7 +25,9 @@ function UserAccount({ ...props }) {
           </div>
         </Grid>
         <Grid item lg={10} className={classes.userDetails}>
-          <Typography className={classes.username}>{name}</Typography>
+          <Typography variant="h4" className={classes.username}>
+            {name}
+          </Typography>
           <Typography>{email}</Typography>
         </Grid>
       </Grid>

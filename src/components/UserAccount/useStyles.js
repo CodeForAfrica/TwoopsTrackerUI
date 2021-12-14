@@ -15,16 +15,13 @@ const useStyles = makeStyles(({ typography }) => ({
     height: typography.pxToRem(100),
     border: "solid 1px rgba(0,0,0,0.12)",
   },
-  username: {
-    fontWeight: "700",
-    fontSize: typography.pxToRem(36),
-  },
+  username: {},
   userDetails: {
     marginLeft: typography.pxToRem(30),
     marginBottom: typography.pxToRem(30),
   },
   buttons: {
-    margin: `${typography.pxToRem(10)} 0`,
+    marginTop: typography.pxToRem(66),
   },
   listItem: {
     border: "solid 1px rgba(0,0,0,0.12)",
