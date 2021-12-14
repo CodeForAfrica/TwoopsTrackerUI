@@ -104,6 +104,16 @@ const SearchSection = ({
             )}
           </div>
           <div>
+            <Button
+              variant="outlined"
+              className={classes.saveButton}
+              href="/account/searches"
+              component={Link}
+              underline="none"
+            >
+              Load search
+            </Button>
+
             {session ? (
               <Button
                 variant="outlined"
@@ -124,11 +134,12 @@ const SearchSection = ({
           </div>
         </div>
       </Section>
+
       <SavedSearchDialog
         open={open}
         onClick={handleClickSaveSavedSearch}
         onClose={handleClose}
-        varinat="add"
+        variant="add"
         title="Save Search"
       />
     </div>
