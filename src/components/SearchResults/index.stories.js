@@ -12,5 +12,6 @@ const Template = (args) => <SearchResults {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  results: "Search results ",
+  results: "Kenya",
+  label: "Search for",
 };
