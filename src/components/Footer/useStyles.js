@@ -102,6 +102,8 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     fontSize: typography.subtitle2.fontSize,
     fontFamily: typography.fontFamilyFooter,
     textAlign: "center",
+    lineHeight: typography.pxToRem(16),
+    letterSpacing: typography.pxToRem(0.32),
     [breakpoints.up("lg")]: {
       textAlign: "left",
     },
