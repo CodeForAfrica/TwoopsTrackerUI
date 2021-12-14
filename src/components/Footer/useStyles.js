@@ -84,10 +84,12 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   quickLink: {
     color: palette.text.secondary,
     fontWeight: "normal",
-    "&:hover": {
-      color: palette.primary.light,
-    },
     fontFamily: typography.body1.fontFamily,
+    textDecoration: "underline",
+    "&:hover": {
+      color: "white",
+      textDecoration: "underline",
+    },
   },
   quickLinksTitle: {
     color: palette.text.secondary,
@@ -98,6 +100,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     color: palette.text.secondary,
     padding: `${typography.pxToRem(32)} 0`,
     fontSize: typography.subtitle2.fontSize,
+    fontFamily: typography.fontFamilyFooter,
     textAlign: "center",
     [breakpoints.up("lg")]: {
       textAlign: "left",
