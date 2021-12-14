@@ -116,7 +116,7 @@ function TweetsContainer({
   };
 
   const shouldFetch = () => {
-    if (!search) {
+    if (!(search || paginating)) {
       return null;
     }
 
