@@ -63,6 +63,8 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   description: {
     marginTop: typography.pxToRem(50),
+    marginLeft: "auto",
+    marginRight: "auto",
     textAlign: "center",
     maxWidth: typography.pxToRem(1194),
     [breakpoints.up("md")]: {
