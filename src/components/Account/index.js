@@ -45,7 +45,7 @@ const Account = ({
           </div>
         </Grid>
         <Grid item lg={5} sm={12} className={classes.detailSection}>
-          <Typography className={classes.username}>
+          <Typography className={classes.username} variant="h4">
             {name || "Username Username"}
           </Typography>
           {screenName && (
