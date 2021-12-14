@@ -26,20 +26,9 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     marginTop: typography.pxToRem(40),
   },
   saveButton: {
-    color: "#fff",
-    border: "solid 1px white",
-    fontWeight: "700",
     marginRight: typography.pxToRem(15),
   },
-  button: {
-    backgroundColor: "#fff",
-    color: "#DB1111",
-    fontWeight: "700",
-    "&:hover": {
-      backgroundColor: "#fff",
-      color: "#000",
-    },
-  },
+  button: {},
 }));
 
 export default useStyles;

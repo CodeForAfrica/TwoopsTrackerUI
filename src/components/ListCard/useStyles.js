@@ -8,16 +8,9 @@ const useStyles = makeStyles(({ typography }) => ({
   title: {
     marginBottom: typography.pxToRem(10),
   },
-  editButton: {
-    color: "red",
-  },
+  editButton: {},
   deleteButton: {
-    backgroundColor: "red",
-    color: "#fff",
     marginLeft: typography.pxToRem(20),
-    "&:hover": {
-      color: "#DB1111",
-    },
   },
   label: {
     color: "#000",
