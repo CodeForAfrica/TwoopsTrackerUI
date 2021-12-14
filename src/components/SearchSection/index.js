@@ -1,4 +1,4 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Link } from "@material-ui/core";
 import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -96,6 +96,8 @@ const SearchSection = ({
                 variant="outlined"
                 className={classes.saveButton}
                 href="/explore/accounts"
+                component={Link}
+                underline="none"
               >
                 See all Twitter Accounts
               </Button>
