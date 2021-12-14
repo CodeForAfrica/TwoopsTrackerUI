@@ -7,6 +7,7 @@ const useStyles = makeStyles(({ typography }) => ({
   },
   title: {
     marginBottom: typography.pxToRem(10),
+    color: "#000",
   },
   editButton: {},
   deleteButton: {
