@@ -23,7 +23,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     padding: `${typography.pxToRem(20)} 0`,
     [breakpoints.up("md")]: {
       position: "relative",
-      top: typography.pxToRem(90),
+      top: typography.pxToRem(70),
       padding: 0,
     },
   },
