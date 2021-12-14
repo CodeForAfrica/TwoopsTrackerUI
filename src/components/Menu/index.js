@@ -14,7 +14,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       padding: 0,
       flexDirection: "row",
       justifyContent: "flex-end",
@@ -26,7 +26,6 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   label: {
     fontSize: typography.pxToRem(24),
-    fontFamily: typography.h4.fontFamily,
     fontStyle: "normal",
     fontWeight: "normal",
     lineHeight: "149.49%",
@@ -35,7 +34,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   menu: {
     margin: 0,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       marginRight: typography.pxToRem(15),
     },
   },
@@ -68,7 +67,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       textDecoration: "none",
       color: "black",
     },
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("xl")]: {
       padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
       color: "black",
       "&:hover, &:focus, &:focus-within": {
@@ -83,22 +82,22 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
 function Menu({
   children,
   logOutLabel,
-  loginMenuProps,
+  login,
   profilePages,
-  links,
+  main,
   accountLink,
   ...props
 }) {
   const classes = useStyles(props);
   const [session] = useSession();
 
-  if (!links?.length) {
+  if (!main?.length) {
     return null;
   }
 
   return (
     <Grid container className={classes.root}>
-      {links.map((item) => (
+      {main.map((item) => (
         <Grid item key={item.label} className={classes.menu}>
           <Button
             component={Link}
@@ -127,7 +126,7 @@ function Menu({
           accountLink={accountLink}
         />
       ) : (
-        <LoginMenu loginMenu={loginMenuProps} />
+        <LoginMenu items={login} />
       )}
       {children}
     </Grid>
@@ -136,15 +135,16 @@ function Menu({
 
 Menu.propTypes = {
   logOutLabel: PropTypes.string.isRequired,
-  links: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  login: PropTypes.arrayOf(PropTypes.shape({})),
+  main: PropTypes.arrayOf(PropTypes.shape({}).isRequired),
   profilePages: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   accountLink: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
-  loginMenuProps: PropTypes.arrayOf(PropTypes.shape({})),
   children: PropTypes.node,
 };
 
 Menu.defaultProps = {
-  loginMenuProps: undefined,
+  login: undefined,
+  main: undefined,
   children: undefined,
 };
 export default Menu;

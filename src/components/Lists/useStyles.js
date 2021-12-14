@@ -19,11 +19,6 @@ const useStyles = makeStyles(({ typography }) => ({
       color: "#DB1111",
     },
   },
-  listTitle: {
-    fontWeight: "bold",
-    fontSize: typography.pxToRem(36),
-    marginBottom: typography.pxToRem(10),
-  },
   label: {
     color: "#000",
   },

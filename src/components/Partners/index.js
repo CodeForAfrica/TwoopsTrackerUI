@@ -3,6 +3,7 @@ import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
+import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
@@ -37,7 +38,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
 }));
 
-function Partners({ images, title, description, ...props }) {
+function Partners({ description, items, title, ...props }) {
   const classes = useStyles(props);
 
   return (
@@ -45,9 +46,7 @@ function Partners({ images, title, description, ...props }) {
       <Section className={classes.section}>
         <Grid container>
           <Grid item xs={12} md={6}>
-            <Typography className={classes.title} variant="h2">
-              {title}
-            </Typography>
+            <Typography variant="h3">{title}</Typography>
             <Typography className={classes.description} variant="body1">
               {description}
             </Typography>
@@ -60,15 +59,17 @@ function Partners({ images, title, description, ...props }) {
             xs={12}
             md={6}
           >
-            {images.map((image) => (
-              <Image
-                className={classes.image}
-                height={170}
-                width={450}
-                objectFit="contain"
-                src={image}
-                alt={title}
-              />
+            {items?.map(({ image, href }) => (
+              <Link href={href} key={image}>
+                <Image
+                  className={classes.image}
+                  height={170}
+                  width={450}
+                  objectFit="contain"
+                  src={image}
+                  alt={title}
+                />
+              </Link>
             ))}
           </Grid>
         </Grid>
@@ -79,12 +80,12 @@ function Partners({ images, title, description, ...props }) {
 
 Partners.propTypes = {
   description: PropTypes.string,
-  images: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.shape({})),
   title: PropTypes.string,
 };
 Partners.defaultProps = {
   description: undefined,
-  images: undefined,
+  items: undefined,
   title: undefined,
 };
 export default Partners;

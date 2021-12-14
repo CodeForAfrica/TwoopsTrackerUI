@@ -4,38 +4,39 @@ import React from "react";
 import Content from "@/twoopstracker/components/Content";
 import Hero from "@/twoopstracker/components/Hero";
 import Page from "@/twoopstracker/components/Page";
-import { lexicons } from "@/twoopstracker/config";
+import { lexicons, settings } from "@/twoopstracker/lib/cms";
 
-function Resources({ lexicons: lexiconsProp, ...props }) {
+function Lexicons({ resouces, ...props }) {
+  const { description, title } = props;
+
   return (
     <Page {...props}>
-      <Hero withCTA={false} {...lexiconsProp.banner} />
-      <Content
-        size="large"
-        ctaLabel={lexiconsProp.ctaLabel}
-        items={lexiconsProp.items}
-      />
+      <Hero description={description} title={title} withCTA={false} />
+      <Content items={resouces} size="large" />
     </Page>
   );
 }
 
-Resources.propTypes = {
-  lexicons: PropTypes.shape({}),
+Lexicons.propTypes = {
+  description: PropTypes.string,
+  resouces: PropTypes.arrayOf(PropTypes.shape({})),
+  title: PropTypes.string,
 };
 
-Resources.defaultProps = {
-  lexicons: undefined,
+Lexicons.defaultProps = {
+  description: undefined,
+  resouces: undefined,
+  title: undefined,
 };
 
 export async function getStaticProps() {
   return {
     props: {
-      description: lexicons?.banner?.description ?? null,
-      lexicons,
-      title: "Lexicons",
+      ...settings(),
+      ...lexicons(),
     },
     revalidate: 15 * 60, // 15 minutes
   };
 }
 
-export default Resources;
+export default Lexicons;
