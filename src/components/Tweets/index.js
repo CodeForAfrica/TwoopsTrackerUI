@@ -10,6 +10,8 @@ import TweetCard from "@/twoopstracker/components/TweetCard";
 const Tweets = ({ tweets, ...props }) => {
   const classes = useStyles(props);
 
+  console.log(tweets);
+
   return (
     <Section className={classes.section}>
       {tweets?.results?.length > 0 ? (
