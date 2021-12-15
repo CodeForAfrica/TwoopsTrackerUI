@@ -12,6 +12,7 @@ import Search from "@/twoopstracker/components/Search";
 import Section from "@/twoopstracker/components/Section";
 
 const SearchSection = ({
+  category,
   days,
   onSelection,
   location,
@@ -47,10 +48,10 @@ const SearchSection = ({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item xl={8} xs={12}>
+          <Grid item xl={7} xs={12}>
             <Search onChange={onSelection} onKeyDown={handleKeyDown} />
           </Grid>
-          <Grid item xl={4} xs={12} className={classes.filterSection}>
+          <Grid item xl={5} xs={12} className={classes.filterSection}>
             <Filter
               key={days}
               label="Days"
@@ -75,6 +76,24 @@ const SearchSection = ({
                 { name: "None", value: "" },
               ]}
               value={theme}
+            />
+            <Filter
+              key={category}
+              label="Category"
+              handleSelection={onSelection}
+              menuItems={[
+                {
+                  name: "Disinformation actors",
+                  value: "Disinformation actors",
+                },
+                { name: "Troll Accounts", value: "troll accounts" },
+                {
+                  name: "Foreign Influence Actors",
+                  value: "foreign influence actors",
+                },
+                { name: "None", value: "" },
+              ]}
+              value={category}
             />
             <Filter
               key={location}
@@ -149,6 +168,7 @@ const SearchSection = ({
 };
 
 SearchSection.propTypes = {
+  category: PropTypes.string,
   days: PropTypes.string,
   onSelection: PropTypes.func,
   location: PropTypes.string,
@@ -158,6 +178,7 @@ SearchSection.propTypes = {
 };
 
 SearchSection.defaultProps = {
+  category: undefined,
   days: undefined,
   onSelection: undefined,
   location: undefined,
