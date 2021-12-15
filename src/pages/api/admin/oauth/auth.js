@@ -17,7 +17,7 @@ const client = new AuthorizationCode({
 // Authorization uri definition
 const authorizationUri = client.authorizeURL({
   redirect_uri: new URL(
-    process.env.ADMIN_BACKEND_AUTH_ENDPOINT,
+    process.env.ADMIN_BACKEND_CALLBACK_ENDPOINT,
     site.url
   ).toString(),
   scope: process.env.ADMIN_OAUTH_SCOPE,
