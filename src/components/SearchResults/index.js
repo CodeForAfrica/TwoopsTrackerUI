@@ -13,7 +13,7 @@ const useStyles = makeStyles(({ typography }) => ({
     fontWeight: "bold",
     fontSize: typography.pxToRem(64),
     lineHeight: "110%",
-    fontFamily: typography.h1.fontFamily,
+    fontFamily: typography.h2.fontFamily,
   },
 }));
 
