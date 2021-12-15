@@ -25,7 +25,7 @@ const SearchResults = ({ results, label, ...props }) => {
   }
   return (
     <Section className={classes.section}>
-      <Typography variant="body1" className={classes.searchQuery}>
+      <Typography variant="h2">
         {label} : {results}
       </Typography>
     </Section>
