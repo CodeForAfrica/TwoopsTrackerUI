@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    domains: process.env.NEXT_PUBLIC_IMAGE_DOMAINS.split(", "),
+    domains: process.env.NEXT_PUBLIC_IMAGE_DOMAINS?.split(",")?.map((d)=>d.trim()),
   },
   reactStrictMode: false,
   webpack: function webpack(config) {
