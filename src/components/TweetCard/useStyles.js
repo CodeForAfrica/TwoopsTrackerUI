@@ -6,6 +6,33 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     marginTop: typography.pxToRem(30),
     paddingRight: typography.pxToRem(30),
     paddingBottom: typography.pxToRem(48),
+    "& .LinesEllipsis": {
+      fontFamily: typography.body1.fontFamily,
+      fontSize: typography.pxToRem(18),
+      lineHeight: 30 / 18,
+      [breakpoints.up("xl")]: {
+        fontSize: typography.pxToRem(24),
+        lineHeight: 35.88 / 24,
+      },
+      "& .highlight": {
+        color: palette.primary.main,
+      },
+      "& .LinesEllipsis-ellipsis": {
+        "& .moreButton": {
+          color: palette.primary.main,
+          textDecoration: "underline",
+          background: "none",
+          border: 0,
+          fontFamily: typography.body1.fontFamily,
+          fontSize: typography.pxToRem(18),
+          lineHeight: 30 / 18,
+          [breakpoints.up("xl")]: {
+            fontSize: typography.pxToRem(24),
+            lineHeight: 35.88 / 24,
+          },
+        },
+      },
+    },
   },
   handle: {
     display: "inline",
@@ -57,15 +84,19 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     marginBottom: typography.pxToRem(10),
     marginTop: typography.pxToRem(10),
   },
-  retweet: {
-    margin: `${typography.pxToRem(30)} 0`,
-    "& .highlight": {
-      color: palette.primary.main,
-    },
-  },
   moreButton: {
     color: palette.primary.main,
     textDecoration: "underline",
+    fontFamily: typography.body1.fontFamily,
+    fontSize: typography.pxToRem(18),
+    lineHeight: 30 / 18,
+    [breakpoints.up("xl")]: {
+      fontSize: typography.pxToRem(24),
+      lineHeight: 35.88 / 24,
+    },
+  },
+  content: {
+    margin: `${typography.pxToRem(30)} 0`,
   },
 }));
 

@@ -6,7 +6,7 @@ import { useSession } from "next-auth/client";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import TruncateMarkup from "react-truncate-markup";
+import HTMLEllipsis from "react-lines-ellipsis/lib/html";
 
 import useStyles from "./useStyles";
 
@@ -25,6 +25,7 @@ const TweetCard = ({
   created_at: createdAt,
   deleted_at: deletedAt,
   results,
+  tweet_id: tweetId,
   ...props
 }) => {
   const classes = useStyles(props);
@@ -55,20 +56,18 @@ const TweetCard = ({
     .replace(/#(\w+)/g, '<span class="highlight">#$1</span>')
     .replace(/@(\w+)/g, '<span class="highlight">@$1</span>');
 
-  const handleMore = (e) => {
-    e.preventDefault();
+  const handleMore = () => {
     setExpanded((prev) => !prev);
   };
 
-  const ellipsis = (
-    <span>
-      ...
-      {` `}
-      <Button className={classes.moreButton} onClick={handleMore}>
-        See more
-      </Button>
-    </span>
-  );
+  const handleReflow = ({ clamped }) => {
+    if (clamped) {
+      const moreButton = document.getElementById(`${tweetId}-more-button`);
+      if (moreButton) {
+        moreButton.onclick = () => handleMore();
+      }
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -113,20 +112,21 @@ const TweetCard = ({
           </Typography>
         </Grid>
       </Grid>
-      <TruncateMarkup lines={expanded ? 10 : 2} ellipsis={ellipsis}>
-        <Typography
-          component="div"
-          dangerouslySetInnerHTML={{
-            __html: content,
-          }}
-          className={classes.retweet}
+      <div className={classes.content}>
+        <HTMLEllipsis
+          unsafeHTML={content}
+          maxLine={expanded ? 10 : 2}
+          ellipsis="..."
+          ellipsisHTML={`... <button class="moreButton" id="${tweetId}-more-button">See More</button>`}
+          onReflow={handleReflow}
+          basedOn="letters"
         />
-      </TruncateMarkup>
-      {expanded && (
-        <Button className={classes.moreButton} onClick={handleMore}>
-          See less
-        </Button>
-      )}
+        {expanded && (
+          <Button className={classes.moreButton} onClick={handleMore}>
+            See less
+          </Button>
+        )}
+      </div>
       {retweetedUser && (
         <RichTypography variant="body2">
           Original tweet by
@@ -161,6 +161,7 @@ TweetCard.propTypes = {
   created_at: PropTypes.string,
   content: PropTypes.string,
   deleted: PropTypes.bool,
+  tweet_id: PropTypes.number,
 };
 
 TweetCard.defaultProps = {
@@ -174,6 +175,7 @@ TweetCard.defaultProps = {
   created_at: undefined,
   deleted: undefined,
   results: undefined,
+  tweet_id: undefined,
 };
 
 export default TweetCard;
