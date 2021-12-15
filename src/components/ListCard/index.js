@@ -80,8 +80,10 @@ function ListCard({
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title} variant="h4">
-        <Link href={`/account/lists/${id}`}>{listName}</Link>
+      <Typography variant="h4">
+        <Link className={classes.title} href={`/account/lists/${id}`}>
+          {listName}
+        </Link>
       </Typography>
       <Grid container>
         <Grid item xs={12} md={8}>

@@ -29,7 +29,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     flexDirection: "column",
     alignItems: "center",
     letterspacing: typography.pxToRem(0.7),
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       flexDirection: "row",
     },
   },
@@ -55,6 +55,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   stayInTouchLinks: {
     justifyContent: "center",
     marginLeft: typography.pxToRem(-14), // (48 - 20) / 2
+    paddingLeft: "2rem",
     "& > a": {
       height: typography.pxToRem(48),
       width: typography.pxToRem(48),
@@ -83,10 +84,12 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   quickLink: {
     color: palette.text.secondary,
     fontWeight: "normal",
-    "&:hover": {
-      color: palette.primary.light,
-    },
     fontFamily: typography.body1.fontFamily,
+    textDecoration: "underline",
+    "&:hover": {
+      color: "white",
+      textDecoration: "underline",
+    },
   },
   quickLinksTitle: {
     color: palette.text.secondary,
@@ -96,8 +99,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   description: {
     color: palette.text.secondary,
     padding: `${typography.pxToRem(32)} 0`,
-    fontSize: typography.subtitle1.fontSize,
-    textAlign: "center",
+    fontFamily: typography.subtitle1.fontFamily,
     [breakpoints.up("xl")]: {
       textAlign: "left",
     },

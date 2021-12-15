@@ -33,7 +33,7 @@ function Content({ items, size, ctaLabel, ...props }) {
               <Link
                 className={clsx({
                   [classes.imageContainer]: true,
-                  [classes.shadow]: size !== "large",
+                  [classes.shadow]: size === "large",
                 })}
                 href={href}
               >
@@ -47,7 +47,6 @@ function Content({ items, size, ctaLabel, ...props }) {
               </Link>
             </Grid>
             <Grid
-              container
               alignItems="center"
               item
               xs={12}
