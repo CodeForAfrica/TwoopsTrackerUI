@@ -17,28 +17,28 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
-const SearchResults = ({ results, label, ...props }) => {
+const SearchResults = ({ query, label, ...props }) => {
   const classes = useStyles(props);
 
-  if (!results?.length) {
+  if (!query?.length) {
     return null;
   }
   return (
     <Section className={classes.section}>
       <Typography variant="h2">
-        {label} : {results}
+        {label} : {query}
       </Typography>
     </Section>
   );
 };
 
 SearchResults.propTypes = {
-  results: PropTypes.string,
+  query: PropTypes.string,
   label: PropTypes.string,
 };
 
 SearchResults.defaultProps = {
-  results: undefined,
+  query: undefined,
   label: undefined,
 };
 
