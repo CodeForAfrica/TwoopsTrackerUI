@@ -81,7 +81,9 @@ const TweetCard = ({
             <Typography variant="h4">{username}</Typography>
             <div className={classes.handleDetail}>
               <RichTypography className={classes.handle}>
-                {`@${handle}`}
+                <Link href={`https://twitter.com/${handle}`} underline="none">
+                  {`@${handle}`}
+                </Link>
               </RichTypography>
               <Typography className={classes.accountType}>
                 {accountType}
@@ -130,7 +132,9 @@ const TweetCard = ({
           Original tweet by
           {` `}
           <Link
-            href={`https://twitter.com/${username}/status/${retweetId}`}
+            href={`https://twitter.com/${retweetedUser.slice(
+              1
+            )}/status/${retweetId}`}
             underline="none"
           >
             {retweetedUser}
