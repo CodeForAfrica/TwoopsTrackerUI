@@ -40,14 +40,13 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   date: {
     fontSize: typography.pxToRem(13),
-    fontFamily: typography.h4.fontFamily,
     lineHeight: typography.pxToRem(18),
   },
   count: {
     fontSize: typography.pxToRem(14),
-    fontFamily: typography.h4.fontFamily,
-    fontWeight: 500,
-    lineHeight: typography.pxToRem(18),
+    fontWeight: 550,
+    fontFamily: typography.body1.fontFamily,
+    lineHeight: typography.pxToRem(20),
   },
   share: {
     position: "absolute",
