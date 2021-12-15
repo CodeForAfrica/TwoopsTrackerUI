@@ -16,6 +16,7 @@ function InvestigationList({ items, paginationProps, ...props }) {
   const handleClickPage = (e, value) => {
     setPage(value);
   };
+
   const handleClickPageSize = (e, value) => {
     // Changing pageSize triggers computation of number of pages.
     setPage(1);
@@ -31,12 +32,12 @@ function InvestigationList({ items, paginationProps, ...props }) {
         <Grid item>
           <InvestigationCard
             featured
-            {...items[0]}
+            {...items[page - 1]}
             className={{ root: classes.media }}
           />
         </Grid>
 
-        {items.slice(1).map((item) => (
+        {items.slice((page - 1) * pageSize, page * pageSize).map((item) => (
           <Grid item lg={6} key={item.title}>
             <InvestigationCard {...item} />
           </Grid>
