@@ -117,6 +117,7 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
   const {
     query: term,
     theme,
+    category,
     location,
     days: daysAsString,
     page,
@@ -131,7 +132,7 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
   if (days > 30) {
     days = 30;
   }
-  return { query, location, days, page, pageSize, download };
+  return { category, query, location, days, page, pageSize, download };
 }
 
 export async function tweets(requestQuery = {}, session) {
