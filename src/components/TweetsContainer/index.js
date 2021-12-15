@@ -9,6 +9,7 @@ import Chart from "@/twoopstracker/components/Chart";
 import ContentActions from "@/twoopstracker/components/ContentActions";
 import Loading from "@/twoopstracker/components/Loading";
 import Pagination from "@/twoopstracker/components/Pagination";
+import SearchResults from "@/twoopstracker/components/SearchResults";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
@@ -175,6 +176,7 @@ function TweetsContainer({
       />
       {isLoading && <Loading />}
       <Chart {...props} data={insights} classes={{ root: classes.chartRoot }} />
+      <SearchResults query={query} label="Search Results" />
       {tweets?.results?.length > 0 && (
         <ContentActions
           apiUri="/api/tweets"

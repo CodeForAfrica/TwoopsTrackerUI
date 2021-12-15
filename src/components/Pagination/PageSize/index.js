@@ -14,7 +14,9 @@ function PageSize({ value, onChange, label, options, ...props }) {
   }
   return (
     <Box display="flex" alignItems="center" className={classes.root}>
-      <RichTypography className={classes.label}>{label}</RichTypography>
+      <RichTypography className={classes.label} variant="body2">
+        {label}
+      </RichTypography>
       <ToggleButtonGroup
         exclusive
         onChange={onChange}
