@@ -23,7 +23,6 @@ const SearchResults = ({ results, label, ...props }) => {
   if (!results?.length) {
     return null;
   }
-
   return (
     <Section className={classes.section}>
       <Typography variant="body1" className={classes.searchQuery}>
