@@ -68,6 +68,7 @@ export async function APIRequest(payload, method, param, session) {
 }
 
 export function tweetsSearchParamFromSearchQuery({
+  category,
   query,
   location,
   days = 7,
@@ -78,6 +79,9 @@ export function tweetsSearchParamFromSearchQuery({
   const searchParams = new URLSearchParams();
   if (query) {
     searchParams.append("query", query);
+  }
+  if (category) {
+    searchParams.append("category", category);
   }
   if (location) {
     searchParams.append("location", location);
@@ -103,10 +107,10 @@ export function tweetsSearchParamFromSearchQuery({
 }
 
 export function tweetsUserQuery(requestQuery) {
-  const { query, theme, location, days, page, pageSize, download } =
+  const { query, theme, location, days, page, pageSize, download, category } =
     requestQuery;
 
-  return { query, theme, location, days, page, pageSize, download };
+  return { query, theme, location, days, page, pageSize, download, category };
 }
 
 export function tweetsSearchQueryFromUserQuery(userQuery) {
