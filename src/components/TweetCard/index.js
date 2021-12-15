@@ -112,7 +112,13 @@ const TweetCard = ({
         </Grid>
       </Grid>
       <TruncateMarkup lines={expanded ? 10 : 2} ellipsis={ellipsis}>
-        <RichTypography className={classes.retweet}>{content}</RichTypography>
+        <Typography
+          component="div"
+          dangerouslySetInnerHTML={{
+            __html: content,
+          }}
+          className={classes.retweet}
+        />
       </TruncateMarkup>
       {expanded && (
         <Button className={classes.moreButton} onClick={handleMore}>
