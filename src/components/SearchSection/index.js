@@ -125,6 +125,14 @@ const SearchSection = ({
                 </Button>
               </>
             ) : null}
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={onSearch}
+            >
+              Search
+            </Button>
           </div>
         </div>
       </Section>
