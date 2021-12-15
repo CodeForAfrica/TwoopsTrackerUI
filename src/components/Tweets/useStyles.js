@@ -1,13 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ breakpoints, typography }) => ({
+const useStyles = makeStyles(({ typography }) => ({
   root: {},
-  section: {
-    marginTop: typography.pxToRem(20),
-    [breakpoints.up("xl")]: {
-      width: typography.pxToRem(1270),
-    },
-  },
+  section: {},
   text: {
     color: "#808080",
     fontWeight: "bold",

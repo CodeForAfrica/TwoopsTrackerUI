@@ -3,19 +3,35 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
     borderBottom: "1px solid #00000040",
-    marginBottom: `${typography.pxToRem(20)}`,
-    padding: `${typography.pxToRem(20)}`,
-    "& .highlight": {
-      color: palette.primary.main,
-    },
-  },
-  section: {
-    marginTop: typography.pxToRem(20),
-  },
-  username: {
-    fontWeight: "700",
-    [breakpoints.up("xl")]: {
-      fontSize: typography.pxToRem(36),
+    marginTop: typography.pxToRem(30),
+    paddingRight: typography.pxToRem(30),
+    paddingBottom: typography.pxToRem(48),
+    "& .LinesEllipsis": {
+      fontFamily: typography.body1.fontFamily,
+      fontSize: typography.pxToRem(18),
+      lineHeight: 30 / 18,
+      [breakpoints.up("xl")]: {
+        fontSize: typography.pxToRem(24),
+        lineHeight: 35.88 / 24,
+      },
+      "& .highlight": {
+        color: palette.primary.main,
+      },
+      "& .LinesEllipsis-ellipsis": {
+        "& .moreButton": {
+          color: palette.primary.main,
+          textDecoration: "underline",
+          background: "none",
+          border: 0,
+          fontFamily: typography.body1.fontFamily,
+          fontSize: typography.pxToRem(18),
+          lineHeight: 30 / 18,
+          [breakpoints.up("xl")]: {
+            fontSize: typography.pxToRem(24),
+            lineHeight: 35.88 / 24,
+          },
+        },
+      },
     },
   },
   handle: {
@@ -50,27 +66,37 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   interactions: {},
   text: {
     marginTop: typography.pxToRem(10),
+    "& .highlight": {
+      color: palette.primary.main,
+    },
   },
   icon: {
     position: "relative",
-    width: typography.pxToRem(100),
-    height: typography.pxToRem(100),
+    marginRight: typography.pxToRem(30),
+    width: typography.pxToRem(165),
+    height: typography.pxToRem(165),
     border: `solid 1px`,
     "& img": {
-      padding: `${typography.pxToRem(10)} !important`,
+      padding: `${typography.pxToRem(22)} !important`,
     },
   },
-  detailSection: {
-    marginLeft: 0,
-    [breakpoints.up("md")]: {
-      marginLeft: typography.pxToRem(20),
+  handleDetail: {
+    marginBottom: typography.pxToRem(10),
+    marginTop: typography.pxToRem(10),
+  },
+  moreButton: {
+    color: palette.primary.main,
+    textDecoration: "underline",
+    fontFamily: typography.body1.fontFamily,
+    fontSize: typography.pxToRem(18),
+    lineHeight: 30 / 18,
+    [breakpoints.up("xl")]: {
+      fontSize: typography.pxToRem(24),
+      lineHeight: 35.88 / 24,
     },
   },
-  retweet: {
-    marginTop: typography.pxToRem(10),
-  },
-  originalTweet: {
-    marginTop: typography.pxToRem(10),
+  content: {
+    margin: `${typography.pxToRem(30)} 0`,
   },
 }));
 

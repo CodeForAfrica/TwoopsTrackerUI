@@ -75,7 +75,6 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   label: {
     fontSize: typography.pxToRem(24),
-    fontFamily: typography.h4.fontFamily,
     fontStyle: "normal",
     fontWeight: "normal",
     lineHeight: "149.49%",

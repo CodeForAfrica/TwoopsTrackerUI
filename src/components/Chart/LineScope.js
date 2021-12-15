@@ -1,6 +1,6 @@
 import theme from "@/twoopstracker/theme";
 
-export default function LineChartScope(data, smallScreen) {
+export default function LineChartScope(data, smallScreen = false) {
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: "Line Chart",
