@@ -9,11 +9,13 @@ import Chart from "@/twoopstracker/components/Chart";
 import ContentActions from "@/twoopstracker/components/ContentActions";
 import Loading from "@/twoopstracker/components/Loading";
 import Pagination from "@/twoopstracker/components/Pagination";
+import SearchResults from "@/twoopstracker/components/SearchResults";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 function TweetsContainer({
+  category: categoryProp,
   days: daysProp,
   insights: insightsProp,
   location: locationProp,
@@ -29,6 +31,7 @@ function TweetsContainer({
 
   const router = useRouter();
   const [days, setDays] = useState(daysProp);
+  const [category, setCategory] = useState(categoryProp);
   const [insights, setInsights] = useState(insightsProp);
   const [location, setLocation] = useState(locationProp);
   const [page, setPage] = useState(pageProp);
@@ -40,6 +43,7 @@ function TweetsContainer({
   const [tweets, setTweets] = useState(tweetsProp);
 
   const setStateObject = {
+    category: setCategory,
     days: setDays,
     location: setLocation,
     page: setPage,
@@ -69,6 +73,7 @@ function TweetsContainer({
     if (router.isReady) {
       const queryString = getQueryString({
         query,
+        category,
         theme,
         location,
         days,
@@ -83,7 +88,7 @@ function TweetsContainer({
       router.push(newPathname, newPathname, { shallow: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, theme, location, days, page, pageSize, router.isReady]);
+  }, [category, query, theme, location, days, page, pageSize, router.isReady]);
 
   const handleSelection = ({ name, value }) => {
     setSearch(false);
@@ -116,7 +121,7 @@ function TweetsContainer({
   };
 
   const shouldFetch = () => {
-    if (!search) {
+    if (!(search || paginating)) {
       return null;
     }
 
@@ -127,6 +132,7 @@ function TweetsContainer({
       days,
       page,
       pageSize,
+      category,
     });
     let url = "/api/tweets";
     if (queryString) {
@@ -175,6 +181,7 @@ function TweetsContainer({
       />
       {isLoading && <Loading />}
       <Chart {...props} data={insights} classes={{ root: classes.chartRoot }} />
+      <SearchResults query={query} label="Search Results" />
       {tweets?.results?.length > 0 && (
         <ContentActions
           apiUri="/api/tweets"
@@ -198,6 +205,7 @@ function TweetsContainer({
 }
 
 TweetsContainer.propTypes = {
+  category: PropTypes.string,
   days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
@@ -213,6 +221,7 @@ TweetsContainer.propTypes = {
 };
 
 TweetsContainer.defaultProps = {
+  category: undefined,
   days: undefined,
   insights: undefined,
   location: undefined,

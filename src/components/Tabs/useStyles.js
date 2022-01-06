@@ -19,14 +19,13 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   tab: {
     color: palette.secondary.main,
     fontWeight: 400,
-    lineHeight: typography.pxToRem(54),
     fontSize: typography.h4.fontSize,
     padding: typography.pxToRem(10),
     margin: typography.pxToRem(3),
     textAlign: "left",
+    height: typography.pxToRem(51),
     opacity: 1,
-    border: "2px solid transparent",
-    boxShadow: "0px 2px 4px 0px #00000040",
+    border: "1px solid #D0D0D0",
     "&:hover, &:focus, &$selected": {
       border: `2px solid ${palette.primary.main}`,
     },

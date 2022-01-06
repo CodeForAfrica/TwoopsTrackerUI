@@ -13,21 +13,15 @@ const useStyles = makeStyles(({ typography }) => ({
     position: "relative",
     width: typography.pxToRem(100),
     height: typography.pxToRem(100),
-    border: `solid 1px`,
-    "& img": {
-      padding: `${typography.pxToRem(10)} !important`,
-    },
+    border: "solid 1px rgba(0,0,0,0.12)",
   },
-  username: {
-    fontWeight: "700",
-    fontSize: typography.pxToRem(36),
-  },
+  username: {},
   userDetails: {
     marginLeft: typography.pxToRem(30),
     marginBottom: typography.pxToRem(30),
   },
   buttons: {
-    margin: `${typography.pxToRem(10)} 0`,
+    marginTop: typography.pxToRem(66),
   },
   listItem: {
     border: "solid 1px rgba(0,0,0,0.12)",
@@ -45,6 +39,11 @@ const useStyles = makeStyles(({ typography }) => ({
   button: {
     marginLeft: typography.pxToRem(5),
     minWidth: typography.pxToRem(100),
+  },
+  avatar: {
+    width: "80%",
+    height: "80%",
+    margin: typography.pxToRem(10),
   },
 }));
 

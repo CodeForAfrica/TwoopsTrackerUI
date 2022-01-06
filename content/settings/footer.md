@@ -13,16 +13,16 @@ contacts:
   socialMedia:
     - name: Twitter
       url: https://twitter.com/Code4Africa
-      logo: /images/white-icon-twitter.svg
-    - name: Instagram
-      url: https://www.instagram.com/code4africa__/
-      logo: /images/white-icon-insta.svg
+      logo: /images/twitter-footer.svg
+    - name: Linkedin
+      url: https://linkedin.com/codeforafrica
+      logo: /images/linkedin-footer.svg
     - name: Facebook
       url: https://www.facebook.com/CodeForAfrica/
-      logo: /images/white-icon-fb.svg
-    - name: LinkedIn
-      url: https://www.linkedin.com/company/code-for-africa/
-      logo: /images/white-icon-linkedin.svg
+      logo: /images/facebook-footer.svg
+    - name: Instagram
+      url: https://www.instagram.com/code4africa__/
+      logo: /images/instagram-footer.svg
 quickLinks:
   - title: Resources
     links:

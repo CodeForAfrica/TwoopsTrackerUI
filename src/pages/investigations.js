@@ -4,6 +4,7 @@ import React from "react";
 import Hero from "@/twoopstracker/components/Hero";
 import InvestigationList from "@/twoopstracker/components/InvestigationList";
 import Page from "@/twoopstracker/components/Page";
+import { pagination } from "@/twoopstracker/config";
 import { investigations, settings } from "@/twoopstracker/lib/cms";
 
 export default function Investigations({ reports, ...props }) {
@@ -12,7 +13,7 @@ export default function Investigations({ reports, ...props }) {
   return (
     <Page {...props}>
       <Hero description={description} title={title} withCTA={false} />
-      <InvestigationList items={reports} />
+      <InvestigationList paginationProps={pagination} items={reports} />
     </Page>
   );
 }

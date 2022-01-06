@@ -111,7 +111,6 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
   },
   label: {
     [breakpoints.up("lg")]: {
-      fontWeight: 600,
       letterSpacing: "1.6px",
       fontSize: typography.pxToRem(20),
     },

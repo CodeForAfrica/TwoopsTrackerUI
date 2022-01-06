@@ -1,6 +1,6 @@
 import theme from "@/twoopstracker/theme";
 
-export default function LineChartScope(data, smallScreen) {
+export default function LineChartScope(data, smallScreen = false) {
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: "Line Chart",
@@ -15,8 +15,8 @@ export default function LineChartScope(data, smallScreen) {
       },
     },
     autosize: { type: "fit-x" },
-    width: { signal: "width" },
     height: { signal: "height" },
+    width: { signal: "breadth" },
     data: [
       {
         name: "table",
@@ -37,7 +37,7 @@ export default function LineChartScope(data, smallScreen) {
     ],
     signals: [
       {
-        name: "width",
+        name: "breadth",
         update: "containerSize()[0] ? containerSize()[0] : 800",
         on: [
           {
@@ -158,7 +158,7 @@ export default function LineChartScope(data, smallScreen) {
         range: [
           0,
           {
-            signal: "smallScreen? width: 0.75 * width",
+            signal: "smallScreen? breadth: 0.75 * breadth",
           },
         ],
       },
@@ -199,7 +199,7 @@ export default function LineChartScope(data, smallScreen) {
             x: { value: 0 },
             y: { value: 0 },
             height: { signal: "smallScreen? '50': '100'" },
-            width: { signal: "width" },
+            width: { signal: "breadth" },
           },
         },
         marks: [
@@ -245,7 +245,7 @@ export default function LineChartScope(data, smallScreen) {
               signal: "height - 170",
             },
             width: {
-              signal: "smallScreen? width : 0.75 * width",
+              signal: "smallScreen? breadth : 0.75 * breadth",
             },
           },
         },
@@ -264,7 +264,7 @@ export default function LineChartScope(data, smallScreen) {
             encode: {
               grid: {
                 update: {
-                  x2: { signal: "smallScreen ? width : 0.75 * width" },
+                  x2: { signal: "smallScreen ? breadth : 0.75 * breadth" },
                   opacity: { value: 0.2 },
                 },
               },
@@ -346,10 +346,10 @@ export default function LineChartScope(data, smallScreen) {
         name: "highlightGroup",
         encode: {
           enter: {
-            x: { signal: "smallScreen ? '0' : 0.78 * width" },
+            x: { signal: "smallScreen ? '0' : 0.78 * breadth" },
             y: { signal: "smallScreen? height - 50 : height - 370" },
             y2: { signal: "height" },
-            width: { signal: "smallScreen? width: '100'" },
+            width: { signal: "smallScreen? breadth: '100'" },
           },
         },
         marks: [
@@ -371,8 +371,9 @@ export default function LineChartScope(data, smallScreen) {
             type: "text",
             encode: {
               update: {
-                x: { signal: "smallScreen ? width - 30 : '0'" },
+                x: { signal: "smallScreen ? breadth - 30 : '0'" },
                 y: { value: smallScreen ? 0 : 100 },
+                align: { value: smallScreen ? "right" : "left" },
                 text: { signal: "total" },
                 opacity: { value: 1 },
                 font: { signal: "totalFont" },

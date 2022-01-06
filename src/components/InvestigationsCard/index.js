@@ -24,7 +24,9 @@ function InvestigationsCard({
     description,
     href,
     title,
-    titleProps: { variant: "body1" },
+    titleProps: {
+      variant: featured ? "h2" : "h4",
+    },
   };
 
   return (

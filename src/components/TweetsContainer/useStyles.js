@@ -4,7 +4,7 @@ const useStyles = makeStyles(({ typography, palette }) => ({
   root: {},
   chartRoot: {
     padding: `${typography.pxToRem(50)} 0`,
-    backgroundColor: palette.background.default,
+    backgroundColor: `${palette.background.default} !important`,
   },
 }));
 
