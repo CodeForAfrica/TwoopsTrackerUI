@@ -74,7 +74,7 @@ function Login({ providers: providersProp, ...props }) {
   return (
     <Grid
       container
-      justify="space-around"
+      justifyContent="space-around"
       alignItems="center"
       className={classes.root}
     >
