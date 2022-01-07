@@ -57,6 +57,13 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   text: {
     marginTop: typography.pxToRem(22),
   },
+  label: {
+    color: "black",
+  },
+  container: {
+    background: "#F7F7F7",
+    padding: typography.pxToRem(30),
+  },
 }));
 
 export default useStyles;

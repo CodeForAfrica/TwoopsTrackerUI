@@ -1,10 +1,4 @@
-import {
-  Button,
-  Typography,
-  InputLabel,
-  Input,
-  FormControl,
-} from "@material-ui/core";
+import { Button, Typography, Grid, TextField } from "@material-ui/core";
 import { useSession, signIn } from "next-auth/client";
 import Router from "next/router";
 import PropTypes from "prop-types";
@@ -26,17 +20,51 @@ function Login({ providers, ...props }) {
 
   return (
     <Section className={classes.section}>
-      <div>
+      <div className={classes.container}>
         <Typography variant="h2">Welcome back</Typography>
         <Typography className={classes.text}>
           Login to access all the features on TrollTracker
         </Typography>
-        <FormControl>
-          <InputLabel htmlFor="email">Email address</InputLabel>
+        <form>
+          <Grid container>
+            <Grid item xs={7}>
+              <TextField
+                InputLabelProps={{ className: classes.label }}
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={7}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+            </Grid>
+          </Grid>
+        </form>
+        {/* <FormControl>
+          <InputLabel className={classes.label} htmlFor="email">
+            Email address
+          </InputLabel>
           <Input id="email" />
-          <InputLabel htmlFor="password">Password</InputLabel>
+          <InputLabel className={classes.label} htmlFor="password">
+            Password
+          </InputLabel>
           <Input id="password" />
-        </FormControl>
+        </FormControl> */}
         <div>
           <Button>Edit</Button>
           <Button>Delete</Button>
