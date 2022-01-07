@@ -2,15 +2,18 @@ import jwtDecode from "jwt-decode";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-const myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+// NOTE(kilemensi): There is no point defining this via env vars at the moment
+//                  because for each provider, we'd need to modify code to
+//                  include it in NextAuth.providers
+const OAUTH_PROVIDERS = ["google"];
 
-async function fetchToken(token, url = process.env.AUTH_URL) {
-  const raw = JSON.stringify(token);
+async function fetchToken(url, params) {
   const requestOptions = {
     method: "POST",
-    headers: myHeaders,
-    body: raw,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(params),
     redirect: "follow",
   };
 
@@ -21,24 +24,45 @@ async function fetchToken(token, url = process.env.AUTH_URL) {
     throw new Error(response.statusText);
   });
 }
-/**
- * Takes a token, and returns a new token with updated
- * `accessToken` and `exp`. If an error occurs,
- * returns the old token and an error property
- */
-async function refreshAccessToken(token) {
+
+async function fetchNewToken({ account, user: nextAuthUser }) {
+  const url = new URL(
+    `${account.provider}/`,
+    process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL
+  ).toString();
+  const {
+    access_token: accessToken,
+    refresh_token: refreshToken,
+    user: authUser,
+  } = await fetchToken(url, { access_token: account?.id_token });
+  const user = { ...nextAuthUser, ...authUser };
+
+  return {
+    accessToken,
+    exp: jwtDecode(accessToken).exp * 1000,
+    idToken: account?.id_token ?? null,
+    refreshToken,
+    user,
+  };
+}
+
+async function fetchRefreshedToken({ token: currentToken }) {
   try {
-    const refreshedTokens = await fetchToken(
-      { refresh: token.refreshToken },
-      process.env.REFRESH_URL
+    const params = { refresh: currentToken.refreshToken };
+    const url = process.env.NEXTAUTH_JWT_TOKEN_REFRESH_URL;
+    const { access: accessToken, refresh: refreshToken } = await fetchToken(
+      url,
+      params
     );
     return {
-      ...token,
-      accessToken: refreshedTokens.access,
-      exp: jwtDecode(refreshedTokens.access).exp * 1000,
-      refreshToken: refreshedTokens?.refresh ?? token.refreshToken, // Fall back to old refresh token
+      ...currentToken,
+      accessToken,
+      exp: jwtDecode(accessToken).exp * 1000,
+      // Fall back to current refresh token if new one is not available
+      refreshToken: refreshToken || currentToken.refreshToken,
     };
   } catch (error) {
+    // TODO(kilemensi): Add Sentry and capture error
     return null;
   }
 }
@@ -47,65 +71,57 @@ const options = {
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
+      clientId: process.env.NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_ID,
+      clientSecret: process.env.NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_SECRET,
     }),
   ],
 
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
-    async signIn({ account }) {
-      const token = await fetchToken({
-        provider: account?.provider,
-        tokens: {
-          access_token: account?.access_token,
-          id_token: account?.id_token,
-        },
-      });
-      if (token.access_token) {
-        return true;
-      }
-      return false;
+    // see: https://next-auth.js.org/configuration/callbacks#sign-in-callback
+    async signIn() {
+      // TODO(kilemensi): Confirm if there are any situations where we want to
+      //                  disable sign in for some users.
+      const isAllowedToSignIn = true;
+
+      return isAllowedToSignIn;
     },
+
+    // see: https://next-auth.js.org/configuration/callbacks#jwt-callback
     async jwt({ token, user, account }) {
-      // Initial sign in
+      // when created: e.g. at sign in
+      //              fetch new access token
       if (account && user) {
-        const { access_token: accessToken, refresh_token: refreshToken } =
-          await fetchToken({
-            provider: account?.provider,
-            tokens: {
-              access_token: account?.access_token,
-              id_token: account?.id_token,
-            },
-          });
-        return {
-          accessToken,
-          exp: jwtDecode(accessToken).exp * 1000,
-          refreshToken,
-          idToken: account?.id_token,
-          user,
-        };
+        if (OAUTH_PROVIDERS.includes(account.provider)) {
+          return fetchNewToken({ account, user });
+        }
+        // TODO(kilemensi): Handle for non-oauth accounts
       }
-      // Return previous token if the access token has not expired yet
-      if (token && Date.now() < jwtDecode(token?.accessToken).exp * 1000) {
+      // when updated: e.g. when session is accessed in the client
+      //               return current token if the access token
+      //               has not expired yet
+      if (token && Date.now() < token.exp) {
         return token;
       }
-      // Access token has expired, try to update it
-      return refreshAccessToken(token);
+      //               otherwise, refresh the current token
+      return fetchRefreshedToken({ token });
     },
-    // Attach user and token to be available in the frontend https://next-auth.js.org/v3/tutorials/refresh-token-rotation#server-side
+
+    // see: https://next-auth.js.org/configuration/callbacks#session-callback
     async session({ session, token }) {
-      if (!session || !token) {
+      if (!(session && token)) {
         return null;
       }
-      const newSession = { ...session, ...token };
-      return newSession;
+      // anything added to jwt callback i.e in token, need to be explicitly
+      // forwarded here
+      return { ...session, ...token };
     },
   },
 
   pages: {
     signIn: "/login",
+    // TODO(kilemensi): Replace this with 500 error page
     error: "/404", // Error code passed in query string as ?error=
   },
 };
