@@ -59,10 +59,22 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   },
   label: {
     color: "black",
+    position: "relative",
+    top: -20,
+    transform: "none",
   },
   container: {
     background: "#F7F7F7",
     padding: typography.pxToRem(30),
+  },
+  form: {
+    marginTop: typography.pxToRem(40),
+  },
+  textfield: {
+    marginBottom: typography.pxToRem(30),
+  },
+  input: {
+    background: "white",
   },
 }));
 

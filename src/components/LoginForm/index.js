@@ -25,26 +25,31 @@ function Login({ providers, ...props }) {
         <Typography className={classes.text}>
           Login to access all the features on TrollTracker
         </Typography>
-        <form>
+        <form className={classes.form}>
           <Grid container>
             <Grid item xs={7}>
               <TextField
+                className={classes.textfield}
                 InputLabelProps={{ className: classes.label }}
-                autoComplete="fname"
-                name="firstName"
+                InputProps={{ className: classes.input }}
+                autoComplete="email"
+                name="email"
                 variant="outlined"
-                required
+                // required
                 fullWidth
-                id="firstName"
-                label="First Name"
+                id="email"
+                label="Email"
                 autoFocus
               />
             </Grid>
             <Grid item xs={7}>
               <TextField
+                className={classes.textfield}
+                InputLabelProps={{ className: classes.label }}
+                InputProps={{ className: classes.input }}
                 variant="outlined"
                 margin="normal"
-                required
+                // required
                 fullWidth
                 name="password"
                 label="Password"
