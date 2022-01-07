@@ -47,6 +47,7 @@ function Content({ items, size, ctaLabel, ...props }) {
               </Link>
             </Grid>
             <Grid
+              container
               alignItems="center"
               item
               xs={12}

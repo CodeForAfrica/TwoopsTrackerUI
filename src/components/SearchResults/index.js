@@ -17,7 +17,7 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
-const SearchResults = ({ query, label, ...props }) => {
+function SearchResults({ query, label, ...props }) {
   const classes = useStyles(props);
 
   if (!query?.length) {
@@ -30,7 +30,7 @@ const SearchResults = ({ query, label, ...props }) => {
       </Typography>
     </Section>
   );
-};
+}
 
 SearchResults.propTypes = {
   query: PropTypes.string,

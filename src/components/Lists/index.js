@@ -140,7 +140,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
           </Grid>
           <Pagination
             {...paginationProps}
-            count={Math.ceil(data?.count / (pageSize || 10))}
+            count={Math.ceil((data?.count ?? 0) / (pageSize || 10))}
             onChangePage={handleClickPage}
             onChangePageSize={handleClickPageSize}
             page={page}

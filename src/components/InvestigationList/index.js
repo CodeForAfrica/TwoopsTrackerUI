@@ -45,7 +45,7 @@ function InvestigationList({ items, paginationProps, ...props }) {
       </Grid>
       <Pagination
         {...paginationProps}
-        count={Math.ceil(items?.length / pageSize)}
+        count={Math.ceil((items?.length ?? 0) / pageSize)}
         onChangePage={handleClickPage}
         onChangePageSize={handleClickPageSize}
         page={page}

@@ -1,5 +1,5 @@
 import { Button, Grid } from "@material-ui/core";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -11,7 +11,7 @@ import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
 import Search from "@/twoopstracker/components/Search";
 import Section from "@/twoopstracker/components/Section";
 
-const SearchSection = ({
+function SearchSection({
   category,
   days,
   onSelection,
@@ -20,10 +20,10 @@ const SearchSection = ({
   onSearch,
   theme,
   ...props
-}) => {
+}) {
   const classes = useStyles(props);
   const [open, setOpen] = useState(false);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   const handleClickSaveSearch = () => {
     setOpen(true);
@@ -165,7 +165,7 @@ const SearchSection = ({
       />
     </div>
   );
-};
+}
 
 SearchSection.propTypes = {
   category: PropTypes.string,

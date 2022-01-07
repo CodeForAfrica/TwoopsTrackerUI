@@ -17,7 +17,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Partners {...args} />;
+function Template(args) {
+  return <Partners {...args} />;
+}
 
 export const Default = Template.bind({});
 

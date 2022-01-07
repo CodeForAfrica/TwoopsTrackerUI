@@ -7,7 +7,7 @@ import useStyles from "./useStyles";
 import Section from "@/twoopstracker/components/Section";
 import TweetCard from "@/twoopstracker/components/TweetCard";
 
-const Tweets = ({ tweets, ...props }) => {
+function Tweets({ tweets, ...props }) {
   const classes = useStyles(props);
 
   return (
@@ -21,7 +21,7 @@ const Tweets = ({ tweets, ...props }) => {
       )}
     </Section>
   );
-};
+}
 
 Tweets.propTypes = {
   tweets: PropTypes.shape({

@@ -1,12 +1,12 @@
 import { Typography, Divider, Grid, Button, Avatar } from "@material-ui/core";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import React from "react";
 
 import useStyles from "./useStyles";
 
 function UserAccount({ ...props }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   if (!session) {
     return null;

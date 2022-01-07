@@ -92,7 +92,7 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
           </Grid>
           <Pagination
             {...paginationProps}
-            count={Math.ceil(searches?.count / (pageSize || 3))}
+            count={Math.ceil((searches?.count ?? 0) / (pageSize || 3))}
             onChangePage={handleClickPage}
             onChangePageSize={handleClickPageSize}
             page={page}

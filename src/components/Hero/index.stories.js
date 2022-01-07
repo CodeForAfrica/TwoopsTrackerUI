@@ -69,7 +69,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Hero {...args} />;
+function Template(args) {
+  return <Hero {...args} />;
+}
 
 export const Default = Template.bind({});
 

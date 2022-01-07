@@ -13,7 +13,9 @@ export default {
   },
 };
 
-const Template = ({ ...args }) => <LoginMenu {...args} />;
+function Template({ ...args }) {
+  return <LoginMenu {...args} />;
+}
 
 export const Default = Template.bind({});
 

@@ -7,7 +7,9 @@ export default {
   argTypes: {},
 };
 
-const Template = () => <Loading />;
+function Template() {
+  return <Loading />;
+}
 
 export const Default = Template.bind({});
 

@@ -1,6 +1,6 @@
 import { RichTypography } from "@commons-ui/core";
 import { Button, makeStyles, Typography } from "@material-ui/core";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -57,7 +57,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
 
 function Hero({ ctas, description, title, withCTA, ...props }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   return (
     <div className={classes.root}>

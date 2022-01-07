@@ -7,7 +7,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <AddToList {...args} />;
+function Template(args) {
+  return <AddToList {...args} />;
+}
 
 export const Default = Template.bind({});
 

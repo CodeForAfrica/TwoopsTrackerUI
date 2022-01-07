@@ -35,7 +35,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <InvestigationsPreview {...args} />;
+function Template(args) {
+  return <InvestigationsPreview {...args} />;
+}
 
 export const Default = Template.bind({});
 

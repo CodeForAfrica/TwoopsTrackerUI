@@ -3,13 +3,13 @@ import React from "react";
 
 import useStyles from "./useStyles";
 
-const Loading = () => {
+function Loading() {
   const classes = useStyles();
   return (
     <Box sx={{ display: "flex" }} className={classes.box}>
       <CircularProgress className={classes.progress} />
     </Box>
   );
-};
+}
 
 export default Loading;

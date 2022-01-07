@@ -1,6 +1,6 @@
 import { A } from "@commons-ui/core";
 import { Button, makeStyles, Typography } from "@material-ui/core";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React, { useEffect, useCallback } from "react";
@@ -115,33 +115,31 @@ function Upload({
             </Typography>
           </>
         )}
-        <>
-          {messages?.lists_proccessed && (
-            <>
-              <Progress
-                value={
-                  (messages.lists_proccessed.success * 100) /
-                  (messages.lists_proccessed?.success +
-                    messages.lists_proccessed?.failed)
-                }
-              />
-              <Typography variant="caption" className={classes.error}>
-                {messages.lists_proccessed?.failed} {failedLabel}
-              </Typography>
-            </>
-          )}
-          {!loading && messages?.errors ? (
-            messages.errors?.map(({ message }) => (
-              <Typography variant="caption" className={classes.error}>
-                {message}
-              </Typography>
-            ))
-          ) : (
-            <Typography variant="caption" className={classes.success}>
-              {messages?.message}
+        {messages?.lists_proccessed && (
+          <>
+            <Progress
+              value={
+                (messages.lists_proccessed.success * 100) /
+                ((messages.lists_proccessed?.success ?? 0) +
+                  (messages.lists_proccessed?.failed ?? 0) || 1)
+              }
+            />
+            <Typography variant="caption" className={classes.error}>
+              {messages.lists_proccessed?.failed} {failedLabel}
             </Typography>
-          )}
-        </>
+          </>
+        )}
+        {!loading && messages?.errors ? (
+          messages.errors?.map(({ message }) => (
+            <Typography variant="caption" className={classes.error}>
+              {message}
+            </Typography>
+          ))
+        ) : (
+          <Typography variant="caption" className={classes.success}>
+            {messages?.message}
+          </Typography>
+        )}
         <Button
           className={classes.button}
           variant="contained"

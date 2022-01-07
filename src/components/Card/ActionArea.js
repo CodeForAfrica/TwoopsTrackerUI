@@ -7,7 +7,7 @@ import Link from "@/twoopstracker/components/Link";
 
 const useStyles = makeStyles(() => ({
   root: {},
-  focusHightlight: {
+  focusHighlight: {
     background: "transparent",
   },
   focusVisible: {},
