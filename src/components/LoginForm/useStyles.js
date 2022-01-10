@@ -14,12 +14,15 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   },
   loginButton: {
     marginBottom: "1rem",
+    marginTop: typography.pxToRem(40),
     width: "100%",
-    color: "white",
-    "&:hover": {
-      color: "#000",
-    },
-    backgroundColor: palette.primary.main,
+    color: "#4285F4",
+    borderRadius: 0,
+    // "&:hover": {
+    //   color: "#000",
+    // },
+    backgroundColor: palette.background.default,
+    boxShadow: `2px 2px 5px rgba(0, 0, 0, 0.25)`,
     fontWeight: 800,
     fontSize: typography.subtitle2.fontSize,
     height: "3rem",
@@ -75,6 +78,9 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   },
   input: {
     background: "white",
+  },
+  button: {
+    marginLeft: typography.pxToRem(10),
   },
 }));
 
