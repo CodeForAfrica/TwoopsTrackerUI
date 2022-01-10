@@ -10,7 +10,14 @@ import useStyles from "./useStyles";
 import GoogleIcon from "@/twoopstracker/assets/icons/GoogleIcon.svg";
 import Section from "@/twoopstracker/components/Section";
 
-function Login({ providers, ...props }) {
+function Login({
+  providers,
+  title,
+  description,
+  password,
+  signupPrompt,
+  ...props
+}) {
   const classes = useStyles(props);
   const [session] = useSession();
 
@@ -24,10 +31,8 @@ function Login({ providers, ...props }) {
     <Section className={classes.section}>
       <Grid container>
         <Grid item xs={7} className={classes.container}>
-          <Typography variant="h2">Welcome back</Typography>
-          <Typography className={classes.text}>
-            Login to access all the features on TrollTracker
-          </Typography>
+          <Typography variant="h2">{title}</Typography>
+          <Typography className={classes.text}>{description}</Typography>
           <form className={classes.form}>
             <Grid container>
               <Grid item xs={12}>
@@ -38,7 +43,6 @@ function Login({ providers, ...props }) {
                   autoComplete="email"
                   name="email"
                   variant="outlined"
-                  // required
                   fullWidth
                   id="email"
                   label="Email"
@@ -52,7 +56,6 @@ function Login({ providers, ...props }) {
                   InputProps={{ className: classes.input }}
                   variant="outlined"
                   margin="normal"
-                  // required
                   fullWidth
                   name="password"
                   label="Password"
@@ -63,16 +66,6 @@ function Login({ providers, ...props }) {
               </Grid>
             </Grid>
           </form>
-          {/* <FormControl>
-          <InputLabel className={classes.label} htmlFor="email">
-            Email address
-          </InputLabel>
-          <Input id="email" />
-          <InputLabel className={classes.label} htmlFor="password">
-            Password
-          </InputLabel>
-          <Input id="password" />
-        </FormControl> */}
           <div>
             <Button
               className={classes.button}
@@ -113,10 +106,8 @@ function Login({ providers, ...props }) {
                 </Button>
               ))}
           </div>
-          <Typography className={classes.text}>Forgot password?</Typography>
-          <Typography className={classes.text}>
-            New to TrollTracker? Sign Up now
-          </Typography>
+          <Typography className={classes.text}>{password}</Typography>
+          <Typography className={classes.text}>{signupPrompt}</Typography>
         </Grid>
       </Grid>
     </Section>
@@ -125,10 +116,18 @@ function Login({ providers, ...props }) {
 
 Login.propTypes = {
   providers: PropTypes.shape({}),
+  title: PropTypes.string,
+  description: PropTypes.string,
+  password: PropTypes.string,
+  signupPrompt: PropTypes.string,
 };
 
 Login.defaultProps = {
   providers: undefined,
+  title: undefined,
+  password: undefined,
+  description: undefined,
+  signupPrompt: undefined,
 };
 
 export default Login;
