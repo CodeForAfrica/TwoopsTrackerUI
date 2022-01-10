@@ -18,9 +18,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     width: "100%",
     color: "#4285F4",
     borderRadius: 0,
-    // "&:hover": {
-    //   color: "#000",
-    // },
+
     backgroundColor: palette.background.default,
     boxShadow: `2px 2px 5px rgba(0, 0, 0, 0.25)`,
     fontWeight: 800,

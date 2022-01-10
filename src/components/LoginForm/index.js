@@ -1,4 +1,10 @@
-import { Button, Typography, Grid, TextField } from "@material-ui/core";
+import {
+  Button,
+  Typography,
+  Grid,
+  TextField,
+  InputAdornment,
+} from "@material-ui/core";
 import { useSession, signIn } from "next-auth/client";
 import Image from "next/image";
 import Router from "next/router";
@@ -8,6 +14,7 @@ import React, { useEffect } from "react";
 import useStyles from "./useStyles";
 
 import GoogleIcon from "@/twoopstracker/assets/icons/GoogleIcon.svg";
+import ViewIcon from "@/twoopstracker/assets/icons/password.svg";
 import Section from "@/twoopstracker/components/Section";
 
 function Login({
@@ -53,7 +60,14 @@ function Login({
                 <TextField
                   className={classes.textfield}
                   InputLabelProps={{ className: classes.label }}
-                  InputProps={{ className: classes.input }}
+                  InputProps={{
+                    className: classes.input,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Image height={45} width={45} src={ViewIcon} alt="" />
+                      </InputAdornment>
+                    ),
+                  }}
                   variant="outlined"
                   margin="normal"
                   fullWidth
