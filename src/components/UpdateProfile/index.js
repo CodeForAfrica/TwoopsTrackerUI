@@ -19,7 +19,7 @@ function Update({
   ...props
 }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (session) {
