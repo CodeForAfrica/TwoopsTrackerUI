@@ -160,6 +160,268 @@ export const accounts = {
   ],
 };
 
+export const inputSelectFilterArgs = {
+  sectorProps: {
+    inputSelectId: "checkbox-sector",
+    title: "Sector",
+    placeholder: "Select",
+  },
+  categoryProps: {
+    inputSelectId: "checkbox-category",
+    title: "Category",
+    placeholder: "Select",
+  },
+  subCategoryProps: {
+    inputSelectId: "checkbox-subcategory",
+    title: "SubCategory",
+    placeholder: "Select",
+  },
+  items: [
+    {
+      name: "Reference Documents",
+      count: 74,
+      categories: [
+        {
+          name: "Category1",
+          count: 34,
+          subcategories: [],
+        },
+        {
+          name: "Category2",
+          count: 34,
+          subcategories: [
+            { name: "subcategories1", count: 3 },
+            { name: "subcategories2", count: 34 },
+            { name: "subcategories3", count: 3 },
+            { name: "subcategorie4", count: 1 },
+          ],
+        },
+        {
+          name: "Category3",
+          count: 7,
+          subcategories: [],
+        },
+      ],
+    },
+    {
+      name: "Economic statistics",
+      count: 338,
+      categories: [
+        {
+          name: "Category4",
+          count: 34,
+          subcategories: [],
+        },
+        {
+          name: "Category5",
+          count: 34,
+          subcategories: [
+            { name: "subcategories5", count: 3 },
+            { name: "subcategories6", count: 34 },
+            { name: "subcategories7", count: 3 },
+            { name: "subcategorie8", count: 1 },
+          ],
+        },
+        {
+          name: "Category6",
+          count: 7,
+          subcategories: [
+            { name: "subcategories10", count: 3 },
+            { name: "subcategories11", count: 34 },
+            { name: "subcategories12", count: 3 },
+            { name: "subcategorie13", count: 1 },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Socio-Economic statistics ",
+      count: 134,
+      categories: [
+        {
+          name: "Category7",
+          count: 34,
+          subcategories: [
+            { name: "subcategories14", count: 3 },
+            { name: "subcategories15", count: 34 },
+            { name: "subcategories16", count: 3 },
+            { name: "subcategorie17", count: 1 },
+          ],
+        },
+        {
+          name: "Category8",
+          count: 34,
+          subcategories: [
+            { name: "subcategories18", count: 3 },
+            { name: "subcategories19", count: 34 },
+            { name: "subcategories20", count: 3 },
+            { name: "subcategorie21", count: 1 },
+          ],
+        },
+        {
+          name: "Category9",
+          count: 7,
+          subcategories: [
+            { name: "subcategories22", count: 3 },
+            { name: "subcategories23", count: 34 },
+            { name: "subcategories24", count: 3 },
+            { name: "subcategorie25", count: 1 },
+          ],
+        },
+      ],
+    },
+    {
+      name: "NBS Annual Abstract of Finance document",
+      count: 4,
+      categories: [
+        {
+          name: "Category10",
+          count: 34,
+          subcategories: [
+            { name: "subcategories26", count: 3 },
+            { name: "subcategories27", count: 34 },
+            { name: "subcategories28", count: 3 },
+            { name: "subcategorie29", count: 1 },
+          ],
+        },
+        {
+          name: "Category11",
+          count: 34,
+          subcategories: [
+            { name: "subcategories30", count: 3 },
+            { name: "subcategories31", count: 34 },
+            { name: "subcategories32", count: 3 },
+            { name: "subcategorie33", count: 1 },
+          ],
+        },
+        {
+          name: "Category12",
+          count: 7,
+          subcategories: [
+            { name: "subcategories34", count: 3 },
+            { name: "subcategories35", count: 34 },
+            { name: "subcategories36", count: 3 },
+            { name: "subcategorie37", count: 1 },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Public Transport Statistics",
+      count: 49,
+      categories: [
+        {
+          name: "Category13",
+          count: 34,
+          subcategories: [
+            { name: "subcategories38", count: 3 },
+            { name: "subcategories39", count: 34 },
+            { name: "subcategories40", count: 3 },
+            { name: "subcategorie41", count: 1 },
+          ],
+        },
+        {
+          name: "Category14",
+          count: 34,
+          subcategories: [
+            { name: "subcategories42", count: 3 },
+            { name: "subcategories43", count: 34 },
+            { name: "subcategories44", count: 3 },
+            { name: "subcategorie45", count: 1 },
+          ],
+        },
+        {
+          name: "Category15",
+          count: 7,
+          subcategories: [
+            { name: "subcategories46", count: 3 },
+            { name: "subcategories47", count: 34 },
+            { name: "subcategories48", count: 3 },
+            { name: "subcategorie49", count: 1 },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Crime Statistics",
+      count: 14,
+      categories: [
+        {
+          name: "Category16",
+          count: 34,
+          subcategories: [
+            { name: "subcategories50", count: 3 },
+            { name: "subcategories51", count: 34 },
+            { name: "subcategories52", count: 3 },
+            { name: "subcategorie53", count: 1 },
+          ],
+        },
+        {
+          name: "Category17",
+          count: 34,
+          subcategories: [
+            { name: "subcategories54", count: 3 },
+            { name: "subcategories55", count: 34 },
+            { name: "subcategories56", count: 3 },
+            { name: "subcategorie57", count: 1 },
+          ],
+        },
+        {
+          name: "Category18",
+          count: 7,
+          subcategories: [
+            { name: "subcategories58", count: 3 },
+            { name: "subcategories59", count: 34 },
+            { name: "subcategories60", count: 3 },
+            { name: "subcategorie61", count: 1 },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Sector Statistics",
+      count: 49,
+      categories: [],
+    },
+    {
+      name: "Population and Migration",
+      count: 6,
+      categories: [],
+    },
+    {
+      name: "Health Statistics",
+      count: 49,
+      categories: [
+        {
+          name: "Category19",
+          count: 34,
+          subcategories: [
+            { name: "subcategories62", count: 3 },
+            { name: "subcategories63", count: 34 },
+            { name: "subcategories64", count: 3 },
+            { name: "subcategorie65", count: 1 },
+          ],
+        },
+        {
+          name: "Category20",
+          count: 34,
+          subcategories: [],
+        },
+        {
+          name: "Category21",
+          count: 7,
+          subcategories: [
+            { name: "subcategories66", count: 3 },
+            { name: "subcategories67", count: 34 },
+            { name: "subcategories68", searchses: 3 },
+            { name: "subcategorie68", count: 1 },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 const config = {
   name: "TwoopsTracker",
   navigationArgs,
