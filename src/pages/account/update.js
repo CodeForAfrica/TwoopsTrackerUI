@@ -3,7 +3,7 @@ import React from "react";
 
 import Page from "@/twoopstracker/components/Page";
 import UpdateProfile from "@/twoopstracker/components/UpdateProfile";
-import { settings } from "@/twoopstracker/lib/cms";
+import { settings, updateProfile } from "@/twoopstracker/lib/cms";
 
 function Update({ ...props }) {
   return (
@@ -19,6 +19,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       ...settings(),
+      ...updateProfile(),
       session,
       title: "Update Profile",
     },

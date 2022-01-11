@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
+const useStyles = makeStyles(({ typography }) => ({
   root: {
     flexGrow: 1,
     color: "white",
@@ -12,37 +12,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     marginTop: typography.pxToRem(80),
     marginBottom: typography.pxToRem(80),
   },
-  loginButton: {
-    marginBottom: "1rem",
-    marginTop: typography.pxToRem(40),
-    width: "100%",
-    color: "#4285F4",
-    borderRadius: 0,
 
-    backgroundColor: palette.background.default,
-    boxShadow: `2px 2px 5px rgba(0, 0, 0, 0.25)`,
-    fontWeight: 800,
-    fontSize: typography.subtitle2.fontSize,
-    height: "3rem",
-    [breakpoints.up("xl")]: {
-      fontSize: typography.subtitle1.fontSize,
-      height: "3.5rem",
-      paddingLeft: "2rem",
-      paddingRight: "2rem",
-    },
-  },
-  buttonContainer: {
-    paddingTop: "1rem",
-    width: "400px",
-    [breakpoints.between("xs", "xs")]: {
-      width: "95vw",
-    },
-    "& .MuiLink-underlineHover": {
-      "&:hover": {
-        textDecoration: "none",
-      },
-    },
-  },
   formStyles: {
     display: "flex",
     flexDirection: "column",
@@ -50,13 +20,14 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   },
   item: {
     color: "black",
-    height: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
-  text: {
+  link: {
     marginTop: typography.pxToRem(22),
+    marginBottom: typography.pxToRem(44),
+    display: "block",
   },
   label: {
     color: "black",
@@ -76,9 +47,6 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   },
   input: {
     background: "white",
-  },
-  button: {
-    marginLeft: typography.pxToRem(10),
   },
 }));
 
