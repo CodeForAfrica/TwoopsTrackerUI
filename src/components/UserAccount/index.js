@@ -1,4 +1,11 @@
-import { Typography, Divider, Grid, Button, Avatar } from "@material-ui/core";
+import {
+  Typography,
+  Divider,
+  Grid,
+  Button,
+  Avatar,
+  Link,
+} from "@material-ui/core";
 import { useSession } from "next-auth/react";
 import React from "react";
 
@@ -33,7 +40,14 @@ function UserAccount({ ...props }) {
       </Grid>
       <Divider />
       <div className={classes.buttons}>
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button
+          component={Link}
+          href="/account/update"
+          underline="none"
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
           Edit
         </Button>
         <Button variant="contained" color="primary" className={classes.button}>
