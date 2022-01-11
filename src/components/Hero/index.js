@@ -114,7 +114,7 @@ Hero.propTypes = {
   }),
   description: PropTypes.string,
   title: PropTypes.string,
-  withCTA: PropTypes.string,
+  withCTA: PropTypes.bool,
 };
 
 Hero.defaultProps = {

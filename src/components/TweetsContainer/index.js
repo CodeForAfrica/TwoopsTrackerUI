@@ -172,10 +172,11 @@ function TweetsContainer({
     <>
       <SearchSection
         days={days}
+        location={location}
         onSelection={handleSelection}
         onSaveSearch={handleSaveSearch}
-        location={location}
         onSearch={handleSearch}
+        query={query}
         theme={theme}
         className={classes.root}
       />
