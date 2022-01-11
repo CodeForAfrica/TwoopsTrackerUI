@@ -1,4 +1,4 @@
-import { Button, Typography, TextField, Link } from "@material-ui/core";
+import { Button, Typography, TextField } from "@material-ui/core";
 import { useSession } from "next-auth/react";
 import Router from "next/router";
 import PropTypes from "prop-types";
@@ -83,9 +83,6 @@ function Update({
               autoFocus
               onChange={formChanged}
             />
-            <Link className={classes.link} href={changePasswordLink}>
-              {changePasswordLabel}
-            </Link>
           </form>
           <div>
             <Button
