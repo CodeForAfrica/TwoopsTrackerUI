@@ -4,6 +4,9 @@ import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 export default async function handler(req, res) {
   const session = await getSession({ req });
+  if (!session) {
+    res.status(401).end();
+  }
   if (req.method === "PATCH") {
     const options = {
       method: "PATCH",

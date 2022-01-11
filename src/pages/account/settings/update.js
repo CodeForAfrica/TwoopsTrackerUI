@@ -15,6 +15,14 @@ function Update({ ...props }) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+  if (!(session && session?.user)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+    };
+  }
 
   return {
     props: {

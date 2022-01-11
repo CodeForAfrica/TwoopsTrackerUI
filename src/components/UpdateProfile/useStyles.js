@@ -18,12 +18,6 @@ const useStyles = makeStyles(({ typography }) => ({
     flexDirection: "column",
     alignItems: "center",
   },
-  item: {
-    color: "black",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   link: {
     marginTop: typography.pxToRem(22),
     marginBottom: typography.pxToRem(44),
@@ -38,6 +32,7 @@ const useStyles = makeStyles(({ typography }) => ({
   container: {
     background: "#F7F7F7",
     padding: typography.pxToRem(30),
+    maxWidth: typography.pxToRem(600),
   },
   form: {
     marginTop: typography.pxToRem(40),

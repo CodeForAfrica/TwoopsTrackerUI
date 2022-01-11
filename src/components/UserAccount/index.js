@@ -42,7 +42,7 @@ function UserAccount({ ...props }) {
       <div className={classes.buttons}>
         <Button
           component={Link}
-          href="/account/update"
+          href="/account/settings/update"
           underline="none"
           variant="contained"
           color="primary"
