@@ -14,10 +14,11 @@ import Section from "@/twoopstracker/components/Section";
 function SearchSection({
   category,
   days,
-  onSelection,
   location,
   onSaveSearch,
+  onSelection,
   onSearch,
+  query,
   theme,
   ...props
 }) {
@@ -49,7 +50,11 @@ function SearchSection({
       <Section className={classes.section}>
         <Grid container>
           <Grid item xl={7} xs={12}>
-            <Search onChange={onSelection} onKeyDown={handleKeyDown} />
+            <Search
+              defaultValue={query || undefined}
+              onChange={onSelection}
+              onKeyDown={handleKeyDown}
+            />
           </Grid>
           <Grid item xl={5} xs={12} className={classes.filterSection}>
             <Filter
@@ -170,20 +175,22 @@ function SearchSection({
 SearchSection.propTypes = {
   category: PropTypes.string,
   days: PropTypes.string,
-  onSelection: PropTypes.func,
   location: PropTypes.string,
   onSaveSearch: PropTypes.func,
+  onSelection: PropTypes.func,
   onSearch: PropTypes.func,
+  query: PropTypes.string,
   theme: PropTypes.string,
 };
 
 SearchSection.defaultProps = {
   category: undefined,
   days: undefined,
-  onSelection: undefined,
   location: undefined,
+  onSelection: undefined,
   onSaveSearch: undefined,
   onSearch: undefined,
+  query: undefined,
   theme: undefined,
 };
 
