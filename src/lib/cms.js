@@ -2,6 +2,7 @@ import * as md from "./md";
 
 import aboutContent from "@/cms/pages/about.md";
 import updateProfileContent from "@/cms/pages/account/update.md";
+import updatePasswordContent from "@/cms/pages/account/updatePassword.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
 import lexiconsContent from "@/cms/pages/lexicons.md";
@@ -24,6 +25,10 @@ export function about() {
 
 export function updateProfile() {
   const { attributes } = updateProfileContent;
+  return attributes;
+}
+export function updatePassword() {
+  const { attributes } = updatePasswordContent;
   return attributes;
 }
 

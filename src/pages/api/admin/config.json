@@ -308,6 +308,48 @@
           ]
         },
         {
+          "label": "Update Password",
+          "name": "updatePassword",
+          "file": "content/pages/account/updatePassword.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Description",
+              "name": "firstName",
+              "widget": "string"
+            },
+            {
+              "label": "Password 1 Label",
+              "name": "password1Label",
+              "widget": "string"
+            },
+            {
+              "label": "Password 2 Label",
+              "name": "password2Label",
+              "widget": "string"
+            },
+            {
+              "label": "Success Label",
+              "name": "successLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Error Label",
+              "name": "errorLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Update Label",
+              "name": "updateLabel",
+              "widget": "string"
+            }
+          ]
+        },
+        {
           "label": "Investigations",
           "name": "investigations",
           "file": "content/pages/investigations.md",
