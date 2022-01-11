@@ -39,7 +39,7 @@ function Update({
     event.preventDefault();
 
     try {
-      await fetchJson("/api/update-profile", session, {
+      await fetchJson("/api/user/profile", session, {
         method: "PATCH",
         body: JSON.stringify(form),
       });
