@@ -1,9 +1,11 @@
 import { Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { saveAs } from "file-saver";
+import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
+import SortDown from "@/twoopstracker/assets/icons/sort-down.svg";
 import Section from "@/twoopstracker/components/Section";
 import Sort from "@/twoopstracker/components/Sort";
 import { contentActionsProps } from "@/twoopstracker/config";
@@ -24,6 +26,48 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   label: {
     display: "inline-flex",
     fontFamily: typography.button.fontFamily,
+  },
+  large: {
+    width: 48,
+    height: 48,
+  },
+  menuLinks: {
+    color: "black",
+    "&:hover, &:focus, &:focus-within": {
+      backgroundColor: "transparent",
+      textDecoration: "none",
+      color: "black",
+    },
+    [breakpoints.up("xl")]: {
+      padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
+      color: "black",
+      "&:hover, &:focus, &:focus-within": {
+        color: "black",
+        backgroundColor: "transparent",
+        textDecoration: "none",
+      },
+    },
+  },
+  text: {
+    "&::after": {
+      content: '""',
+      backgroundImage: "none",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      marginLeft: 0,
+      height: 0,
+      width: 0,
+    },
+    "&:hover::after": {
+      content: '""',
+      backgroundImage: "none",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      transition: "margin 0.3s ease",
+      marginLeft: 0,
+      height: 0,
+      width: 0,
+    },
   },
   filterSection: {
     display: "flex",
@@ -105,6 +149,19 @@ function ContentActions({
                 { name: "None", value: "" },
               ]}
               value={location}
+            />
+
+            <Button
+              color="default"
+              variant="text"
+              size="large"
+              classes={{
+                root: classes.menuLinks,
+                text: classes.text,
+              }}
+              startIcon={
+                <Image layout="fill" src={SortDown} className={classes.large} />
+              }
             />
           </Grid>
         </Grid>
