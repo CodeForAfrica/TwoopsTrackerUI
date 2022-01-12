@@ -2,6 +2,8 @@ import jwtDecode from "jwt-decode";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
+import fetchJson from "@/twoopstracker/utils/fetchJson";
+
 // NOTE(kilemensi): There is no point defining this via env vars at the moment
 //                  because for each provider, we'd need to modify code to
 //                  include it in NextAuth.providers
@@ -110,12 +112,18 @@ const options = {
 
     // see: https://next-auth.js.org/configuration/callbacks#session-callback
     async session({ session, token }) {
+      const user = await fetchJson(
+        `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}user`,
+        token
+      );
+      const newToken = token;
+      newToken.user = { ...token.user, ...user };
       if (!(session && token)) {
         return null;
       }
       // anything added to jwt callback i.e in token, need to be explicitly
       // forwarded here
-      return { ...session, ...token };
+      return { ...session, ...newToken };
     },
   },
 
