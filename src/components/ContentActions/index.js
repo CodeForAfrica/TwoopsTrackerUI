@@ -80,8 +80,8 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
 
 function ContentActions({
   location,
+  show,
   onSelection,
-  theme,
   apiUri,
   queryParams,
   type,
@@ -139,6 +139,18 @@ function ContentActions({
 
           <Grid item className={classes.filterSection}>
             <Sort
+              key={show}
+              label="Show:"
+              handleSelection={onSelection}
+              menuItems={[
+                { name: "All", value: "all" },
+                { name: "Interactions", value: "interactions" },
+                { name: "Screen Name", value: "screen_name" },
+              ]}
+              value={show}
+            />
+
+            <Sort
               key={location}
               label="Sort By:"
               handleSelection={onSelection}
@@ -176,18 +188,16 @@ ContentActions.propTypes = {
   type: PropTypes.string,
   onSelection: PropTypes.func,
   location: PropTypes.string,
-  days: PropTypes.string,
-  theme: PropTypes.string,
+  show: PropTypes.string,
 };
 
 ContentActions.defaultProps = {
   apiUri: undefined,
   onSelection: undefined,
-  location: undefined,
   queryParams: undefined,
   type: undefined,
-  days: undefined,
-  theme: undefined,
+  location: undefined,
+  show: undefined,
 };
 
 export default ContentActions;
