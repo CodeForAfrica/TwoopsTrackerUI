@@ -14,8 +14,8 @@ export default async function handler(req, res) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        first_name: req.body.firstName,
-        last_name: req.body.lastName,
+        first_name: JSON.parse(req.body).firstName,
+        last_name: JSON.parse(req.body).lastName,
       }),
     };
     const results = await fetchJson(

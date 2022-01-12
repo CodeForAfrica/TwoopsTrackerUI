@@ -175,6 +175,9 @@ function UserProfile({
       handleClose,
     });
   };
+  const {
+    user: { email, name, image, first_name: firstName, last_name: lastName },
+  } = session;
 
   return (
     <div className={classes.root}>
@@ -223,16 +226,12 @@ function UserProfile({
                 alignItems="center"
                 className={classes.profile}
               >
-                <Avatar
-                  alt={alt}
-                  src={session?.user?.image}
-                  className={classes.large}
-                />
+                <Avatar alt={alt} src={image} className={classes.large} />
                 <Typography variant="body2" className={classes.caption}>
-                  {session?.user?.name}
+                  {firstName && lastName ? `${firstName} ${lastName}` : name}
                 </Typography>
                 <Typography variant="body2" className={classes.caption}>
-                  {session?.user?.email}
+                  {email}
                 </Typography>
               </Grid>
               <Divider />
