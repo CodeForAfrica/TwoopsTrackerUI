@@ -1,127 +1,67 @@
 import {
-  FormControl,
-  MenuItem,
-  Select,
+  Box,
   InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
   Typography,
 } from "@material-ui/core";
-import clsx from "clsx";
-import { uniqueId } from "lodash";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React from "react";
 
 import useStyles from "./useStyles";
 
-function Sort({
-  disabled,
-  label: labelProp,
-  onChange,
-  onOpen,
-  onClose,
-  open,
-  options,
-  selected,
-  placeholder,
-  ...props
-}) {
+const Sort = ({ handleSelection, label, menuItems, value, ...props }) => {
   const classes = useStyles(props);
-  const [value, setValue] = useState();
+
   const handleChange = (event) => {
-    setValue(event.target.value);
-    if (onChange) {
-      onChange(event);
-    }
+    handleSelection({ name: label.toLowerCase(), value: event.target.value });
   };
-  const labelId = labelProp ? uniqueId(`${labelProp}_`) : undefined;
 
   return (
-    <FormControl
-      variant="filled"
-      size="small"
-      disabled={disabled}
-      className={classes.formControl}
-    >
-      {labelId ? (
-        <InputLabel htmlFor={labelId} shrink className={classes.inputLabel}>
-          <Typography variant="caption" className={classes.label}>
-            {labelProp}
-          </Typography>
-        </InputLabel>
-      ) : null}
-      <Select
-        labelId={labelId}
-        displayEmpty
-        disableUnderline
-        onChange={handleChange}
-        onOpen={onOpen}
-        onClose={onClose}
-        open={open}
-        defaultValue={selected || ""}
-        MenuProps={{
-          classes: {
-            paper: classes.paper,
-            list: classes.list,
-          },
-          anchorOrigin: {
-            vertical: "bottom",
-            horizontal: "left",
-          },
-          disableScrollLock: true,
-          transformOrigin: {
-            vertical: "top",
-            horizontal: "left",
-          },
-          getContentAnchorEl: null,
-        }}
-        classes={{
-          root: classes.select,
-          filled: clsx(classes.filled, { [classes.filledPlaceholder]: !value }),
-        }}
-      >
-        {placeholder ? (
-          <MenuItem value="" className={classes.placeholder}>
-            {placeholder}
-          </MenuItem>
-        ) : null}
-        {options?.map((option) => {
-          const optionLabel = option?.label ?? option;
-          const optionValue = option?.value ?? option;
-          const optionDisabled = option?.disabled;
-          return (
-            <MenuItem
-              key={optionValue}
-              disabled={optionDisabled}
-              value={optionValue}
-            >
-              {optionLabel}
-            </MenuItem>
-          );
-        })}
-      </Select>
-    </FormControl>
+    <Box className={classes.box}>
+      <InputLabel id={`${label}-id`} shrink className={classes.inputLabel}>
+        <Typography variant="body1" className={classes.label}>
+          {label}
+        </Typography>
+      </InputLabel>
+
+      <FormControl fullWidth className={classes.form}>
+        <Select
+          labelId={`${label}-id`}
+          value={value}
+          onChange={handleChange}
+          className={classes.select}
+        >
+          {menuItems &&
+            menuItems.map((item) => (
+              <MenuItem key={item.value} value={item.value}>
+                {item.name}
+              </MenuItem>
+            ))}
+        </Select>
+      </FormControl>
+    </Box>
   );
-}
+};
 
 Sort.propTypes = {
-  disabled: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  onChange: PropTypes.func,
-  onOpen: PropTypes.func,
-  onClose: PropTypes.func,
-  open: PropTypes.bool,
-  placeholder: PropTypes.string,
-  selected: PropTypes.string,
+  handleSelection: PropTypes.func,
+  label: PropTypes.string,
+  menuItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    })
+  ),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 Sort.defaultProps = {
-  disabled: undefined,
-  onChange: undefined,
-  onOpen: undefined,
-  onClose: undefined,
-  open: undefined,
-  placeholder: undefined,
-  selected: undefined,
+  handleSelection: undefined,
+  label: undefined,
+  menuItems: undefined,
+  value: undefined,
 };
 
 export default Sort;

@@ -12,6 +12,10 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
       flexDirection: "row",
     },
   },
+  box: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
   container: {
     display: "flex",
     justifyContent: "space-between",

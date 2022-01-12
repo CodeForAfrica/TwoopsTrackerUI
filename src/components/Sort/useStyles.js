@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
+const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {},
   formControl: {
     "& .MuiFilledInput-underline": {
@@ -8,6 +8,10 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
         display: "none",
       },
     },
+  },
+  box: {
+    display: "flex",
+    flexDirection: "row",
   },
   select: {
     height: 0,
@@ -22,7 +26,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     fontSize: typography.caption.fontSize,
     "&:focus": {
       borderRadius: 2,
-      background: palette.background.paper,
+      background: "white",
       borderColor: "none",
     },
     "&::before": {
@@ -33,24 +37,11 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     },
   },
   paper: {},
-
-  list: {
-    paddingTop: 0,
-    paddingBottom: 0,
-    "& li": {
-      fontWeight: 400,
-      paddingTop: 12,
-      paddingBottom: 12,
-    },
-    "& li.Mui-selected": {
-      fontWeight: "bold",
-    },
-  },
-  inputLabel: {
-    marginTop: typography.pxToRem(15),
-  },
   label: {
-    color: "#959696",
+    fontSize: "18px",
+    color: "black",
+    marginRight: typography.pxToRem(3),
+    width: "5rem",
   },
   filled: {},
   filledPlaceholder: {

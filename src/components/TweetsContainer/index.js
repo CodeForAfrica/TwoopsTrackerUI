@@ -90,6 +90,11 @@ function TweetsContainer({
     setStateObject[name](value);
     setPaginating(false);
   };
+  const handleSelectionFilter = ({ name, value }) => {
+    setSearch(true);
+    setStateObject[name](value);
+    setPaginating(true);
+  };
 
   const handleClickPage = (e, value) => {
     setPage(value);
@@ -180,6 +185,8 @@ function TweetsContainer({
           apiUri="/api/tweets"
           queryParams={{ query, theme, location, days }}
           type="tweets"
+          location={location}
+          onSelection={handleSelectionFilter}
         />
       )}
       <Tweets tweets={tweets} />

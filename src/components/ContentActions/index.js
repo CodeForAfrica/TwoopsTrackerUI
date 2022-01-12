@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Section from "@/twoopstracker/components/Section";
-import TweetSort from "@/twoopstracker/components/TweetSort";
+import Sort from "@/twoopstracker/components/Sort";
 import { contentActionsProps } from "@/twoopstracker/config";
 import { tweetsSearchParamFromSearchQuery } from "@/twoopstracker/lib";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
-const useStyles = makeStyles(({ palette, typography }) => ({
+const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   root: {},
   section: {
     borderBottom: "1px solid #00000040",
@@ -25,9 +25,24 @@ const useStyles = makeStyles(({ palette, typography }) => ({
     display: "inline-flex",
     fontFamily: typography.button.fontFamily,
   },
+  filterSection: {
+    display: "flex",
+    flexDirection: "column",
+    [breakpoints.up("md")]: {
+      flexDirection: "row",
+    },
+  },
 }));
 
-function ContentActions({ apiUri, queryParams, type, ...props }) {
+function ContentActions({
+  location,
+  onSelection,
+  theme,
+  apiUri,
+  queryParams,
+  type,
+  ...props
+}) {
   const classes = useStyles(props);
   const { download } = contentActionsProps;
 
@@ -61,7 +76,7 @@ function ContentActions({ apiUri, queryParams, type, ...props }) {
           alignItems="center"
           style={{ padding: "2rem 0rem" }}
         >
-          <Grid item>
+          <Grid item xs={4}>
             <Typography className={classes.label} variant="body2">
               {download.label}
             </Typography>
@@ -77,10 +92,19 @@ function ContentActions({ apiUri, queryParams, type, ...props }) {
               </Button>
             ))}
           </Grid>
-          <Grid item>
-            <TweetSort
-              orderLabel="Sort by: "
-              orderOptions={["Created at", "Deleted at", "Owner screen name"]}
+
+          <Grid item className={classes.filterSection}>
+            <Sort
+              key={location}
+              label="Sort By:"
+              handleSelection={onSelection}
+              menuItems={[
+                { name: "Russia", value: "Russia" },
+                { name: "Jamaica", value: "Jamaica" },
+                { name: "Ghana", value: "Ghana" },
+                { name: "None", value: "" },
+              ]}
+              value={location}
             />
           </Grid>
         </Grid>
@@ -93,12 +117,20 @@ ContentActions.propTypes = {
   apiUri: PropTypes.string,
   queryParams: PropTypes.shape({}),
   type: PropTypes.string,
+  onSelection: PropTypes.func,
+  location: PropTypes.string,
+  days: PropTypes.string,
+  theme: PropTypes.string,
 };
 
 ContentActions.defaultProps = {
   apiUri: undefined,
+  onSelection: undefined,
+  location: undefined,
   queryParams: undefined,
   type: undefined,
+  days: undefined,
+  theme: undefined,
 };
 
 export default ContentActions;
