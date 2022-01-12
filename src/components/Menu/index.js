@@ -118,7 +118,7 @@ function Menu({
       ))}
       {session?.user?.name ? (
         <UserProfile
-          label={session.user.name.split(" ")[0]}
+          label={session.user.first_name || session.user.name.split(" ")[0]}
           alt={session.user.name.toLowerCase()}
           src={session?.user?.image !== "" ? session?.user?.image : userAvator}
           logOutLabel={logOutLabel}
