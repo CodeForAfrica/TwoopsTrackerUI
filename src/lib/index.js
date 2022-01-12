@@ -68,12 +68,16 @@ export async function APIRequest(payload, method, param, session) {
 }
 
 export function tweetsSearchParamFromSearchQuery({
+  // this one
   query,
   location,
   days = 7,
   page,
   pageSize,
   download,
+  createdAt,
+  deletedAt,
+  ownerScreenName,
 }) {
   const searchParams = new URLSearchParams();
   if (query) {
@@ -81,6 +85,15 @@ export function tweetsSearchParamFromSearchQuery({
   }
   if (location) {
     searchParams.append("location", location);
+  }
+  if (createdAt) {
+    searchParams.append("createdAt", createdAt);
+  }
+  if (deletedAt) {
+    searchParams.append("deletedAt", deletedAt);
+  }
+  if (ownerScreenName) {
+    searchParams.append("ownerScreenName", ownerScreenName);
   }
   const date = new Date();
   const endDate = date.toISOString().substr(0, 10);
@@ -110,6 +123,7 @@ export function tweetsUserQuery(requestQuery) {
 }
 
 export function tweetsSearchQueryFromUserQuery(userQuery) {
+  // this one
   const {
     query: term,
     theme,
@@ -118,23 +132,39 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     page,
     pageSize,
     download,
+    createdAt,
+    deletedAt,
+    ownerScreenName,
   } = userQuery;
-  let query = term || theme;
+  let query = term || theme || createdAt || deletedAt || ownerScreenName;
   if (query && theme) {
     query = `(${query} AND ${theme})`;
   }
+
   let days = parseInt(daysAsString, 10) || undefined;
   if (days > 30) {
     days = 30;
   }
-  return { query, location, days, page, pageSize, download };
+  return {
+    query,
+    location,
+    days,
+    createdAt,
+    deletedAt,
+    ownerScreenName,
+    page,
+    pageSize,
+    download,
+  };
 }
 
 export async function tweets(requestQuery = {}, session) {
+  // modify this created _at blah blah
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQuery)
   );
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+
   const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
   return fetchJson(url, session);
 }
