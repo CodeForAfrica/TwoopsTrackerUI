@@ -10,7 +10,7 @@ const useStyles = makeStyles(({ typography, palette }) => ({
     paddingBottom: typography.pxToRem(20),
   },
   orderLabel: {
-    marginRight: typography.pxToRem(40),
+    marginRight: typography.pxToRem(9),
   },
   label: {},
   buttonGroup: {},
@@ -47,25 +47,16 @@ const TweetSort = ({
 
   return (
     <Grid
-      className={classes.root}
+      item
       container
+      direction="row"
       alignItems="center"
-      justify="space-betweeen"
+      justifyContent="flex-end"
     >
-      <Grid
-        item
-        md={6}
-        lg={4}
-        container
-        direction="row"
-        alignItems="center"
-        justifyContent="flex-end"
-      >
-        <Typography className={classes.orderLabel} variant="body2">
-          {orderLabel}
-        </Typography>
-        <Sort onChange={onSort} options={orderOptions} selected={sortOrder} />
-      </Grid>
+      <Typography className={classes.orderLabel} variant="body2">
+        {orderLabel}
+      </Typography>
+      <Sort onChange={onSort} options={orderOptions} selected={sortOrder} />
     </Grid>
   );
 };

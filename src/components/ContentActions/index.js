@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Section from "@/twoopstracker/components/Section";
+import TweetSort from "@/twoopstracker/components/TweetSort";
 import { contentActionsProps } from "@/twoopstracker/config";
 import { tweetsSearchParamFromSearchQuery } from "@/twoopstracker/lib";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
@@ -54,7 +55,12 @@ function ContentActions({ apiUri, queryParams, type, ...props }) {
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
-        <Grid container justifyContent="space-between" alignItems="center">
+        <Grid
+          container
+          justifyContent="space-between"
+          alignItems="center"
+          style={{ padding: "2rem 0rem" }}
+        >
           <Grid item>
             <Typography className={classes.label} variant="body2">
               {download.label}
@@ -70,6 +76,12 @@ function ContentActions({ apiUri, queryParams, type, ...props }) {
                 {name}
               </Button>
             ))}
+          </Grid>
+          <Grid item>
+            <TweetSort
+              orderLabel="Sort by: "
+              orderOptions={["Created at", "Deleted at", "Owner screen name"]}
+            />
           </Grid>
         </Grid>
       </Section>

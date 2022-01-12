@@ -1,9 +1,7 @@
 import {
   FormControl,
-  FormHelperText,
   MenuItem,
   Select,
-  SvgIcon,
   InputLabel,
   Typography,
 } from "@material-ui/core";
@@ -14,15 +12,8 @@ import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
-import { ReactComponent as ExpandMore } from "@/twoopstracker/assets/icons/down-arrow.svg";
-
-function ExpandMoreIcon(props) {
-  return <SvgIcon {...props} component={ExpandMore} />;
-}
-
 function Sort({
   disabled,
-  helperText,
   label: labelProp,
   onChange,
   onOpen,
@@ -50,9 +41,6 @@ function Sort({
       disabled={disabled}
       className={classes.formControl}
     >
-      {helperText ? (
-        <FormHelperText className={classes.helper}>{helperText}</FormHelperText>
-      ) : null}
       {labelId ? (
         <InputLabel htmlFor={labelId} shrink className={classes.inputLabel}>
           <Typography variant="caption" className={classes.label}>
@@ -69,7 +57,6 @@ function Sort({
         onClose={onClose}
         open={open}
         defaultValue={selected || ""}
-        IconComponent={ExpandMoreIcon}
         MenuProps={{
           classes: {
             paper: classes.paper,
@@ -117,7 +104,6 @@ function Sort({
 
 Sort.propTypes = {
   disabled: PropTypes.bool,
-  helperText: PropTypes.string,
   label: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onChange: PropTypes.func,
@@ -130,7 +116,6 @@ Sort.propTypes = {
 
 Sort.defaultProps = {
   disabled: undefined,
-  helperText: undefined,
   onChange: undefined,
   onOpen: undefined,
   onClose: undefined,

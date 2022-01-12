@@ -10,10 +10,11 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     },
   },
   select: {
-    height: "100%",
+    height: 0,
+    minHeight: 0,
     width: typography.pxToRem(135),
-    background: palette.background.paper,
-    borderStyle: "none",
+    background: "white",
+    border: "1px solid #D0D0D0",
     borderRadius: 2,
     paddingLeft: typography.pxToRem(24),
     paddingBottom: typography.pxToRem(15),
@@ -31,16 +32,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
       width: typography.pxToRem(165),
     },
   },
-  paper: {
-    borderBottomLeftRadius: 4,
-    borderBottomRightRadius: 4,
-    backgroundColor: "#F8F8F8",
-    marginTop: typography.pxToRem(5),
-    boxShadow: "none",
-    "&.MuiPaper-rounded": {
-      borderRadius: "0",
-    },
-  },
+  paper: {},
 
   list: {
     paddingTop: 0,
@@ -60,14 +52,6 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
   label: {
     color: "#959696",
   },
-  helper: {
-    fontSize: typography.pxToRem(10),
-    fontWeight: "700",
-    color: "#666666",
-    textTransform: "uppercase",
-    marginLeft: 0,
-    marginBottom: typography.pxToRem(5),
-  },
   filled: {},
   filledPlaceholder: {
     color: "#959696",
@@ -75,7 +59,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
   placeholder: {
     color: "#959696",
     "&.Mui-selected": {
-      display: "none",
+      // display: "none",
     },
   },
 }));
