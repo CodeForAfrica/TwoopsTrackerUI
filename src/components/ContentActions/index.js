@@ -155,10 +155,9 @@ function ContentActions({
               label="Sort By:"
               handleSelection={onSelection}
               menuItems={[
-                { name: "Russia", value: "Russia" },
-                { name: "Jamaica", value: "Jamaica" },
-                { name: "Ghana", value: "Ghana" },
-                { name: "None", value: "" },
+                { name: "Created At", value: "creates_at" },
+                { name: "Deleted At", value: "deleted_at" },
+                { name: "Owner", value: "Owner" },
               ]}
               value={location}
             />
