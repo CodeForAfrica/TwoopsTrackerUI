@@ -1,6 +1,5 @@
 import { Button, Typography, TextField } from "@material-ui/core";
-import { useSession } from "next-auth/react";
-import Router from "next/router";
+import { useSession, signOut } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -15,8 +14,6 @@ function Update({
   password1Label,
   password2Label,
   updateLabel,
-  successLabel,
-  errorLabel,
   ...props
 }) {
   const classes = useStyles(props);
@@ -42,7 +39,7 @@ function Update({
         method: "PATCH",
         body: JSON.stringify(form),
       });
-      Router.push("/account/settings ");
+      signOut();
     } catch (e) {
       // do nothing
     }
@@ -99,10 +96,8 @@ function Update({
 
 Update.propTypes = {
   description: PropTypes.string,
-  errorLabel: PropTypes.string,
   password1Label: PropTypes.string,
   password2Label: PropTypes.string,
-  successLabel: PropTypes.string,
   title: PropTypes.string,
   updateLabel: PropTypes.string,
 };
@@ -110,8 +105,6 @@ Update.propTypes = {
 Update.defaultProps = {
   title: undefined,
   description: PropTypes.string,
-  successLabel: undefined,
-  errorLabel: undefined,
   password1Label: PropTypes.string,
   password2Label: PropTypes.string,
   updateLabel: undefined,

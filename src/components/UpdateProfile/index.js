@@ -16,8 +16,6 @@ function Update({
   changePasswordLabel,
   changePasswordLink,
   updateLabel,
-  successLabel,
-  errorLabel,
   ...props
 }) {
   const classes = useStyles(props);
@@ -104,8 +102,6 @@ Update.propTypes = {
   title: PropTypes.string,
   firstName: PropTypes.string,
   lastName: PropTypes.string,
-  successLabel: PropTypes.string,
-  errorLabel: PropTypes.string,
   changePasswordLabel: PropTypes.string,
   changePasswordLink: PropTypes.string,
   updateLabel: PropTypes.string,
@@ -115,8 +111,6 @@ Update.defaultProps = {
   title: undefined,
   firstName: undefined,
   lastName: undefined,
-  successLabel: undefined,
-  errorLabel: undefined,
   changePasswordLabel: undefined,
   changePasswordLink: undefined,
   updateLabel: undefined,

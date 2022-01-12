@@ -281,16 +281,6 @@
               "widget": "string"
             },
             {
-              "label": "Success Label",
-              "name": "successLabel",
-              "widget": "string"
-            },
-            {
-              "label": "Error Label",
-              "name": "errorLabel",
-              "widget": "string"
-            },
-            {
               "label": "Change Password Label",
               "name": "changePasswordLabel",
               "widget": "string"
@@ -330,16 +320,6 @@
             {
               "label": "Password 2 Label",
               "name": "password2Label",
-              "widget": "string"
-            },
-            {
-              "label": "Success Label",
-              "name": "successLabel",
-              "widget": "string"
-            },
-            {
-              "label": "Error Label",
-              "name": "errorLabel",
               "widget": "string"
             },
             {
