@@ -6,5 +6,5 @@ signUpLink: Sign up now
 href: /signup
 password: Forgot password?
 googleIcon: /images/GoogleIcon.svg
-passwordIcon: /icons/password.svg
+passwordIcon: /images/password.svg
 ---

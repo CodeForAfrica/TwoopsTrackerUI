@@ -13,8 +13,6 @@ import React, { useEffect } from "react";
 
 import useStyles from "./useStyles";
 
-import GoogleIcon from "@/twoopstracker/assets/icons/GoogleIcon.svg";
-import ViewIcon from "@/twoopstracker/assets/icons/password.svg";
 import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
@@ -70,7 +68,7 @@ function Login({
                 className: classes.input,
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Image height={45} width={45} src={ViewIcon} alt="" />
+                    <Image height={45} width={45} src={passwordIcon} alt="" />
                   </InputAdornment>
                 ),
               }}
@@ -112,8 +110,10 @@ function Login({
                     })
                   }
                 >
-                  <Image height={45} width={45} src={GoogleIcon} alt="" />
-                  Sign in with {provider.name}
+                  <Image height={45} width={45} src={googleIcon} alt="" />
+                  <Typography className={classes.signinText}>
+                    Sign in with {provider.name}
+                  </Typography>
                 </Button>
               ))}
           </div>

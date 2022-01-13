@@ -15,10 +15,15 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   loginButton: {
     marginBottom: "1rem",
     marginTop: typography.pxToRem(40),
-    width: "100%",
+    paddingLeft: typography.pxToRem(2),
+    paddingRight: "2rem",
     color: "#4285F4",
     borderRadius: 0,
-
+    "&:hover": {
+      textDecoration: "none",
+      color: "#4285F4",
+      backgroundColor: palette.background.default,
+    },
     backgroundColor: palette.background.default,
     boxShadow: `2px 2px 5px rgba(0, 0, 0, 0.25)`,
     fontWeight: 800,
@@ -27,8 +32,6 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     [breakpoints.up("xl")]: {
       fontSize: typography.subtitle1.fontSize,
       height: "3.5rem",
-      paddingLeft: "2rem",
-      paddingRight: "2rem",
     },
   },
   buttonContainer: {
@@ -72,6 +75,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   form: {
     marginTop: typography.pxToRem(40),
   },
+  signinText: { marginLeft: typography.pxToRem(30), fontWeight: 700 },
   textfield: {
     marginBottom: typography.pxToRem(30),
   },
