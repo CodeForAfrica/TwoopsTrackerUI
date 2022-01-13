@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import SortDown from "@/twoopstracker/assets/icons/sort-down.svg";
+import SortUp from "@/twoopstracker/assets/icons/sort-up.svg";
 import Section from "@/twoopstracker/components/Section";
 import Sort from "@/twoopstracker/components/Sort";
 import { contentActionsProps } from "@/twoopstracker/config";
@@ -79,12 +80,14 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
 }));
 
 function ContentActions({
-  location,
+  value,
   show,
   onSelection,
   apiUri,
   queryParams,
   type,
+  isDesc,
+  toggleIsDesc,
   ...props
 }) {
   const classes = useStyles(props);
@@ -138,7 +141,7 @@ function ContentActions({
           </Grid>
 
           <Grid item className={classes.filterSection}>
-            <Sort
+            {/* <Sort
               key={show}
               label="Show:"
               handleSelection={onSelection}
@@ -148,30 +151,36 @@ function ContentActions({
                 { name: "Screen Name", value: "screen_name" },
               ]}
               value={show}
-            />
+            /> */}
 
             <Sort
-              key={location}
+              key={value}
               label="Sort By:"
+              name="ordering"
               handleSelection={onSelection}
               menuItems={[
-                { name: "Created At", value: "creates_at" },
-                { name: "Deleted At", value: "deleted_at" },
-                { name: "Owner", value: "Owner" },
+                { name: "Created At", value: "createdAt" },
+                { name: "Deleted At", value: "deletedAt" },
+                { name: "Owner Screen Name", value: "ownerScreenName" },
               ]}
-              value={location}
+              value={value}
             />
 
             <Button
               color="default"
               variant="text"
               size="large"
+              onClick={toggleIsDesc}
               classes={{
                 root: classes.menuLinks,
                 text: classes.text,
               }}
               startIcon={
-                <Image layout="fill" src={SortDown} className={classes.large} />
+                <Image
+                  layout="fill"
+                  src={isDesc ? SortDown : SortUp}
+                  className={classes.large}
+                />
               }
             />
           </Grid>
@@ -186,8 +195,10 @@ ContentActions.propTypes = {
   queryParams: PropTypes.shape({}),
   type: PropTypes.string,
   onSelection: PropTypes.func,
-  location: PropTypes.string,
+  value: PropTypes.string,
   show: PropTypes.string,
+  isDesc: PropTypes.bool,
+  toggleIsDesc: PropTypes.bool,
 };
 
 ContentActions.defaultProps = {
@@ -195,8 +206,10 @@ ContentActions.defaultProps = {
   onSelection: undefined,
   queryParams: undefined,
   type: undefined,
-  location: undefined,
+  value: undefined,
   show: undefined,
+  isDesc: undefined,
+  toggleIsDesc: undefined,
 };
 
 export default ContentActions;

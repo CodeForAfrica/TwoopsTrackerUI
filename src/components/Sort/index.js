@@ -11,11 +11,14 @@ import React from "react";
 
 import useStyles from "./useStyles";
 
-const Sort = ({ handleSelection, label, menuItems, value, ...props }) => {
+const Sort = ({ handleSelection, label, name, menuItems, value, ...props }) => {
   const classes = useStyles(props);
 
   const handleChange = (event) => {
-    handleSelection({ name: label.toLowerCase(), value: event.target.value });
+    handleSelection({
+      name: name || label.toLowerCase(),
+      value: event.target.value,
+    });
   };
 
   return (
@@ -47,6 +50,7 @@ const Sort = ({ handleSelection, label, menuItems, value, ...props }) => {
 
 Sort.propTypes = {
   handleSelection: PropTypes.func,
+  name: PropTypes.string,
   label: PropTypes.string,
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
@@ -60,6 +64,7 @@ Sort.propTypes = {
 Sort.defaultProps = {
   handleSelection: undefined,
   label: undefined,
+  name: undefined,
   menuItems: undefined,
   value: undefined,
 };

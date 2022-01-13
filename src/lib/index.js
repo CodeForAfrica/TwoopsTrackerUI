@@ -75,9 +75,7 @@ export function tweetsSearchParamFromSearchQuery({
   page,
   pageSize,
   download,
-  createdAt,
-  deletedAt,
-  ownerScreenName,
+  ordering,
 }) {
   const searchParams = new URLSearchParams();
   if (query) {
@@ -86,14 +84,8 @@ export function tweetsSearchParamFromSearchQuery({
   if (location) {
     searchParams.append("location", location);
   }
-  if (createdAt) {
-    searchParams.append("createdAt", createdAt);
-  }
-  if (deletedAt) {
-    searchParams.append("deletedAt", deletedAt);
-  }
-  if (ownerScreenName) {
-    searchParams.append("ownerScreenName", ownerScreenName);
+  if (ordering) {
+    searchParams.append("ordering", ordering);
   }
   const date = new Date();
   const endDate = date.toISOString().substr(0, 10);
@@ -132,13 +124,11 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     page,
     pageSize,
     download,
-    createdAt,
-    deletedAt,
-    ownerScreenName,
+    ordering,
   } = userQuery;
-  let query = term || theme || createdAt || deletedAt || ownerScreenName;
-  if (query && theme) {
-    query = `(${query} AND ${theme})`;
+  let query = term || theme || ordering;
+  if (query && theme && ordering) {
+    query = `(${query} AND ${theme} AND ${ordering})`;
   }
 
   let days = parseInt(daysAsString, 10) || undefined;
@@ -149,9 +139,7 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     query,
     location,
     days,
-    createdAt,
-    deletedAt,
-    ownerScreenName,
+    ordering,
     page,
     pageSize,
     download,
@@ -159,7 +147,7 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
 }
 
 export async function tweets(requestQuery = {}, session) {
-  // modify this created _at blah blah
+  // modify this to suport created _at, deleted_at, owner screen name,  blah blah
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQuery)
   );

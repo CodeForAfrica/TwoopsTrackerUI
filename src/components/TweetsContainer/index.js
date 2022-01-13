@@ -22,6 +22,7 @@ function TweetsContainer({
   paginationProps,
   query: queryProp,
   theme: themeProp,
+  ordering: orderingProps,
   tweets: tweetsProp,
   ...props
 }) {
@@ -38,6 +39,8 @@ function TweetsContainer({
   const [search, setSearch] = useState(false);
   const [theme, setTheme] = useState(themeProp);
   const [tweets, setTweets] = useState(tweetsProp);
+  const [ordering, setOrdering] = useState(orderingProps);
+  const [isDesc, setIsDesc] = useState(orderingProps);
 
   const setStateObject = {
     days: setDays,
@@ -46,6 +49,8 @@ function TweetsContainer({
     pageSize: setPageSize,
     query: setQuery,
     theme: setTheme,
+    ordering: setOrdering,
+    isDesc: setIsDesc,
   };
 
   // Handle initial query parameters from server (if any)
@@ -74,6 +79,8 @@ function TweetsContainer({
         days,
         page,
         pageSize,
+        ordering,
+        isDesc,
       });
       const { pathname } = router;
       let newPathname = pathname;
@@ -83,7 +90,17 @@ function TweetsContainer({
       router.push(newPathname, newPathname, { shallow: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, theme, location, days, page, pageSize, router.isReady]);
+  }, [
+    query,
+    theme,
+    location,
+    days,
+    page,
+    pageSize,
+    ordering,
+    isDesc,
+    router.isReady,
+  ]);
 
   const handleSelection = ({ name, value }) => {
     setSearch(false);
@@ -116,6 +133,7 @@ function TweetsContainer({
         location,
         days,
         name,
+        ordering,
       }),
     });
   };
@@ -132,6 +150,7 @@ function TweetsContainer({
       days,
       page,
       pageSize,
+      ordering,
     });
     let url = "/api/tweets";
     if (queryString) {
@@ -150,8 +169,13 @@ function TweetsContainer({
     if (paginating || !search) {
       return null;
     }
-
-    const queryString = getQueryString({ query, theme, location, days });
+    const queryString = getQueryString({
+      query,
+      theme,
+      location,
+      days,
+      ordering,
+    });
     let url = "/api/tweets/insights";
     if (queryString) {
       url = `${url}?${queryString}`;
@@ -166,7 +190,9 @@ function TweetsContainer({
     }
   }, [newInsights]);
   const isLoading = isLoadingTweets || isLoadingInsights;
-
+  const toggleIsDesc = () => {
+    setIsDesc((prevState) => !prevState);
+  };
   return (
     <>
       <SearchSection
@@ -183,10 +209,12 @@ function TweetsContainer({
       {tweets?.results?.length > 0 && (
         <ContentActions
           apiUri="/api/tweets"
-          queryParams={{ query, theme, location, days }}
+          queryParams={{ query, theme, location, days, ordering }}
           type="tweets"
-          location={location}
+          value={ordering}
           onSelection={handleSelectionFilter}
+          isDesc={isDesc}
+          toggleIsDesc={toggleIsDesc}
         />
       )}
       <Tweets tweets={tweets} />
@@ -208,6 +236,7 @@ TweetsContainer.propTypes = {
   days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
+  ordering: PropTypes.string,
   page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   paginationProps: PropTypes.shape({}),
@@ -223,6 +252,7 @@ TweetsContainer.defaultProps = {
   days: undefined,
   insights: undefined,
   location: undefined,
+  ordering: undefined,
   page: undefined,
   pageSize: undefined,
   paginationProps: undefined,

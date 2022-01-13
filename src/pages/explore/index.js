@@ -23,6 +23,7 @@ function Explore({
   theme,
   tweets: tweetsProp,
   results,
+  ordering,
   ...props
 }) {
   return (
@@ -39,6 +40,7 @@ function Explore({
           theme={theme}
           tweets={tweetsProp}
           results={results}
+          ordering={ordering}
           {...props}
         />
       </SWRConfig>
@@ -52,6 +54,7 @@ Explore.propTypes = {
   fallback: PropTypes.shape({}),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
+  ordering: PropTypes.string,
   page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   query: PropTypes.string,
@@ -68,6 +71,7 @@ Explore.defaultProps = {
   pageSize: undefined,
   query: undefined,
   theme: undefined,
+  ordering: undefined,
   tweets: undefined,
   results: undefined,
 };
