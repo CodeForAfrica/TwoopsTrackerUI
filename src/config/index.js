@@ -66,7 +66,9 @@ export const navigationArgs = {
 export const login = {
   title: "Welcome back",
   description: "Login to access all the features on TrollTracker",
-  signupPrompt: "New to Trolltracker? Sign up now",
+  signupPrompt: "New to Trolltracker?",
+  signUpLink: "Sign up now",
+  href: "/signup",
   password: "Forgot password?",
 };
 

@@ -15,6 +15,7 @@ import useStyles from "./useStyles";
 
 import GoogleIcon from "@/twoopstracker/assets/icons/GoogleIcon.svg";
 import ViewIcon from "@/twoopstracker/assets/icons/password.svg";
+import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
 function Login({
@@ -23,6 +24,10 @@ function Login({
   description,
   password,
   signupPrompt,
+  signUpLink,
+  href,
+  googleIcon,
+  passwordIcon,
   ...props
 }) {
   const classes = useStyles(props);
@@ -37,48 +42,43 @@ function Login({
   return (
     <Section className={classes.section}>
       <Grid container>
-        <Grid item xs={7} className={classes.container}>
+        <Grid item xs={12} md={7} className={classes.container}>
           <Typography variant="h2">{title}</Typography>
           <Typography className={classes.text}>{description}</Typography>
           <form className={classes.form}>
-            <Grid container>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.textfield}
-                  InputLabelProps={{ className: classes.label }}
-                  InputProps={{ className: classes.input }}
-                  autoComplete="email"
-                  name="email"
-                  variant="outlined"
-                  fullWidth
-                  id="email"
-                  label="Email"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.textfield}
-                  InputLabelProps={{ className: classes.label }}
-                  InputProps={{
-                    className: classes.input,
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <Image height={45} width={45} src={ViewIcon} alt="" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-              </Grid>
-            </Grid>
+            <TextField
+              className={classes.textfield}
+              InputLabelProps={{ className: classes.label }}
+              InputProps={{ className: classes.input }}
+              autoComplete="email"
+              name="email"
+              variant="outlined"
+              fullWidth
+              id="email"
+              label="Email"
+              autoFocus
+            />
+
+            <TextField
+              className={classes.textfield}
+              InputLabelProps={{ className: classes.label }}
+              InputProps={{
+                className: classes.input,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Image height={45} width={45} src={ViewIcon} alt="" />
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
           </form>
           <div>
             <Button
@@ -86,14 +86,7 @@ function Login({
               variant="contained"
               color="primary"
             >
-              Edit
-            </Button>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-            >
-              Delete
+              Login
             </Button>
           </div>
           <div className={classes.buttonContainer}>
@@ -120,8 +113,10 @@ function Login({
                 </Button>
               ))}
           </div>
-          <Typography className={classes.text}>{password}</Typography>
-          <Typography className={classes.text}>{signupPrompt}</Typography>
+          <Button classes={{ text: classes.passwordText }}>{password}</Button>
+          <Typography className={classes.text}>
+            {signupPrompt} <Link href={href}>{signUpLink}</Link>
+          </Typography>
         </Grid>
       </Grid>
     </Section>
@@ -134,6 +129,10 @@ Login.propTypes = {
   description: PropTypes.string,
   password: PropTypes.string,
   signupPrompt: PropTypes.string,
+  href: PropTypes.string,
+  signUpLink: PropTypes.string,
+  googleIcon: PropTypes.string,
+  passwordIcon: PropTypes.string,
 };
 
 Login.defaultProps = {
@@ -142,6 +141,10 @@ Login.defaultProps = {
   password: undefined,
   description: undefined,
   signupPrompt: undefined,
+  href: undefined,
+  signUpLink: undefined,
+  googleIcon: undefined,
+  passwordIcon: undefined,
 };
 
 export default Login;

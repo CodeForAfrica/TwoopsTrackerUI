@@ -1,6 +1,7 @@
 import * as md from "./md";
 
 import aboutContent from "@/cms/pages/about.md";
+import loginContent from "@/cms/pages/auth/login.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
 import lexiconsContent from "@/cms/pages/lexicons.md";
@@ -73,6 +74,11 @@ export function home() {
     attributes.investigations.cta = null;
   }
 
+  return attributes;
+}
+
+export function login() {
+  const { attributes } = loginContent;
   return attributes;
 }
 

@@ -33,9 +33,8 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   },
   buttonContainer: {
     paddingTop: "1rem",
-    width: "400px",
-    [breakpoints.between("xs", "xs")]: {
-      width: "95vw",
+    [breakpoints.up("md")]: {
+      width: "400px",
     },
     "& .MuiLink-underlineHover": {
       "&:hover": {
@@ -43,6 +42,8 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
       },
     },
   },
+  passwordButton: {},
+  passwordText: { paddingLeft: 0 },
   formStyles: {
     display: "flex",
     flexDirection: "column",
