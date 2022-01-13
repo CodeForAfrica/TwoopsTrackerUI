@@ -20,10 +20,10 @@ function Login({
   providers: providersProp,
   title,
   description,
-  password,
+  passwordPrompt,
   signupPrompt,
   signUpLink,
-  href,
+  signUpText,
   googleIcon,
   passwordIcon,
   ...props
@@ -81,8 +81,6 @@ function Login({
               id="password"
               autoComplete="current-password"
             />
-          </form>
-          <div>
             <Button
               className={classes.button}
               variant="contained"
@@ -90,7 +88,7 @@ function Login({
             >
               Login
             </Button>
-          </div>
+          </form>
           <div className={classes.buttonContainer}>
             {!session &&
               providers &&
@@ -117,9 +115,11 @@ function Login({
                 </Button>
               ))}
           </div>
-          <Button classes={{ text: classes.passwordText }}>{password}</Button>
+          <Button classes={{ text: classes.passwordText }}>
+            {passwordPrompt}
+          </Button>
           <Typography className={classes.text}>
-            {signupPrompt} <Link href={href}>{signUpLink}</Link>
+            {signupPrompt} <Link href={signUpLink}>{signUpText}</Link>
           </Typography>
         </Grid>
       </Grid>
@@ -131,9 +131,9 @@ Login.propTypes = {
   providers: PropTypes.shape({}),
   title: PropTypes.string,
   description: PropTypes.string,
-  password: PropTypes.string,
+  passwordPrompt: PropTypes.string,
   signupPrompt: PropTypes.string,
-  href: PropTypes.string,
+  signUpText: PropTypes.string,
   signUpLink: PropTypes.string,
   googleIcon: PropTypes.string,
   passwordIcon: PropTypes.string,
@@ -142,11 +142,11 @@ Login.propTypes = {
 Login.defaultProps = {
   providers: undefined,
   title: undefined,
-  password: undefined,
+  passwordPrompt: undefined,
   description: undefined,
   signupPrompt: undefined,
-  href: undefined,
   signUpLink: undefined,
+  signUpText: undefined,
   googleIcon: undefined,
   passwordIcon: undefined,
 };
