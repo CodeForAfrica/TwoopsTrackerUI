@@ -63,6 +63,15 @@ export const navigationArgs = {
   },
 };
 
+export const login = {
+  title: "Welcome back",
+  description: "Login to access all the features on TrollTracker",
+  signupPrompt: "New to Trolltracker?",
+  signUpLink: "Sign up now",
+  href: "/signup",
+  password: "Forgot password?",
+};
+
 export const searches = [
   {
     name: "Search name",

@@ -4,12 +4,12 @@ import React from "react";
 
 import Login from "@/twoopstracker/components/LoginForm";
 import Page from "@/twoopstracker/components/Page";
-import { settings } from "@/twoopstracker/lib/cms";
+import { settings, login } from "@/twoopstracker/lib/cms";
 
-function SignIn({ providers, ...props }) {
+function SignIn({ providers: providersProp, ...props }) {
   return (
     <Page {...props}>
-      <Login providers={providers} />
+      <Login providers={providersProp} {...props} />
     </Page>
   );
 }
@@ -34,9 +34,9 @@ export async function getServerSideProps(context) {
   return {
     props: {
       ...settings(),
+      ...login(),
       providers,
       session,
-      title: "Sign in",
     },
   };
 }
