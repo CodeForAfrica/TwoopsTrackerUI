@@ -56,8 +56,13 @@ function Login({
           <form className={classes.form}>
             <TextField
               className={classes.textfield}
-              InputLabelProps={{ className: classes.label, shrink: false }}
-              InputProps={{ className: classes.input }}
+              InputLabelProps={{
+                className: classes.label,
+                shrink: false,
+              }}
+              InputProps={{
+                className: classes.input,
+              }}
               autoComplete="email"
               name="email"
               variant="outlined"
@@ -65,6 +70,7 @@ function Login({
               id="email"
               label="Email"
               autoFocus
+              color="secondary"
             />
 
             <TextField
@@ -91,6 +97,7 @@ function Login({
               type={isPassword ? "password" : "text"}
               id="password"
               autoComplete="current-password"
+              color="secondary"
             />
             <Button
               className={classes.button}

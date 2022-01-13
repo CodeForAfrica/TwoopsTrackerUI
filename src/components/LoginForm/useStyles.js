@@ -70,15 +70,8 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     position: "relative",
     top: -20,
     transform: "none",
-    "&.Mui-focused": {
-      color: "black",
-    },
-    "&.MuiOutlinedInput-root": {
-      "&.Mui-focused": {
-        borderColor: "blue",
-      },
-    },
   },
+
   container: {
     background: "#F7F7F7",
     padding: typography.pxToRem(30),
