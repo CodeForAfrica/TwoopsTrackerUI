@@ -9,7 +9,7 @@ import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import useStyles from "./useStyles";
 
@@ -31,6 +31,12 @@ function Login({
   const classes = useStyles(props);
   const { data: session } = useSession();
 
+  const [isPassword, setIsPassword] = useState(true);
+
+  const togglePasswordType = () => {
+    setIsPassword(!isPassword);
+  };
+
   useEffect(() => {
     if (session) {
       Router.push("/explore");
@@ -50,7 +56,7 @@ function Login({
           <form className={classes.form}>
             <TextField
               className={classes.textfield}
-              InputLabelProps={{ className: classes.label }}
+              InputLabelProps={{ className: classes.label, shrink: false }}
               InputProps={{ className: classes.input }}
               autoComplete="email"
               name="email"
@@ -63,12 +69,17 @@ function Login({
 
             <TextField
               className={classes.textfield}
-              InputLabelProps={{ className: classes.label }}
+              InputLabelProps={{ className: classes.label, shrink: false }}
               InputProps={{
                 className: classes.input,
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Image height={45} width={45} src={passwordIcon} alt="" />
+                    <Button
+                      className={classes.passwordButton}
+                      onClick={() => togglePasswordType()}
+                    >
+                      <Image height={45} width={45} src={passwordIcon} alt="" />
+                    </Button>
                   </InputAdornment>
                 ),
               }}
@@ -77,7 +88,7 @@ function Login({
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={isPassword ? "password" : "text"}
               id="password"
               autoComplete="current-password"
             />
