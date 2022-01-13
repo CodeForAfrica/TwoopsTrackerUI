@@ -264,7 +264,7 @@ function MobileNavigation({
 }
 
 MobileNavigation.propTypes = {
-  logOutLabel: PropTypes.arrayOf(PropTypes.shape({})),
+  logOutLabel: PropTypes.string,
   profilePages: PropTypes.arrayOf(PropTypes.shape({})),
   accountLink: PropTypes.arrayOf(PropTypes.shape({})),
   login: PropTypes.arrayOf(PropTypes.shape({})),

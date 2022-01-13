@@ -7,7 +7,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <SearchResults {...args} />;
+function Template(args) {
+  return <SearchResults {...args} />;
+}
 
 export const Default = Template.bind({});
 

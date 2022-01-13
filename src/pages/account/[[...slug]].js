@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React from "react";
 

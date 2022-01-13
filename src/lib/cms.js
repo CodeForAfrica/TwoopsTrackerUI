@@ -1,6 +1,7 @@
 import * as md from "./md";
 
 import aboutContent from "@/cms/pages/about.md";
+import updateProfileContent from "@/cms/pages/account/update.md";
 import loginContent from "@/cms/pages/auth/login.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
@@ -8,7 +9,7 @@ import lexiconsContent from "@/cms/pages/lexicons.md";
 import footerContent from "@/cms/settings/footer.md";
 import navigationContent from "@/cms/settings/navigation.md";
 
-export function about() {
+function processAboutContent() {
   const { attributes } = aboutContent;
   attributes.partners =
     attributes.partners
@@ -18,11 +19,20 @@ export function about() {
         ...others,
       }))
       ?.map((partner) => md.renderObjectValuesInline(partner)) ?? null;
+}
+processAboutContent();
 
+export function about() {
+  const { attributes } = aboutContent;
   return attributes;
 }
 
-export function investigations() {
+export function updateProfile() {
+  const { attributes } = updateProfileContent;
+  return attributes;
+}
+
+function processInvestigationsContent() {
   const { attributes } = investigationsContent;
   attributes.reports =
     attributes.reports
@@ -34,11 +44,15 @@ export function investigations() {
         ...others,
       }))
       ?.map((i) => md.renderObjectValuesInline(i)) ?? null;
+}
+processInvestigationsContent();
 
+export function investigations() {
+  const { attributes } = investigationsContent;
   return attributes;
 }
 
-export function home() {
+function processHomeContent() {
   const { attributes } = homeContent;
   if (attributes.tool) {
     const { cta: buttonText, thumbnail: image, ...others } = attributes.tool;
@@ -73,16 +87,15 @@ export function home() {
       attributes.investigations.cta || null;
     attributes.investigations.cta = null;
   }
+}
+processHomeContent();
 
+export function home() {
+  const { attributes } = homeContent;
   return attributes;
 }
 
-export function login() {
-  const { attributes } = loginContent;
-  return attributes;
-}
-
-export function lexicons() {
+function processLexiconsContent() {
   const { attributes } = lexiconsContent;
   attributes.resouces =
     attributes.resouces
@@ -93,11 +106,15 @@ export function lexicons() {
         ...others,
       }))
       ?.map((resource) => md.renderObjectValuesInline(resource)) ?? null;
+}
+processLexiconsContent();
 
+export function lexicons() {
+  const { attributes } = lexiconsContent;
   return attributes;
 }
 
-export function footer() {
+function processFooterContent() {
   const { attributes } = footerContent;
   const {
     description,
@@ -129,10 +146,20 @@ export function footer() {
 
   return attributes;
 }
+processFooterContent();
+
+export function footer() {
+  const { attributes } = footerContent;
+  return attributes;
+}
+
+export function login() {
+  const { attributes } = loginContent;
+  return attributes;
+}
 
 export function navigation() {
   const { attributes } = navigationContent;
-
   return attributes;
 }
 

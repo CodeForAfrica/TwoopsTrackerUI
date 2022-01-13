@@ -1,5 +1,5 @@
 import { Button, Grid } from "@material-ui/core";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -11,19 +11,20 @@ import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
 import Search from "@/twoopstracker/components/Search";
 import Section from "@/twoopstracker/components/Section";
 
-const SearchSection = ({
+function SearchSection({
   category,
   days,
-  onSelection,
   location,
   onSaveSearch,
+  onSelection,
   onSearch,
+  query,
   theme,
   ...props
-}) => {
+}) {
   const classes = useStyles(props);
   const [open, setOpen] = useState(false);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   const handleClickSaveSearch = () => {
     setOpen(true);
@@ -49,7 +50,11 @@ const SearchSection = ({
       <Section className={classes.section}>
         <Grid container>
           <Grid item xl={7} xs={12}>
-            <Search onChange={onSelection} onKeyDown={handleKeyDown} />
+            <Search
+              defaultValue={query || undefined}
+              onChange={onSelection}
+              onKeyDown={handleKeyDown}
+            />
           </Grid>
           <Grid item xl={5} xs={12} className={classes.filterSection}>
             <Filter
@@ -165,25 +170,27 @@ const SearchSection = ({
       />
     </div>
   );
-};
+}
 
 SearchSection.propTypes = {
   category: PropTypes.string,
   days: PropTypes.string,
-  onSelection: PropTypes.func,
   location: PropTypes.string,
   onSaveSearch: PropTypes.func,
+  onSelection: PropTypes.func,
   onSearch: PropTypes.func,
+  query: PropTypes.string,
   theme: PropTypes.string,
 };
 
 SearchSection.defaultProps = {
   category: undefined,
   days: undefined,
-  onSelection: undefined,
   location: undefined,
+  onSelection: undefined,
   onSaveSearch: undefined,
   onSearch: undefined,
+  query: undefined,
   theme: undefined,
 };
 

@@ -2,7 +2,7 @@ import { RichTypography } from "@commons-ui/core";
 import { Button, Grid, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import { format, formatDistanceStrict, formatDistance } from "date-fns";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -14,7 +14,7 @@ import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 import AddToList from "@/twoopstracker/components/AddToList";
 import Link from "@/twoopstracker/components/Link";
 
-const TweetCard = ({
+function TweetCard({
   owner,
   onClick,
   deleted,
@@ -27,17 +27,17 @@ const TweetCard = ({
   results,
   tweet_id: tweetId,
   ...props
-}) => {
+}) {
   const classes = useStyles(props);
   const [expanded, setExpanded] = useState(false);
 
+  const { data: session } = useSession();
   const {
     name,
     screen_name: screenName,
     protected: accountStatus,
     profile_image_url: profileImage,
   } = owner;
-  const [session] = useSession();
   const username = name;
   const handle = screenName?.replace(/\s/g, "");
   const accountType = accountStatus ? "Private" : "Public";
@@ -143,7 +143,7 @@ const TweetCard = ({
       )}
     </div>
   );
-};
+}
 
 TweetCard.propTypes = {
   owner: PropTypes.shape({

@@ -4,7 +4,7 @@ import React from "react";
 
 import useStyles from "./useStyles";
 
-const Search = ({ name, onChange, placeholder, ...props }) => {
+function Search({ name, onChange, placeholder, ...props }) {
   const classes = useStyles(props);
 
   const handleChange = (event) => {
@@ -24,7 +24,7 @@ const Search = ({ name, onChange, placeholder, ...props }) => {
       }}
     />
   );
-};
+}
 
 Search.propTypes = {
   name: PropTypes.string,

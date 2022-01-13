@@ -7,7 +7,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <TweetCard {...args} />;
+function Template(args) {
+  return <TweetCard {...args} />;
+}
 
 export const Default = Template.bind({});
 

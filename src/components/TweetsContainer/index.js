@@ -172,10 +172,11 @@ function TweetsContainer({
     <>
       <SearchSection
         days={days}
+        location={location}
         onSelection={handleSelection}
         onSaveSearch={handleSaveSearch}
-        location={location}
         onSearch={handleSearch}
+        query={query}
         theme={theme}
         className={classes.root}
       />
@@ -193,7 +194,7 @@ function TweetsContainer({
       {tweets?.results?.length > 0 && (
         <Pagination
           {...paginationProps}
-          count={Math.ceil(tweets?.count / (pageSize || 20))}
+          count={Math.ceil((tweets?.count ?? 0) / (pageSize || 20))}
           onChangePage={handleClickPage}
           onChangePageSize={handleClickPageSize}
           page={page}

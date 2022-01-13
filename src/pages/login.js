@@ -1,4 +1,4 @@
-import { getProviders } from "next-auth/client";
+import { getProviders, getSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -27,14 +27,16 @@ SignIn.defaultProps = {
  *                   calls /api/providers, which is not available during build
  *                   time and hence we can't use it here.
  */
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const providers = await getProviders();
+  const session = await getSession(context);
 
   return {
     props: {
       ...settings(),
       ...login(),
       providers,
+      session,
     },
   };
 }

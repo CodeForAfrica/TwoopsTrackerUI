@@ -5,7 +5,7 @@ import {
   TextField,
   InputAdornment,
 } from "@material-ui/core";
-import { useSession, signIn } from "next-auth/client";
+import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
@@ -19,7 +19,7 @@ import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
 function Login({
-  providers,
+  providers: providersProp,
   title,
   description,
   password,
@@ -31,7 +31,7 @@ function Login({
   ...props
 }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (session) {
@@ -39,6 +39,10 @@ function Login({
     }
   }, [session]);
 
+  const providers = Object.values(providersProp ?? {});
+  if (!providers?.length) {
+    return null;
+  }
   return (
     <Section className={classes.section}>
       <Grid container>
