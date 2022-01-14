@@ -16,7 +16,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <ExploreTool {...args} />;
+function Template(args) {
+  return <ExploreTool {...args} />;
+}
 
 export const Default = Template.bind({});
 

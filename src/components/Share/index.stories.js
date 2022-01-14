@@ -7,7 +7,9 @@ export default {
   argTypes: {},
 };
 
-const Template = () => <Share />;
+function Template() {
+  return <Share />;
+}
 
 export const Default = Template.bind({});
 

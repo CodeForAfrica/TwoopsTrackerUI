@@ -1,4 +1,4 @@
-import { Button, Typography, Grid } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
@@ -99,9 +99,9 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
     <div className={classes.root}>
       <div className={classes.section}>
         <Typography variant="h2">Your Lists</Typography>
-        <Button variant="contained" color="primary" onClick={handleOpen}>
+        <Typography onClick={handleOpen} className={classes.create}>
           Create New List
-        </Button>
+        </Typography>
         <ListModal
           open={open}
           onClose={handleClose}
@@ -140,7 +140,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
           </Grid>
           <Pagination
             {...paginationProps}
-            count={Math.ceil(data?.count / (pageSize || 10))}
+            count={Math.ceil((data?.count ?? 0) / (pageSize || 10))}
             onChangePage={handleClickPage}
             onChangePageSize={handleClickPageSize}
             page={page}

@@ -1,24 +1,24 @@
-import { Grid, Typography, Button } from "@material-ui/core";
-import Image from "next/image";
+import { Grid, Typography, Button, Avatar } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
-import UserIcon from "@/twoopstracker/assets/icons/user.svg";
+import Link from "@/twoopstracker/components/Link";
 import ListModal from "@/twoopstracker/components/ListModal";
 
-const Account = ({
+function Account({
   account: {
     name,
     screen_name: screenName,
     created_at: createdAt,
     protected: accountType,
+    profile_image_url: image,
   },
   items,
   onDelete,
   ...props
-}) => {
+}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -41,17 +41,19 @@ const Account = ({
       <Grid container>
         <Grid item lg={1}>
           <div className={classes.icon}>
-            <Image layout="fill" src={UserIcon} />
+            <Avatar src={image} className={classes.avatar} />
           </div>
         </Grid>
         <Grid item lg={5} sm={12} className={classes.detailSection}>
-          <Typography className={classes.username}>
+          <Typography className={classes.username} variant="h4">
             {name || "Username Username"}
           </Typography>
           {screenName && (
-            <Typography
-              className={classes.handle}
-            >{`@${screenName}`}</Typography>
+            <Link href={`https://twitter.com/${screenName}`}>
+              <Typography
+                className={classes.handle}
+              >{`@${screenName}`}</Typography>
+            </Link>
           )}
           {accountType && (
             <Typography className={classes.accountType}>
@@ -85,13 +87,14 @@ const Account = ({
       </Grid>
     </div>
   );
-};
+}
 
 Account.propTypes = {
   account: PropTypes.shape({
     name: PropTypes.string,
     screen_name: PropTypes.string,
     created_at: PropTypes.string,
+    profile_image_url: PropTypes.string,
     protected: PropTypes.bool,
   }),
   items: PropTypes.number,

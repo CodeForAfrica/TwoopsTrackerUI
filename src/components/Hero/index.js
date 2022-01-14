@@ -1,6 +1,6 @@
 import { RichTypography } from "@commons-ui/core";
 import { Button, makeStyles, Typography } from "@material-ui/core";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -42,6 +42,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
     marginTop: typography.pxToRem(40),
     [breakpoints.up("xl")]: {
       marginTop: typography.pxToRem(90),
+      width: typography.pxToRem(966),
     },
   },
   section: {
@@ -56,7 +57,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
 
 function Hero({ ctas, description, title, withCTA, ...props }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   return (
     <div className={classes.root}>
@@ -113,7 +114,7 @@ Hero.propTypes = {
   }),
   description: PropTypes.string,
   title: PropTypes.string,
-  withCTA: PropTypes.string,
+  withCTA: PropTypes.bool,
 };
 
 Hero.defaultProps = {

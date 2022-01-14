@@ -38,7 +38,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Chart {...args} />;
+function Template(args) {
+  return <Chart {...args} />;
+}
 
 export const Default = Template.bind({});
 

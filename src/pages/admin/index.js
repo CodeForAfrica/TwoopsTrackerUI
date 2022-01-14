@@ -14,6 +14,7 @@ function AdminPage(props) {
         <link
           href="/api/admin/config.yml"
           type="text/yaml"
+          // eslint-disable-next-line react/no-invalid-html-attribute
           rel="cms-config-url"
         />
       </Head>

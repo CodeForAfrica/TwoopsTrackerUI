@@ -6,16 +6,18 @@ import useSWR from "swr";
 import useStyles from "./useStyles";
 
 import Account from "@/twoopstracker/components/Account";
+import ContentActions from "@/twoopstracker/components/ContentActions";
 import ListModal from "@/twoopstracker/components/ListModal";
 import Pagination from "@/twoopstracker/components/Pagination";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-const AccountsList = ({
+function AccountsList({
   apiUrl,
   editable,
   paginationProps,
   data: {
+    id,
     page: pageProp,
     pageSize: pageSizeProp,
     name,
@@ -24,7 +26,7 @@ const AccountsList = ({
     is_private: isPrivate,
   },
   ...props
-}) => {
+}) {
   const classes = useStyles(props);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -113,6 +115,11 @@ const AccountsList = ({
           </Button>
         )}
       </div>
+      <ContentActions
+        apiUri={`/api/lists/${id}`}
+        classes={{ section: classes.actions }}
+        type="lists"
+      />
       <ListModal
         open={open}
         onClose={handleClose}
@@ -122,14 +129,16 @@ const AccountsList = ({
         buttonLabel="Add"
         buttonOnClick={handleCreate}
       />
-      {listAccounts?.map((account) => (
-        <Account
-          key={account.screen_name}
-          account={account}
-          items={listAccounts.length}
-          onDelete={editable ? handleDelete : null}
-        />
-      ))}
+      {listAccounts?.map((account) => {
+        return (
+          <Account
+            key={account.screen_name}
+            account={account}
+            items={listAccounts.length}
+            onDelete={editable ? handleDelete : null}
+          />
+        );
+      })}
       <Pagination
         {...paginationProps}
         count={Math.ceil(count / (pageSize || 20))}
@@ -140,7 +149,7 @@ const AccountsList = ({
       />
     </Section>
   );
-};
+}
 
 AccountsList.propTypes = {
   apiUrl: PropTypes.string,

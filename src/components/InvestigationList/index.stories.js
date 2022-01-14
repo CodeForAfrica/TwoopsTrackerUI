@@ -8,7 +8,9 @@ export default {
   title: "Sections/InvestigationList",
 };
 
-const Template = (args) => <InvestigationList {...args} />;
+function Template(args) {
+  return <InvestigationList {...args} />;
+}
 
 export const Default = Template.bind({});
 

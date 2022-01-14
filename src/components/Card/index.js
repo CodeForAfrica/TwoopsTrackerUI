@@ -8,7 +8,7 @@ import CardContent from "./Content";
 import CardMedia from "./Media";
 import useStyles from "./useStyles";
 
-const Card = ({
+function Card({
   children,
   className,
   ctaText,
@@ -24,7 +24,7 @@ const Card = ({
   title,
   titleProps,
   ...props
-}) => {
+}) {
   const classes = useStyles({ ...props });
   const actionAreaProps = { href, onClick };
   const contentProps = {
@@ -66,7 +66,7 @@ const Card = ({
       </CardActionArea>
     </MuiCard>
   );
-};
+}
 
 Card.propTypes = {
   children: PropTypes.node,

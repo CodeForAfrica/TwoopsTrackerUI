@@ -1,10 +1,11 @@
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
 import { pagination } from "@/twoopstracker/config";
 import { allAccounts } from "@/twoopstracker/lib";
+import { settings } from "@/twoopstracker/lib/cms";
 
 export default function Index(props) {
   return (
@@ -32,5 +33,11 @@ export async function getServerSideProps(context) {
   data.accounts = data?.results;
   delete data.results;
   // Pass data to the page via props
-  return { props: { data, session } };
+  return {
+    props: {
+      ...settings(),
+      data,
+      session,
+    },
+  };
 }

@@ -10,7 +10,7 @@ import React from "react";
 
 import useStyles from "./useStyles";
 
-const Filter = ({ handleSelection, label, menuItems, value, ...props }) => {
+function Filter({ handleSelection, label, menuItems, value, ...props }) {
   const classes = useStyles(props);
 
   const handleChange = (event) => {
@@ -39,7 +39,7 @@ const Filter = ({ handleSelection, label, menuItems, value, ...props }) => {
       </FormControl>
     </Box>
   );
-};
+}
 
 Filter.propTypes = {
   handleSelection: PropTypes.func,

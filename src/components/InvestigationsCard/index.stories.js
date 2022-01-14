@@ -33,7 +33,9 @@ export default {
   },
 };
 
-const Template = (args) => <InvestigationsCard {...args} />;
+function Template(args) {
+  return <InvestigationsCard {...args} />;
+}
 
 export const Default = Template.bind({});
 

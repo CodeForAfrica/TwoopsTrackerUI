@@ -20,17 +20,20 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     color: palette.text.primary,
   },
   text: {
-    fontFamily: typography.h4.fontFamily,
     paddingTop: typography.pxToRem(7),
   },
   date: {
-    fontFamily: typography.h4.fontFamily,
-    marginBottom: typography.pxToRem(30),
+    marginBottom: typography.pxToRem(20),
   },
   grid: {
     [breakpoints.up("xl")]: {
       justifyContent: "flex-end",
       alignItems: "flex-end",
+    },
+  },
+  title: {
+    "&:hover": {
+      color: palette.primary.main,
     },
   },
 }));
@@ -129,6 +132,7 @@ function UserSearchCard({
             component={Link}
             href={searchUrl()}
             underline="none"
+            color="secondary"
             className={classes.title}
           >
             {name}

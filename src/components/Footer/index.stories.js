@@ -22,31 +22,31 @@ const QUICK_LINKS = [
 
 const socialMedia = [
   {
-    url: "https://www.instagram.com/code4africa__/",
+    url: "https://twitter.com/Code4Africa",
     image: {
-      url: "/images/white-icon-insta.svg",
-      alt: "Instagram",
+      url: "/images/twitter-footer.svg",
+      alt: "Twitter",
+    },
+  },
+  {
+    url: "https://linkedin.com/codeforafrica",
+    image: {
+      url: "images/linkedin-footer.svg",
+      alt: "LinkedIn",
     },
   },
   {
     url: "https://www.facebook.com/CodeForAfrica/",
     image: {
-      url: "/images/white-icon-fb.svg",
+      url: "images/facebook-footer.svg",
       alt: "Facebook",
     },
   },
   {
-    url: "https://twitter.com/Code4Africa",
+    url: "https://www.instagram.com/code4africa__/",
     image: {
-      url: "/images/white-icon-twitter.svg",
-      alt: "Twitter",
-    },
-  },
-  {
-    url: "https://github.com/codeforafrica",
-    image: {
-      url: "/images/white-icon-linkedin.svg",
-      alt: "LinkedIn",
+      url: "/images/instagram-footer.svg",
+      alt: "Instagram",
     },
   },
 ];
@@ -54,10 +54,9 @@ const socialMedia = [
 const footerArgs = {
   project: {
     description:
-      "This site is an openAFRICA project of Code for Africa.\n" +
-      "        All content is released under a Creative Commons 4 Attribution Licence. \n" +
-      "        Reuse it to help empower your own community.\n" +
-      "        The code is available on GitHub and data is available on openAFRICA.\n",
+      "This site is a project of Code for Africa, the continent’s largest network of civic \n" +
+      "        technology and data journalism labs. All content is released under a Creative \n" +
+      "        Commons 4 Attribution Licence. Reuse it to help empower your own community\n",
     logoProps: {
       src: "/images/group-4426.svg",
       alt: "Code for Africa",
@@ -65,7 +64,7 @@ const footerArgs = {
     },
   },
   contacts: {
-    title: "Stay in touch with us",
+    title: "STAY IN TOUCH",
     socialMedia,
   },
   quickLinks: QUICK_LINKS,
@@ -119,7 +118,9 @@ export default {
   },
 };
 
-const Template = ({ ...args }) => <Footer {...args} />;
+function Template({ ...args }) {
+  return <Footer {...args} />;
+}
 
 export const Default = Template.bind({});
 

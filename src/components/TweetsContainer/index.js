@@ -9,11 +9,13 @@ import Chart from "@/twoopstracker/components/Chart";
 import ContentActions from "@/twoopstracker/components/ContentActions";
 import Loading from "@/twoopstracker/components/Loading";
 import Pagination from "@/twoopstracker/components/Pagination";
+import SearchResults from "@/twoopstracker/components/SearchResults";
 import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 function TweetsContainer({
+  category: categoryProp,
   days: daysProp,
   insights: insightsProp,
   location: locationProp,
@@ -30,6 +32,7 @@ function TweetsContainer({
 
   const router = useRouter();
   const [days, setDays] = useState(daysProp);
+  const [category, setCategory] = useState(categoryProp);
   const [insights, setInsights] = useState(insightsProp);
   const [location, setLocation] = useState(locationProp);
   const [page, setPage] = useState(pageProp);
@@ -43,6 +46,7 @@ function TweetsContainer({
   const [isDesc, setIsDesc] = useState(orderingProps);
 
   const setStateObject = {
+    category: setCategory,
     days: setDays,
     location: setLocation,
     page: setPage,
@@ -74,6 +78,7 @@ function TweetsContainer({
     if (router.isReady) {
       const queryString = getQueryString({
         query,
+        category,
         theme,
         location,
         days,
@@ -93,6 +98,7 @@ function TweetsContainer({
   }, [
     query,
     theme,
+    category,
     location,
     days,
     page,
@@ -139,7 +145,7 @@ function TweetsContainer({
   };
 
   const shouldFetch = () => {
-    if (!search) {
+    if (!(search || paginating)) {
       return null;
     }
 
@@ -151,6 +157,7 @@ function TweetsContainer({
       page,
       pageSize,
       ordering,
+      category,
     });
     let url = "/api/tweets";
     if (queryString) {
@@ -197,15 +204,17 @@ function TweetsContainer({
     <>
       <SearchSection
         days={days}
+        location={location}
         onSelection={handleSelection}
         onSaveSearch={handleSaveSearch}
-        location={location}
         onSearch={handleSearch}
+        query={query}
         theme={theme}
         className={classes.root}
       />
       {isLoading && <Loading />}
       <Chart {...props} data={insights} classes={{ root: classes.chartRoot }} />
+      <SearchResults query={query} label="Search Results" />
       {tweets?.results?.length > 0 && (
         <ContentActions
           apiUri="/api/tweets"
@@ -221,7 +230,7 @@ function TweetsContainer({
       {tweets?.results?.length > 0 && (
         <Pagination
           {...paginationProps}
-          count={Math.ceil(tweets?.count / (pageSize || 20))}
+          count={Math.ceil((tweets?.count ?? 0) / (pageSize || 20))}
           onChangePage={handleClickPage}
           onChangePageSize={handleClickPageSize}
           page={page}
@@ -233,6 +242,7 @@ function TweetsContainer({
 }
 
 TweetsContainer.propTypes = {
+  category: PropTypes.string,
   days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
@@ -249,6 +259,7 @@ TweetsContainer.propTypes = {
 };
 
 TweetsContainer.defaultProps = {
+  category: undefined,
   days: undefined,
   insights: undefined,
   location: undefined,

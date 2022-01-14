@@ -1,4 +1,5 @@
 export default function getQueryString({
+  category,
   query,
   theme,
   location,
@@ -11,6 +12,9 @@ export default function getQueryString({
   const searchParams = new URLSearchParams();
   if (query) {
     searchParams.append("query", query);
+  }
+  if (category) {
+    searchParams.append("category", category);
   }
   if (theme) {
     searchParams.append("theme", theme);

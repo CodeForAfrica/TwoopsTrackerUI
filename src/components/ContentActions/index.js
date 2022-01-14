@@ -20,11 +20,12 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     paddingBottom: typography.pxToRem(28),
   },
   button: {
-    maring: `auto ${typography.pxToRem(12)}`,
+    margin: `auto ${typography.pxToRem(12)}`,
     color: palette.secondary.main,
     fontSize: typography.body2.fontSize,
   },
   label: {
+    padding: `${typography.pxToRem(6)} 0`,
     display: "inline-flex",
     fontFamily: typography.button.fontFamily,
   },

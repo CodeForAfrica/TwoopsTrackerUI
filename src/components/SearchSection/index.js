@@ -1,27 +1,30 @@
-import { Button, Grid, Link } from "@material-ui/core";
-import { useSession } from "next-auth/client";
+import { Button, Grid } from "@material-ui/core";
+import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
 import Filter from "@/twoopstracker/components/Filter";
+import Link from "@/twoopstracker/components/Link";
 import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
 import Search from "@/twoopstracker/components/Search";
 import Section from "@/twoopstracker/components/Section";
 
-const SearchSection = ({
+function SearchSection({
+  category,
   days,
-  onSelection,
   location,
   onSaveSearch,
+  onSelection,
   onSearch,
+  query,
   theme,
   ...props
-}) => {
+}) {
   const classes = useStyles(props);
   const [open, setOpen] = useState(false);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   const handleClickSaveSearch = () => {
     setOpen(true);
@@ -46,10 +49,14 @@ const SearchSection = ({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item xl={8} xs={12}>
-            <Search onChange={onSelection} onKeyDown={handleKeyDown} />
+          <Grid item xl={7} xs={12}>
+            <Search
+              defaultValue={query || undefined}
+              onChange={onSelection}
+              onKeyDown={handleKeyDown}
+            />
           </Grid>
-          <Grid item xl={4} xs={12} className={classes.filterSection}>
+          <Grid item xl={5} xs={12} className={classes.filterSection}>
             <Filter
               key={days}
               label="Days"
@@ -74,6 +81,24 @@ const SearchSection = ({
                 { name: "None", value: "" },
               ]}
               value={theme}
+            />
+            <Filter
+              key={category}
+              label="Category"
+              handleSelection={onSelection}
+              menuItems={[
+                {
+                  name: "Disinformation actors",
+                  value: "Disinformation actors",
+                },
+                { name: "Troll Accounts", value: "troll accounts" },
+                {
+                  name: "Foreign Influence Actors",
+                  value: "foreign influence actors",
+                },
+                { name: "None", value: "" },
+              ]}
+              value={category}
             />
             <Filter
               key={location}
@@ -105,13 +130,24 @@ const SearchSection = ({
           </div>
           <div>
             {session ? (
-              <Button
-                variant="outlined"
-                className={classes.saveButton}
-                onClick={handleClickSaveSearch}
-              >
-                Save Search
-              </Button>
+              <>
+                <Button
+                  variant="outlined"
+                  className={classes.saveButton}
+                  href="/account/searches"
+                  component={Link}
+                  underline="none"
+                >
+                  Load search
+                </Button>
+                <Button
+                  variant="outlined"
+                  className={classes.saveButton}
+                  onClick={handleClickSaveSearch}
+                >
+                  Save Search
+                </Button>
+              </>
             ) : null}
             <Button
               variant="contained"
@@ -124,32 +160,37 @@ const SearchSection = ({
           </div>
         </div>
       </Section>
+
       <SavedSearchDialog
         open={open}
         onClick={handleClickSaveSavedSearch}
         onClose={handleClose}
-        varinat="add"
+        variant="add"
         title="Save Search"
       />
     </div>
   );
-};
+}
 
 SearchSection.propTypes = {
+  category: PropTypes.string,
   days: PropTypes.string,
-  onSelection: PropTypes.func,
   location: PropTypes.string,
   onSaveSearch: PropTypes.func,
+  onSelection: PropTypes.func,
   onSearch: PropTypes.func,
+  query: PropTypes.string,
   theme: PropTypes.string,
 };
 
 SearchSection.defaultProps = {
+  category: undefined,
   days: undefined,
-  onSelection: undefined,
   location: undefined,
+  onSelection: undefined,
   onSaveSearch: undefined,
   onSearch: undefined,
+  query: undefined,
   theme: undefined,
 };
 

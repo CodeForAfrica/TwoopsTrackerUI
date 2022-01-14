@@ -7,7 +7,9 @@ export default {
   argTypes: {},
 };
 
-const Template = () => <Filter />;
+function Template() {
+  return <Filter />;
+}
 
 export const Default = Template.bind({});
 

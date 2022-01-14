@@ -68,7 +68,7 @@ export async function APIRequest(payload, method, param, session) {
 }
 
 export function tweetsSearchParamFromSearchQuery({
-  // this one
+  category,
   query,
   location,
   days = 7,
@@ -80,6 +80,9 @@ export function tweetsSearchParamFromSearchQuery({
   const searchParams = new URLSearchParams();
   if (query) {
     searchParams.append("query", query);
+  }
+  if (category) {
+    searchParams.append("category", category);
   }
   if (location) {
     searchParams.append("location", location);
@@ -108,10 +111,10 @@ export function tweetsSearchParamFromSearchQuery({
 }
 
 export function tweetsUserQuery(requestQuery) {
-  const { query, theme, location, days, page, pageSize, download } =
+  const { query, theme, location, days, page, pageSize, download, category } =
     requestQuery;
 
-  return { query, theme, location, days, page, pageSize, download };
+  return { query, theme, location, days, page, pageSize, download, category };
 }
 
 export function tweetsSearchQueryFromUserQuery(userQuery) {
@@ -119,13 +122,14 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
   const {
     query: term,
     theme,
+    category,
     location,
     days: daysAsString,
     page,
     pageSize,
     download,
     ordering,
-  } = userQuery;
+  } = userQuery || {};
   let query = term || theme || ordering;
   if (query && theme && ordering) {
     query = `(${query} AND ${theme} AND ${ordering})`;
@@ -135,19 +139,10 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
   if (days > 30) {
     days = 30;
   }
-  return {
-    query,
-    location,
-    days,
-    ordering,
-    page,
-    pageSize,
-    download,
-  };
+  return { category, query, location, days, page, pageSize, download };
 }
 
-export async function tweets(requestQuery = {}, session) {
-  // modify this to suport created _at, deleted_at, owner screen name,  blah blah
+export async function tweets(requestQuery, session) {
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQuery)
   );
@@ -158,10 +153,8 @@ export async function tweets(requestQuery = {}, session) {
 }
 
 // Do not include page or pageSize in searchQuery
-export async function tweetsInsights(
-  { page, pageSize, ...requestQueryQuery } = {},
-  session
-) {
+export async function tweetsInsights(requestQuery, session) {
+  const { page, pageSize, ...requestQueryQuery } = requestQuery || {};
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQueryQuery)
   );

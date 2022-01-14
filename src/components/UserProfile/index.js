@@ -12,7 +12,7 @@ import {
   ClickAwayListener,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { signOut, useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -75,7 +75,6 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   label: {
     fontSize: typography.pxToRem(24),
-    fontFamily: typography.h4.fontFamily,
     fontStyle: "normal",
     fontWeight: "normal",
     lineHeight: "149.49%",
@@ -136,7 +135,7 @@ function UserProfile({
   ...props
 }) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -176,6 +175,9 @@ function UserProfile({
       handleClose,
     });
   };
+  const {
+    user: { email, name, image, first_name: firstName, last_name: lastName },
+  } = session;
 
   return (
     <div className={classes.root}>
@@ -224,16 +226,12 @@ function UserProfile({
                 alignItems="center"
                 className={classes.profile}
               >
-                <Avatar
-                  alt={alt}
-                  src={session?.user?.image}
-                  className={classes.large}
-                />
+                <Avatar alt={alt} src={image} className={classes.large} />
                 <Typography variant="body2" className={classes.caption}>
-                  {session?.user?.name}
+                  {firstName && lastName ? `${firstName} ${lastName}` : name}
                 </Typography>
                 <Typography variant="body2" className={classes.caption}>
-                  {session?.user?.email}
+                  {email}
                 </Typography>
               </Grid>
               <Divider />

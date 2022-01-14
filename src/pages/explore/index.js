@@ -1,4 +1,4 @@
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { SWRConfig } from "swr";
@@ -13,6 +13,7 @@ import getQueryString from "@/twoopstracker/utils/getQueryString";
 import site from "@/twoopstracker/utils/site";
 
 function Explore({
+  category,
   days,
   fallback,
   insights,
@@ -30,6 +31,7 @@ function Explore({
     <Page {...props}>
       <SWRConfig value={{ fallback }}>
         <TweetsContainer
+          category={category}
           days={days}
           insights={insights}
           location={location}
@@ -49,6 +51,7 @@ function Explore({
 }
 
 Explore.propTypes = {
+  category: PropTypes.string,
   days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   results: PropTypes.arrayOf(PropTypes.shape({})),
   fallback: PropTypes.shape({}),
@@ -63,6 +66,7 @@ Explore.propTypes = {
 };
 
 Explore.defaultProps = {
+  category: undefined,
   days: undefined,
   fallback: undefined,
   insights: undefined,

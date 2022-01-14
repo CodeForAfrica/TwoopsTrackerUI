@@ -1,65 +1,41 @@
-import { Button, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { useSession, signIn } from "next-auth/client";
+import {
+  Button,
+  Typography,
+  Grid,
+  TextField,
+  InputAdornment,
+} from "@material-ui/core";
+import { useSession, signIn } from "next-auth/react";
+import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    color: "white",
-    background: "none",
-    height: "100vh",
-    margin: "auto",
-  },
-  loginButton: {
-    marginBottom: "1rem",
-    width: "100%",
-    color: "white",
-    "&:hover": {
-      color: "#000",
-    },
-    backgroundColor: theme.palette.primary.main,
-    fontWeight: 800,
-    fontSize: theme.typography.subtitle2.fontSize,
-    height: "3rem",
-    [theme.breakpoints.up("xl")]: {
-      fontSize: theme.typography.subtitle1.fontSize,
-      height: "3.5rem",
-      paddingLeft: "2rem",
-      paddingRight: "2rem",
-    },
-  },
-  buttonContainer: {
-    paddingTop: "1rem",
-    width: "400px",
-    [theme.breakpoints.between("xs", "xs")]: {
-      width: "95vw",
-    },
-    "& .MuiLink-underlineHover": {
-      "&:hover": {
-        textDecoration: "none",
-      },
-    },
-  },
-  formStyles: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  item: {
-    color: "black",
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-}));
+import useStyles from "./useStyles";
 
-function Login({ providers, ...props }) {
+import Link from "@/twoopstracker/components/Link";
+import Section from "@/twoopstracker/components/Section";
+
+function Login({
+  providers: providersProp,
+  title,
+  description,
+  passwordPrompt,
+  signupPrompt,
+  signUpLink,
+  signUpText,
+  googleIcon,
+  passwordIcon,
+  ...props
+}) {
   const classes = useStyles(props);
-  const [session] = useSession();
+  const { data: session } = useSession();
+
+  const [isPassword, setIsPassword] = useState(true);
+
+  const togglePasswordType = () => {
+    setIsPassword(!isPassword);
+  };
 
   useEffect(() => {
     if (session) {
@@ -67,15 +43,70 @@ function Login({ providers, ...props }) {
     }
   }, [session]);
 
+  const providers = Object.values(providersProp ?? {});
+  if (!providers?.length) {
+    return null;
+  }
   return (
-    <Grid
-      container
-      justify="space-around"
-      alignItems="center"
-      className={classes.root}
-    >
-      <Grid item xs={12} className={classes.item}>
-        <form noValidate className={classes.formStyles}>
+    <Section className={classes.section}>
+      <Grid container>
+        <Grid item xs={12} md={7} className={classes.container}>
+          <Typography variant="h2">{title}</Typography>
+          <Typography className={classes.text}>{description}</Typography>
+          <form className={classes.form}>
+            <TextField
+              className={classes.textfield}
+              InputLabelProps={{
+                className: classes.label,
+                shrink: false,
+              }}
+              InputProps={{
+                className: classes.input,
+              }}
+              autoComplete="email"
+              name="email"
+              variant="outlined"
+              fullWidth
+              id="email"
+              label="Email"
+              autoFocus
+              color="secondary"
+            />
+
+            <TextField
+              className={classes.textfield}
+              InputLabelProps={{ className: classes.label, shrink: false }}
+              InputProps={{
+                className: classes.input,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Button
+                      className={classes.passwordButton}
+                      onClick={() => togglePasswordType()}
+                    >
+                      <Image height={45} width={45} src={passwordIcon} alt="" />
+                    </Button>
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              name="password"
+              label="Password"
+              type={isPassword ? "password" : "text"}
+              id="password"
+              autoComplete="current-password"
+              color="secondary"
+            />
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+            >
+              Login
+            </Button>
+          </form>
           <div className={classes.buttonContainer}>
             {!session &&
               providers &&
@@ -95,22 +126,47 @@ function Login({ providers, ...props }) {
                     })
                   }
                 >
-                  Sign in with {provider.name}
+                  <Image height={45} width={45} src={googleIcon} alt="" />
+                  <Typography className={classes.signinText}>
+                    Sign in with {provider.name}
+                  </Typography>
                 </Button>
               ))}
           </div>
-        </form>
+          <Button classes={{ text: classes.passwordText }}>
+            {passwordPrompt}
+          </Button>
+          <Typography className={classes.text}>
+            {signupPrompt} <Link href={signUpLink}>{signUpText}</Link>
+          </Typography>
+        </Grid>
       </Grid>
-    </Grid>
+    </Section>
   );
 }
 
 Login.propTypes = {
   providers: PropTypes.shape({}),
+  title: PropTypes.string,
+  description: PropTypes.string,
+  passwordPrompt: PropTypes.string,
+  signupPrompt: PropTypes.string,
+  signUpText: PropTypes.string,
+  signUpLink: PropTypes.string,
+  googleIcon: PropTypes.string,
+  passwordIcon: PropTypes.string,
 };
 
 Login.defaultProps = {
   providers: undefined,
+  title: undefined,
+  passwordPrompt: undefined,
+  description: undefined,
+  signupPrompt: undefined,
+  signUpLink: undefined,
+  signUpText: undefined,
+  googleIcon: undefined,
+  passwordIcon: undefined,
 };
 
 export default Login;
