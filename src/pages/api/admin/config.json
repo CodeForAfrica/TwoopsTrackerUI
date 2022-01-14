@@ -261,53 +261,6 @@
           ]
         },
         {
-          "label": "Update Profile",
-          "name": "updateProfile",
-          "file": "content/pages/account/update.md",
-          "fields": [
-            {
-              "label": "Title",
-              "name": "title",
-              "widget": "string"
-            },
-            {
-              "label": "First Name Label",
-              "name": "firstName",
-              "widget": "string"
-            },
-            {
-              "label": "Last Name Label",
-              "name": "lastName",
-              "widget": "string"
-            },
-            {
-              "label": "Success Label",
-              "name": "successLabel",
-              "widget": "string"
-            },
-            {
-              "label": "Error Label",
-              "name": "errorLabel",
-              "widget": "string"
-            },
-            {
-              "label": "Change Password Label",
-              "name": "changePasswordLabel",
-              "widget": "string"
-            },
-            {
-              "label": "Change Password Link",
-              "name": "changePasswordLink",
-              "widget": "string"
-            },
-            {
-              "label": "Update Label",
-              "name": "updateLabel",
-              "widget": "string"
-            }
-          ]
-        },
-        {
           "label": "Investigations",
           "name": "investigations",
           "file": "content/pages/investigations.md",
@@ -620,6 +573,101 @@
                   ]
                 }
               ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Account",
+      "label": "Account",
+      "files": [
+        {
+          "label": "Update Profile",
+          "name": "updateProfile",
+          "file": "content/pages/account/update.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "First Name Label",
+              "name": "firstName",
+              "widget": "string"
+            },
+            {
+              "label": "Last Name Label",
+              "name": "lastName",
+              "widget": "string"
+            },
+            {
+              "label": "Success Label",
+              "name": "successLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Error Label",
+              "name": "errorLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Change Password Label",
+              "name": "changePasswordLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Change Password Link",
+              "name": "changePasswordLink",
+              "widget": "string"
+            },
+            {
+              "label": "Update Label",
+              "name": "updateLabel",
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "label": "Sign Up",
+          "name": "SignUp",
+          "file": "content/pages/account/signup.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Description",
+              "name": "description",
+              "widget": "string"
+            },
+            {
+              "label": "Login Prompt",
+              "name": "loginPrompt",
+              "widget": "string"
+            },
+            {
+              "label": "Login Text",
+              "name": "loginText",
+              "widget": "string"
+            },
+            {
+              "label": "Error Label",
+              "name": "errorLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Google Icon",
+              "name": "googleIcon",
+              "widget": "image"
+            },
+            {
+              "label": "Password Icon",
+              "name": "passwordIcon",
+              "widget": "image"
             }
           ]
         }

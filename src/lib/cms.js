@@ -1,8 +1,9 @@
 import * as md from "./md";
 
 import aboutContent from "@/cms/pages/about.md";
+import loginContent from "@/cms/pages/account/login.md";
+import signUpContent from "@/cms/pages/account/signUp.md";
 import updateProfileContent from "@/cms/pages/account/update.md";
-import loginContent from "@/cms/pages/auth/login.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
 import lexiconsContent from "@/cms/pages/lexicons.md";
@@ -158,6 +159,10 @@ export function login() {
   return attributes;
 }
 
+export function signUp() {
+  const { attributes } = signUpContent;
+  return attributes;
+}
 export function navigation() {
   const { attributes } = navigationContent;
   return attributes;
