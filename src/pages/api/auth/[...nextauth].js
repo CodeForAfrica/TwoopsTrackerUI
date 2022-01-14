@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
 import fetchJson from "@/twoopstracker/utils/fetchJson";
@@ -72,6 +73,57 @@ async function fetchRefreshedToken({ token: currentToken }) {
 const options = {
   // Configure one or more authentication providers
   providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      async authorize(credentials) {
+        // Add logic here to look up the user from the credentials supplied
+        let authBody = {
+          email: credentials.email,
+          password: credentials.password,
+        };
+        if (credentials.type === "registration") {
+          authBody = {
+            email: credentials.email,
+            password1: credentials.password,
+            password2: credentials.password,
+          };
+        }
+        const user = await fetchJson(
+          `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}${credentials.type}/`,
+          null,
+          {
+            method: "Post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(authBody),
+          }
+        );
+        const updatedUser = await fetchJson(
+          `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}user/`,
+          { accessToken: user.access_token },
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              first_name: credentials.firstName,
+              last_name: credentials.lastName,
+            }),
+          }
+        );
+        user.user = updatedUser;
+        user.accessToken = user.access_token;
+        user.refreshToken = user.refresh_token;
+        user.exp = jwtDecode(user.accessToken).exp * 1000;
+
+        if (user) {
+          return user;
+        }
+        return null;
+      },
+    }),
     GoogleProvider({
       clientId: process.env.NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_ID,
       clientSecret: process.env.NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_SECRET,
@@ -92,8 +144,13 @@ const options = {
 
     // see: https://next-auth.js.org/configuration/callbacks#jwt-callback
     async jwt({ token, user, account }) {
+      // when sign in with credentials return user
+      if (account?.type === "credentials") {
+        return user;
+      }
       // when created: e.g. at sign in
       //              fetch new access token
+
       if (account && user) {
         if (OAUTH_PROVIDERS.includes(account.provider)) {
           return fetchNewToken({ account, user });
