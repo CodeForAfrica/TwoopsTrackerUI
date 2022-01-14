@@ -5,11 +5,13 @@ import {
   TextField,
   InputAdornment,
 } from "@material-ui/core";
+import { useFormik } from "formik";
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
@@ -31,33 +33,41 @@ function Login({
   const classes = useStyles(props);
   const { data: session } = useSession();
 
-  const [isPassword, setIsPassword] = useState(true);
-  const [form, setForm] = useState({
-    email: null,
-    password: null,
-    type: "login",
+  const validationSchema = yup.object({
+    email: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+    password: yup
+      .string("Enter your password")
+      .min(8, "Password should be of minimum 8 characters length")
+      .required("Password is required"),
   });
+
+  const [isPassword, setIsPassword] = useState(true);
 
   const togglePasswordType = () => {
     setIsPassword(!isPassword);
   };
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (values) => {
     try {
-      await signIn("credentials", form);
+      await signIn("credentials", values);
       Router.push("/explore ");
     } catch (e) {
       // do nothing
     }
   };
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      type: "login",
+    },
+    validationSchema,
+    onSubmit: (values) => handleSubmit(values),
+  });
 
   useEffect(() => {
     if (session) {
@@ -75,9 +85,8 @@ function Login({
         <Grid item xs={12} md={7} className={classes.container}>
           <Typography variant="h2">{title}</Typography>
           <Typography className={classes.text}>{description}</Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
+          <form className={classes.form} onSubmit={formik.handleSubmit}>
             <TextField
-              onChange={handleChange}
               className={classes.textfield}
               InputLabelProps={{
                 className: classes.label,
@@ -95,19 +104,18 @@ function Login({
               label="Email"
               autoFocus
               color="secondary"
-              required
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
             />
 
             <TextField
-              onChange={handleChange}
               className={classes.textfield}
-              inputProps={{ minLength: 8 }}
               InputLabelProps={{
                 className: classes.label,
                 shrink: false,
                 required: false,
               }}
-              // eslint-disable-next-line react/jsx-no-duplicate-props
               InputProps={{
                 className: classes.input,
                 endAdornment: (
@@ -130,7 +138,10 @@ function Login({
               id="password"
               autoComplete="current-password"
               color="secondary"
-              required
+              // required
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
             />
             <Button
               className={classes.button}
