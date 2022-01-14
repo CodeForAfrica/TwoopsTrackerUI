@@ -32,9 +32,24 @@ function Login({
   const { data: session } = useSession();
 
   const [isPassword, setIsPassword] = useState(true);
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
 
   const togglePasswordType = () => {
     setIsPassword(!isPassword);
+  };
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
 
   useEffect(() => {
@@ -53,12 +68,14 @@ function Login({
         <Grid item xs={12} md={7} className={classes.container}>
           <Typography variant="h2">{title}</Typography>
           <Typography className={classes.text}>{description}</Typography>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={handleSubmit}>
             <TextField
+              onChange={handleChange}
               className={classes.textfield}
               InputLabelProps={{
                 className: classes.label,
                 shrink: false,
+                required: false,
               }}
               InputProps={{
                 className: classes.input,
@@ -70,12 +87,20 @@ function Login({
               id="email"
               label="Email"
               autoFocus
+              required
               color="secondary"
             />
 
             <TextField
+              onChange={handleChange}
               className={classes.textfield}
-              InputLabelProps={{ className: classes.label, shrink: false }}
+              inputProps={{ minLength: 8 }}
+              InputLabelProps={{
+                className: classes.label,
+                shrink: false,
+                required: false,
+              }}
+              // eslint-disable-next-line react/jsx-no-duplicate-props
               InputProps={{
                 className: classes.input,
                 endAdornment: (
@@ -92,6 +117,7 @@ function Login({
               variant="outlined"
               margin="normal"
               fullWidth
+              required
               name="password"
               label="Password"
               type={isPassword ? "password" : "text"}
@@ -100,6 +126,7 @@ function Login({
               color="secondary"
             />
             <Button
+              type="submit"
               className={classes.button}
               variant="contained"
               color="primary"
