@@ -11,7 +11,7 @@ import React from "react";
 
 import useStyles from "./useStyles";
 
-const Sort = ({ handleSelection, label, name, menuItems, value, ...props }) => {
+function Sort({ handleSelection, label, name, menuItems, value, ...props }) {
   const classes = useStyles(props);
 
   const handleChange = (event) => {
@@ -46,7 +46,7 @@ const Sort = ({ handleSelection, label, name, menuItems, value, ...props }) => {
       </FormControl>
     </Box>
   );
-};
+}
 
 Sort.propTypes = {
   handleSelection: PropTypes.func,
