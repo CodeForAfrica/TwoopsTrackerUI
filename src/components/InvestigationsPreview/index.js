@@ -58,7 +58,7 @@ function InvestigationsPreview({
         </Typography>
         <Grid container spacing={8}>
           {items.slice(0, 4).map(({ href, image, title: bookTitle }) => (
-            <Grid item xs={6} md={3}>
+            <Grid item xs={6} md={3} key={href}>
               <Link href={href}>
                 <Image
                   height={369}
@@ -95,7 +95,7 @@ InvestigationsPreview.propTypes = {
   buttonLink: PropTypes.string,
   buttonText: PropTypes.string,
   description: PropTypes.string,
-  items: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.shape({})),
   title: PropTypes.string,
 };
 InvestigationsPreview.defaultProps = {
