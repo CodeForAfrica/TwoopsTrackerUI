@@ -32,9 +32,31 @@ function Login({
   const { data: session } = useSession();
 
   const [isPassword, setIsPassword] = useState(true);
+  const [form, setForm] = useState({
+    email: null,
+    password: null,
+    type: "login",
+  });
 
   const togglePasswordType = () => {
     setIsPassword(!isPassword);
+  };
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await signIn("credentials", form);
+      Router.push("/explore ");
+    } catch (e) {
+      // do nothing
+    }
   };
 
   useEffect(() => {
@@ -53,12 +75,14 @@ function Login({
         <Grid item xs={12} md={7} className={classes.container}>
           <Typography variant="h2">{title}</Typography>
           <Typography className={classes.text}>{description}</Typography>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={handleSubmit}>
             <TextField
+              onChange={handleChange}
               className={classes.textfield}
               InputLabelProps={{
                 className: classes.label,
                 shrink: false,
+                required: false,
               }}
               InputProps={{
                 className: classes.input,
@@ -71,11 +95,19 @@ function Login({
               label="Email"
               autoFocus
               color="secondary"
+              required
             />
 
             <TextField
+              onChange={handleChange}
               className={classes.textfield}
-              InputLabelProps={{ className: classes.label, shrink: false }}
+              inputProps={{ minLength: 8 }}
+              InputLabelProps={{
+                className: classes.label,
+                shrink: false,
+                required: false,
+              }}
+              // eslint-disable-next-line react/jsx-no-duplicate-props
               InputProps={{
                 className: classes.input,
                 endAdornment: (
@@ -98,11 +130,13 @@ function Login({
               id="password"
               autoComplete="current-password"
               color="secondary"
+              required
             />
             <Button
               className={classes.button}
               variant="contained"
               color="primary"
+              type="submit"
             >
               Login
             </Button>
@@ -110,28 +144,33 @@ function Login({
           <div className={classes.buttonContainer}>
             {!session &&
               providers &&
-              Object.values(providers).map((provider) => (
-                <Button
-                  key={provider.name}
-                  value="Subscribe"
-                  name="submit"
-                  id="mc-embedded-subscribe-form"
-                  variant="contained"
-                  className={classes.loginButton}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() =>
-                    signIn(provider.id, {
-                      callbackUrl: `${window.location.origin}/explore`,
-                    })
-                  }
-                >
-                  <Image height={45} width={45} src={googleIcon} alt="" />
-                  <Typography className={classes.signinText}>
-                    Sign in with {provider.name}
-                  </Typography>
-                </Button>
-              ))}
+              Object.values(providers).map((provider) => {
+                if (provider.id === "google") {
+                  return (
+                    <Button
+                      key={provider.name}
+                      value="Subscribe"
+                      name="submit"
+                      id="mc-embedded-subscribe-form"
+                      variant="contained"
+                      className={classes.loginButton}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() =>
+                        signIn(provider.id, {
+                          callbackUrl: `${window.location.origin}/explore`,
+                        })
+                      }
+                    >
+                      <Image height={45} width={45} src={googleIcon} alt="" />
+                      <Typography className={classes.signinText}>
+                        Sign in with {provider.name}
+                      </Typography>
+                    </Button>
+                  );
+                }
+                return null;
+              })}
           </div>
           <Button classes={{ text: classes.passwordText }}>
             {passwordPrompt}
