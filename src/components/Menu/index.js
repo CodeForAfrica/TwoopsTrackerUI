@@ -116,10 +116,11 @@ function Menu({
           </Button>
         </Grid>
       ))}
-      {session?.user?.name ? (
+
+      {session?.user?.first_name || session?.user?.name ? (
         <UserProfile
           label={session.user.first_name || session.user.name.split(" ")[0]}
-          alt={session.user.name.toLowerCase()}
+          alt={session?.user?.first_name || session?.user?.name?.toLowerCase()}
           src={session?.user?.image !== "" ? session?.user?.image : userAvator}
           logOutLabel={logOutLabel}
           profilePages={profilePages}
