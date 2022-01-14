@@ -141,18 +141,6 @@ function ContentActions({
           </Grid>
 
           <Grid item className={classes.filterSection}>
-            {/* <Sort
-              key={show}
-              label="Show:"
-              handleSelection={onSelection}
-              menuItems={[
-                { name: "All", value: "all" },
-                { name: "Interactions", value: "interactions" },
-                { name: "Screen Name", value: "screen_name" },
-              ]}
-              value={show}
-            /> */}
-
             <Sort
               key={value}
               label="Sort By:"
@@ -197,8 +185,8 @@ ContentActions.propTypes = {
   onSelection: PropTypes.func,
   value: PropTypes.string,
   show: PropTypes.string,
-  isDesc: PropTypes.bool,
-  toggleIsDesc: PropTypes.bool,
+  isDesc: PropTypes.string,
+  toggleIsDesc: PropTypes.func,
 };
 
 ContentActions.defaultProps = {
