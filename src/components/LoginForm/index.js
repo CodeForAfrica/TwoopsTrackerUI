@@ -138,7 +138,6 @@ function Login({
               id="password"
               autoComplete="current-password"
               color="secondary"
-              // required
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}

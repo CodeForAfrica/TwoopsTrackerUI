@@ -5,11 +5,13 @@ import {
   TextField,
   InputAdornment,
 } from "@material-ui/core";
+import { useFormik } from "formik";
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
@@ -29,36 +31,49 @@ function SignUp({
   const classes = useStyles(props);
   const { data: session } = useSession();
 
+  const validationSchema = yup.object({
+    email: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+    password: yup
+      .string("Enter your password")
+      .min(8, "Password should be of minimum 8 characters length")
+      .required("Password is required"),
+    firstName: yup
+      .string("Enter your First Name")
+      .required("First Name is required"),
+    lastName: yup
+      .string("Enter your Last Name")
+      .required("Last Name is required"),
+  });
+
   const [isPassword, setIsPassword] = useState(true);
 
   const togglePasswordType = () => {
     setIsPassword(!isPassword);
   };
 
-  const [form, setForm] = useState({
-    firstName: null,
-    lastName: null,
-    email: null,
-    password: null,
-    type: "registration",
-  });
-
-  const formChanged = (event) => {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (values) => {
     try {
-      await signIn("credentials", form);
+      await signIn("credentials", values);
       Router.push("/explore ");
     } catch (e) {
       // do nothing
     }
   };
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      type: "registration",
+    },
+    validationSchema,
+    onSubmit: (values) => handleSubmit(values),
+  });
 
   useEffect(() => {
     if (session) {
@@ -76,7 +91,7 @@ function SignUp({
         <Grid item xs={12} md={7} className={classes.container}>
           <Typography variant="h2">{title}</Typography>
           <Typography className={classes.text}>{description}</Typography>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={formik.handleSubmit}>
             <TextField
               className={classes.textfield}
               InputLabelProps={{
@@ -86,7 +101,6 @@ function SignUp({
               InputProps={{
                 className: classes.input,
               }}
-              onChange={formChanged}
               autoComplete="firstName"
               name="firstName"
               variant="outlined"
@@ -95,6 +109,11 @@ function SignUp({
               label="First Name"
               autoFocus
               color="secondary"
+              onChange={formik.handleChange}
+              error={
+                formik.touched.firstName && Boolean(formik.errors.firstName)
+              }
+              helperText={formik.touched.firstName && formik.errors.firstName}
             />
             <TextField
               className={classes.textfield}
@@ -105,7 +124,6 @@ function SignUp({
               InputProps={{
                 className: classes.input,
               }}
-              onChange={formChanged}
               autoComplete="lastName"
               name="lastName"
               variant="outlined"
@@ -114,6 +132,9 @@ function SignUp({
               label="Last Name"
               autoFocus
               color="secondary"
+              onChange={formik.handleChange}
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+              helperText={formik.touched.lastName && formik.errors.lastName}
             />
             <TextField
               className={classes.textfield}
@@ -124,7 +145,6 @@ function SignUp({
               InputProps={{
                 className: classes.input,
               }}
-              onChange={formChanged}
               autoComplete="email"
               name="email"
               variant="outlined"
@@ -133,12 +153,14 @@ function SignUp({
               label="Email"
               autoFocus
               color="secondary"
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
             />
 
             <TextField
               className={classes.textfield}
               InputLabelProps={{ className: classes.label, shrink: false }}
-              onChange={formChanged}
               InputProps={{
                 className: classes.input,
                 endAdornment: (
@@ -161,12 +183,15 @@ function SignUp({
               id="password"
               autoComplete="current-password"
               color="secondary"
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
             />
             <Button
+              type="submit"
               className={classes.button}
               variant="contained"
               color="primary"
-              onClick={handleSubmit}
             >
               SignUp
             </Button>
@@ -174,28 +199,33 @@ function SignUp({
           <div className={classes.buttonContainer}>
             {!session &&
               providers &&
-              Object.values(providers).map((provider) => (
-                <Button
-                  key={provider.name}
-                  value="Subscribe"
-                  name="submit"
-                  id="mc-embedded-subscribe-form"
-                  variant="contained"
-                  className={classes.loginButton}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() =>
-                    signIn(provider.id, {
-                      callbackUrl: `${window.location.origin}/explore`,
-                    })
-                  }
-                >
-                  <Image height={45} width={45} src={googleIcon} alt="" />
-                  <Typography className={classes.signinText}>
-                    Sign in with {provider.name}
-                  </Typography>
-                </Button>
-              ))}
+              Object.values(providers).map((provider) => {
+                if (provider.id === "google") {
+                  return (
+                    <Button
+                      key={provider.name}
+                      value="Subscribe"
+                      name="submit"
+                      id="mc-embedded-subscribe-form"
+                      variant="contained"
+                      className={classes.loginButton}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() =>
+                        signIn(provider.id, {
+                          callbackUrl: `${window.location.origin}/explore`,
+                        })
+                      }
+                    >
+                      <Image height={45} width={45} src={googleIcon} alt="" />
+                      <Typography className={classes.signinText}>
+                        Sign in with {provider.name}
+                      </Typography>
+                    </Button>
+                  );
+                }
+                return null;
+              })}
           </div>
           <Typography className={classes.text}>
             {loginPrompt} <Link href="/login">{loginText}</Link>
