@@ -6,7 +6,9 @@ export default {
   title: "Components/Sort",
 };
 
-const Template = () => <Sort />;
+function Template() {
+  return <Sort />;
+}
 
 export const Default = Template.bind({});
 
