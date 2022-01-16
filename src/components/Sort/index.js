@@ -5,6 +5,7 @@ import {
   FormControl,
   Select,
   Typography,
+  InputBase,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React from "react";
@@ -24,7 +25,7 @@ function Sort({ handleSelection, label, name, menuItems, value, ...props }) {
   return (
     <Box className={classes.box}>
       <InputLabel id={`${label}-id`} shrink className={classes.inputLabel}>
-        <Typography variant="body1" className={classes.label}>
+        <Typography variant="h1" className={classes.label}>
           {label}
         </Typography>
       </InputLabel>
@@ -35,6 +36,16 @@ function Sort({ handleSelection, label, name, menuItems, value, ...props }) {
           value={value}
           onChange={handleChange}
           className={classes.select}
+          input={
+            <InputBase
+              id={`${label}-id`}
+              inputProps={{ "aria-label": `${label}-id` }}
+              classes={{
+                root: classes.inputBase,
+                input: classes.inputBaseInput,
+              }}
+            />
+          }
         >
           {menuItems &&
             menuItems.map((item) => (

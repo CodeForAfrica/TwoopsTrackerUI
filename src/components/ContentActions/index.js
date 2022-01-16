@@ -186,7 +186,7 @@ ContentActions.propTypes = {
   onSelection: PropTypes.func,
   value: PropTypes.string,
   show: PropTypes.string,
-  isDesc: PropTypes.string,
+  isDesc: PropTypes.bool,
   toggleIsDesc: PropTypes.func,
 };
 
