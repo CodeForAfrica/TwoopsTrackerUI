@@ -77,51 +77,30 @@ const options = {
       name: "Credentials",
       async authorize(credentials) {
         // Add logic here to look up the user from the credentials supplied
-        let authBody = {
+        const authBody = {
           email: credentials.email,
           password: credentials.password,
         };
-        if (credentials.type === "registration") {
-          authBody = {
-            email: credentials.email,
-            password1: credentials.password,
-            password2: credentials.password,
-          };
-        }
-        const user = await fetchJson(
-          `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}${credentials.type}/`,
-          null,
-          {
-            method: "Post",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(authBody),
-          }
-        );
-        const updatedUser = await fetchJson(
-          `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}user/`,
-          { accessToken: user.access_token },
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              first_name: credentials.firstName,
-              last_name: credentials.lastName,
-            }),
-          }
-        );
-        user.user = updatedUser;
-        user.accessToken = user.access_token;
-        user.refreshToken = user.refresh_token;
-        user.exp = jwtDecode(user.accessToken).exp * 1000;
+        try {
+          const user = await fetchJson(
+            `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}login/`,
+            null,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(authBody),
+            }
+          );
+          user.accessToken = user.access_token;
+          user.refreshToken = user.refresh_token;
+          user.exp = jwtDecode(user.accessToken).exp * 1000;
 
-        if (user) {
           return user;
+        } catch (error) {
+          return null;
         }
-        return null;
       },
     }),
     GoogleProvider({

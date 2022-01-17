@@ -17,6 +17,7 @@ import useStyles from "./useStyles";
 
 import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 function SignUp({
   providers: providersProp,
@@ -56,8 +57,11 @@ function SignUp({
 
   const handleSubmit = async (values) => {
     try {
-      await signIn("credentials", values);
-      Router.push("/explore ");
+      await fetchJson("/api/user/profile", session, {
+        method: "PATCH",
+        body: JSON.stringify(values),
+      });
+      Router.push("/account/settings ");
     } catch (e) {
       // do nothing
     }
@@ -69,7 +73,6 @@ function SignUp({
       password: "",
       firstName: "",
       lastName: "",
-      type: "registration",
     },
     validationSchema,
     onSubmit: (values) => handleSubmit(values),
