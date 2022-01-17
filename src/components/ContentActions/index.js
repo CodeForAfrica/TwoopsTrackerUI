@@ -30,8 +30,8 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     fontFamily: typography.button.fontFamily,
   },
   large: {
-    width: 48,
-    height: 48,
+    width: 12,
+    height: 26,
   },
   menuLinks: {
     color: "black",

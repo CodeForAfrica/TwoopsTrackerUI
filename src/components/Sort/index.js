@@ -1,16 +1,27 @@
 import {
-  Box,
-  InputLabel,
   MenuItem,
   FormControl,
   Select,
   Typography,
   InputBase,
+  SvgIcon as MuiSvgIcon,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React from "react";
 
 import useStyles from "./useStyles";
+
+import { ReactComponent as KeyboardArrowDown } from "@/twoopstracker/assets/icons/select-dropdown.svg";
+
+function SvgIcon(props) {
+  const classes = useStyles(props);
+  return (
+    <MuiSvgIcon
+      component={KeyboardArrowDown}
+      className={classes.svgSelectIcon}
+    />
+  );
+}
 
 function Sort({ handleSelection, label, name, menuItems, value, ...props }) {
   const classes = useStyles(props);
@@ -23,39 +34,36 @@ function Sort({ handleSelection, label, name, menuItems, value, ...props }) {
   };
 
   return (
-    <Box className={classes.box}>
-      <InputLabel id={`${label}-id`} shrink className={classes.inputLabel}>
-        <Typography variant="h1" className={classes.label}>
-          {label}
-        </Typography>
-      </InputLabel>
-
-      <FormControl fullWidth className={classes.form}>
-        <Select
-          labelId={`${label}-id`}
-          value={value}
-          onChange={handleChange}
-          className={classes.select}
-          input={
-            <InputBase
-              id={`${label}-id`}
-              inputProps={{ "aria-label": `${label}-id` }}
-              classes={{
-                root: classes.inputBase,
-                input: classes.inputBaseInput,
-              }}
-            />
-          }
-        >
-          {menuItems &&
-            menuItems.map((item) => (
-              <MenuItem key={item.value} value={item.value}>
-                {item.name}
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
-    </Box>
+    <FormControl fullWidth className={classes.form}>
+      <Typography variant="body1" className={classes.label}>
+        {label}
+      </Typography>
+      <Select
+        labelId={`${label}-id`}
+        value={value}
+        onChange={handleChange}
+        className={classes.select}
+        IconComponent={SvgIcon}
+        placeholder={value}
+        input={
+          <InputBase
+            id={`${label}-id`}
+            inputProps={{ "aria-label": `${label}-id` }}
+            classes={{
+              root: classes.inputBase,
+              input: classes.inputBaseInput,
+            }}
+          />
+        }
+      >
+        {menuItems &&
+          menuItems.map((item) => (
+            <MenuItem key={item.value} value={item.value}>
+              {item.name}
+            </MenuItem>
+          ))}
+      </Select>
+    </FormControl>
   );
 }
 

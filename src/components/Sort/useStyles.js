@@ -2,17 +2,17 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {},
+  form: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
   formControl: {
     "& .MuiFilledInput-underline": {
       "&::before": {
         display: "none",
       },
     },
-  },
-  box: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
   },
   select: {
     height: 0,
@@ -25,21 +25,20 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     paddingBottom: typography.pxToRem(12),
     paddingTop: typography.pxToRem(12),
     fontSize: typography.caption.fontSize,
+    "& .MuiSelect-select:focus": {
+      backgroundColor: "none",
+    },
     "&:focus": {
       borderRadius: 2,
       background: "white",
       borderColor: "none",
     },
-    /*  "&::before": {
+    "&::before": {
       display: "none",
-    }, */
+    },
     [breakpoints.up("lg")]: {
       width: typography.pxToRem(165),
     },
-  },
-  paper: {},
-  inputLabel: {
-    width: "4rem",
   },
   label: {
     color: "black",
@@ -78,6 +77,14 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     "label[data-shrink=false] + .MuiInputBase-formControl &::placeholder": {
       opacity: "0.5!important",
     },
+  },
+  svgSelectIcon: {
+    position: "absolute",
+    top: 10,
+    pointerEvents: "none",
+    color: "#A0A0A0",
+    fontSize: "1.2rem",
+    right: typography.pxToRem(4),
   },
 }));
 
