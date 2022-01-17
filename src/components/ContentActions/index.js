@@ -33,15 +33,16 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     width: 12,
     height: 26,
   },
-  menuLinks: {
+  buttonIcon: {
     color: "black",
+    height: typography.pxToRem(26),
+    minWidth: 0,
     "&:hover, &:focus, &:focus-within": {
       backgroundColor: "transparent",
       textDecoration: "none",
       color: "black",
     },
     [breakpoints.up("xl")]: {
-      padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
       color: "black",
       "&:hover, &:focus, &:focus-within": {
         color: "black",
@@ -153,25 +154,24 @@ function ContentActions({
                 { name: "Owner Screen Name", value: "ownerScreenName" },
               ]}
               value={value}
-            />
-
-            <Button
-              color="default"
-              variant="text"
-              size="large"
-              onClick={toggleIsDesc}
-              classes={{
-                root: classes.menuLinks,
-                text: classes.text,
-              }}
-              startIcon={
-                <Image
-                  layout="fill"
-                  src={isDesc ? SortDown : SortUp}
-                  className={classes.large}
-                />
-              }
-            />
+            >
+              <Button
+                color="default"
+                variant="text"
+                size="large"
+                onClick={toggleIsDesc}
+                classes={{
+                  root: classes.buttonIcon,
+                }}
+                startIcon={
+                  <Image
+                    layout="fill"
+                    src={isDesc ? SortDown : SortUp}
+                    className={classes.large}
+                  />
+                }
+              />
+            </Sort>
           </Grid>
         </Grid>
       </Section>

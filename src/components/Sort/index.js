@@ -23,7 +23,15 @@ function SvgIcon(props) {
   );
 }
 
-function Sort({ handleSelection, label, name, menuItems, value, ...props }) {
+function Sort({
+  handleSelection,
+  children,
+  label,
+  name,
+  menuItems,
+  value,
+  ...props
+}) {
   const classes = useStyles(props);
 
   const handleChange = (event) => {
@@ -63,12 +71,14 @@ function Sort({ handleSelection, label, name, menuItems, value, ...props }) {
             </MenuItem>
           ))}
       </Select>
+      {children}
     </FormControl>
   );
 }
 
 Sort.propTypes = {
   handleSelection: PropTypes.func,
+  children: PropTypes.node,
   name: PropTypes.string,
   label: PropTypes.string,
   menuItems: PropTypes.arrayOf(
@@ -82,6 +92,7 @@ Sort.propTypes = {
 
 Sort.defaultProps = {
   handleSelection: undefined,
+  children: undefined,
   label: undefined,
   name: undefined,
   menuItems: undefined,
