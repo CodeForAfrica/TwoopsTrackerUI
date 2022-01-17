@@ -8,6 +8,7 @@ export default function getQueryString({
   pageSize,
   download,
   ordering,
+  isDesc,
 }) {
   const searchParams = new URLSearchParams();
   if (query) {
@@ -26,7 +27,14 @@ export default function getQueryString({
     searchParams.append("days", days);
   }
   if (ordering) {
-    searchParams.append("ordering", ordering);
+    if (isDesc) {
+      searchParams.append(
+        "ordering",
+        `-${ordering.replace(/[^0-9A-Z]+/gi, "")}`
+      );
+    } else {
+      searchParams.append("ordering", ordering.replace(/[^0-9A-Z]+/gi, ""));
+    }
   }
   if (page) {
     searchParams.append("page", page);

@@ -111,10 +111,29 @@ export function tweetsSearchParamFromSearchQuery({
 }
 
 export function tweetsUserQuery(requestQuery) {
-  const { query, theme, location, days, page, pageSize, download, category } =
-    requestQuery;
+  const {
+    query,
+    theme,
+    location,
+    days,
+    page,
+    pageSize,
+    download,
+    category,
+    ordering,
+  } = requestQuery;
 
-  return { query, theme, location, days, page, pageSize, download, category };
+  return {
+    query,
+    theme,
+    location,
+    days,
+    page,
+    pageSize,
+    download,
+    category,
+    ordering,
+  };
 }
 
 export function tweetsSearchQueryFromUserQuery(userQuery) {
@@ -130,16 +149,25 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     download,
     ordering,
   } = userQuery || {};
-  let query = term || theme || ordering;
-  if (query && theme && ordering) {
-    query = `(${query} AND ${theme} AND ${ordering})`;
+  let query = term || theme;
+  if (query && theme) {
+    query = `(${query} AND ${theme})`;
   }
 
   let days = parseInt(daysAsString, 10) || undefined;
   if (days > 30) {
     days = 30;
   }
-  return { category, query, location, days, page, pageSize, download };
+  return {
+    category,
+    query,
+    location,
+    days,
+    page,
+    pageSize,
+    download,
+    ordering,
+  };
 }
 
 export async function tweets(requestQuery, session) {
@@ -147,7 +175,6 @@ export async function tweets(requestQuery, session) {
     tweetsUserQuery(requestQuery)
   );
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
-
   const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
   return fetchJson(url, session);
 }

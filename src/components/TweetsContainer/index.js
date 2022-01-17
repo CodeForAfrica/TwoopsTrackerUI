@@ -148,7 +148,6 @@ function TweetsContainer({
     if (!(search || paginating)) {
       return null;
     }
-
     const queryString = getQueryString({
       query,
       theme,
@@ -158,11 +157,15 @@ function TweetsContainer({
       pageSize,
       ordering,
       category,
+      isDesc,
     });
+
     let url = "/api/tweets";
+
     if (queryString) {
       url = `${url}?${queryString}`;
     }
+
     return url;
   };
   const { data: newTweets, isLoading: isLoadingTweets } =
@@ -182,6 +185,7 @@ function TweetsContainer({
       location,
       days,
       ordering,
+      isDesc,
     });
     let url = "/api/tweets/insights";
     if (queryString) {
@@ -220,7 +224,7 @@ function TweetsContainer({
           apiUri="/api/tweets"
           queryParams={{ query, theme, location, days, ordering }}
           type="tweets"
-          value={ordering}
+          value={ordering.replace(/[^0-9A-Z]+/gi, "")}
           onSelection={handleSelectionFilter}
           isDesc={isDesc}
           toggleIsDesc={toggleIsDesc}
