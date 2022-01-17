@@ -28,12 +28,9 @@ export default function getQueryString({
   }
   if (ordering) {
     if (isDesc) {
-      searchParams.append(
-        "ordering",
-        `-${ordering.replace(/[^0-9A-Z]+/gi, "")}`
-      );
+      searchParams.append("ordering", `-${ordering.replace("-", "")}`);
     } else {
-      searchParams.append("ordering", ordering.replace(/[^0-9A-Z]+/gi, ""));
+      searchParams.append("ordering", ordering.replace("", ""));
     }
   }
   if (page) {

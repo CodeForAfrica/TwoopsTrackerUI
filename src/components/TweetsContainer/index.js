@@ -225,7 +225,7 @@ function TweetsContainer({
           apiUri="/api/tweets"
           queryParams={{ query, theme, location, days, ordering }}
           type="tweets"
-          value={ordering?.replace(/[^0-9A-Z]+/gi, "")}
+          value={ordering?.replace("-", "")}
           onSelection={handleSelectionFilter}
           isDesc={isDesc}
           toggleIsDesc={toggleIsDesc}

@@ -149,9 +149,9 @@ function ContentActions({
               name="ordering"
               handleSelection={onSelection}
               menuItems={[
-                { name: "Created At", value: "createdAt" },
-                { name: "Deleted At", value: "deletedAt" },
-                { name: "Owner Screen Name", value: "ownerScreenName" },
+                { name: "Created At", value: "created_at" },
+                { name: "Deleted At", value: "deleted_at" },
+                { name: "Owner Screen Name", value: "owner_screen_name" },
               ]}
               value={value}
             >
