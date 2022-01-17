@@ -151,7 +151,7 @@ function ContentActions({
               menuItems={[
                 { name: "Created At", value: "created_at" },
                 { name: "Deleted At", value: "deleted_at" },
-                { name: "Owner Screen Name", value: "owner_screen_name" },
+                { name: "Owner Screen Name", value: "owner__screen_name" },
               ]}
               value={value}
             >
