@@ -422,6 +422,35 @@
               ]
             }
           ]
+        },
+        {
+          "label": "User Guide",
+          "name": "help",
+          "file": "content/pages/help.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Content",
+              "name": "content",
+              "widget": "object",
+              "fields": [
+                {
+                  "label": "Searching",
+                  "name": "search",
+                  "widget": "markdown"
+                },
+                {
+                  "label": "Chart Sharing",
+                  "name": "chart",
+                  "widget": "markdown"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
