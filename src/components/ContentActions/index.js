@@ -101,6 +101,7 @@ function ContentActions({
           <Grid item className={classes.filterSection}>
             <Sort
               key={value}
+              isDesc
               label="Sort By:"
               name="ordering"
               handleSelection={onSelection}
