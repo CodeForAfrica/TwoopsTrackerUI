@@ -20,6 +20,11 @@ const useStyles = makeStyles(({ typography, palette }) => ({
     paddingTop: typography.pxToRem(113),
     paddingBottom: typography.pxToRem(123),
   },
+  image: {
+    "& span": {
+      boxShadow: `0 4px 8px 0 rgba(0,0,0,0.4)`,
+    },
+  },
   description: {
     marginTop: typography.pxToRem(39),
     marginBottom: typography.pxToRem(80),
@@ -60,13 +65,15 @@ function InvestigationsPreview({
           {items.slice(0, 4).map(({ href, image, title: bookTitle }) => (
             <Grid item xs={6} md={3}>
               <Link href={href}>
-                <Image
-                  height={369}
-                  width={297}
-                  objectFit="contain"
-                  src={image}
-                  alt={bookTitle}
-                />
+                <div className={classes.image}>
+                  <Image
+                    height={369}
+                    width={297}
+                    objectFit="contain"
+                    src={image}
+                    alt={bookTitle}
+                  />
+                </div>
                 <Typography
                   className={classes.investigationtitle}
                   variant="body1"
