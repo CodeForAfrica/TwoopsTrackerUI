@@ -42,7 +42,7 @@ function TweetsContainer({
   const [search, setSearch] = useState(false);
   const [theme, setTheme] = useState(themeProp);
   const [tweets, setTweets] = useState(tweetsProp);
-  const [ordering, setOrdering] = useState(orderingProps);
+  const [ordering, setOrdering] = useState(orderingProp);
   const [isDesc, setIsDesc] = useState(false);
 
   const setStateObject = {
