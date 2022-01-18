@@ -201,7 +201,7 @@ function TweetsContainer({
     }
   }, [newInsights]);
   const isLoading = isLoadingTweets || isLoadingInsights;
-  const toggleIsDesc = () => {
+  const toggleSortOrder = () => {
     setIsDesc((prevState) => !prevState);
   };
 
@@ -228,7 +228,7 @@ function TweetsContainer({
           value={ordering?.replace("-", "")}
           onSelection={handleSelectionFilter}
           isDesc={isDesc}
-          toggleIsDesc={toggleIsDesc}
+          toggleSortOrder={toggleSortOrder}
         />
       )}
       <Tweets tweets={tweets} />

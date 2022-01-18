@@ -79,6 +79,9 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
       flexDirection: "row",
     },
   },
+  fileTypes: {
+    padding: `${typography.pxToRem(32)} 0`,
+  },
 }));
 
 function ContentActions({
@@ -89,7 +92,7 @@ function ContentActions({
   queryParams,
   type,
   isDesc,
-  toggleIsDesc,
+  toggleSortOrder,
   ...props
 }) {
   const classes = useStyles(props);
@@ -123,7 +126,7 @@ function ContentActions({
           container
           justifyContent="space-between"
           alignItems="center"
-          style={{ padding: "2rem 0rem" }}
+          className={classes.fileTypes}
         >
           <Grid item xs={4}>
             <Typography className={classes.label} variant="body2">
@@ -159,7 +162,7 @@ function ContentActions({
                 color="default"
                 variant="text"
                 size="large"
-                onClick={toggleIsDesc}
+                onClick={toggleSortOrder}
                 classes={{
                   root: classes.buttonIcon,
                 }}
@@ -187,7 +190,7 @@ ContentActions.propTypes = {
   value: PropTypes.string,
   show: PropTypes.string,
   isDesc: PropTypes.bool,
-  toggleIsDesc: PropTypes.func,
+  toggleSortOrder: PropTypes.func,
 };
 
 ContentActions.defaultProps = {
@@ -198,7 +201,7 @@ ContentActions.defaultProps = {
   value: undefined,
   show: undefined,
   isDesc: undefined,
-  toggleIsDesc: undefined,
+  toggleSortOrder: undefined,
 };
 
 export default ContentActions;
