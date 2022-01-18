@@ -43,7 +43,7 @@ function TweetsContainer({
   const [theme, setTheme] = useState(themeProp);
   const [tweets, setTweets] = useState(tweetsProp);
   const [ordering, setOrdering] = useState(orderingProps);
-  const [isDesc, setIsDesc] = useState(orderingProps);
+  const [isDesc, setIsDesc] = useState(false);
 
   const setStateObject = {
     category: setCategory,
@@ -56,6 +56,7 @@ function TweetsContainer({
     ordering: setOrdering,
     isDesc: setIsDesc,
   };
+  console.log(ordering);
 
   // Handle initial query parameters from server (if any)
   useEffect(() => {
