@@ -26,6 +26,7 @@ const theme = createTheme({
       default: "#FFF",
       secondary: "#DB1111",
       paper: "#F8F8F8",
+      dark: "#D0D0D0",
     },
     text: {
       primary: "#000000",
@@ -219,8 +220,9 @@ deepmerge(
         borderRadius: pxToRem(50),
         border: `1px solid ${palette.primary.main}`,
         "&:hover": {
+          boxShadow: "none",
           color: palette.text.primary,
-          backgroundColor: palette.background.paper,
+          backgroundColor: palette.background.dark,
           borderRadius: pxToRem(50),
           border: `1px solid ${palette.primary.main}`,
         },
@@ -232,6 +234,7 @@ deepmerge(
         borderRadius: 0,
         border: "1px solid transparent",
         "&:hover": {
+          boxShadow: "none",
           color: palette.secondary.main,
           backgroundColor: palette.background.default,
           borderRadius: pxToRem(5),
