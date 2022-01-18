@@ -55,6 +55,7 @@ function Sort({
       <Select
         labelId={`${label}-id`}
         value={value}
+        defaultValue={value}
         onChange={handleChange}
         className={classes.select}
         IconComponent={SvgIcon}
