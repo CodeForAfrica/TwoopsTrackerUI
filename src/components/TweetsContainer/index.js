@@ -56,7 +56,6 @@ function TweetsContainer({
     ordering: setOrdering,
     isDesc: setIsDesc,
   };
-  console.log(ordering);
 
   // Handle initial query parameters from server (if any)
   useEffect(() => {
