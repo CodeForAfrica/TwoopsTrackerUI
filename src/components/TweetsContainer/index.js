@@ -24,7 +24,7 @@ function TweetsContainer({
   paginationProps,
   query: queryProp,
   theme: themeProp,
-  ordering: orderingProps,
+  ordering: orderingProp,
   tweets: tweetsProp,
   ...props
 }) {
