@@ -4,14 +4,18 @@ import {
   Select,
   Typography,
   InputBase,
+  Button,
   SvgIcon as MuiSvgIcon,
 } from "@material-ui/core";
+import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
 import useStyles from "./useStyles";
 
 import { ReactComponent as KeyboardArrowDown } from "@/twoopstracker/assets/icons/select-dropdown.svg";
+import SortDown from "@/twoopstracker/assets/icons/sort-down.svg";
+import SortUp from "@/twoopstracker/assets/icons/sort-up.svg";
 
 function SvgIcon(props) {
   const classes = useStyles(props);
@@ -25,6 +29,8 @@ function SvgIcon(props) {
 
 function Sort({
   handleSelection,
+  toggleSortOrder,
+  isDesc,
   children,
   label,
   name,
@@ -71,12 +77,29 @@ function Sort({
             </MenuItem>
           ))}
       </Select>
-      {children}
+      <Button
+        color="default"
+        variant="text"
+        size="large"
+        onClick={toggleSortOrder}
+        classes={{
+          root: classes.buttonIcon,
+        }}
+        startIcon={
+          <Image
+            layout="fill"
+            src={isDesc ? SortDown : SortUp}
+            className={classes.large}
+          />
+        }
+      />
     </FormControl>
   );
 }
 
 Sort.propTypes = {
+  toggleSortOrder: PropTypes.func,
+  isDesc: PropTypes.bool,
   handleSelection: PropTypes.func,
   children: PropTypes.node,
   name: PropTypes.string,
@@ -91,12 +114,14 @@ Sort.propTypes = {
 };
 
 Sort.defaultProps = {
+  toggleSortOrder: undefined,
   handleSelection: undefined,
   children: undefined,
   label: undefined,
   name: undefined,
   menuItems: undefined,
   value: undefined,
+  isDesc: undefined,
 };
 
 export default Sort;

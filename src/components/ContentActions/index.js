@@ -1,12 +1,9 @@
 import { Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { saveAs } from "file-saver";
-import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
-import SortDown from "@/twoopstracker/assets/icons/sort-down.svg";
-import SortUp from "@/twoopstracker/assets/icons/sort-up.svg";
 import Section from "@/twoopstracker/components/Section";
 import Sort from "@/twoopstracker/components/Sort";
 import { contentActionsProps } from "@/twoopstracker/config";
@@ -29,49 +26,6 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     display: "inline-flex",
     fontFamily: typography.button.fontFamily,
   },
-  large: {
-    width: 12,
-    height: 26,
-  },
-  buttonIcon: {
-    color: "black",
-    height: typography.pxToRem(26),
-    minWidth: 0,
-    "&:hover, &:focus, &:focus-within": {
-      backgroundColor: "transparent",
-      textDecoration: "none",
-      color: "black",
-    },
-    [breakpoints.up("xl")]: {
-      color: "black",
-      "&:hover, &:focus, &:focus-within": {
-        color: "black",
-        backgroundColor: "transparent",
-        textDecoration: "none",
-      },
-    },
-  },
-  text: {
-    "&::after": {
-      content: '""',
-      backgroundImage: "none",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      marginLeft: 0,
-      height: 0,
-      width: 0,
-    },
-    "&:hover::after": {
-      content: '""',
-      backgroundImage: "none",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      transition: "margin 0.3s ease",
-      marginLeft: 0,
-      height: 0,
-      width: 0,
-    },
-  },
   filterSection: {
     display: "flex",
     flexDirection: "column",
@@ -91,7 +45,6 @@ function ContentActions({
   apiUri,
   queryParams,
   type,
-  isDesc,
   toggleSortOrder,
   ...props
 }) {
@@ -156,25 +109,9 @@ function ContentActions({
                 { name: "Deleted At", value: "deleted_at" },
                 { name: "Owner Screen Name", value: "owner__screen_name" },
               ]}
+              toggleSortOrder={toggleSortOrder}
               value={value}
-            >
-              <Button
-                color="default"
-                variant="text"
-                size="large"
-                onClick={toggleSortOrder}
-                classes={{
-                  root: classes.buttonIcon,
-                }}
-                startIcon={
-                  <Image
-                    layout="fill"
-                    src={isDesc ? SortDown : SortUp}
-                    className={classes.large}
-                  />
-                }
-              />
-            </Sort>
+            />
           </Grid>
         </Grid>
       </Section>
@@ -189,7 +126,6 @@ ContentActions.propTypes = {
   onSelection: PropTypes.func,
   value: PropTypes.string,
   show: PropTypes.string,
-  isDesc: PropTypes.bool,
   toggleSortOrder: PropTypes.func,
 };
 
@@ -200,7 +136,6 @@ ContentActions.defaultProps = {
   type: undefined,
   value: undefined,
   show: undefined,
-  isDesc: undefined,
   toggleSortOrder: undefined,
 };
 

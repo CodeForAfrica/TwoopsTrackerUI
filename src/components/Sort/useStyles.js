@@ -58,6 +58,28 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       display: "none",
     },
   },
+  large: {
+    width: 12,
+    height: 26,
+  },
+  buttonIcon: {
+    color: "black",
+    height: typography.pxToRem(26),
+    minWidth: 0,
+    "&:hover, &:focus, &:focus-within": {
+      backgroundColor: "transparent",
+      textDecoration: "none",
+      color: "black",
+    },
+    [breakpoints.up("xl")]: {
+      color: "black",
+      "&:hover, &:focus, &:focus-within": {
+        color: "black",
+        backgroundColor: "transparent",
+        textDecoration: "none",
+      },
+    },
+  },
   inputBase: {
     padding: typography.pxToRem(2),
     backgroundColor: "white",
@@ -67,7 +89,6 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       width: typography.pxToRem(163),
     },
   },
-
   inputBaseInput: {
     textAlign: "left",
     paddingLeft: typography.pxToRem(16),
