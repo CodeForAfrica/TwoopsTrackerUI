@@ -83,7 +83,7 @@ Explore.defaultProps = {
 export async function getServerSideProps(context) {
   let results = null;
   const { query: userQuery } = context;
-  const query = { days: 14, ordering: "-created_at", ...userQuery };
+  const query = { days: 14, ordering: "-deleted_at", ...userQuery };
   const session = await getSession(context);
   const foundTweets = await tweets(query, session);
   const insights = await tweetsInsights(query, session);
