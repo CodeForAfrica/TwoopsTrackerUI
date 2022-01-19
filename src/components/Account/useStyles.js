@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
     borderBottom: "solid 1px gray",
     marginBottom: `${typography.pxToRem(20)}`,
@@ -40,6 +40,10 @@ const useStyles = makeStyles(({ typography }) => ({
     display: "flex",
     justifyContent: "end",
     alignItems: "center",
+    [breakpoints.down("md")]: {
+      justifyContent: "flex-start",
+      marginTop: typography.pxToRem(20),
+    },
   },
 
   delete: {},

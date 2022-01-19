@@ -120,7 +120,11 @@ function ModalComponent({
             />
           </FormControl>
         )}
-        {deleteDescription && <Typography>{deleteDescription}</Typography>}
+        {deleteDescription && (
+          <Typography className={classes.deleteDescription}>
+            {deleteDescription}
+          </Typography>
+        )}
         <div>
           {buttonLabel && (
             <Button variant="contained" color="primary" onClick={buttonOnClick}>
