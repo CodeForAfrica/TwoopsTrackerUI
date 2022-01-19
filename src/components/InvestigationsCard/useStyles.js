@@ -14,6 +14,7 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
   content: {
     display: "flex",
     alignItems: "center",
+    padding: "0rem 1rem",
   },
   description: {
     margin: `${typography.pxToRem(20)} 0`,
