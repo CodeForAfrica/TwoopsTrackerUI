@@ -16,9 +16,9 @@ const useStyles = makeStyles(
     toolbar: {
       display: "flex",
       alignItems: "center",
-      padding: `0`,
+      padding: `${typography.pxToRem(8)} 0`,
       [breakpoints.up("lg")]: {
-        padding: `${typography.pxToRem(12)} 0`,
+        padding: `${typography.pxToRem(23)} 0`,
       },
     },
     navigation: {
