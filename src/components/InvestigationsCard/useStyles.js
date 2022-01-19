@@ -28,16 +28,10 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
   media: {
     height: typography.pxToRem(322),
     width: typography.pxToRem(228),
-    "& span": {
-      boxShadow: `0 4px 8px 0 rgba(0,0,0,0.4)`,
-    },
   },
   featured: {
     height: `${typography.pxToRem(421)} !important`,
     width: `${typography.pxToRem(300)} !important`,
-    "& span": {
-      boxShadow: `0 4px 8px 0 rgba(0,0,0,0.4)`,
-    },
   },
   title: {
     overflow: "hidden",
