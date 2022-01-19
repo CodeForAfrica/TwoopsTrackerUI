@@ -10,6 +10,9 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
       justifyContent: "space-between",
     },
   },
+  list: {
+    paddingBottom: typography.pxToRem(48),
+  },
   listItem: {
     marginTop: typography.pxToRem(20),
   },
@@ -25,6 +28,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
       position: "relative",
       top: typography.pxToRem(70),
       padding: 0,
+      marginTop: typography.pxToRem(48),
     },
   },
   label: {
