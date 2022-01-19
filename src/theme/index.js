@@ -9,7 +9,8 @@ const FONT_FAMILY_TEXT2 = '"Montserrat", "sans-serif"';
 const theme = createTheme({
   breakpoints: {
     values: {
-      xs: 0, // mobile
+      xs: 0,
+      sm: 390, // mobile
       md: 960, // tablet
       lg: 1440, // desktop
     },
@@ -91,7 +92,7 @@ const theme = createTheme({
   },
   widths: {
     values: {
-      md: 900, // 0, 80, 0, 80 margin - to be confirmed for TwoopsTracker
+      md: 680, // 0, 80, 0, 80 margin - to be confirmed for TwoopsTracker
       lg: 1240, // 0, 140, 0, 140 margin - to be confirmed for TwoopsTracker
     },
   },
@@ -150,7 +151,7 @@ deepmerge(
     },
     body2: {
       fontSize: pxToRem(18),
-      lineHeight: 30 / 18,
+      lineHeight: 26.91 / 18,
     },
     button: {
       fontSize: pxToRem(16),
