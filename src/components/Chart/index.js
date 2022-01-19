@@ -14,7 +14,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
     paddingTop: typography.pxToRem(30),
     paddingBottom: typography.pxToRem(30),
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       paddingTop: typography.pxToRem(30),
       paddingBottom: typography.pxToRem(100),
     },
@@ -26,7 +26,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
       30
     )} ${typography.pxToRem(50)}`,
     boxShadow: "0 4px 6px 0 #0000000D",
-    height: typography.pxToRem(578),
+    height: typography.pxToRem(579),
     backgroundColor: palette.background.default,
   },
   chart: {
@@ -61,7 +61,7 @@ function Chart({ data, ...props }) {
   const [title, setTitle] = useState("");
 
   const theme = useTheme();
-  const isUpXL = useMediaQuery(theme.breakpoints.up("xl"));
+  const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
 
   const calculateTooltipPosition = (event, tooltipBox, offsetX, offsetY) => {
     let x = event.pageX + offsetX;
@@ -121,7 +121,7 @@ function Chart({ data, ...props }) {
 
   useEffect(() => {
     async function renderChart() {
-      const spec = LineScope(data, !isUpXL);
+      const spec = LineScope(data, !isUpLg);
       if (chartRef?.current) {
         const view = await embed(chartRef.current, spec, {
           renderer: "svg",
@@ -139,7 +139,7 @@ function Chart({ data, ...props }) {
     if (data) {
       renderChart();
     }
-  }, [data, handler, isUpXL]);
+  }, [data, handler, isUpLg]);
 
   if (!data?.length) {
     return null;
