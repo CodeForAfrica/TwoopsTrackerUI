@@ -47,7 +47,7 @@ function ExploreTool({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item lg={4}>
+          <Grid item lg={5}>
             <Typography className={classes.title} variant="h2">
               {title}
             </Typography>
@@ -58,7 +58,7 @@ function ExploreTool({
               {buttonText}
             </Button>
           </Grid>
-          <Grid item lg={6} className={classes.imageGrid}>
+          <Grid item lg={7} className={classes.imageGrid}>
             <Image height={403} width={731} src={image} alt={title} />
           </Grid>
         </Grid>
