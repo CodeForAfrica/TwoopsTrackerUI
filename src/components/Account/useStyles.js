@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ typography, breakpoints }) => ({
+const useStyles = makeStyles(({ typography }) => ({
   root: {
     borderBottom: "solid 1px gray",
     marginBottom: `${typography.pxToRem(20)}`,
@@ -10,21 +10,17 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   avatar: {
-    width: "80%",
-    height: "80%",
-    margin: typography.pxToRem(10),
+    width: "100%",
+    height: "100%",
   },
   icon: {
     position: "relative",
-    width: typography.pxToRem(100),
-    height: typography.pxToRem(100),
+    width: typography.pxToRem(165),
+    height: typography.pxToRem(165),
     border: `solid 1px`,
   },
   detailSection: {
     marginLeft: 0,
-    [breakpoints.up("md")]: {
-      marginLeft: typography.pxToRem(20),
-    },
   },
   username: {
     fontWeight: "700",
@@ -36,7 +32,6 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   accountType: {
     display: "inline",
-    marginLeft: typography.pxToRem(10),
   },
   list: {
     marginTop: typography.pxToRem(10),
@@ -47,9 +42,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     alignItems: "center",
   },
 
-  delete: {
-    marginLeft: typography.pxToRem(10),
-  },
+  delete: {},
 }));
 
 export default useStyles;

@@ -107,7 +107,7 @@ function AccountsList({
 
   return (
     <Section className={classes.root}>
-      <div className={classes.section}>
+      <div className={classes.titleSection}>
         {name && <Typography variant="h2">{name}</Typography>}
         {editable && (
           <Button variant="contained" color="primary" onClick={handleOpen}>
