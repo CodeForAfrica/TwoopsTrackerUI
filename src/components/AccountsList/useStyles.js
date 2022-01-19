@@ -8,13 +8,6 @@ const useStyles = makeStyles(({ typography }) => ({
     display: "flex",
     justifyContent: "space-between",
   },
-  button: {
-    backgroundColor: "red",
-    color: "#fff",
-    "&:hover": {
-      color: "#DB1111",
-    },
-  },
 }));
 
 export default useStyles;

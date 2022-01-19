@@ -72,6 +72,8 @@ function Account({
               onClick={handleOpen}
               disabled={items === 1}
               className={classes.delete}
+              variant="contained"
+              color="primary"
             >
               Delete
             </Button>

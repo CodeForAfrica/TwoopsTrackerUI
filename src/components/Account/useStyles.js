@@ -44,12 +44,10 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   buttonSection: {
     display: "flex",
     justifyContent: "end",
-    alignItems: "end",
+    alignItems: "center",
   },
 
   delete: {
-    backgroundColor: "#DB1111",
-    color: "#fff",
     marginLeft: typography.pxToRem(10),
   },
 }));

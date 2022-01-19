@@ -36,8 +36,8 @@ function AccountsList({
   const [page, setPage] = useState(pageProp);
   const [pageSize, setPageSize] = useState(pageSizeProp);
   const fetcher = (url) => fetchJson(url);
-  const paginationString = new URLSearchParams({ page, pageSize }).toString();
-  const { data, mutate } = useSWR(apiUrl + paginationString, fetcher);
+  // const paginationString = new URLSearchParams({ page, pageSize }).toString();
+  const { data, mutate } = useSWR(apiUrl, fetcher);
 
   useEffect(() => {
     if (data) {
@@ -110,7 +110,7 @@ function AccountsList({
       <div className={classes.section}>
         {name && <Typography variant="h2">{name}</Typography>}
         {editable && (
-          <Button onClick={handleOpen} className={classes.button}>
+          <Button variant="contained" color="primary" onClick={handleOpen}>
             Add Account
           </Button>
         )}
