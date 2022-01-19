@@ -106,20 +106,20 @@ deepmerge(
   typography,
   {
     h1: {
-      fontSize: pxToRem(60),
-      lineHeight: 75.6 / 60,
+      fontSize: pxToRem(30),
+      lineHeight: 40 / 30,
       color: palette.text.secondary,
       [breakpoints.up("lg")]: {
-        fontSize: pxToRem(72),
-        lineHeight: 79.2 / 72,
+        fontSize: pxToRem(48),
+        lineHeight: 52.8 / 48,
       },
     },
     h2: {
-      fontSize: pxToRem(42),
-      lineHeight: 49.2 / 24,
+      fontSize: pxToRem(30),
+      lineHeight: 49.2 / 30,
       [breakpoints.up("lg")]: {
-        fontSize: pxToRem(64),
-        lineHeight: 70.4 / 64,
+        fontSize: pxToRem(48),
+        lineHeight: 71.75 / 48,
       },
     },
     h3: {
@@ -155,18 +155,22 @@ deepmerge(
     },
     button: {
       fontSize: pxToRem(16),
-      lineHeight: "149.49%",
-      [breakpoints.up("md")]: { fontSize: pxToRem(24) },
+      lineHeight: 24 / 16,
+      [breakpoints.up("lg")]: {
+        fontSize: pxToRem(24),
+        lineHeight: 35.88 / 24,
+      },
     },
     caption: {
       fontSize: pxToRem(14),
       [breakpoints.up("lg")]: { fontSize: pxToRem(14) },
     },
     subtitle1: {
-      fontSize: pxToRem(24),
+      fontSize: pxToRem(16),
+      lineHeight: 24 / 16,
       [breakpoints.up("lg")]: {
-        fontSize: typography.pxToRem(36),
-        lineHeight: 39.6 / 36,
+        fontSize: typography.pxToRem(24),
+        lineHeight: 35.88 / 24,
       },
     },
     subtitle2: {
