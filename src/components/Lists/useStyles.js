@@ -10,7 +10,16 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
       justifyContent: "space-between",
     },
   },
-
+  createListModal: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    [breakpoints.up("md")]: {
+      justifyContent: "flex-end",
+      alignItems: "flex-end",
+    },
+  },
   listItem: {
     marginTop: typography.pxToRem(20),
   },

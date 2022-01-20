@@ -101,12 +101,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
         <Typography variant="h2" className={classes.title}>
           Your Lists
         </Typography>
-        <Grid
-          container
-          direction="row"
-          justifyContent="flex-end"
-          alignItems="flex-end"
-        >
+        <div className={classes.createListModal}>
           <Typography onClick={handleOpen} className={classes.create}>
             Create New List
           </Typography>
@@ -126,7 +121,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
             buttonLabel="Create"
             buttonOnClick={onCreate}
           />
-        </Grid>
+        </div>
         {lists?.length ? (
           <>
             <ContentActions
