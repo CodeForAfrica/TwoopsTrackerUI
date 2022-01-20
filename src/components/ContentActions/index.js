@@ -56,7 +56,7 @@ function ContentActions({ apiUri, queryParams, type, ...props }) {
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container justifyContent="space-between" alignItems="center">
-          <Grid container item alignItems="center">
+          <Grid container item xs={4} alignItems="center">
             <Typography className={classes.label} variant="body2">
               {download.label}
             </Typography>

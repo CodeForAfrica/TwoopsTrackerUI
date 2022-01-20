@@ -6,12 +6,12 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     display: "flex",
     flexDirection: "column",
     [breakpoints.up("md")]: {
-      flexDirection: "row",
+      flexDirection: "column",
       justifyContent: "space-between",
     },
   },
   list: {
-    paddingBottom: typography.pxToRem(80),
+    /*  paddingBottom: typography.pxToRem(80), */
   },
   listItem: {
     marginTop: typography.pxToRem(20),
@@ -28,7 +28,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
       position: "relative",
       top: typography.pxToRem(70),
       padding: 0,
-      marginTop: typography.pxToRem(80),
+      /* marginTop: typography.pxToRem(80), */
     },
   },
   label: {

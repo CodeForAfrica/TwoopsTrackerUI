@@ -101,58 +101,65 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
         <Typography variant="h2" className={classes.title}>
           Your Lists
         </Typography>
-        <Typography onClick={handleOpen} className={classes.create}>
-          Create New List
-        </Typography>
-        <ListModal
-          open={open}
-          onClose={handleClose}
-          nameValue={name}
-          nameLabel="ListName"
-          nameHelper="Name of List"
-          nameOnChange={handleChange}
-          accountsLabel="User Accounts"
-          accountsOnChange={handleChange}
-          accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
-          privacyOnChange={handleChange}
-          accountsValue={accounts}
-          privacyValue={privacy}
-          buttonLabel="Create"
-          buttonOnClick={onCreate}
-        />
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="flex-end"
+        >
+          <Typography onClick={handleOpen} className={classes.create}>
+            Create New List
+          </Typography>
+          <ListModal
+            open={open}
+            onClose={handleClose}
+            nameValue={name}
+            nameLabel="ListName"
+            nameHelper="Name of List"
+            nameOnChange={handleChange}
+            accountsLabel="User Accounts"
+            accountsOnChange={handleChange}
+            accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
+            privacyOnChange={handleChange}
+            accountsValue={accounts}
+            privacyValue={privacy}
+            buttonLabel="Create"
+            buttonOnClick={onCreate}
+          />
+        </Grid>
+        {lists?.length ? (
+          <>
+            <ContentActions
+              apiUri="/api/lists"
+              classes={{ section: classes.actions }}
+              type="lists"
+            />
+            <Grid container>
+              {lists?.map((item) => (
+                <Grid item xs={12}>
+                  <ListCard
+                    key={item.name}
+                    classes={{ root: classes.listItem }}
+                    {...item}
+                    mutate={mutate}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+            <Pagination
+              {...paginationProps}
+              count={Math.ceil((data?.count ?? 0) / (pageSize || 10))}
+              onChangePage={handleClickPage}
+              onChangePageSize={handleClickPageSize}
+              page={page}
+              pageSize={pageSize}
+              classes={{ section: classes.pagination }}
+            />
+          </>
+        ) : (
+          <Typography variant="body1">There are no lists</Typography>
+        )}
       </div>
-      {lists?.length ? (
-        <>
-          <ContentActions
-            apiUri="/api/lists"
-            classes={{ section: classes.actions }}
-            type="lists"
-          />
-          <Grid container>
-            {lists?.map((item) => (
-              <Grid item xs={12}>
-                <ListCard
-                  key={item.name}
-                  classes={{ root: classes.listItem }}
-                  {...item}
-                  mutate={mutate}
-                />
-              </Grid>
-            ))}
-          </Grid>
-          <Pagination
-            {...paginationProps}
-            count={Math.ceil((data?.count ?? 0) / (pageSize || 10))}
-            onChangePage={handleClickPage}
-            onChangePageSize={handleClickPageSize}
-            page={page}
-            pageSize={pageSize}
-            classes={{ section: classes.pagination }}
-          />
-        </>
-      ) : (
-        <Typography variant="body1">There are no lists</Typography>
-      )}
     </div>
   );
 }
