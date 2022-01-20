@@ -26,7 +26,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     marginBottom: typography.pxToRem(20),
   },
   grid: {
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       justifyContent: "flex-end",
       alignItems: "flex-end",
     },

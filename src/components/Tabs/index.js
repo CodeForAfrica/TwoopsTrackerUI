@@ -26,7 +26,7 @@ function Tabs({ activeTab, items, name: nameProp, ...props }) {
   };
 
   const theme = useTheme();
-  const isUpXl = useMediaQuery(theme.breakpoints.up("xl"));
+  const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
 
   if (!items?.length) {
     return null;
@@ -35,7 +35,7 @@ function Tabs({ activeTab, items, name: nameProp, ...props }) {
     <div className={classes.root}>
       <MuiTabs
         value={value}
-        orientation={isUpXl ? "vertical" : "horizontal"}
+        orientation={isUpLg ? "vertical" : "horizontal"}
         onChange={handleChange}
         variant="scrollable"
         scrollButtons="off"
