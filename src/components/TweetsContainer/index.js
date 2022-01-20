@@ -203,6 +203,11 @@ function TweetsContainer({
   const isLoading = isLoadingTweets || isLoadingInsights;
   const toggleSortOrder = () => {
     setIsDesc((prevState) => !prevState);
+    if (isDesc) {
+      tweetsProp.results.sort((a, b) => a - b);
+    } else {
+      tweetsProp.results.sort((a, b) => b - a);
+    }
   };
 
   return (
