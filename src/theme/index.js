@@ -125,8 +125,8 @@ deepmerge(
     h3: {
       fontSize: pxToRem(30),
       [breakpoints.up("lg")]: {
-        fontSize: pxToRem(53.33),
-        lineHeight: 58.67 / 53.33,
+        fontSize: pxToRem(40),
+        lineHeight: 58.67 / 40,
       },
     },
     h4: {

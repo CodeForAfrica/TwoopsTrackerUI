@@ -159,7 +159,7 @@ export default function LineChartScope(data, smallScreen = false) {
         range: [
           0,
           {
-            signal: "smallScreen ? breadth - 20 : 0.7 * breadth",
+            signal: "smallScreen ? breadth - 25 : 0.7 * breadth",
           },
         ],
       },
@@ -246,8 +246,10 @@ export default function LineChartScope(data, smallScreen = false) {
             orient: "bottom",
             scale: "xscale",
             domainOpacity: 0.2,
+            domainPadding: 5,
             format: { signal: "dateFormat" },
             formatType: "time",
+            labelFlush: true,
             labelOverlap: true,
           },
         ],
@@ -299,6 +301,7 @@ export default function LineChartScope(data, smallScreen = false) {
               update: {
                 size: { value: 100 },
                 stroke: { value: "transparent" },
+                fill: { value: "transparent" },
                 tooltip: {
                   signal:
                     "{ 'date': timeFormat(datum.date, tooltipDateFormat), 'count': format(datum.count, numberFormat) + ' tweets'}",
@@ -309,6 +312,7 @@ export default function LineChartScope(data, smallScreen = false) {
                 size: { value: 70 },
                 stroke: { value: theme.palette.primary.main },
                 strokeWidth: { value: 2 },
+                strokeOpacity: { value: 1 },
               },
             },
           },
