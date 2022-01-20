@@ -5,27 +5,27 @@ import Chart from ".";
 const tweetsCount = [
   {
     date: "2021-10-08",
-    count: 243,
+    count: 2430,
   },
   {
     date: "2021-10-09",
-    count: 340,
+    count: 3400,
   },
   {
     date: "2021-10-10",
-    count: 567,
+    count: 5670,
   },
   {
     date: "2021-10-11",
-    count: 80,
+    count: 800,
   },
   {
     date: "2021-10-12",
-    count: 123,
+    count: 1230,
   },
   {
     date: "2021-10-13",
-    count: 342,
+    count: 3420,
   },
   {
     date: "2021-10-14",
