@@ -98,7 +98,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
   return (
     <div className={classes.root}>
       <div className={classes.section}>
-        <Typography variant="h2" className={classes.list}>
+        <Typography variant="h2" className={classes.title}>
           Your Lists
         </Typography>
         <Typography onClick={handleOpen} className={classes.create}>
