@@ -41,6 +41,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
 function ContentActions({
   value,
   show,
+  isDesc,
   onSelection,
   apiUri,
   queryParams,
@@ -101,7 +102,7 @@ function ContentActions({
           <Grid item className={classes.filterSection}>
             <Sort
               key={value}
-              isDesc
+              isDesc={isDesc}
               label="Sort By:"
               name="ordering"
               handleSelection={onSelection}
@@ -122,6 +123,7 @@ function ContentActions({
 
 ContentActions.propTypes = {
   apiUri: PropTypes.string,
+  isDesc: PropTypes.bool,
   queryParams: PropTypes.shape({}),
   type: PropTypes.string,
   onSelection: PropTypes.func,
@@ -132,6 +134,7 @@ ContentActions.propTypes = {
 
 ContentActions.defaultProps = {
   apiUri: undefined,
+  isDesc: undefined,
   onSelection: undefined,
   queryParams: undefined,
   type: undefined,
