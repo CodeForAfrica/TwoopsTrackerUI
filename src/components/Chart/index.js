@@ -1,5 +1,6 @@
 import { Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme, ThemeProvider } from "@material-ui/core/styles";
+import clsx from "clsx";
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
@@ -12,13 +13,13 @@ import Share from "@/twoopstracker/components/Share";
 
 const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
+    backgroundColor: palette.background.paper,
     paddingTop: typography.pxToRem(60),
     paddingBottom: typography.pxToRem(60),
     [breakpoints.up("lg")]: {
       paddingTop: typography.pxToRem(100),
       paddingBottom: typography.pxToRem(100),
     },
-    backgroundColor: palette.background.paper,
   },
   section: {
     position: "relative",
@@ -55,7 +56,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
 }));
 
-function Chart({ data, ...props }) {
+function Chart({ className, data, ...props }) {
   const classes = useStyles(props);
   const chartRef = useRef();
   const [title, setTitle] = useState("");
@@ -80,11 +81,11 @@ function Chart({ data, ...props }) {
 
   const handler = useCallback(
     (_, event, item, value) => {
-      const className = `charttooltip`;
-      let el = document.getElementsByClassName(className)[0];
+      const tooltipClass = `charttooltip`;
+      let el = document.getElementsByClassName(tooltipClass)[0];
       if (!el) {
         el = document.createElement("div");
-        el.classList.add(className);
+        el.classList.add(tooltipClass);
         document.body.appendChild(el);
       }
 
@@ -145,7 +146,7 @@ function Chart({ data, ...props }) {
     return null;
   }
   return (
-    <div className={classes.root}>
+    <div className={clsx(classes.root, className)}>
       <Section classes={{ root: classes.section }}>
         <Share {...props} classes={{ root: classes.share }} title={title} />
         <div ref={chartRef} className={classes.chart} />
@@ -156,10 +157,12 @@ function Chart({ data, ...props }) {
 
 Chart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
+  className: PropTypes.string,
 };
 
 Chart.defaultProps = {
   data: undefined,
+  className: undefined,
 };
 
 export default Chart;
