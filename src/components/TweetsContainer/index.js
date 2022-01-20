@@ -43,7 +43,7 @@ function TweetsContainer({
   const [theme, setTheme] = useState(themeProp);
   const [tweets, setTweets] = useState(tweetsProp);
   const [ordering, setOrdering] = useState(orderingProp);
-  const [isDesc, setIsDesc] = useState(false);
+  const [isDesc, setIsDesc] = useState(true);
 
   const setStateObject = {
     category: setCategory,
@@ -203,7 +203,6 @@ function TweetsContainer({
   const isLoading = isLoadingTweets || isLoadingInsights;
   const toggleSortOrder = () => {
     setIsDesc((prevState) => !prevState);
-    console.log("example sort", tweetsProp.results);
     if (isDesc) {
       tweetsProp.results.sort((a, b) => a - b);
     } else {
