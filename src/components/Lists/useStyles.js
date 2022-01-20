@@ -11,7 +11,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     },
   },
   list: {
-    paddingBottom: typography.pxToRem(48),
+    paddingBottom: typography.pxToRem(80),
   },
   listItem: {
     marginTop: typography.pxToRem(20),
@@ -28,7 +28,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
       position: "relative",
       top: typography.pxToRem(70),
       padding: 0,
-      marginTop: typography.pxToRem(48),
+      marginTop: typography.pxToRem(80),
     },
   },
   label: {
