@@ -92,8 +92,8 @@ const theme = createTheme({
   },
   widths: {
     values: {
-      md: 680, // 0, 80, 0, 80 margin - to be confirmed for TwoopsTracker
-      lg: 1240, // 0, 140, 0, 140 margin - to be confirmed for TwoopsTracker
+      md: 900,
+      lg: 1240,
     },
   },
 });
