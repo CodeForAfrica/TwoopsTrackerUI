@@ -49,14 +49,14 @@ function SearchSection({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item xl={7} xs={12}>
+          <Grid item lg={7} xs={12}>
             <Search
               defaultValue={query || undefined}
               onChange={onSelection}
               onKeyDown={handleKeyDown}
             />
           </Grid>
-          <Grid item xl={5} xs={12} className={classes.filterSection}>
+          <Grid item lg={5} xs={12} className={classes.filterSection}>
             <Filter
               key={days}
               label="Days"
