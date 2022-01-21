@@ -130,7 +130,7 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
   }
   let days = parseInt(daysAsString, 10) || undefined;
   if (days > 30) {
-    days = 30;
+    days = 90;
   }
   return { category, query, location, days, page, pageSize, download };
 }
