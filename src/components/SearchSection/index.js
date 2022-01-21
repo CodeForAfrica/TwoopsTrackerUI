@@ -67,6 +67,7 @@ function SearchSection({
                 { name: "Last 7 Days", value: "7" },
                 { name: "Last 14 Days", value: "14" },
                 { name: "Last 30 Days", value: "30" },
+                { name: "Last 90 Days", value: "90" },
               ]}
               value={days}
             />
