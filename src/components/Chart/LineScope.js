@@ -323,7 +323,7 @@ export default function LineChartScope(data, smallScreen = false) {
         name: "highlightGroup",
         encode: {
           enter: {
-            x: { signal: "smallScreen ? breadth - 255: 0.73 * breadth" },
+            x: { signal: "smallScreen ? -10 : 0.73 * breadth" },
             y: 0,
             height: { signal: "height" },
             width: { value: 100 },
