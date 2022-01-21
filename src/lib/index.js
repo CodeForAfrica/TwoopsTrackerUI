@@ -129,7 +129,7 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     query = `(${query} AND ${theme})`;
   }
   let days = parseInt(daysAsString, 10) || undefined;
-  if (days > 30) {
+  if (days > 90) {
     days = 90;
   }
   return { category, query, location, days, page, pageSize, download };
