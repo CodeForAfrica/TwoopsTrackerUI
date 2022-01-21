@@ -10,7 +10,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   root: {
     marginTop: typography.pxToRem(50),
     [breakpoints.up("md")]: {
-      marginTop: typography.pxToRem(107),
+      marginTop: typography.pxToRem(75),
     },
   },
   image: {
@@ -35,10 +35,11 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     textAlign: "center",
   },
   images: {
-    marginTop: typography.pxToRem(40),
+    marginTop: typography.pxToRem(30),
     display: "flex",
     flexDirection: "column",
     [breakpoints.up("md")]: {
+      marginTop: typography.pxToRem(60),
       flexDirection: "row",
       justifyContent: "space-evenly",
     },
@@ -62,13 +63,13 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   description: {
-    marginTop: typography.pxToRem(50),
+    marginTop: typography.pxToRem(30),
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
     maxWidth: typography.pxToRem(1194),
     [breakpoints.up("md")]: {
-      marginTop: typography.pxToRem(20),
+      marginTop: typography.pxToRem(60),
     },
   },
   primaryPartnerContainer: {
@@ -89,7 +90,7 @@ function Partners({
     <div className={classes.root}>
       <Section className={classes.section}>
         <div className={classes.primaryPartnerContainer}>
-          <Typography className={classes.title} variant="h3">
+          <Typography className={classes.title} variant="h1">
             {title}
           </Typography>
           <Typography className={classes.description} variant="body1">

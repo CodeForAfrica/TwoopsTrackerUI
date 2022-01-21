@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
     flexGrow: 1,
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       display: "flex",
       justifyContent: "space-between",
     },
@@ -30,7 +30,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
       border: `2px solid ${palette.primary.main}`,
     },
     minWidth: typography.pxToRem(150),
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       width: typography.pxToRem(304),
     },
   },
@@ -47,7 +47,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   tabPanel: {
     paddingTop: typography.pxToRem(40),
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       paddingTop: typography.pxToRem(20),
       paddingLeft: typography.pxToRem(86),
       width: "calc(100% - 304px)",

@@ -6,19 +6,26 @@ import React from "react";
 import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 
-const useStyles = makeStyles(({ typography, palette }) => ({
+const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
   root: {
     background: palette.background.secondary,
   },
   button: {
-    marginTop: typography.pxToRem(80),
+    marginTop: typography.pxToRem(60),
+    [breakpoints.up("lg")]: {
+      marginTop: typography.pxToRem(80),
+    },
   },
   section: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: typography.pxToRem(113),
-    paddingBottom: typography.pxToRem(123),
+    paddingTop: typography.pxToRem(75),
+    paddingBottom: typography.pxToRem(75),
+    [breakpoints.up("lg")]: {
+      paddingTop: typography.pxToRem(112),
+      paddingBottom: typography.pxToRem(112),
+    },
   },
   image: {
     "& span": {
@@ -62,8 +69,8 @@ function InvestigationsPreview({
           {description}
         </Typography>
         <Grid container spacing={8}>
-          {items.slice(0, 4).map(({ href, image, title: bookTitle }) => (
-            <Grid item xs={6} md={3}>
+          {items.slice(0, 3).map(({ href, image, title: bookTitle }) => (
+            <Grid item xs={6} md={4}>
               <Link href={href}>
                 <div className={classes.image}>
                   <Image
