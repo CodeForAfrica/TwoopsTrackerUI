@@ -182,8 +182,8 @@ function TweetsContainer({
         className={classes.root}
       />
       {isLoading && <Loading />}
-      <Chart {...props} data={insights} className={classes.chartRoot} />
       <SearchResults query={query} label="Search Results" />
+      <Chart {...props} data={insights} className={classes.chartRoot} />
       {tweets?.results?.length > 0 && (
         <ContentActions
           apiUri="/api/tweets"
