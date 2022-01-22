@@ -1,5 +1,6 @@
 import { Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme, ThemeProvider } from "@material-ui/core/styles";
+import clsx from "clsx";
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
@@ -12,21 +13,21 @@ import Share from "@/twoopstracker/components/Share";
 
 const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
-    paddingTop: typography.pxToRem(30),
-    paddingBottom: typography.pxToRem(30),
-    [breakpoints.up("xl")]: {
-      paddingTop: typography.pxToRem(30),
+    backgroundColor: palette.background.paper,
+    paddingTop: typography.pxToRem(60),
+    paddingBottom: typography.pxToRem(60),
+    [breakpoints.up("lg")]: {
+      paddingTop: typography.pxToRem(100),
       paddingBottom: typography.pxToRem(100),
     },
-    backgroundColor: palette.background.paper,
   },
   section: {
     position: "relative",
-    padding: `${typography.pxToRem(30)} ${typography.pxToRem(
+    padding: `${typography.pxToRem(48)} ${typography.pxToRem(
       30
-    )} ${typography.pxToRem(50)}`,
+    )} ${typography.pxToRem(74)}`,
     boxShadow: "0 4px 6px 0 #0000000D",
-    height: typography.pxToRem(578),
+    height: typography.pxToRem(579),
     backgroundColor: palette.background.default,
   },
   chart: {
@@ -55,13 +56,13 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
 }));
 
-function Chart({ data, ...props }) {
+function Chart({ className, data, ...props }) {
   const classes = useStyles(props);
   const chartRef = useRef();
   const [title, setTitle] = useState("");
 
   const theme = useTheme();
-  const isUpXL = useMediaQuery(theme.breakpoints.up("xl"));
+  const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
 
   const calculateTooltipPosition = (event, tooltipBox, offsetX, offsetY) => {
     let x = event.pageX + offsetX;
@@ -80,11 +81,11 @@ function Chart({ data, ...props }) {
 
   const handler = useCallback(
     (_, event, item, value) => {
-      const className = `charttooltip`;
-      let el = document.getElementsByClassName(className)[0];
+      const tooltipClass = `charttooltip`;
+      let el = document.getElementsByClassName(tooltipClass)[0];
       if (!el) {
         el = document.createElement("div");
-        el.classList.add(className);
+        el.classList.add(tooltipClass);
         document.body.appendChild(el);
       }
 
@@ -121,7 +122,7 @@ function Chart({ data, ...props }) {
 
   useEffect(() => {
     async function renderChart() {
-      const spec = LineScope(data, !isUpXL);
+      const spec = LineScope(data, !isUpLg);
       if (chartRef?.current) {
         const view = await embed(chartRef.current, spec, {
           renderer: "svg",
@@ -139,13 +140,13 @@ function Chart({ data, ...props }) {
     if (data) {
       renderChart();
     }
-  }, [data, handler, isUpXL]);
+  }, [data, handler, isUpLg]);
 
   if (!data?.length) {
     return null;
   }
   return (
-    <div className={classes.root}>
+    <div className={clsx(classes.root, className)}>
       <Section classes={{ root: classes.section }}>
         <Share {...props} classes={{ root: classes.share }} title={title} />
         <div ref={chartRef} className={classes.chart} />
@@ -156,10 +157,12 @@ function Chart({ data, ...props }) {
 
 Chart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
+  className: PropTypes.string,
 };
 
 Chart.defaultProps = {
   data: undefined,
+  className: undefined,
 };
 
 export default Chart;

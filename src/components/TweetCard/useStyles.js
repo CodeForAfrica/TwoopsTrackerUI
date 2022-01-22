@@ -10,7 +10,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
       fontFamily: typography.body1.fontFamily,
       fontSize: typography.pxToRem(18),
       lineHeight: 30 / 18,
-      [breakpoints.up("xl")]: {
+      [breakpoints.up("lg")]: {
         fontSize: typography.pxToRem(24),
         lineHeight: 35.88 / 24,
       },
@@ -26,7 +26,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
           fontFamily: typography.body1.fontFamily,
           fontSize: typography.pxToRem(18),
           lineHeight: 30 / 18,
-          [breakpoints.up("xl")]: {
+          [breakpoints.up("lg")]: {
             fontSize: typography.pxToRem(24),
             lineHeight: 35.88 / 24,
           },
@@ -90,7 +90,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     fontFamily: typography.body1.fontFamily,
     fontSize: typography.pxToRem(18),
     lineHeight: 30 / 18,
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       fontSize: typography.pxToRem(24),
       lineHeight: 35.88 / 24,
     },
