@@ -12,13 +12,13 @@ export default function getQueryString({
   if (query) {
     searchParams.append("query", query);
   }
-  if (category) {
+  if (category && category !== "category-none") {
     searchParams.append("category", category);
   }
-  if (theme) {
+  if (theme && theme !== "theme-none") {
     searchParams.append("theme", theme);
   }
-  if (location) {
+  if (location && location !== "location-none") {
     searchParams.append("location", location);
   }
   if (days) {

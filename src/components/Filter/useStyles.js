@@ -9,6 +9,9 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     color: "#000",
     marginLeft: typography.pxToRem(5),
     fontSize: typography.body2.fontSize,
+    "&.Mui-focused": {
+      color: "#000",
+    },
   },
   select: {
     fontSize: typography.body2.fontSize,

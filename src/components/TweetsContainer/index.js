@@ -178,6 +178,7 @@ function TweetsContainer({
         onSearch={handleSearch}
         query={query}
         theme={theme}
+        category={category}
         className={classes.root}
       />
       {isLoading && <Loading />}
