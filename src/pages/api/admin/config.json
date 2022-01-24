@@ -632,7 +632,7 @@
         {
           "label": "Sign Up",
           "name": "SignUp",
-          "file": "content/pages/account/signup.md",
+          "file": "content/pages/account/register.md",
           "fields": [
             {
               "label": "Title",

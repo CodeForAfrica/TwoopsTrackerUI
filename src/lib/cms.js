@@ -2,7 +2,7 @@ import * as md from "./md";
 
 import aboutContent from "@/cms/pages/about.md";
 import loginContent from "@/cms/pages/account/login.md";
-import signUpContent from "@/cms/pages/account/signup.md";
+import signUpContent from "@/cms/pages/account/register.md";
 import updateProfileContent from "@/cms/pages/account/update.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
