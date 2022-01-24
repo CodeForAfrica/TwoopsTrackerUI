@@ -117,6 +117,14 @@ function TweetsContainer({
     setSearch(true);
     setStateObject[name](value);
     setPaginating(true);
+    setIsDesc((prevState) => !prevState);
+  };
+
+  const toggleSortOrder = (e) => {
+    setSearch(true);
+    setPaginating(true);
+    setIsDesc((prevState) => !prevState);
+    e.stopPropagation();
   };
 
   const handleClickPage = (e, value) => {
@@ -193,6 +201,7 @@ function TweetsContainer({
     }
     return url;
   };
+
   const { data: newInsights, isLoading: isLoadingInsights } =
     useTweets(shouldFetchInsights);
   useEffect(() => {
@@ -200,23 +209,8 @@ function TweetsContainer({
       setInsights(newInsights);
     }
   }, [newInsights]);
+
   const isLoading = isLoadingTweets || isLoadingInsights;
-  /*  console.log(tweets.results.sort((a, b) => a.deleted_at - b.deleted_at)) */
-  const toggleSortOrder = () => {
-    setIsDesc((prevState) => !prevState);
-  };
-
-  if (isDesc && ordering === "-deleted_at") {
-    tweets.results.sort((a, b) => a.deleted_at - b.deleted_at);
-  } else {
-    tweets.results.sort((a, b) => b.deleted_at - a.deleted_at);
-  }
-
-  if (isDesc && ordering === "-created_at") {
-    tweets.results.sort((a, b) => a.deleted_at - b.deleted_at);
-  } else {
-    tweets.results.sort((a, b) => b.created_at - a.created_at);
-  }
 
   return (
     <>
