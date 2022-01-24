@@ -13,11 +13,6 @@ const useStyles = makeStyles(({ typography }) => ({
   editButton: {
     color: "red",
   },
-  deleteButton: {
-    backgroundColor: "red",
-    color: "#fff",
-    marginLeft: typography.pxToRem(20),
-  },
   label: {
     color: "#000",
   },
@@ -25,6 +20,9 @@ const useStyles = makeStyles(({ typography }) => ({
     color: "#000",
   },
   formControl: {
+    marginBottom: typography.pxToRem(20),
+  },
+  deleteDescription: {
     marginBottom: typography.pxToRem(20),
   },
 }));
