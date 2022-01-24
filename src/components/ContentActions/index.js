@@ -26,14 +26,13 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     display: "inline-flex",
     fontFamily: typography.button.fontFamily,
   },
-  filterSection: {
-    display: "flex",
+  sortSection: {
     flexDirection: "column",
     [breakpoints.up("md")]: {
       flexDirection: "row",
     },
   },
-  fileTypes: {
+  resultsOptions: {
     padding: `${typography.pxToRem(32)} 0`,
   },
 }));
@@ -80,7 +79,7 @@ function ContentActions({
           container
           justifyContent="space-between"
           alignItems="center"
-          className={classes.fileTypes}
+          className={classes.resultsOptions}
         >
           <Grid item xs={4}>
             <Typography className={classes.label} variant="body2">
@@ -99,7 +98,7 @@ function ContentActions({
             ))}
           </Grid>
 
-          <Grid item className={classes.filterSection}>
+          <Grid item container className={classes.sortSection}>
             <Sort
               key={value}
               isDesc={isDesc}
