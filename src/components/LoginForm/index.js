@@ -3,9 +3,10 @@ import {
   Typography,
   Grid,
   TextField,
+  FormHelperText,
   InputAdornment,
 } from "@material-ui/core";
-import { useFormik } from "formik";
+import { Formik } from "formik";
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
 import Router from "next/router";
@@ -32,6 +33,11 @@ function Login({
 }) {
   const classes = useStyles(props);
   const { data: session } = useSession();
+  const [isPassword, setIsPassword] = useState(true);
+
+  const togglePasswordType = () => {
+    setIsPassword(!isPassword);
+  };
 
   const validationSchema = yup.object({
     email: yup
@@ -44,30 +50,20 @@ function Login({
       .required("Password is required"),
   });
 
-  const [isPassword, setIsPassword] = useState(true);
-
-  const togglePasswordType = () => {
-    setIsPassword(!isPassword);
-  };
-
-  const handleSubmit = async (values) => {
-    try {
-      await signIn("credentials", values);
+  const handleSubmit = async (values, { setStatus }) => {
+    const res = await signIn("credentials", { ...values, redirect: false });
+    if (res.error) {
+      setStatus(res.error);
+    } else if (res.ok) {
       Router.push("/explore ");
-    } catch (e) {
-      // do nothing
     }
   };
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-      type: "login",
-    },
-    validationSchema,
-    onSubmit: (values) => handleSubmit(values),
-  });
+  const initialValues = {
+    email: "",
+    password: "",
+    type: "login",
+  };
 
   useEffect(() => {
     if (session) {
@@ -76,81 +72,107 @@ function Login({
   }, [session]);
 
   const providers = Object.values(providersProp ?? {});
-  if (!providers?.length) {
-    return null;
-  }
+
   return (
     <Section className={classes.section}>
       <Grid container>
         <Grid item xs={12} md={7} className={classes.container}>
           <Typography variant="h2">{title}</Typography>
           <Typography className={classes.text}>{description}</Typography>
-          <form className={classes.form} onSubmit={formik.handleSubmit}>
-            <TextField
-              className={classes.textfield}
-              InputLabelProps={{
-                className: classes.label,
-                shrink: false,
-                required: false,
-              }}
-              InputProps={{
-                className: classes.input,
-              }}
-              autoComplete="email"
-              name="email"
-              variant="outlined"
-              fullWidth
-              id="email"
-              label="Email"
-              autoFocus
-              color="secondary"
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
+          <Formik
+            onSubmit={handleSubmit}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+          >
+            {({
+              errors,
+              handleSubmit: handleSubmitProp,
+              handleChange,
+              touched,
+              status,
+            }) => (
+              <form className={classes.form} onSubmit={handleSubmitProp}>
+                {status?.length && (
+                  <FormHelperText
+                    component="div"
+                    error
+                    classes={{ root: classes.textfield }}
+                  >
+                    <Typography variant="caption">{status}</Typography>
+                  </FormHelperText>
+                )}
+                <TextField
+                  className={classes.textfield}
+                  InputLabelProps={{
+                    className: classes.label,
+                    shrink: false,
+                    required: false,
+                  }}
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  autoComplete="email"
+                  name="email"
+                  variant="outlined"
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  autoFocus
+                  color="secondary"
+                  onChange={handleChange}
+                  error={touched.email && Boolean(errors.email)}
+                  helperText={touched.email && errors.email}
+                />
 
-            <TextField
-              className={classes.textfield}
-              InputLabelProps={{
-                className: classes.label,
-                shrink: false,
-                required: false,
-              }}
-              InputProps={{
-                className: classes.input,
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Button
-                      className={classes.passwordButton}
-                      onClick={() => togglePasswordType()}
-                    >
-                      <Image height={45} width={45} src={passwordIcon} alt="" />
-                    </Button>
-                  </InputAdornment>
-                ),
-              }}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              name="password"
-              label="Password"
-              type={isPassword ? "password" : "text"}
-              id="password"
-              autoComplete="current-password"
-              color="secondary"
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              Login
-            </Button>
-          </form>
+                <TextField
+                  className={classes.textfield}
+                  InputLabelProps={{
+                    className: classes.label,
+                    shrink: false,
+                    required: false,
+                  }}
+                  InputProps={{
+                    className: classes.input,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Button
+                          className={classes.passwordButton}
+                          onClick={() => togglePasswordType()}
+                        >
+                          <Image
+                            height={45}
+                            width={45}
+                            src={passwordIcon}
+                            alt=""
+                          />
+                        </Button>
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type={isPassword ? "password" : "text"}
+                  id="password"
+                  autoComplete="current-password"
+                  color="secondary"
+                  onChange={handleChange}
+                  error={touched.password && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
+                />
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Login
+                </Button>
+              </form>
+            )}
+          </Formik>
           <div className={classes.buttonContainer}>
             {!session &&
               providers &&
