@@ -132,13 +132,8 @@ const options = {
 
     // see: https://next-auth.js.org/configuration/callbacks#jwt-callback
     async jwt({ token, user, account }) {
-      // when sign in with credentials return user
-      if (account?.type === "credentials") {
-        return user;
-      }
       // when created: e.g. at sign in
       //              fetch new access token
-
       if (account && user) {
         if (OAUTH_PROVIDERS.includes(account.provider)) {
           return fetchNewToken({ account, user });
