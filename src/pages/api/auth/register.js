@@ -19,9 +19,7 @@ export default async function handler(req, res) {
       `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}registration/`,
       options
     );
-    console.log(response);
     const result = await response.json();
-    console.log(result);
     return res.json({ success: response.ok, data: result });
   }
 
