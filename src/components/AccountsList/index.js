@@ -8,7 +8,6 @@ import useStyles from "./useStyles";
 import Account from "@/twoopstracker/components/Account";
 import ContentActions from "@/twoopstracker/components/ContentActions";
 import ListModal from "@/twoopstracker/components/ListModal";
-import Pagination from "@/twoopstracker/components/Pagination";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
@@ -16,15 +15,7 @@ function AccountsList({
   apiUrl,
   editable,
   paginationProps,
-  data: {
-    id,
-    page: pageProp,
-    pageSize: pageSizeProp,
-    name,
-    count,
-    accounts,
-    is_private: isPrivate,
-  },
+  data: { id, name, accounts, is_private: isPrivate },
   ...props
 }) {
   const classes = useStyles(props);
@@ -33,10 +24,7 @@ function AccountsList({
   const handleClose = () => setOpen(false);
   const [listAccounts, setListAccounts] = useState(accounts);
   const [newAccounts, setNewAccounts] = useState("");
-  const [page, setPage] = useState(pageProp);
-  const [pageSize, setPageSize] = useState(pageSizeProp);
   const fetcher = (url) => fetchJson(url);
-  // const paginationString = new URLSearchParams({ page, pageSize }).toString();
   const { data, mutate } = useSWR(apiUrl, fetcher);
 
   useEffect(() => {
@@ -96,15 +84,6 @@ function AccountsList({
     }
   };
 
-  const handleClickPage = (e, value) => {
-    setPage(value);
-  };
-  const handleClickPageSize = (e, value) => {
-    // Changing pageSize triggers computation of number of pages.
-    setPage(1);
-    setPageSize(value);
-  };
-
   return (
     <Section className={classes.root}>
       <div className={classes.titleSection}>
@@ -139,14 +118,6 @@ function AccountsList({
           />
         );
       })}
-      <Pagination
-        {...paginationProps}
-        count={Math.ceil(count / (pageSize || 20))}
-        onChangePage={handleClickPage}
-        onChangePageSize={handleClickPageSize}
-        page={page}
-        pageSize={pageSize}
-      />
     </Section>
   );
 }
