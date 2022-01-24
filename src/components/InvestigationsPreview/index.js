@@ -37,6 +37,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
     marginBottom: typography.pxToRem(80),
     color: palette.text.secondary,
     fontWeight: 400,
+    maxWidth: "90%",
   },
   investigationtitle: {
     color: palette.text.secondary,
