@@ -677,8 +677,13 @@
           "file": "content/pages/verify-email.md",
           "fields": [
             {
-              "label": "Detail",
-              "name": "detail",
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Descripion",
+              "name": "description",
               "widget": "markdown"
             }
           ]
