@@ -82,9 +82,8 @@ const options = {
           password: credentials.password,
         };
         try {
-          const user = await fetchJson(
+          const response = await fetch(
             `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}login/`,
-            null,
             {
               method: "POST",
               headers: {
@@ -93,13 +92,23 @@ const options = {
               body: JSON.stringify(authBody),
             }
           );
-          user.accessToken = user.access_token;
-          user.refreshToken = user.refresh_token;
-          user.exp = jwtDecode(user.accessToken).exp * 1000;
+          const result = await response.json();
+          if (response.ok && result) {
+            const {
+              access_token: accessToken,
+              refresh_token: refreshToken,
+              user,
+            } = result;
+            user.accessToken = accessToken;
+            user.refreshToken = refreshToken;
+            user.exp = jwtDecode(user.accessToken).exp * 1000;
 
-          return user;
-        } catch (error) {
-          return null;
+            return user;
+          }
+          const [error] = Object.values(result);
+          throw new Error(error);
+        } catch (e) {
+          throw new Error(e.message);
         }
       },
     }),
