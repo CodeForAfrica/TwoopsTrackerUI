@@ -113,18 +113,11 @@ function TweetsContainer({
     setStateObject[name](value);
     setPaginating(false);
   };
+
   const handleSelectionFilter = ({ name, value }) => {
     setSearch(true);
     setStateObject[name](value);
     setPaginating(true);
-    setIsDesc((prevState) => !prevState);
-  };
-
-  const toggleSortOrder = (e) => {
-    setSearch(true);
-    setPaginating(true);
-    setIsDesc((prevState) => !prevState);
-    e.stopPropagation();
   };
 
   const handleClickPage = (e, value) => {
@@ -183,6 +176,7 @@ function TweetsContainer({
       setTweets(newTweets);
     }
   }, [newTweets]);
+
   const shouldFetchInsights = () => {
     if (paginating || !search) {
       return null;
@@ -211,6 +205,12 @@ function TweetsContainer({
   }, [newInsights]);
 
   const isLoading = isLoadingTweets || isLoadingInsights;
+
+  const toggleSortOrder = () => {
+    setSearch(true);
+    setPaginating(true);
+    setIsDesc((prevState) => !prevState);
+  };
 
   return (
     <>
