@@ -6,7 +6,7 @@ import Page from "@/twoopstracker/components/Page";
 import SignUp from "@/twoopstracker/components/SignUp";
 import { settings, signUp } from "@/twoopstracker/lib/cms";
 
-function SignIn({ providers: providersProp, ...props }) {
+function Register({ providers: providersProp, ...props }) {
   return (
     <Page {...props}>
       <SignUp providers={providersProp} {...props} />
@@ -14,11 +14,11 @@ function SignIn({ providers: providersProp, ...props }) {
   );
 }
 
-SignIn.propTypes = {
+Register.propTypes = {
   providers: PropTypes.shape({}),
 };
 
-SignIn.defaultProps = {
+Register.defaultProps = {
   providers: undefined,
 };
 
@@ -41,4 +41,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default SignIn;
+export default Register;
