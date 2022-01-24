@@ -8,7 +8,7 @@ ctas:
     href: /explore
   signUp:
     label: Sign up
-    href: /login
+    href: /signup
 tool:
   title: Monitor disinfo-spreaders
   description:
