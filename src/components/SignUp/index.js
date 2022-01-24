@@ -75,9 +75,7 @@ function SignUp({
   };
 
   const providers = Object.values(providersProp ?? {});
-  if (!providers?.length) {
-    return null;
-  }
+
   return (
     <Section className={classes.section}>
       <Grid container>
