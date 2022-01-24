@@ -13,10 +13,19 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
       width: typography.pxToRem(228),
     },
   },
-  image: {},
+  image: {
+    objectFit: "cover",
+  },
 }));
 
-function Media({ image, imageProps, media: mediaProp, ...props }) {
+function Media({
+  image,
+  width,
+  height,
+  imageProps,
+  media: mediaProp,
+  ...props
+}) {
   const classes = useStyles(props);
   const media = image || mediaProp;
 
@@ -27,7 +36,8 @@ function Media({ image, imageProps, media: mediaProp, ...props }) {
   return (
     <div className={classes.root}>
       <Image
-        layout="fill"
+        width={width}
+        height={height}
         src={media}
         {...imageProps}
         className={classes.image}
@@ -40,12 +50,16 @@ Media.propTypes = {
   image: PropTypes.node,
   imageProps: PropTypes.shape({}),
   media: PropTypes.node,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 Media.defaultProps = {
   image: undefined,
   imageProps: undefined,
   media: undefined,
+  width: undefined,
+  height: undefined,
 };
 
 export default Media;
