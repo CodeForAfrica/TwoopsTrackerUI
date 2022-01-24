@@ -14,7 +14,8 @@ export default function LineChartScope(data, smallScreen = false) {
         category: [theme.palette.primary.main],
       },
     },
-    autosize: { type: "fit-x" },
+    autosize: { type: "fit", contains: "padding" },
+    padding: 5,
     height: { signal: "height" },
     width: { signal: "breadth" },
     data: [
@@ -48,7 +49,7 @@ export default function LineChartScope(data, smallScreen = false) {
       },
       {
         name: "height",
-        value: 490,
+        value: 457,
       },
       {
         name: "interpolate",
@@ -158,7 +159,7 @@ export default function LineChartScope(data, smallScreen = false) {
         range: [
           0,
           {
-            signal: "smallScreen? breadth: 0.75 * breadth",
+            signal: "smallScreen ? breadth - 25 : 0.7 * breadth",
           },
         ],
       },
@@ -169,7 +170,7 @@ export default function LineChartScope(data, smallScreen = false) {
           data: "table",
           field: "count",
         },
-        range: [{ signal: "height - 170" }, 0],
+        range: [{ signal: "smallScreen? height - 100 : height" }, 0],
         nice: true,
         zero: true,
         clamp: true,
@@ -189,82 +190,53 @@ export default function LineChartScope(data, smallScreen = false) {
         range: ["rgba(219, 17, 17, 0.1)", "rgba(219, 17, 17, 0.6)"],
       },
     ],
+    title: {
+      text: { signal: "chartTitle" },
+      opacity: { value: 1 },
+      font: { signal: "titleFont" },
+      fontSize: { signal: "titleSize" },
+      fontWeight: { signal: "titleWeight" },
+      subtitle: { signal: "chartSubTitle" },
+      subtitleFont: { signal: "highlightFont" },
+      subtitleFontSize: { signal: "highlightSize" },
+      subtitleFontWeight: { signal: "highlightWeight" },
+      subtitlePadding: 15,
+      frame: "bounds",
+      anchor: "start",
+      offset: { value: smallScreen ? 40 : 80 },
+      zindex: 0,
+    },
 
     marks: [
-      {
-        type: "group",
-        name: "titleGroup",
-        encode: {
-          enter: {
-            x: { value: 0 },
-            y: { value: 0 },
-            height: { signal: "smallScreen? '50': '100'" },
-            width: { signal: "breadth" },
-          },
-        },
-        marks: [
-          {
-            type: "text",
-            encode: {
-              update: {
-                x: { value: 0 },
-                y: { value: 0 },
-                text: { signal: "chartTitle" },
-                opacity: { value: 1 },
-                font: { signal: "titleFont" },
-                fontSize: { signal: "titleSize" },
-                fontWeight: { signal: "titleWeight" },
-              },
-            },
-          },
-          {
-            type: "text",
-            encode: {
-              update: {
-                x: { value: 0 },
-                y: { value: smallScreen ? 30 : 50 },
-                height: { value: 20 },
-                text: { signal: "chartSubTitle" },
-                opacity: { value: 1 },
-                font: { signal: "highlightFont" },
-                fontSize: { signal: "highlightSize" },
-                fontWeight: { signal: "highlightWeight" },
-              },
-            },
-          },
-        ],
-      },
       {
         type: "group",
         name: "lineGroup",
         encode: {
           update: {
             x: { value: 0 },
-            y: { value: smallScreen ? 75 : 100 },
-            height: {
-              signal: "height - 170",
-            },
             width: {
-              signal: "smallScreen? breadth : 0.75 * breadth",
+              signal: "smallScreen? breadth : 0.7 * breadth",
             },
+            height: { signal: "smallScreen? height - 100 : height" },
+            zindex: 1,
           },
         },
         axes: [
           {
             orient: "left",
             scale: "yscale",
-            domainOpacity: 0.2,
-            tickSize: 0,
+            domainOpacity: 0.3,
+            domainWidth: 1.5,
+            tickSize: 4,
             grid: true,
-            labelPadding: 6,
             zindex: 1,
             format: { signal: "numberFormat" },
-            tickCount: 6,
+            tickCount: 10,
             tickMinStep: 1,
             encode: {
               grid: {
                 update: {
-                  x2: { signal: "smallScreen ? breadth : 0.75 * breadth" },
+                  x2: { signal: "smallScreen ? breadth : 0.7 * breadth" },
                   opacity: { value: 0.2 },
                 },
               },
@@ -274,8 +246,10 @@ export default function LineChartScope(data, smallScreen = false) {
             orient: "bottom",
             scale: "xscale",
             domainOpacity: 0.2,
+            domainPadding: 5,
             format: { signal: "dateFormat" },
             formatType: "time",
+            labelFlush: true,
             labelOverlap: true,
           },
         ],
@@ -325,7 +299,9 @@ export default function LineChartScope(data, smallScreen = false) {
                 y: { scale: "yscale", field: "count" },
               },
               update: {
-                size: { value: 2 },
+                size: { value: 100 },
+                stroke: { value: "transparent" },
+                fill: { value: "transparent" },
                 tooltip: {
                   signal:
                     "{ 'date': timeFormat(datum.date, tooltipDateFormat), 'count': format(datum.count, numberFormat) + ' tweets'}",
@@ -336,6 +312,7 @@ export default function LineChartScope(data, smallScreen = false) {
                 size: { value: 70 },
                 stroke: { value: theme.palette.primary.main },
                 strokeWidth: { value: 2 },
+                strokeOpacity: { value: 1 },
               },
             },
           },
@@ -346,10 +323,10 @@ export default function LineChartScope(data, smallScreen = false) {
         name: "highlightGroup",
         encode: {
           enter: {
-            x: { signal: "smallScreen ? '0' : 0.78 * breadth" },
-            y: { signal: "smallScreen? height - 50 : height - 370" },
-            y2: { signal: "height" },
-            width: { signal: "smallScreen? breadth: '100'" },
+            x: { signal: "smallScreen ? -10 : 0.73 * breadth" },
+            y: 0,
+            height: { signal: "height" },
+            width: { value: 100 },
           },
         },
         marks: [
@@ -358,8 +335,10 @@ export default function LineChartScope(data, smallScreen = false) {
             encode: {
               update: {
                 x: { value: 0 },
-                y: { value: 0 },
-                text: { signal: "highlight" },
+                y: { value: smallScreen ? 285 : 0 },
+                text: {
+                  signal: "smallScreen? highlight + ' - ' + total : highlight ",
+                },
                 opacity: { value: 1 },
                 font: { signal: "highlightFont" },
                 fontSize: { signal: "highlightSize" },
@@ -371,10 +350,9 @@ export default function LineChartScope(data, smallScreen = false) {
             type: "text",
             encode: {
               update: {
-                x: { signal: "smallScreen ? breadth - 30 : '0'" },
-                y: { value: smallScreen ? 0 : 100 },
-                align: { value: smallScreen ? "right" : "left" },
-                text: { signal: "total" },
+                x: { value: 0 },
+                y: { value: 100 },
+                text: { signal: "smallScreen? '' : total " },
                 opacity: { value: 1 },
                 font: { signal: "totalFont" },
                 fontSize: { signal: "totalSize" },
@@ -387,8 +365,8 @@ export default function LineChartScope(data, smallScreen = false) {
             encode: {
               update: {
                 x: { value: 0 },
-                height: { value: 20 },
-                y: { value: smallScreen ? 25 : 280 },
+                height: { value: smallScreen ? 20 : 27 },
+                y: { signal: "smallScreen ? height - 20 : height -30 " },
                 text: { signal: "'Source: ' + source" },
                 opacity: { value: 1 },
                 font: { signal: "sourceFont" },
@@ -402,8 +380,8 @@ export default function LineChartScope(data, smallScreen = false) {
             encode: {
               update: {
                 x: { value: 0 },
-                height: { value: 20 },
-                y: { value: smallScreen ? 45 : 310 },
+                height: { value: smallScreen ? 20 : 27 },
+                y: { signal: "height" },
                 text: { signal: "'Last Updated: ' + lastUpdated" },
                 opacity: { value: 1 },
                 font: { signal: "sourceFont" },
