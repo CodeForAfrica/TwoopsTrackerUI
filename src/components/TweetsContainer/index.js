@@ -43,7 +43,7 @@ function TweetsContainer({
   const [theme, setTheme] = useState(themeProp);
   const [tweets, setTweets] = useState(tweetsProp);
   const [ordering, setOrdering] = useState(orderingProp);
-  const [isDesc, setIsDesc] = useState(true);
+  const [isDesc, setIsDesc] = useState(false);
 
   const setStateObject = {
     category: setCategory,
@@ -206,7 +206,8 @@ function TweetsContainer({
 
   const isLoading = isLoadingTweets || isLoadingInsights;
 
-  const toggleSortOrder = () => {
+  const toggleSortOrder = (e) => {
+    e.preventDefault();
     setSearch(true);
     setPaginating(true);
     setIsDesc((prevState) => !prevState);
