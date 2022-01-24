@@ -5,12 +5,12 @@ import {
   TextField,
   InputAdornment,
 } from "@material-ui/core";
-import { useFormik } from "formik";
-import { useSession, signIn } from "next-auth/react";
+import { Formik } from "formik";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 
 import useStyles from "./useStyles";
@@ -30,7 +30,6 @@ function SignUp({
   ...props
 }) {
   const classes = useStyles(props);
-  const { data: session } = useSession();
 
   const validationSchema = yup.object({
     email: yup
@@ -55,34 +54,25 @@ function SignUp({
     setIsPassword(!isPassword);
   };
 
-  const handleSubmit = async (values) => {
-    try {
-      await fetchJson("/api/user/profile", session, {
-        method: "PATCH",
-        body: JSON.stringify(values),
-      });
-      Router.push("/account/settings ");
-    } catch (e) {
-      // do nothing
+  const handleSubmit = async (values, { setErrors }) => {
+    const result = await fetchJson("/api/auth/register", null, {
+      method: "POST",
+      body: JSON.stringify(values),
+    });
+
+    if (result?.success) {
+      Router.push("/verify-email");
+    } else {
+      setErrors(result?.data);
     }
   };
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-    },
-    validationSchema,
-    onSubmit: (values) => handleSubmit(values),
-  });
-
-  useEffect(() => {
-    if (session) {
-      Router.push("/explore");
-    }
-  }, [session]);
+  const initialValues = {
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+  };
 
   const providers = Object.values(providersProp ?? {});
   if (!providers?.length) {
@@ -94,114 +84,129 @@ function SignUp({
         <Grid item xs={12} md={7} className={classes.container}>
           <Typography variant="h2">{title}</Typography>
           <Typography className={classes.text}>{description}</Typography>
-          <form className={classes.form} onSubmit={formik.handleSubmit}>
-            <TextField
-              className={classes.textfield}
-              InputLabelProps={{
-                className: classes.label,
-                shrink: false,
-              }}
-              InputProps={{
-                className: classes.input,
-              }}
-              autoComplete="firstName"
-              name="firstName"
-              variant="outlined"
-              fullWidth
-              id="firstName"
-              label="First Name"
-              autoFocus
-              color="secondary"
-              onChange={formik.handleChange}
-              error={
-                formik.touched.firstName && Boolean(formik.errors.firstName)
-              }
-              helperText={formik.touched.firstName && formik.errors.firstName}
-            />
-            <TextField
-              className={classes.textfield}
-              InputLabelProps={{
-                className: classes.label,
-                shrink: false,
-              }}
-              InputProps={{
-                className: classes.input,
-              }}
-              autoComplete="lastName"
-              name="lastName"
-              variant="outlined"
-              fullWidth
-              id="lastName"
-              label="Last Name"
-              autoFocus
-              color="secondary"
-              onChange={formik.handleChange}
-              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-              helperText={formik.touched.lastName && formik.errors.lastName}
-            />
-            <TextField
-              className={classes.textfield}
-              InputLabelProps={{
-                className: classes.label,
-                shrink: false,
-              }}
-              InputProps={{
-                className: classes.input,
-              }}
-              autoComplete="email"
-              name="email"
-              variant="outlined"
-              fullWidth
-              id="email"
-              label="Email"
-              autoFocus
-              color="secondary"
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({
+              errors,
+              handleSubmit: handleSubmitProp,
+              handleChange,
+              touched,
+            }) => (
+              <form className={classes.form} onSubmit={handleSubmitProp}>
+                <TextField
+                  className={classes.textfield}
+                  InputLabelProps={{
+                    className: classes.label,
+                    shrink: false,
+                  }}
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  autoComplete="firstName"
+                  name="firstName"
+                  variant="outlined"
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  color="secondary"
+                  onChange={handleChange}
+                  error={touched.firstName && Boolean(errors.firstName)}
+                  helperText={touched.firstName && errors.firstName}
+                />
+                <TextField
+                  className={classes.textfield}
+                  InputLabelProps={{
+                    className: classes.label,
+                    shrink: false,
+                  }}
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  autoComplete="lastName"
+                  name="lastName"
+                  variant="outlined"
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  autoFocus
+                  color="secondary"
+                  onChange={handleChange}
+                  error={touched.lastName && Boolean(errors.lastName)}
+                  helperText={touched.lastName && errors.lastName}
+                />
+                <TextField
+                  className={classes.textfield}
+                  InputLabelProps={{
+                    className: classes.label,
+                    shrink: false,
+                  }}
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  autoComplete="email"
+                  name="email"
+                  variant="outlined"
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  autoFocus
+                  color="secondary"
+                  onChange={handleChange}
+                  error={touched.email && Boolean(errors.email)}
+                  helperText={touched.email && errors.email}
+                />
 
-            <TextField
-              className={classes.textfield}
-              InputLabelProps={{ className: classes.label, shrink: false }}
-              InputProps={{
-                className: classes.input,
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Button
-                      className={classes.passwordButton}
-                      onClick={() => togglePasswordType()}
-                    >
-                      <Image height={45} width={45} src={passwordIcon} alt="" />
-                    </Button>
-                  </InputAdornment>
-                ),
-              }}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              name="password"
-              label="Password"
-              type={isPassword ? "password" : "text"}
-              id="password"
-              autoComplete="current-password"
-              color="secondary"
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
-            <Button
-              type="submit"
-              className={classes.button}
-              variant="contained"
-              color="primary"
-            >
-              SignUp
-            </Button>
-          </form>
+                <TextField
+                  className={classes.textfield}
+                  InputLabelProps={{ className: classes.label, shrink: false }}
+                  InputProps={{
+                    className: classes.input,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Button
+                          className={classes.passwordButton}
+                          onClick={() => togglePasswordType()}
+                        >
+                          <Image
+                            height={45}
+                            width={45}
+                            src={passwordIcon}
+                            alt=""
+                          />
+                        </Button>
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type={isPassword ? "password" : "text"}
+                  id="password"
+                  autoComplete="current-password"
+                  color="secondary"
+                  onChange={handleChange}
+                  error={touched.password && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
+                />
+                <Button
+                  type="submit"
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                >
+                  SignUp
+                </Button>
+              </form>
+            )}
+          </Formik>
           <div className={classes.buttonContainer}>
-            {!session &&
-              providers &&
+            {providers &&
               Object.values(providers).map((provider) => {
                 if (provider.id === "google") {
                   return (
