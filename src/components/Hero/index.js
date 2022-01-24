@@ -39,6 +39,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
   description: {
     color: palette.text.secondary,
     marginTop: typography.pxToRem(40),
+    maxWidth: "70%",
     [breakpoints.up("lg")]: {
       marginTop: typography.pxToRem(80),
       width: typography.pxToRem(732),
