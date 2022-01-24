@@ -670,6 +670,18 @@
               "widget": "image"
             }
           ]
+        },
+        {
+          "label": "Verify Email",
+          "name": "VerifyEmail",
+          "file": "content/pages/verify-email.md",
+          "fields": [
+            {
+              "label": "Detail",
+              "name": "detail",
+              "widget": "markdown"
+            }
+          ]
         }
       ]
     }
