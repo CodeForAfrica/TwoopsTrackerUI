@@ -99,11 +99,13 @@ const options = {
               refresh_token: refreshToken,
               user,
             } = result;
-            user.accessToken = accessToken;
-            user.refreshToken = refreshToken;
-            user.exp = jwtDecode(user.accessToken).exp * 1000;
 
-            return user;
+            return {
+              exp: jwtDecode(accessToken).exp * 1000,
+              accessToken,
+              refreshToken,
+              user,
+            };
           }
           const [error] = Object.values(result);
           throw new Error(error);
@@ -138,7 +140,10 @@ const options = {
         if (OAUTH_PROVIDERS.includes(account.provider)) {
           return fetchNewToken({ account, user });
         }
-        // TODO(kilemensi): Handle for non-oauth accounts
+
+        if (account.provider === "credentials") {
+          return user;
+        }
       }
       // when updated: e.g. when session is accessed in the client
       //               return current token if the access token
