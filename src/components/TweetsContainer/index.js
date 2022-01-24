@@ -201,14 +201,22 @@ function TweetsContainer({
     }
   }, [newInsights]);
   const isLoading = isLoadingTweets || isLoadingInsights;
+  /*  console.log(tweets.results.sort((a, b) => a.deleted_at - b.deleted_at)) */
   const toggleSortOrder = () => {
     setIsDesc((prevState) => !prevState);
-    if (isDesc) {
-      tweetsProp.results.sort((a, b) => a - b);
-    } else {
-      tweetsProp.results.sort((a, b) => b - a);
-    }
   };
+
+  if (isDesc && ordering === "-deleted_at") {
+    tweets.results.sort((a, b) => a.deleted_at - b.deleted_at);
+  } else {
+    tweets.results.sort((a, b) => b.deleted_at - a.deleted_at);
+  }
+
+  if (isDesc && ordering === "-created_at") {
+    tweets.results.sort((a, b) => a.deleted_at - b.deleted_at);
+  } else {
+    tweets.results.sort((a, b) => b.created_at - a.created_at);
+  }
 
   return (
     <>
