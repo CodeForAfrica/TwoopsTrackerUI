@@ -10,7 +10,7 @@ import SortUp from "@/twoopstracker/assets/icons/sort-up.svg";
 import TweetSelect from "@/twoopstracker/components/TweetSelect";
 
 function Sort({
-  handleSelection,
+  onChangeSortField,
   onClickSortOrder,
   isDesc,
   label,
@@ -22,7 +22,7 @@ function Sort({
   const classes = useStyles(props);
 
   const handleChange = (event) => {
-    handleSelection({
+    onChangeSortField({
       name: name || label.toLowerCase(),
       value: event.target.value,
     });
@@ -63,7 +63,7 @@ function Sort({
 Sort.propTypes = {
   onClickSortOrder: PropTypes.func,
   isDesc: PropTypes.bool,
-  handleSelection: PropTypes.func,
+  onChangeSortField: PropTypes.func,
   name: PropTypes.string,
   label: PropTypes.string,
   menuItems: PropTypes.arrayOf(
@@ -77,7 +77,7 @@ Sort.propTypes = {
 
 Sort.defaultProps = {
   onClickSortOrder: undefined,
-  handleSelection: undefined,
+  onChangeSortField: undefined,
   label: undefined,
   name: undefined,
   menuItems: undefined,
