@@ -41,11 +41,11 @@ function ContentActions({
   value,
   show,
   isDesc,
-  onSelection,
+  onChangeSortField,
   apiUri,
   queryParams,
   type,
-  toggleSortOrder,
+  onClickSortOrder,
   ...props
 }) {
   const classes = useStyles(props);
@@ -104,13 +104,13 @@ function ContentActions({
               isDesc={isDesc}
               label="Sort By:"
               name="ordering"
-              handleSelection={onSelection}
+              onChangeSortField={onChangeSortField}
               menuItems={[
                 { name: "Created At", value: "created_at" },
                 { name: "Deleted At", value: "deleted_at" },
                 { name: "Owner Screen Name", value: "owner__screen_name" },
               ]}
-              toggleSortOrder={toggleSortOrder}
+              onClickSortOrder={onClickSortOrder}
               value={value}
             />
           </Grid>
@@ -125,21 +125,21 @@ ContentActions.propTypes = {
   isDesc: PropTypes.bool,
   queryParams: PropTypes.shape({}),
   type: PropTypes.string,
-  onSelection: PropTypes.func,
+  onChangeSortField: PropTypes.func,
   value: PropTypes.string,
   show: PropTypes.string,
-  toggleSortOrder: PropTypes.func,
+  onClickSortOrder: PropTypes.func,
 };
 
 ContentActions.defaultProps = {
   apiUri: undefined,
   isDesc: undefined,
-  onSelection: undefined,
+  onChangeSortField: undefined,
   queryParams: undefined,
   type: undefined,
   value: undefined,
   show: undefined,
-  toggleSortOrder: undefined,
+  onClickSortOrder: undefined,
 };
 
 export default ContentActions;

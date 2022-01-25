@@ -206,7 +206,7 @@ function TweetsContainer({
 
   const isLoading = isLoadingTweets || isLoadingInsights;
 
-  const toggleSortOrder = (e) => {
+  const handleClickSortOrder = (e) => {
     e.preventDefault();
     setSearch(true);
     setPaginating(true);
@@ -234,9 +234,9 @@ function TweetsContainer({
           queryParams={{ query, theme, location, days, ordering }}
           type="tweets"
           value={ordering?.replace("-", "")}
-          onSelection={handleSelectionFilter}
+          onChangeSortField={handleSelectionFilter}
           isDesc={isDesc}
-          toggleSortOrder={toggleSortOrder}
+          onClickSortOrder={handleClickSortOrder}
         />
       )}
       <Tweets tweets={tweets} />

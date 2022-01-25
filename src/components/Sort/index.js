@@ -11,7 +11,7 @@ import TweetSelect from "@/twoopstracker/components/TweetSelect";
 
 function Sort({
   handleSelection,
-  toggleSortOrder,
+  onClickSortOrder,
   isDesc,
   label,
   name,
@@ -44,7 +44,7 @@ function Sort({
         color="default"
         variant="text"
         size="large"
-        onClick={toggleSortOrder}
+        onClick={onClickSortOrder}
         classes={{
           root: classes.buttonIcon,
         }}
@@ -61,7 +61,7 @@ function Sort({
 }
 
 Sort.propTypes = {
-  toggleSortOrder: PropTypes.func,
+  onClickSortOrder: PropTypes.func,
   isDesc: PropTypes.bool,
   handleSelection: PropTypes.func,
   name: PropTypes.string,
@@ -76,7 +76,7 @@ Sort.propTypes = {
 };
 
 Sort.defaultProps = {
-  toggleSortOrder: undefined,
+  onClickSortOrder: undefined,
   handleSelection: undefined,
   label: undefined,
   name: undefined,
