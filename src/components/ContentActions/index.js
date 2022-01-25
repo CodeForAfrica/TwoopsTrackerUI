@@ -81,7 +81,7 @@ function ContentActions({
           alignItems="center"
           className={classes.resultsOptions}
         >
-          <Grid item xs={4}>
+          <Grid item xs={9}>
             <Typography className={classes.label} variant="body2">
               {download.label}
             </Typography>
@@ -98,7 +98,7 @@ function ContentActions({
             ))}
           </Grid>
 
-          <Grid item container className={classes.sortSection}>
+          <Grid item xs={3} container className={classes.sortSection}>
             <Sort
               key={value}
               isDesc={isDesc}
