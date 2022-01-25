@@ -43,7 +43,10 @@ function TweetsContainer({
   const [theme, setTheme] = useState(themeProp);
   const [tweets, setTweets] = useState(tweetsProp);
   const [ordering, setOrdering] = useState(orderingProp);
-  const [isDesc, setIsDesc] = useState(false);
+
+  /* Todo(Nyokabi) This automatically makes initial state of isDesc true and shows data in descending order. 
+      Therefore the  default ordering value in explore page should be `deleted` not `-deleted` */
+  const [isDesc, setIsDesc] = useState(true);
 
   const setStateObject = {
     category: setCategory,
