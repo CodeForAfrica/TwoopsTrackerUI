@@ -9,7 +9,7 @@ const useStyles = makeStyles(({ typography, palette }) => ({
     backgroundColor: palette.background.paper,
   },
   section: {
-    padding: `${typography.pxToRem(48)} ${typography.pxToRem(0)} 0 0`,
+    padding: `${typography.pxToRem(48)} 0 0`,
   },
   searchQuery: {
     fontStyle: "normal",

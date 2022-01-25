@@ -38,6 +38,7 @@ function TweetsContainer({
   const [paginating, setPaginating] = useState(false);
   const [pageSize, setPageSize] = useState(pageSizeProp);
   const [query, setQuery] = useState(queryProp);
+  const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
   const [theme, setTheme] = useState(themeProp);
   const [tweets, setTweets] = useState(tweetsProp);
@@ -142,11 +143,13 @@ function TweetsContainer({
   };
   const { data: newTweets, isLoading: isLoadingTweets } =
     useTweets(shouldFetch);
+
   useEffect(() => {
     if (newTweets) {
       setTweets(newTweets);
+      setSearchQuery(query);
     }
-  }, [newTweets]);
+  }, [newTweets, query]);
   const shouldFetchInsights = () => {
     if (paginating || !search) {
       return null;
@@ -182,7 +185,7 @@ function TweetsContainer({
         className={classes.root}
       />
       {isLoading && <Loading />}
-      <SearchResults query={query} label="Search Results" />
+      <SearchResults query={searchQuery} label="Search Results" />
       <Chart {...props} data={insights} className={classes.chartRoot} />
       {tweets?.results?.length > 0 && (
         <ContentActions
