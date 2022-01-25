@@ -23,7 +23,8 @@ function Login({
   providers: providersProp,
   title,
   description,
-  passwordPrompt,
+  forgotPasswordLink,
+  forgotPasswordPrompt,
   signupPrompt,
   signUpLink,
   signUpText,
@@ -204,8 +205,12 @@ function Login({
                 return null;
               })}
           </div>
-          <Button classes={{ text: classes.passwordText }}>
-            {passwordPrompt}
+          <Button
+            component={Link}
+            href={forgotPasswordLink}
+            classes={{ text: classes.passwordText }}
+          >
+            {forgotPasswordPrompt}
           </Button>
           <Typography className={classes.text}>
             {signupPrompt} <Link href={signUpLink}>{signUpText}</Link>
@@ -220,7 +225,8 @@ Login.propTypes = {
   providers: PropTypes.shape({}),
   title: PropTypes.string,
   description: PropTypes.string,
-  passwordPrompt: PropTypes.string,
+  forgotPasswordLink: PropTypes.string,
+  forgotPasswordPrompt: PropTypes.string,
   signupPrompt: PropTypes.string,
   signUpText: PropTypes.string,
   signUpLink: PropTypes.string,
@@ -231,8 +237,9 @@ Login.propTypes = {
 Login.defaultProps = {
   providers: undefined,
   title: undefined,
-  passwordPrompt: undefined,
+  forgotPasswordPrompt: undefined,
   description: undefined,
+  forgotPasswordLink: undefined,
   signupPrompt: undefined,
   signUpLink: undefined,
   signUpText: undefined,

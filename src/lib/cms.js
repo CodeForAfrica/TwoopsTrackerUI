@@ -4,6 +4,7 @@ import aboutContent from "@/cms/pages/about.md";
 import loginContent from "@/cms/pages/account/login.md";
 import signUpContent from "@/cms/pages/account/register.md";
 import updateProfileContent from "@/cms/pages/account/update.md";
+import fgPasswordContent from "@/cms/pages/fgpassword.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
 import lexiconsContent from "@/cms/pages/lexicons.md";
@@ -178,5 +179,10 @@ export function settings() {
 
 export function verifyEmail() {
   const { attributes } = verifyEmailContent;
+  return attributes;
+}
+
+export function fgPassword() {
+  const { attributes } = fgPasswordContent;
   return attributes;
 }

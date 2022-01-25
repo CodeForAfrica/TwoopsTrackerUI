@@ -3,10 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   root: {
     flexGrow: 1,
-    color: "white",
-    background: "none",
-    height: "100vh",
-    margin: "auto",
   },
   section: {
     marginTop: typography.pxToRem(80),
@@ -56,7 +52,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     alignItems: "center",
   },
   item: {
-    color: "black",
+    color: palette.text.primary,
     height: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -66,9 +62,9 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     marginTop: typography.pxToRem(22),
   },
   label: {
-    color: "black",
+    color: palette.text.primary,
     position: "relative",
-    top: -20,
+    top: typography.pxToRem(-7),
     transform: "none",
   },
 
@@ -84,7 +80,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     marginBottom: typography.pxToRem(30),
   },
   input: {
-    background: "white",
+    background: palette.background.default,
   },
   button: {
     marginLeft: typography.pxToRem(10),
