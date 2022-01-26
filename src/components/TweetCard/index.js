@@ -3,7 +3,6 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import { format, formatDistanceStrict, formatDistance } from "date-fns";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import HTMLEllipsis from "react-lines-ellipsis/lib/html";
@@ -12,6 +11,7 @@ import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 import AddToList from "@/twoopstracker/components/AddToList";
+import Figure from "@/twoopstracker/components/Figure";
 import Link from "@/twoopstracker/components/Link";
 
 function TweetCard({
@@ -36,8 +36,14 @@ function TweetCard({
     name,
     screen_name: screenName,
     protected: accountStatus,
-    profile_image_url: profileImage,
+    profile_image_url: profileImageNormal,
   } = owner;
+
+  // NOTE(kilemensi): Since our card size is bigger than _bigger size from
+  //                  alternative size offered by Twitter, we need to use
+  //                  original size if avaiable.
+  // see: https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/user-profile-images-and-banners
+  const profileImage = profileImageNormal?.replace("_normal", "");
   const username = name;
   const handle = screenName?.replace(/\s/g, "");
   const accountType = accountStatus ? "Private" : "Public";
@@ -73,8 +79,8 @@ function TweetCard({
     <div className={classes.root}>
       <Grid container justifyContent="space-between">
         <Grid item container lg={8} alignItems="center">
-          <Grid item className={classes.icon}>
-            <Image layout="fill" src={profileImage || UserIcon} />
+          <Grid item>
+            <Figure src={profileImage || UserIcon} className={classes.icon} />
           </Grid>
           <Grid item>
             <Typography variant="h4">{username}</Typography>
