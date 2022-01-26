@@ -71,12 +71,12 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     },
   },
   icon: {
-    position: "relative",
     marginRight: typography.pxToRem(30),
     width: typography.pxToRem(165),
     height: typography.pxToRem(165),
-    border: `solid 1px`,
+    border: `1px solid ${palette.common.black}`,
     "& img": {
+      borderRadius: "50%",
       padding: `${typography.pxToRem(22)} !important`,
     },
   },
