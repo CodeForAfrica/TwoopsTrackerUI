@@ -7,12 +7,15 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import HTMLEllipsis from "react-lines-ellipsis/lib/html";
 
-import useStyles from "./useStyles";
-
 import UserIcon from "@/twoopstracker/assets/icons/user.svg";
 import AddToList from "@/twoopstracker/components/AddToList";
 import Figure from "@/twoopstracker/components/Figure";
 import Link from "@/twoopstracker/components/Link";
+
+// NOTE(kilemensi): This is a workaround for this component styles to be loaded
+//                  after Figure styles so that we can override Figure styles.
+// eslint-disable-next-line import/order
+import useStyles from "./useStyles";
 
 function TweetCard({
   owner,
