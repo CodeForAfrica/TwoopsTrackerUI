@@ -49,7 +49,7 @@ function Footer({
             )}
             {project.description && (
               <RichTypography
-                variant="subtitle2"
+                variant="overline"
                 className={classes.description}
               >
                 {project.description}
