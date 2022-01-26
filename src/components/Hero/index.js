@@ -35,6 +35,9 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
     [breakpoints.up("lg")]: {
       width: typography.pxToRem(732),
     },
+    [breakpoints.up("xl")]: {
+      width: typography.pxToRem(1077),
+    },
   },
   description: {
     color: palette.text.secondary,
@@ -42,7 +45,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
     maxWidth: "70%",
     [breakpoints.up("lg")]: {
       marginTop: typography.pxToRem(80),
-      width: typography.pxToRem(732),
+      width: typography.pxToRem(966),
     },
   },
   section: {
