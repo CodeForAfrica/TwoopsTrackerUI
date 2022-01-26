@@ -27,10 +27,11 @@ export default function getQueryString({
     searchParams.append("days", days);
   }
   if (ordering) {
+    const trimmedOrder = ordering.replace(/^\W+|\W+$/, "");
     if (isDesc) {
-      searchParams.append("ordering", `-${ordering.replace("-", "")}`);
+      searchParams.append("ordering", `-${trimmedOrder}`);
     } else {
-      searchParams.append("ordering", ordering.replace("", ""));
+      searchParams.append("ordering", trimmedOrder);
     }
   }
   if (page) {
