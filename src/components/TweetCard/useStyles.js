@@ -26,10 +26,14 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
           fontFamily: typography.body1.fontFamily,
           fontSize: typography.pxToRem(18),
           lineHeight: 30 / 18,
+          padding: 0,
           [breakpoints.up("lg")]: {
             fontSize: typography.pxToRem(24),
             lineHeight: 35.88 / 24,
           },
+        },
+        "& .moreButton:hover": {
+          cursor: "pointer",
         },
       },
     },
@@ -84,15 +88,20 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     marginBottom: typography.pxToRem(10),
     marginTop: typography.pxToRem(10),
   },
-  moreButton: {
+  seeLessButton: {
     color: palette.primary.main,
     textDecoration: "underline",
     fontFamily: typography.body1.fontFamily,
     fontSize: typography.pxToRem(18),
     lineHeight: 30 / 18,
+    padding: 0,
     [breakpoints.up("lg")]: {
       fontSize: typography.pxToRem(24),
       lineHeight: 35.88 / 24,
+    },
+    "&:hover": {
+      backgroundColor: "transparent",
+      textDecoration: "underline",
     },
   },
   content: {
