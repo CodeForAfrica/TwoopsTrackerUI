@@ -4,10 +4,7 @@ import React from "react";
 
 import Section from "@/twoopstracker/components/Section";
 
-const useStyles = makeStyles(({ typography, palette }) => ({
-  root: {
-    backgroundColor: palette.background.paper,
-  },
+const useStyles = makeStyles(({ typography }) => ({
   section: {
     padding: `${typography.pxToRem(48)} 0 0`,
   },
@@ -27,13 +24,11 @@ function SearchResults({ query, label, ...props }) {
     return null;
   }
   return (
-    <div className={classes.root}>
-      <Section className={classes.section}>
-        <Typography variant="h2">
-          {label} : {query}
-        </Typography>
-      </Section>
-    </div>
+    <Section className={classes.section}>
+      <Typography variant="h2">
+        {label} : {query}
+      </Typography>
+    </Section>
   );
 }
 
