@@ -13,6 +13,7 @@ const theme = createTheme({
       sm: 390, // mobile
       md: 960, // tablet
       lg: 1440, // desktop
+      xl: 1920, // desktop
     },
   },
   palette: {
@@ -94,6 +95,7 @@ const theme = createTheme({
     values: {
       md: 900,
       lg: 1240,
+      xl: 1520,
     },
   },
 });
@@ -182,9 +184,11 @@ deepmerge(
       },
     },
     overline: {
-      fontSize: pxToRem(14),
-      [breakpoints.up("lg")]: {
+      fontSize: pxToRem(10.48),
+      lineHeight: 11.98 / 10.48,
+      [breakpoints.up("xl")]: {
         fontSize: pxToRem(14),
+        lineHeight: 16 / 14,
       },
     },
   },
