@@ -51,7 +51,7 @@ function ExploreTool({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container justifyContent="space-between">
-          <Grid item lg={4}>
+          <Grid item lg={5}>
             <Typography className={classes.title} component="h2" variant="h1">
               {title}
             </Typography>
@@ -62,7 +62,7 @@ function ExploreTool({
               {buttonText}
             </Button>
           </Grid>
-          <Grid item lg={7}>
+          <Grid item lg={6}>
             <figure className={classes.figure}>
               <Image layout="fill" src={image} alt={title} />
             </figure>
