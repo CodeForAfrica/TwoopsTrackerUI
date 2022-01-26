@@ -50,8 +50,8 @@ function ExploreTool({
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
-        <Grid container>
-          <Grid item lg={5}>
+        <Grid container justifyContent="space-between">
+          <Grid item lg={4}>
             <Typography className={classes.title} component="h2" variant="h1">
               {title}
             </Typography>
