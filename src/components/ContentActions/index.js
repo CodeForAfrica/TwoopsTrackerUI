@@ -14,6 +14,7 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   section: {
     borderBottom: "1px solid #00000040",
     paddingBottom: typography.pxToRem(28),
+    padding: 0,
   },
   button: {
     margin: `auto ${typography.pxToRem(12)}`,
