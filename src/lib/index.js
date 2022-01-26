@@ -25,7 +25,8 @@ export async function lists(session, pageData) {
 }
 
 export async function list(id, session) {
-  return fetchJson(`${BASE_URL}/lists/${id}`, session);
+  // return fetchJson(`${BASE_URL}/lists/${id}`, session);
+  return fetchJson(`${BASE_URL}/accounts/?list[]=${id}`, session);
 }
 
 export async function allAccounts(session, pageData) {
@@ -48,7 +49,8 @@ export async function APIRequest(payload, method, param, session) {
   let url = BASE_URL;
 
   if (param) {
-    url = `${url}/lists/${param}`;
+    // url = `${url}/lists/${param}`;
+    url = `${url}/accounts/?list[]=${param}`;
   } else {
     url = `${url}/lists/`;
   }

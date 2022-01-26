@@ -15,7 +15,7 @@ function AccountsList({
   apiUrl,
   editable,
   paginationProps,
-  data: { id, name, accounts, is_private: isPrivate },
+  data: { id, name, results: accounts, is_private: isPrivate },
   ...props
 }) {
   const classes = useStyles(props);
@@ -29,7 +29,7 @@ function AccountsList({
 
   useEffect(() => {
     if (data) {
-      setListAccounts(data.accounts);
+      setListAccounts(data.results); // only fetches name
     }
   }, [data]);
 
@@ -39,7 +39,7 @@ function AccountsList({
     );
 
     const payload = {
-      name,
+      name: "Test List", // to be removed
       accounts: filteredAccounts,
       owner: 1,
       is_private: isPrivate,
@@ -125,7 +125,7 @@ function AccountsList({
 AccountsList.propTypes = {
   apiUrl: PropTypes.string,
   data: PropTypes.shape({
-    accounts: PropTypes.arrayOf(PropTypes.shape({})),
+    results: PropTypes.arrayOf(PropTypes.shape({})),
     count: PropTypes.number,
     id: PropTypes.number,
     is_private: PropTypes.bool,
