@@ -14,7 +14,7 @@ tool:
   description:
     Troll Tracker monitors and umasks disinformation actors who try to
     evade responsibility by deleting their inflammatory posts.
-  thumbnail: /images/Group 40.png
+  thumbnail: /images/group-40-2x.png
   cta: Explore the tool
 investigations:
   title: Investigations
