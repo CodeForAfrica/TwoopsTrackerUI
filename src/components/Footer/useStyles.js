@@ -14,8 +14,12 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   logoButton: {
     margin: "0 auto",
     padding: 0,
+    width: typography.pxToRem(195.73),
     [breakpoints.up("lg")]: {
       margin: 0,
+    },
+    [breakpoints.up("xl")]: {
+      width: typography.pxToRem(261.38),
     },
   },
   allLinks: {
@@ -35,18 +39,25 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   stayInTouchIcon: {
     height: "auto",
-    objectFit: "none",
-    display: "flex",
+    objectFit: "fill",
     width: "auto",
+    [breakpoints.up("xl")]: {
+      objectFit: "none",
+    },
   },
   stayInTouchText: {
     color: palette.text.secondary,
-    fontSize: typography.subtitle2.fontSize,
-    fontWeight: "bold",
-    marginRight: typography.pxToRem(16),
+    fontWeight: 700,
+    fontSize: typography.pxToRem(10.48),
+    lineHeight: 15.67 / 10.48,
+    margin: 0,
     padding: `${typography.pxToRem(10)} ${typography.pxToRem(8)}`,
     [breakpoints.up("lg")]: {
       padding: 0,
+    },
+    [breakpoints.up("xl")]: {
+      fontSize: typography.pxToRem(14),
+      lineHeight: 20.93 / 14,
     },
   },
   stayInTouchLink: {
@@ -54,14 +65,25 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   stayInTouchLinks: {
     justifyContent: "center",
-    marginLeft: typography.pxToRem(-14), // (48 - 20) / 2
-    paddingLeft: "2rem",
+    marginLeft: typography.pxToRem(21.84),
+    [breakpoints.up("xl")]: {
+      marginLeft: typography.pxToRem(29),
+    },
     "& > a": {
-      height: typography.pxToRem(48),
-      width: typography.pxToRem(48),
       borderRight: "none",
       display: "flex",
       justifyContent: "center",
+      height: typography.pxToRem(17.96),
+      width: typography.pxToRem(17.96),
+      marginRight: typography.pxToRem(13),
+      [breakpoints.up("xl")]: {
+        height: typography.pxToRem(24),
+        width: typography.pxToRem(24),
+        marginRight: typography.pxToRem(18),
+      },
+    },
+    "& > a:last-of-type": {
+      marginRight: 0,
     },
   },
   quickLinkRoot: {
@@ -98,10 +120,13 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   description: {
     color: palette.text.secondary,
-    padding: `${typography.pxToRem(32)} 0`,
+    padding: `${typography.pxToRem(33)} 0`,
     fontFamily: typography.subtitle1.fontFamily,
     [breakpoints.up("lg")]: {
       textAlign: "left",
+    },
+    [breakpoints.up("xl")]: {
+      padding: `${typography.pxToRem(45)} 0`,
     },
   },
   copyright: {
