@@ -13,7 +13,7 @@ tool:
   title: Monitor disinfo-spreaders
   description:
     Troll Tracker monitors and umasks disinformation actors who try to
-    evade responsibility by deleting their inflammatory posts.
+    evade responsibility by deleting their inflammatory posts on Twitter.
   thumbnail: /images/group-40-2x.png
   cta: Explore the tool
 investigations:
