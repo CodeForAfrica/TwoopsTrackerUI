@@ -85,8 +85,7 @@ export async function getServerSideProps(context) {
   const { query: userQuery } = context;
   const query = {
     days: 14,
-    ordering: "deleted_at",
-    isDesc: true,
+    ordering: "-deleted_at",
     ...userQuery,
   };
   const session = await getSession(context);
