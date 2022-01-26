@@ -6,6 +6,7 @@ import React from "react";
 
 const useStyles = makeStyles(() => ({
   root: {
+    margin: 0,
     position: "relative",
   },
 }));
