@@ -13,6 +13,7 @@ const theme = createTheme({
       sm: 390, // mobile
       md: 960, // tablet
       lg: 1440, // desktop
+      xl: 1920, // desktop
     },
   },
   palette: {
@@ -94,6 +95,7 @@ const theme = createTheme({
     values: {
       md: 900,
       lg: 1240,
+      xl: 1520,
     },
   },
 });
