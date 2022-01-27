@@ -32,7 +32,7 @@ function ForgotPassword({ title, description, ...props }) {
     });
 
     if (result?.success) {
-      Router.push("/verify-email?q=reset");
+      Router.push("/verify-email?q=resetPassword");
     } else {
       setErrors(result?.data);
     }
@@ -111,29 +111,13 @@ function ForgotPassword({ title, description, ...props }) {
 }
 
 ForgotPassword.propTypes = {
-  providers: PropTypes.shape({}),
   title: PropTypes.string,
   description: PropTypes.string,
-  forgotPasswordLink: PropTypes.string,
-  forgotPasswordPrompt: PropTypes.string,
-  signupPrompt: PropTypes.string,
-  signUpText: PropTypes.string,
-  signUpLink: PropTypes.string,
-  googleIcon: PropTypes.string,
-  passwordIcon: PropTypes.string,
 };
 
 ForgotPassword.defaultProps = {
-  providers: undefined,
   title: undefined,
-  forgotPasswordPrompt: undefined,
   description: undefined,
-  forgotPasswordLink: undefined,
-  signupPrompt: undefined,
-  signUpLink: undefined,
-  signUpText: undefined,
-  googleIcon: undefined,
-  passwordIcon: undefined,
 };
 
 export default ForgotPassword;
