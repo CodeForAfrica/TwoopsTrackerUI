@@ -61,7 +61,7 @@ function SignUp({
     });
 
     if (result?.success) {
-      Router.push("/verify-email");
+      Router.push("/verify-email?q=register");
     } else {
       setErrors(result?.data);
     }
