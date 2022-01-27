@@ -8,6 +8,7 @@ import useStyles from "./useStyles";
 import Account from "@/twoopstracker/components/Account";
 import ContentActions from "@/twoopstracker/components/ContentActions";
 import ListModal from "@/twoopstracker/components/ListModal";
+import Pagination from "@/twoopstracker/components/Pagination";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
@@ -15,7 +16,7 @@ function AccountsList({
   apiUrl,
   editable,
   paginationProps,
-  data: { id, name, results: accounts, is_private: isPrivate },
+  data: { id, name, count, results: accounts, is_private: isPrivate },
   ...props
 }) {
   const classes = useStyles(props);
@@ -24,14 +25,29 @@ function AccountsList({
   const handleClose = () => setOpen(false);
   const [listAccounts, setListAccounts] = useState(accounts);
   const [newAccounts, setNewAccounts] = useState("");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(3);
   const fetcher = (url) => fetchJson(url);
-  const { data, mutate } = useSWR(`${apiUrl}/?accounts=true`, fetcher);
+  const paginationString = new URLSearchParams({ page, pageSize }).toString();
+  const { data, mutate } = useSWR(
+    `${apiUrl}/?accounts=true&&${paginationString}`,
+    fetcher
+  );
 
   useEffect(() => {
     if (data) {
       setListAccounts(data.results);
     }
   }, [data]);
+
+  const handleClickPage = (e, value) => {
+    setPage(value);
+  };
+  const handleClickPageSize = (e, value) => {
+    // Changing pageSize triggers computation of number of pages.
+    setPage(1);
+    setPageSize(value);
+  };
 
   const handleDelete = async (account) => {
     const filteredAccounts = listAccounts.filter(
@@ -118,6 +134,14 @@ function AccountsList({
           />
         );
       })}
+      <Pagination
+        {...paginationProps}
+        count={Math.ceil(count / (pageSize || 10))}
+        onChangePage={handleClickPage}
+        onChangePageSize={handleClickPageSize}
+        page={page}
+        pageSize={pageSize}
+      />
     </Section>
   );
 }

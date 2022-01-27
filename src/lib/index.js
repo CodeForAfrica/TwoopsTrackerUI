@@ -48,11 +48,20 @@ export async function allAccounts(session, pageData) {
   return result;
 }
 
-export async function APIRequest(payload, method, param, session, accounts) {
+export async function APIRequest(payload, method, session, query) {
   let url = BASE_URL;
+  const { accounts, listId: param, page, pageSize } = query;
+
+  const listParams = new URLSearchParams();
+  if (page) {
+    listParams.append("page", query.page);
+  }
+  if (pageSize) {
+    listParams.append("page_size", query.pageSize);
+  }
 
   if (param && accounts) {
-    url = `${url}/accounts/?list[]=${param}`;
+    url = `${url}/accounts/?list[]=${param}&${listParams.toString()}`;
   } else if (param) {
     url = `${url}/lists/${param}`;
   } else {

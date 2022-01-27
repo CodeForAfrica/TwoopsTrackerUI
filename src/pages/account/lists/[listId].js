@@ -4,13 +4,18 @@ import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
+import { listAccountsPagination } from "@/twoopstracker/config";
 import { listAccounts, list } from "@/twoopstracker/lib";
 import { settings } from "@/twoopstracker/lib/cms";
 
 export default function Index({ data, ...props }) {
   return (
     <Page {...props}>
-      <AccountsList data={data} {...props} />
+      <AccountsList
+        data={data}
+        paginationProps={listAccountsPagination}
+        {...props}
+      />
     </Page>
   );
 }
@@ -38,8 +43,6 @@ export async function getServerSideProps(context) {
 
   const accounts = await listAccounts(paramData.listId, session);
   const listData = await list(paramData.listId, session);
-
-  // console.log("DATA", { ...listData, ...accounts });
 
   const data = { ...listData, ...accounts };
 

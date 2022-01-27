@@ -153,6 +153,12 @@ export const listPagination = {
   pageSizeOptions: [{ value: "10" }, { value: "20" }],
 };
 
+export const listAccountsPagination = {
+  pageSizeDefaultValue: "3",
+  pageSizeLabel: "Results on Page",
+  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+};
+
 export const accounts = {
   count: 1,
   next: null,
