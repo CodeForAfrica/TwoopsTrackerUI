@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   const session = await getSession({ req });
 
   if (method === "PUT" || method === "PATCH") {
-    const results = await APIRequest(body, method, query.listId, session);
+    const results = await APIRequest(body, method, session, query);
     return res.status(200).json(results);
   }
 
