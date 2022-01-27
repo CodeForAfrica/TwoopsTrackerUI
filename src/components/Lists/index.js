@@ -125,13 +125,11 @@ function Lists({
       is_private: privacy,
       accounts: accountsMap,
     };
-
     try {
       await fetchJson("/api/lists", null, {
         method: "POST",
         body: JSON.stringify(payload),
       });
-
       mutate();
       setOpen(false);
       setName("");

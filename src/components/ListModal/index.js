@@ -37,6 +37,7 @@ function ModalComponent({
   accountsValue,
   accountsOnChange,
   accountsHelper,
+  accountsErrorHelper,
   accountsLabel,
   privacyValue,
   privacyOnChange,
@@ -101,6 +102,14 @@ function ModalComponent({
                 {accountsHelper}
               </FormHelperText>
             )}
+            {accountsErrorHelper && (
+              <FormHelperText
+                className={classes.label}
+                id="accounts-helper-text"
+              >
+                {accountsErrorHelper}
+              </FormHelperText>
+            )}
           </FormControl>
         )}
 
@@ -147,6 +156,7 @@ ModalComponent.propTypes = {
   accountsValue: PropTypes.string,
   accountsOnChange: PropTypes.func,
   accountsHelper: PropTypes.string,
+  accountsErrorHelper: PropTypes.string,
   accountsLabel: PropTypes.string,
   privacyValue: PropTypes.bool,
   privacyOnChange: PropTypes.func,
@@ -165,6 +175,7 @@ ModalComponent.defaultProps = {
   accountsValue: undefined,
   accountsOnChange: undefined,
   accountsHelper: undefined,
+  accountsErrorHelper: undefined,
   accountsLabel: undefined,
   privacyValue: undefined,
   privacyOnChange: undefined,
