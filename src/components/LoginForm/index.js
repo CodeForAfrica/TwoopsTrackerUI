@@ -1,4 +1,5 @@
 import {
+  IconButton,
   Button,
   Typography,
   Grid,
@@ -136,7 +137,7 @@ function Login({
                     className: classes.input,
                     endAdornment: (
                       <InputAdornment position="end">
-                        <Button
+                        <IconButton
                           className={classes.passwordButton}
                           onClick={() => togglePasswordType()}
                         >
@@ -146,7 +147,7 @@ function Login({
                             src={passwordIcon}
                             alt=""
                           />
-                        </Button>
+                        </IconButton>
                       </InputAdornment>
                     ),
                   }}
