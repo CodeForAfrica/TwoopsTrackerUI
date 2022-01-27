@@ -630,6 +630,58 @@
           ]
         },
         {
+          "label": "Sign In",
+          "name": "login",
+          "file": "content/pages/account/login.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Description",
+              "name": "description",
+              "widget": "string"
+            },
+            {
+              "label": "SignUp Prompt",
+              "name": "signupPrompt",
+              "widget": "string"
+            },
+            {
+              "label": "SignUp Link",
+              "name": "signupLink",
+              "widget": "string"
+            },
+            {
+              "label": "SignUp Text",
+              "name": "signupText",
+              "widget": "string"
+            },
+            {
+              "label": "Forgot Password Prompt",
+              "name": "forgotPasswordPrompt",
+              "widget": "string"
+            },
+            {
+              "label": "Forgot Password Link",
+              "name": "forgotPasswordLink",
+              "widget": "string"
+            },
+            {
+              "label": "Google Icon",
+              "name": "googleIcon",
+              "widget": "image"
+            },
+            {
+              "label": "Password Icon",
+              "name": "passwordIcon",
+              "widget": "image"
+            }
+          ]
+        },
+        {
           "label": "Sign Up",
           "name": "SignUp",
           "file": "content/pages/account/register.md",
@@ -674,7 +726,55 @@
         {
           "label": "Verify Email",
           "name": "VerifyEmail",
-          "file": "content/pages/verify-email.md",
+          "file": "content/pages/account/verify-email.md",
+          "fields": [
+            {
+              "label": "Category",
+              "name": "category",
+              "widget": "object",
+              "fields": [
+                {
+                  "label": "Registration",
+                  "name": "register",
+                  "widget": "object",
+                  "fields": [
+                    {
+                      "label": "Title",
+                      "name": "title",
+                      "widget": "string"
+                    },
+                    {
+                      "label": "Descripion",
+                      "name": "description",
+                      "widget": "markdown"
+                    }
+                  ]
+                },
+                {
+                  "label": "Reset Password",
+                  "name": "resetPassword",
+                  "widget": "object",
+                  "fields": [
+                    {
+                      "label": "Title",
+                      "name": "title",
+                      "widget": "string"
+                    },
+                    {
+                      "label": "Descripion",
+                      "name": "description",
+                      "widget": "markdown"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Forgot Password",
+          "name": "fgPassword",
+          "file": "content/pages/account/forgot-password.md",
           "fields": [
             {
               "label": "Title",
@@ -682,9 +782,31 @@
               "widget": "string"
             },
             {
-              "label": "Descripion",
+              "label": "Description",
               "name": "description",
-              "widget": "markdown"
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "label": "Reset Password",
+          "name": "rsPassword",
+          "file": "content/pages/account/reset-password.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Description",
+              "name": "description",
+              "widget": "string"
+            },
+            {
+              "label": "Password Icon",
+              "name": "passwordIcon",
+              "widget": "image"
             }
           ]
         }
