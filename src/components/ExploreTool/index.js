@@ -1,8 +1,8 @@
 import { Typography, Button, Grid, makeStyles } from "@material-ui/core";
-import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
+import Figure from "@/twoopstracker/components/Figure";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
@@ -23,8 +23,6 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     marginBottom: typography.pxToRem(35),
   },
   figure: {
-    position: "relative",
-    margin: 0,
     marginTop: typography.pxToRem(35),
     height: typography.pxToRem(403),
     width: typography.pxToRem(731),
@@ -64,9 +62,7 @@ function ExploreTool({
             </Button>
           </Grid>
           <Grid item>
-            <figure className={classes.figure}>
-              <Image layout="fill" src={image} alt={title} />
-            </figure>
+            <Figure src={image} alt={title} className={classes.figure} />
           </Grid>
         </Grid>
       </Section>
