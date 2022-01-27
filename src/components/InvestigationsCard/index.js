@@ -13,6 +13,8 @@ function InvestigationsCard({
   description,
   featured,
   href,
+  width,
+  height,
   image,
   imageProps,
   title,
@@ -34,6 +36,8 @@ function InvestigationsCard({
       <Grid item>
         <Card
           image={image}
+          width={width}
+          height={height}
           classes={{
             root: classes.card,
             media: clsx({
@@ -64,6 +68,8 @@ InvestigationsCard.propTypes = {
   image: PropTypes.string,
   imageProps: PropTypes.shape({}),
   title: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 InvestigationsCard.defaultProps = {
@@ -74,6 +80,8 @@ InvestigationsCard.defaultProps = {
   image: undefined,
   imageProps: undefined,
   title: undefined,
+  width: undefined,
+  height: undefined,
 };
 
 export default InvestigationsCard;

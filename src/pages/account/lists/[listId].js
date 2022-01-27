@@ -10,7 +10,7 @@ import { settings } from "@/twoopstracker/lib/cms";
 export default function Index({ data, ...props }) {
   return (
     <Page {...props}>
-      <AccountsList data={data} />
+      <AccountsList data={data} {...props} />
     </Page>
   );
 }

@@ -10,21 +10,17 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   avatar: {
-    width: "80%",
-    height: "80%",
-    margin: typography.pxToRem(10),
+    width: "100%",
+    height: "100%",
   },
   icon: {
     position: "relative",
-    width: typography.pxToRem(100),
-    height: typography.pxToRem(100),
+    width: typography.pxToRem(165),
+    height: typography.pxToRem(165),
     border: `solid 1px`,
   },
   detailSection: {
     marginLeft: 0,
-    [breakpoints.up("md")]: {
-      marginLeft: typography.pxToRem(20),
-    },
   },
   username: {
     fontWeight: "700",
@@ -36,7 +32,6 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   accountType: {
     display: "inline",
-    marginLeft: typography.pxToRem(10),
   },
   list: {
     marginTop: typography.pxToRem(10),
@@ -44,14 +39,14 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   buttonSection: {
     display: "flex",
     justifyContent: "end",
-    alignItems: "end",
+    alignItems: "center",
+    [breakpoints.down("md")]: {
+      justifyContent: "flex-start",
+      marginTop: typography.pxToRem(20),
+    },
   },
 
-  delete: {
-    backgroundColor: "#DB1111",
-    color: "#fff",
-    marginLeft: typography.pxToRem(10),
-  },
+  delete: {},
 }));
 
 export default useStyles;

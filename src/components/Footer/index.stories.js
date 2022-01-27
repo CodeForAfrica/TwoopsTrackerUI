@@ -58,7 +58,7 @@ const footerArgs = {
       "        technology and data journalism labs. All content is released under a Creative \n" +
       "        Commons 4 Attribution Licence. Reuse it to help empower your own community\n",
     logoProps: {
-      src: "/images/group-4426.svg",
+      src: "/images/cfa-logo-white-1.png",
       alt: "Code for Africa",
       href: "https://codeforafrica.org",
     },
