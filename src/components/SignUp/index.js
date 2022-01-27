@@ -4,6 +4,7 @@ import {
   Grid,
   TextField,
   InputAdornment,
+  FormHelperText,
 } from "@material-ui/core";
 import { Formik } from "formik";
 import { signIn } from "next-auth/react";
@@ -36,7 +37,7 @@ function SignUp({
       .string("Enter your email")
       .email("Enter a valid email")
       .required("Email is required"),
-    password: yup
+    password1: yup
       .string("Enter your password")
       .min(8, "Password should be of minimum 8 characters length")
       .required("Password is required"),
@@ -54,7 +55,7 @@ function SignUp({
     setIsPassword(!isPassword);
   };
 
-  const handleSubmit = async (values, { setErrors }) => {
+  const handleSubmit = async (values, { setErrors, setStatus }) => {
     const result = await fetchJson("/api/auth/register", null, {
       method: "POST",
       body: JSON.stringify(values),
@@ -62,14 +63,18 @@ function SignUp({
 
     if (result?.success) {
       Router.push("/verify-email?q=register");
-    } else {
-      setErrors(result?.data);
+    } else if (result?.data) {
+      if ("non_field_errors" in result.data) {
+        setStatus(result.data.non_field_errors);
+      } else {
+        setErrors(result.data);
+      }
     }
   };
 
   const initialValues = {
     email: "",
-    password: "",
+    password1: "",
     firstName: "",
     lastName: "",
   };
@@ -92,8 +97,18 @@ function SignUp({
               handleSubmit: handleSubmitProp,
               handleChange,
               touched,
+              status,
             }) => (
               <form className={classes.form} onSubmit={handleSubmitProp}>
+                {status?.length && (
+                  <FormHelperText
+                    component="div"
+                    error
+                    classes={{ root: classes.textfield }}
+                  >
+                    <Typography variant="caption">{status}</Typography>
+                  </FormHelperText>
+                )}
                 <TextField
                   className={classes.textfield}
                   InputLabelProps={{
@@ -182,15 +197,15 @@ function SignUp({
                   variant="outlined"
                   margin="normal"
                   fullWidth
-                  name="password"
+                  name="password1"
                   label="Password"
                   type={isPassword ? "password" : "text"}
-                  id="password"
+                  id="password1"
                   autoComplete="current-password"
                   color="secondary"
                   onChange={handleChange}
-                  error={touched.password && Boolean(errors.password)}
-                  helperText={touched.password && errors.password}
+                  error={touched.password1 && Boolean(errors.password1)}
+                  helperText={touched.password1 && errors.password1}
                 />
                 <Button
                   type="submit"

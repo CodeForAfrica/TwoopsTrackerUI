@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    const data = JSON.parse(req?.body);
+    const { email, password1, firstName, lastName } = JSON.parse(req?.body);
 
     const options = {
       method: "POST",
@@ -8,11 +8,11 @@ export default async function handler(req, res) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: data?.email,
-        first_name: data?.firstName,
-        last_name: data?.lastName,
-        password1: data?.password,
-        password2: data?.password,
+        email,
+        first_name: firstName,
+        last_name: lastName,
+        password1,
+        password2: password1,
       }),
     };
     const response = await fetch(
