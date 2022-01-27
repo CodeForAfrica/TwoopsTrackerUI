@@ -131,7 +131,7 @@ function TweetCard({
           basedOn="letters"
         />
         {expanded && (
-          <Button className={classes.moreButton} onClick={handleMore}>
+          <Button onClick={handleMore} className={classes.seeLessButton}>
             See less
           </Button>
         )}

@@ -21,14 +21,19 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   description: {
     marginTop: typography.pxToRem(35),
     marginBottom: typography.pxToRem(35),
-    [breakpoints.up("lg")]: {
-      width: typography.pxToRem(427),
-    },
   },
-  imageGrid: {
+  figure: {
+    position: "relative",
+    margin: 0,
     marginTop: typography.pxToRem(35),
+    height: typography.pxToRem(403),
+    width: typography.pxToRem(731),
     [breakpoints.up("lg")]: {
       marginTop: 0,
+    },
+    [breakpoints.up("xl")]: {
+      height: typography.pxToRem(436.2),
+      width: typography.pxToRem(790.5),
     },
   },
 }));
@@ -46,9 +51,9 @@ function ExploreTool({
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
-        <Grid container>
-          <Grid item lg={5}>
-            <Typography className={classes.title} variant="h2">
+        <Grid container justifyContent="space-between">
+          <Grid item lg={4} xl={5}>
+            <Typography className={classes.title} component="h2" variant="h1">
               {title}
             </Typography>
             <Typography className={classes.description} variant="body1">
@@ -58,8 +63,10 @@ function ExploreTool({
               {buttonText}
             </Button>
           </Grid>
-          <Grid item lg={7} className={classes.imageGrid}>
-            <Image height={403} width={731} src={image} alt={title} />
+          <Grid item>
+            <figure className={classes.figure}>
+              <Image layout="fill" src={image} alt={title} />
+            </figure>
           </Grid>
         </Grid>
       </Section>
