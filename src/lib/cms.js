@@ -1,14 +1,15 @@
 import * as md from "./md";
 
 import aboutContent from "@/cms/pages/about.md";
+import fgPasswordContent from "@/cms/pages/account/forgot-password.md";
 import loginContent from "@/cms/pages/account/login.md";
 import signUpContent from "@/cms/pages/account/register.md";
+import rsPasswordContent from "@/cms/pages/account/reset-password.md";
 import updateProfileContent from "@/cms/pages/account/update.md";
-import fgPasswordContent from "@/cms/pages/fgpassword.md";
+import verifyEmailContent from "@/cms/pages/account/verify-email.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
 import lexiconsContent from "@/cms/pages/lexicons.md";
-import verifyEmailContent from "@/cms/pages/verify-email.md";
 import footerContent from "@/cms/settings/footer.md";
 import navigationContent from "@/cms/settings/navigation.md";
 
@@ -184,5 +185,10 @@ export function verifyEmail() {
 
 export function fgPassword() {
   const { attributes } = fgPasswordContent;
+  return attributes;
+}
+
+export function rsPassword() {
+  const { attributes } = rsPasswordContent;
   return attributes;
 }
