@@ -29,7 +29,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     fontWeight: 800,
     fontSize: typography.subtitle2.fontSize,
     height: "3rem",
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       fontSize: typography.subtitle1.fontSize,
       height: "3.5rem",
     },

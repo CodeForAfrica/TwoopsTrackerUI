@@ -23,7 +23,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     display: "flex",
     justifyContent: "flex-start",
     marginLeft: typography.pxToRem(-8),
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       padding: 0,
       flexDirection: "row",
       justifyContent: "flex-start",
@@ -74,10 +74,6 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     display: "inline-block",
   },
   label: {
-    fontSize: typography.pxToRem(24),
-    fontStyle: "normal",
-    fontWeight: "normal",
-    lineHeight: "149.49%",
     textAlign: "right",
     textTransform: "capitalize",
   },
@@ -88,7 +84,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       textDecoration: "none",
       color: "black",
     },
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
       color: "black",
       "&:hover, &:focus, &:focus-within": {
@@ -195,7 +191,7 @@ function UserProfile({
         }}
         endIcon={<Avatar alt={alt} src={src} className={classes.large} />}
       >
-        <Typography variant="body1" className={classes.label}>
+        <Typography variant="body2" className={classes.label}>
           {label}
         </Typography>
       </Button>

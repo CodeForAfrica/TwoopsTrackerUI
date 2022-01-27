@@ -11,6 +11,8 @@ import useStyles from "./useStyles";
 function Card({
   children,
   className,
+  width,
+  height,
   ctaText,
   description,
   descriptionProps,
@@ -49,6 +51,8 @@ function Card({
       >
         <CardMedia
           {...mediaProps}
+          width={width}
+          height={height}
           image={image}
           imageProps={imageProps}
           media={media}
@@ -85,6 +89,8 @@ Card.propTypes = {
   onClick: PropTypes.func,
   title: PropTypes.string,
   titleProps: PropTypes.shape({}),
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 Card.defaultProps = {
@@ -102,6 +108,8 @@ Card.defaultProps = {
   onClick: undefined,
   title: undefined,
   titleProps: undefined,
+  width: undefined,
+  height: undefined,
 };
 
 export default Card;
