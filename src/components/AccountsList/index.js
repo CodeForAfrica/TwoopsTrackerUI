@@ -25,11 +25,11 @@ function AccountsList({
   const [listAccounts, setListAccounts] = useState(accounts);
   const [newAccounts, setNewAccounts] = useState("");
   const fetcher = (url) => fetchJson(url);
-  const { data, mutate } = useSWR(apiUrl, fetcher);
+  const { data, mutate } = useSWR(`${apiUrl}/?accounts=true`, fetcher);
 
   useEffect(() => {
     if (data) {
-      setListAccounts(data.results); // only fetches name
+      setListAccounts(data.results);
     }
   }, [data]);
 
@@ -39,7 +39,7 @@ function AccountsList({
     );
 
     const payload = {
-      name: "Test List", // to be removed
+      name,
       accounts: filteredAccounts,
       owner: 1,
       is_private: isPrivate,

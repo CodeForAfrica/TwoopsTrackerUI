@@ -4,7 +4,7 @@ import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
-import { list } from "@/twoopstracker/lib";
+import { listAccounts, list } from "@/twoopstracker/lib";
 import { settings } from "@/twoopstracker/lib/cms";
 
 export default function Index({ data, ...props }) {
@@ -36,7 +36,12 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const data = await list(paramData.listId, session);
+  const accounts = await listAccounts(paramData.listId, session);
+  const listData = await list(paramData.listId, session);
+
+  // console.log("DATA", { ...listData, ...accounts });
+
+  const data = { ...listData, ...accounts };
 
   return {
     props: {

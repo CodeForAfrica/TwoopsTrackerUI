@@ -24,9 +24,12 @@ export async function lists(session, pageData) {
   return result;
 }
 
-export async function list(id, session) {
-  // return fetchJson(`${BASE_URL}/lists/${id}`, session);
+export async function listAccounts(id, session) {
   return fetchJson(`${BASE_URL}/accounts/?list[]=${id}`, session);
+}
+
+export async function list(id, session) {
+  return fetchJson(`${BASE_URL}/lists/${id}`, session);
 }
 
 export async function allAccounts(session, pageData) {
@@ -45,12 +48,13 @@ export async function allAccounts(session, pageData) {
   return result;
 }
 
-export async function APIRequest(payload, method, param, session) {
+export async function APIRequest(payload, method, param, session, accounts) {
   let url = BASE_URL;
 
-  if (param) {
-    // url = `${url}/lists/${param}`;
+  if (param && accounts) {
     url = `${url}/accounts/?list[]=${param}`;
+  } else if (param) {
+    url = `${url}/lists/${param}`;
   } else {
     url = `${url}/lists/`;
   }
