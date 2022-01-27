@@ -41,7 +41,7 @@ function ResetPassword({
       .required("Password is required"),
   });
 
-  const handleSubmit = async (values, { setErrors }) => {
+  const handleSubmit = async (values, { setStatus }) => {
     const result = await fetchJson("/api/auth/reset-password/confirm", null, {
       method: "POST",
       body: JSON.stringify({
@@ -53,8 +53,9 @@ function ResetPassword({
 
     if (result?.success) {
       Router.push("/login");
-    } else {
-      setErrors(result?.data);
+    } else if (result?.data) {
+      const field = Object.keys(result.data)[0];
+      setStatus(`${field}: ${result.data[field][0]}`);
     }
   };
 
