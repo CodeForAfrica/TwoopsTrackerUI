@@ -50,7 +50,7 @@ export async function allAccounts(session, pageData) {
 
 export async function APIRequest(payload, method, session, query) {
   let url = BASE_URL;
-  const { accounts, listId: param, page, pageSize } = query;
+  const { accounts, listId: param, page, pageSize, del } = query;
 
   const listParams = new URLSearchParams();
   if (page) {
@@ -62,6 +62,8 @@ export async function APIRequest(payload, method, session, query) {
 
   if (param && accounts) {
     url = `${url}/accounts/?list[]=${param}&${listParams.toString()}`;
+  } else if (del) {
+    url = `${url}/lists/${param}?accounts[]=${del}`;
   } else if (param) {
     url = `${url}/lists/${param}`;
   } else {

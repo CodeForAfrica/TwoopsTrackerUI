@@ -50,20 +50,8 @@ function AccountsList({
   };
 
   const handleDelete = async (account) => {
-    const filteredAccounts = listAccounts.filter(
-      (acc) => acc.screen_name !== account
-    );
-
-    const payload = {
-      name,
-      accounts: filteredAccounts,
-      owner: 1,
-      is_private: isPrivate,
-    };
-
-    await fetchJson(apiUrl, null, {
-      method: "PUT",
-      body: JSON.stringify(payload),
+    fetchJson(`${apiUrl}/?del=${account}`, null, {
+      method: "DELETE",
     });
 
     mutate({ ...data });

@@ -9,6 +9,7 @@ import ListModal from "@/twoopstracker/components/ListModal";
 
 function Account({
   account: {
+    account_id: id,
     name,
     screen_name: screenName,
     created_at: createdAt,
@@ -29,7 +30,7 @@ function Account({
 
   const onAccountDelete = async () => {
     try {
-      await onDelete(screenName);
+      await onDelete(id);
       setOpen(true);
     } catch (e) {
       setOpen(false);
@@ -93,6 +94,7 @@ function Account({
 
 Account.propTypes = {
   account: PropTypes.shape({
+    account_id: PropTypes.number,
     name: PropTypes.string,
     screen_name: PropTypes.string,
     created_at: PropTypes.string,

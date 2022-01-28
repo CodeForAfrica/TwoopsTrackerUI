@@ -41,7 +41,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const accounts = await listAccounts(paramData.listId, session);
+  const accounts = await listAccounts(paramData.listId, session); // NOTE(Gertrude): Currently returning accounts with different ids than backend even after cache clearing
   const listData = await list(paramData.listId, session);
 
   const data = { ...listData, ...accounts };
