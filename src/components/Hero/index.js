@@ -17,8 +17,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
     width: "100%",
   },
   button: {
-    marginRight: typography.pxToRem(60),
-    marginBottom: typography.pxToRem(8),
+    marginRight: typography.pxToRem(40),
   },
   buttonContainer: {
     display: "flex",
@@ -27,12 +26,15 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
     [breakpoints.up("md")]: {
       flexDirection: "row",
     },
-    [breakpoints.up("xl")]: {
-      marginTop: typography.pxToRem(90),
+    [breakpoints.up("lg")]: {
+      marginTop: typography.pxToRem(80),
     },
   },
   title: {
     maxWidth: "80%",
+    [breakpoints.up("lg")]: {
+      width: typography.pxToRem(732),
+    },
     [breakpoints.up("xl")]: {
       width: typography.pxToRem(1077),
     },
@@ -40,17 +42,18 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
   description: {
     color: palette.text.secondary,
     marginTop: typography.pxToRem(40),
-    [breakpoints.up("xl")]: {
-      marginTop: typography.pxToRem(90),
+    maxWidth: "70%",
+    [breakpoints.up("lg")]: {
+      marginTop: typography.pxToRem(80),
       width: typography.pxToRem(966),
     },
   },
   section: {
-    paddingTop: typography.pxToRem(90),
-    paddingBottom: typography.pxToRem(90),
-    [breakpoints.up("xl")]: {
-      paddingTop: typography.pxToRem(117),
-      paddingBottom: typography.pxToRem(127),
+    paddingTop: typography.pxToRem(60),
+    paddingBottom: typography.pxToRem(60),
+    [breakpoints.up("lg")]: {
+      paddingTop: typography.pxToRem(75),
+      paddingBottom: typography.pxToRem(75),
     },
   },
 }));

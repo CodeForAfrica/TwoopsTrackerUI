@@ -10,7 +10,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
       fontFamily: typography.body1.fontFamily,
       fontSize: typography.pxToRem(18),
       lineHeight: 30 / 18,
-      [breakpoints.up("xl")]: {
+      [breakpoints.up("lg")]: {
         fontSize: typography.pxToRem(24),
         lineHeight: 35.88 / 24,
       },
@@ -26,10 +26,14 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
           fontFamily: typography.body1.fontFamily,
           fontSize: typography.pxToRem(18),
           lineHeight: 30 / 18,
-          [breakpoints.up("xl")]: {
+          padding: 0,
+          [breakpoints.up("lg")]: {
             fontSize: typography.pxToRem(24),
             lineHeight: 35.88 / 24,
           },
+        },
+        "& .moreButton:hover": {
+          cursor: "pointer",
         },
       },
     },
@@ -71,12 +75,12 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     },
   },
   icon: {
-    position: "relative",
     marginRight: typography.pxToRem(30),
     width: typography.pxToRem(165),
     height: typography.pxToRem(165),
-    border: `solid 1px`,
+    border: `1px solid ${palette.common.black}`,
     "& img": {
+      borderRadius: "50%",
       padding: `${typography.pxToRem(22)} !important`,
     },
   },
@@ -84,15 +88,20 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     marginBottom: typography.pxToRem(10),
     marginTop: typography.pxToRem(10),
   },
-  moreButton: {
+  seeLessButton: {
     color: palette.primary.main,
     textDecoration: "underline",
     fontFamily: typography.body1.fontFamily,
     fontSize: typography.pxToRem(18),
     lineHeight: 30 / 18,
-    [breakpoints.up("xl")]: {
+    padding: 0,
+    [breakpoints.up("lg")]: {
       fontSize: typography.pxToRem(24),
       lineHeight: 35.88 / 24,
+    },
+    "&:hover": {
+      backgroundColor: "transparent",
+      textDecoration: "underline",
     },
   },
   content: {

@@ -32,16 +32,20 @@ function InvestigationList({ items, paginationProps, ...props }) {
         <Grid item>
           <InvestigationCard
             featured
+            width={300}
+            height={421}
             {...items[page - 1]}
             className={{ root: classes.media }}
           />
         </Grid>
 
-        {items.slice((page - 1) * pageSize, page * pageSize).map((item) => (
-          <Grid item lg={6} key={item.title}>
-            <InvestigationCard {...item} />
-          </Grid>
-        ))}
+        <Grid container direction="row" className={classes.title}>
+          {items.slice((page - 1) * pageSize, page * pageSize).map((item) => (
+            <Grid item lg={6} key={item.title}>
+              <InvestigationCard width={170} height={238} {...item} />
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
       <Pagination
         {...paginationProps}
