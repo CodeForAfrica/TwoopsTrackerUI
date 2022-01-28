@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import useStyles from "./useStyles";
 import useTweets from "./useTweets";
 
 import Chart from "@/twoopstracker/components/Chart";
@@ -14,6 +13,11 @@ import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
+// NOTE(kilemensi): We need this component styles to load after Chart component
+//                  styles so that overriding works.
+// eslint-disable-next-line import/order
+import useStyles from "./useStyles";
+
 function TweetsContainer({
   category: categoryProp,
   days: daysProp,
@@ -23,8 +27,8 @@ function TweetsContainer({
   pageSize: pageSizeProp,
   paginationProps,
   query: queryProp,
+  sort: sortProp,
   theme: themeProp,
-  ordering: orderingProp,
   tweets: tweetsProp,
   ...props
 }) {
@@ -36,17 +40,15 @@ function TweetsContainer({
   const [insights, setInsights] = useState(insightsProp);
   const [location, setLocation] = useState(locationProp);
   const [page, setPage] = useState(pageProp);
+  // Changes which page is displayed when either page or sort is changed.
   const [paginating, setPaginating] = useState(false);
   const [pageSize, setPageSize] = useState(pageSizeProp);
   const [query, setQuery] = useState(queryProp);
-  const [search, setSearch] = useState(false);
+  const [searching, setSearching] = useState(false);
   const [theme, setTheme] = useState(themeProp);
   const [tweets, setTweets] = useState(tweetsProp);
-  const [ordering, setOrdering] = useState(orderingProp);
-
-  /* Todo(Nyokabi) This automatically makes initial state of isDesc true and shows data in descending order. 
-      Therefore the  default ordering value in explore page should be `deleted` not `-deleted` */
-  const [isDesc, setIsDesc] = useState(true);
+  const [sort, setSort] = useState(sortProp);
+  const contentRef = useRef();
 
   const setStateObject = {
     category: setCategory,
@@ -56,8 +58,7 @@ function TweetsContainer({
     pageSize: setPageSize,
     query: setQuery,
     theme: setTheme,
-    ordering: setOrdering,
-    isDesc: setIsDesc,
+    sort: setSort,
   };
 
   // Handle initial query parameters from server (if any)
@@ -74,7 +75,8 @@ function TweetsContainer({
   }, [router.isReady]);
 
   const handleSearch = async () => {
-    setSearch(true);
+    setPaginating(false);
+    setSearching(true);
   };
 
   useEffect(() => {
@@ -87,8 +89,7 @@ function TweetsContainer({
         days,
         page,
         pageSize,
-        ordering,
-        isDesc,
+        sort,
       });
       const { pathname } = router;
       let newPathname = pathname;
@@ -106,32 +107,53 @@ function TweetsContainer({
     days,
     page,
     pageSize,
-    ordering,
-    isDesc,
+    sort,
     router.isReady,
   ]);
 
   const handleSelection = ({ name, value }) => {
-    setSearch(false);
     setStateObject[name](value);
     setPaginating(false);
+    setSearching(false);
   };
 
-  const handleSelectionFilter = ({ name, value }) => {
-    setSearch(true);
-    setStateObject[name](value);
+  const handleChangeSortBy = ({ value }) => {
+    setSort((prevSort) => {
+      const sortOrder = prevSort.startsWith("-") ? "-" : "";
+      return `${sortOrder}${value}`;
+    });
     setPaginating(true);
+    setSearching(false);
+  };
+
+  const paginate = (newPage) => {
+    if (newPage) {
+      setPage(newPage);
+    }
+    setPaginating(true);
+    setSearching(false);
+  };
+
+  const handleClickSortOrder = (e) => {
+    e.preventDefault();
+
+    setSort((prevSort) => {
+      const sortOrder = prevSort.startsWith("-") ? "" : "-";
+      const sortBy = prevSort.replace(/^-/, "");
+
+      return `${sortOrder}${sortBy}`;
+    });
+    paginate();
   };
 
   const handleClickPage = (e, value) => {
-    setPage(value);
-    setPaginating(true);
+    paginate(value);
   };
+
   const handleClickPageSize = (e, value) => {
     // Changing pageSize triggers computation of number of pages.
-    setPage(1);
     setPageSize(value);
-    setPaginating(true);
+    paginate(1);
   };
 
   const handleSaveSearch = async (name) => {
@@ -143,15 +165,17 @@ function TweetsContainer({
         location,
         days,
         name,
-        ordering,
+        sort,
       }),
     });
   };
 
   const shouldFetch = () => {
-    if (!(search || paginating)) {
+    if (!(paginating || searching)) {
       return null;
     }
+
+    let url = "/api/tweets";
     const queryString = getQueryString({
       query,
       theme,
@@ -159,17 +183,12 @@ function TweetsContainer({
       days,
       page,
       pageSize,
-      ordering,
       category,
-      isDesc,
+      sort,
     });
-
-    let url = "/api/tweets";
-
     if (queryString) {
       url = `${url}?${queryString}`;
     }
-
     return url;
   };
   const { data: newTweets, isLoading: isLoadingTweets } =
@@ -177,20 +196,26 @@ function TweetsContainer({
   useEffect(() => {
     if (newTweets) {
       setTweets(newTweets);
+
+      if (contentRef.current && paginating) {
+        contentRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
     }
-  }, [newTweets]);
+  }, [newTweets, paginating]);
 
   const shouldFetchInsights = () => {
-    if (paginating || !search) {
+    if (paginating || !searching) {
       return null;
     }
+
     const queryString = getQueryString({
       query,
       theme,
       location,
       days,
-      ordering,
-      isDesc,
     });
     let url = "/api/tweets/insights";
     if (queryString) {
@@ -198,7 +223,6 @@ function TweetsContainer({
     }
     return url;
   };
-
   const { data: newInsights, isLoading: isLoadingInsights } =
     useTweets(shouldFetchInsights);
   useEffect(() => {
@@ -208,13 +232,6 @@ function TweetsContainer({
   }, [newInsights]);
 
   const isLoading = isLoadingTweets || isLoadingInsights;
-
-  const handleClickSortOrder = (e) => {
-    e.preventDefault();
-    setSearch(true);
-    setPaginating(true);
-    setIsDesc((prevState) => !prevState);
-  };
 
   return (
     <>
@@ -234,12 +251,13 @@ function TweetsContainer({
       {tweets?.results?.length > 0 && (
         <ContentActions
           apiUri="/api/tweets"
-          queryParams={{ query, theme, location, days, ordering }}
+          queryParams={{ query, theme, location, days, sort }}
           type="tweets"
-          value={ordering?.replace("-", "")}
-          onChangeSortField={handleSelectionFilter}
-          isDesc={isDesc}
+          sort={sort}
+          onChangeSortBy={handleChangeSortBy}
           onClickSortOrder={handleClickSortOrder}
+          ref={contentRef}
+          className={classes.content}
         />
       )}
       <Tweets tweets={tweets} />
@@ -262,11 +280,11 @@ TweetsContainer.propTypes = {
   days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
-  ordering: PropTypes.string,
   page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   paginationProps: PropTypes.shape({}),
   query: PropTypes.string,
+  sort: PropTypes.string,
   theme: PropTypes.number,
   tweets: PropTypes.shape({
     count: PropTypes.number,
@@ -279,11 +297,11 @@ TweetsContainer.defaultProps = {
   days: undefined,
   insights: undefined,
   location: undefined,
-  ordering: undefined,
   page: undefined,
   pageSize: undefined,
   paginationProps: undefined,
   query: undefined,
+  sort: undefined,
   theme: undefined,
   tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
