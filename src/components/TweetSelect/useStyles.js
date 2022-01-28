@@ -38,22 +38,24 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     },
   },
   inputBaseInput: {
-    textAlign: "left",
+    ...typography.body2,
     paddingLeft: typography.pxToRem(16),
-    fontSize: typography.pxToRem(18),
-    lineHeight: "149.49%",
+    textAlign: "left",
     width: "100%",
     "label[data-shrink=false] + .MuiInputBase-formControl &::placeholder": {
       opacity: "0.5!important",
     },
   },
   svgSelectIcon: {
+    ...typography.body2,
     position: "absolute",
     top: 10,
     pointerEvents: "none",
     color: "#A0A0A0",
-    fontSize: "1.2rem",
     right: typography.pxToRem(4),
+  },
+  menuItem: {
+    ...typography.body2,
   },
 }));
 
