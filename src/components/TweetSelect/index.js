@@ -53,7 +53,11 @@ function TweetSelect({
     >
       {menuItems &&
         menuItems.map((item) => (
-          <MenuItem key={item.value} value={item.value}>
+          <MenuItem
+            key={item.value}
+            value={item.value}
+            className={classes.menuItem}
+          >
             {item.name}
           </MenuItem>
         ))}
