@@ -1,4 +1,4 @@
-import { FormControl, Typography, Button } from "@material-ui/core";
+import { FormControl, Typography, IconButton } from "@material-ui/core";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
@@ -30,7 +30,12 @@ function Sort({
 
   return (
     <FormControl fullWidth className={classes.form}>
-      <Typography variant="body1" className={classes.label}>
+      <Typography
+        align="left"
+        component="span"
+        variant="body2"
+        className={classes.label}
+      >
         {label}
       </Typography>
       <TweetSelect
@@ -40,22 +45,19 @@ function Sort({
         handleChange={handleChange}
         menuItems={menuItems}
       />
-      <Button
+      <IconButton
         color="default"
         variant="text"
         size="large"
         onClick={onClickSortOrder}
-        classes={{
-          root: classes.buttonIcon,
-        }}
-        startIcon={
-          <Image
-            layout="fill"
-            src={isDesc ? SortDown : SortUp}
-            className={classes.large}
-          />
-        }
-      />
+        className={classes.sortButton}
+      >
+        <Image
+          layout="fill"
+          src={isDesc ? SortDown : SortUp}
+          className={classes.sortIcon}
+        />
+      </IconButton>
     </FormControl>
   );
 }
