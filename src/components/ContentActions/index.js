@@ -1,53 +1,66 @@
 import { Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
 import { saveAs } from "file-saver";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { forwardRef } from "react";
 
 import Section from "@/twoopstracker/components/Section";
 import Sort from "@/twoopstracker/components/Sort";
 import { contentActionsProps } from "@/twoopstracker/config";
-import { tweetsSearchParamFromSearchQuery } from "@/twoopstracker/lib";
+import { tweetsSearchParamsFromSearchQuery } from "@/twoopstracker/lib";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   root: {},
-  section: {
+  section: {},
+  actions: {
     borderBottom: "1px solid #00000040",
-    paddingBottom: typography.pxToRem(28),
+    paddingBottom: typography.pxToRem(42),
+    paddingTop: typography.pxToRem(72),
+    [breakpoints.up("xl")]: {
+      paddingBottom: typography.pxToRem(47),
+      paddingTop: typography.pxToRem(80),
+    },
   },
-  button: {
-    margin: `auto ${typography.pxToRem(12)}`,
-    color: palette.secondary.main,
-    fontSize: typography.body2.fontSize,
-  },
-  label: {
-    padding: `${typography.pxToRem(6)} 0`,
-    display: "inline-flex",
-    fontFamily: typography.button.fontFamily,
-  },
-  sortSection: {
+  downloadAction: {
     flexDirection: "column",
     [breakpoints.up("md")]: {
       flexDirection: "row",
     },
   },
-  resultsOptions: {
-    padding: `${typography.pxToRem(32)} 0`,
+  label: {
+    padding: `${typography.pxToRem(6)} 0`,
+  },
+  button: {
+    color: palette.secondary.main,
+    fontSize: typography.body2.fontSize,
+    marginLeft: typography.pxToRem(12),
+    minWidth: "auto",
+    padding: 0,
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  },
+  sortAction: {
+    flexDirection: "column",
+    [breakpoints.up("md")]: {
+      flexDirection: "row",
+    },
   },
 }));
 
-function ContentActions({
-  value,
-  show,
-  isDesc,
-  onChangeSortField,
-  apiUri,
-  queryParams,
-  type,
-  onClickSortOrder,
-  ...props
-}) {
+const ContentActions = forwardRef(function ContentActions(props, ref) {
+  const {
+    apiUri,
+    className,
+    onChangeSortBy,
+    onClickSortOrder,
+    queryParams,
+    sort,
+    type,
+  } = props;
+
   const classes = useStyles(props);
   const { download } = contentActionsProps;
 
@@ -65,81 +78,102 @@ function ContentActions({
     let fileName = type;
     if (type === "tweets") {
       const datedQueryString =
-        tweetsSearchParamFromSearchQuery(queryParams)?.toString() ?? "";
+        tweetsSearchParamsFromSearchQuery(queryParams)?.toString() ?? "";
       fileName = `${type}-${datedQueryString?.replace("?", "-")}`;
     }
 
     saveAs(blobObject, `${fileName}.${fileExtension}`);
   };
+  const isDesc = sort?.startsWith("-");
+  const sortBy = sort?.replace(/^-/, "");
 
   return (
-    <div className={classes.root}>
+    <div className={clsx(classes.root, className)} ref={ref}>
       <Section className={classes.section}>
         <Grid
           container
           justifyContent="space-between"
           alignItems="center"
-          className={classes.resultsOptions}
+          className={classes.actions}
         >
-          <Grid item xs={9}>
-            <Typography className={classes.label} variant="body2">
-              {download.label}
-            </Typography>
-            {download.fileTypes?.map(({ name, ext }) => (
-              <Button
-                className={classes.button}
-                variant="text"
-                data-file-extension={ext}
-                onClick={onClickDownload}
-                key={ext}
+          <Grid
+            item
+            xs={12}
+            md={4}
+            container
+            className={classes.downloadAction}
+          >
+            <Grid item>
+              <Typography
+                align="left"
+                component="span"
+                variant="body2"
+                className={classes.label}
               >
-                {name}
-              </Button>
-            ))}
+                {download.label}
+              </Typography>
+              {download.fileTypes?.map(({ name, ext }) => (
+                <Button
+                  className={classes.button}
+                  variant="text"
+                  data-file-extension={ext}
+                  onClick={onClickDownload}
+                  key={ext}
+                >
+                  {name}
+                </Button>
+              ))}
+            </Grid>
           </Grid>
 
-          <Grid item xs={3} container className={classes.sortSection}>
-            <Sort
-              key={value}
-              isDesc={isDesc}
-              label="Sort By:"
-              name="ordering"
-              onChangeSortField={onChangeSortField}
-              menuItems={[
-                { name: "Created At", value: "created_at" },
-                { name: "Deleted At", value: "deleted_at" },
-                { name: "Owner Screen Name", value: "owner__screen_name" },
-              ]}
-              onClickSortOrder={onClickSortOrder}
-              value={value}
-            />
+          <Grid
+            item
+            xs={12}
+            md={8}
+            container
+            justifyContent="flex-end"
+            className={classes.sortAction}
+          >
+            <Grid item>
+              <Sort
+                isDesc={isDesc}
+                label="Sort By:"
+                name="sort"
+                onChangeSortField={onChangeSortBy}
+                menuItems={[
+                  { name: "Created At", value: "created-at" },
+                  { name: "Deleted At", value: "deleted-at" },
+                  { name: "Owner Screen Name", value: "owner-screen-name" },
+                ]}
+                onClickSortOrder={onClickSortOrder}
+                value={sortBy}
+              />
+            </Grid>
           </Grid>
         </Grid>
       </Section>
     </div>
   );
-}
+});
 
 ContentActions.propTypes = {
   apiUri: PropTypes.string,
-  isDesc: PropTypes.bool,
-  queryParams: PropTypes.shape({}),
-  type: PropTypes.string,
-  onChangeSortField: PropTypes.func,
-  value: PropTypes.string,
-  show: PropTypes.string,
+  className: PropTypes.string,
+  onChangeSortBy: PropTypes.func,
   onClickSortOrder: PropTypes.func,
+  queryParams: PropTypes.shape({}),
+  sort: PropTypes.string,
+  type: PropTypes.string,
 };
 
 ContentActions.defaultProps = {
   apiUri: undefined,
-  isDesc: undefined,
-  onChangeSortField: undefined,
-  queryParams: undefined,
-  type: undefined,
-  value: undefined,
-  show: undefined,
+  className: PropTypes.string,
+  onChangeSortBy: undefined,
   onClickSortOrder: undefined,
+  queryParams: undefined,
+  sort: undefined,
+  type: undefined,
 };
 
 export default ContentActions;
