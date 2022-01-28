@@ -67,7 +67,7 @@ export async function APIRequest(payload, method, param, session) {
   return fetchJson(url, session, options);
 }
 
-export function tweetsSearchParamFromSearchQuery({
+export function tweetsSearchParamsFromSearchQuery({
   category,
   query,
   location,
@@ -75,7 +75,7 @@ export function tweetsSearchParamFromSearchQuery({
   page,
   pageSize,
   download,
-  ordering,
+  sort,
 }) {
   const searchParams = new URLSearchParams();
   if (query) {
@@ -87,12 +87,33 @@ export function tweetsSearchParamFromSearchQuery({
   if (location) {
     searchParams.append("location", location);
   }
-  if (ordering) {
-    searchParams.append("ordering", ordering);
+  if (sort) {
+    let sortBy;
+    switch (sort.replace(/^-/, "")) {
+      case "created-at":
+        sortBy = "created_at";
+        break;
+      case "deleted-at":
+        sortBy = "deleted_at";
+        break;
+      case "owner-screen-name":
+        sortBy = "owner__screen_name";
+        break;
+      default:
+        sortBy = null;
+        break;
+    }
+    if (sortBy) {
+      const sortOrder = sort.startsWith("-") ? "-" : "";
+      searchParams.append("ordering", `${sortOrder}${sortBy}`);
+    }
   }
   const date = new Date();
-  const endDate = date.toISOString().substr(0, 10);
-  const startDate = subDays(date, days).toISOString().substr(0, 10);
+  const endDate = date.toISOString().substring(0, 10);
+  // Ensure we load data for at least 1 day
+  const startDate = subDays(date, Math.max(days, 1))
+    .toISOString()
+    .substring(0, 10);
   searchParams.append("start_date", startDate);
   searchParams.append("end_date", endDate);
   if (page) {
@@ -120,7 +141,7 @@ export function tweetsUserQuery(requestQuery) {
     pageSize,
     download,
     category,
-    ordering,
+    sort,
   } = requestQuery;
 
   return {
@@ -132,7 +153,7 @@ export function tweetsUserQuery(requestQuery) {
     pageSize,
     download,
     category,
-    ordering,
+    sort,
   };
 }
 
@@ -147,7 +168,7 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     page,
     pageSize,
     download,
-    ordering,
+    sort,
   } = userQuery || {};
   let query = term || theme;
   if (query && theme) {
@@ -166,7 +187,7 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     page,
     pageSize,
     download,
-    ordering,
+    sort,
   };
 }
 
@@ -174,7 +195,7 @@ export async function tweets(requestQuery, session) {
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQuery)
   );
-  const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+  const searchParams = tweetsSearchParamsFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
   return fetchJson(url, session);
 }
@@ -185,7 +206,7 @@ export async function tweetsInsights(requestQuery, session) {
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQueryQuery)
   );
-  const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+  const searchParams = tweetsSearchParamsFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/insights?${searchParams.toString()}`;
   return fetchJson(url, session);
 }
@@ -242,8 +263,8 @@ export async function postSavedSearch(payload, session) {
   const d = days ?? 7;
 
   const date = new Date();
-  const endDate = date.toISOString().substr(0, 10);
-  const startDate = subDays(date, d).toISOString().substr(0, 10);
+  const endDate = date.toISOString().substring(0, 10);
+  const startDate = subDays(date, d).toISOString().substring(0, 10);
 
   const options = {
     method: "POST",
