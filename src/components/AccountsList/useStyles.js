@@ -6,7 +6,6 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     margin: `${typography.pxToRem(20)} 0`,
     display: "flex",
     justifyContent: "space-between",
-    padding: 0,
   },
 
   button: {
