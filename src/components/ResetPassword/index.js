@@ -35,7 +35,7 @@ function ResetPassword({
   };
 
   const handleSubmit = async (values, { setStatus }) => {
-    const result = await fetchJson("/api/auth/reset-password/confirm", null, {
+    const result = await fetchJson("/api/auth/password/reset/confirm", null, {
       method: "POST",
       body: JSON.stringify({
         uid,

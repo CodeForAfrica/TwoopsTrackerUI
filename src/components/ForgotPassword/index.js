@@ -20,7 +20,7 @@ function ForgotPassword({ title, description, ...props }) {
   const classes = useStyles(props);
 
   const handleSubmit = async (values, { setErrors }) => {
-    const result = await fetchJson("/api/auth/reset-password", null, {
+    const result = await fetchJson("/api/auth/password/reset", null, {
       method: "POST",
       body: JSON.stringify(values),
     });
