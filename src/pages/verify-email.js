@@ -1,6 +1,5 @@
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -16,44 +15,45 @@ const useStyles = makeStyles(({ typography }) => ({
   },
 }));
 
-function VerifyEmail({ category, ...props }) {
+function VerifyEmail({ description, ...props }) {
   const classes = useStyles();
 
-  const {
-    query: { q },
-  } = useRouter();
-
-  const content = category[q];
-  if (!content) {
-    return null;
-  }
   return (
-    <Page {...props} title={content?.title}>
+    <Page {...props}>
       <Section className={classes.section}>
-        <Typography variant="h4">{content?.description}</Typography>
+        <Typography variant="h4">{description}</Typography>
       </Section>
     </Page>
   );
 }
 
 VerifyEmail.propTypes = {
-  category: PropTypes.shape({
-    register: PropTypes.shape({
-      description: PropTypes.string,
-    }),
-    resetPassword: PropTypes.shape({}),
-  }),
+  description: PropTypes.string,
 };
 
 VerifyEmail.defaultProps = {
-  category: undefined,
+  description: undefined,
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
+  const q = context?.query?.q;
+  const { category } = verifyEmail();
+  const { title, description } = category[q] || {};
+
+  if (!description) {
+    return {
+      props: {
+        ...settings(),
+        notFound: true,
+      },
+    };
+  }
+
   return {
     props: {
       ...settings(),
-      ...verifyEmail(),
+      title: title ?? null,
+      description: description ?? null,
     },
   };
 }
