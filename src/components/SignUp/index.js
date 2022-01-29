@@ -39,7 +39,7 @@ function SignUp({
   };
 
   const handleSubmit = async (values, { setErrors, setStatus }) => {
-    const result = await fetchJson("/api/auth/register", null, {
+    const result = await fetchJson("/api/auth/registration", null, {
       method: "POST",
       body: JSON.stringify(values),
     });
