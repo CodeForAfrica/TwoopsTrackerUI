@@ -2,7 +2,7 @@ import React from "react";
 
 import ForgotPassword from "@/twoopstracker/components/ForgotPassword";
 import Page from "@/twoopstracker/components/Page";
-import { settings, fgPassword } from "@/twoopstracker/lib/cms";
+import { settings, forgotPassword } from "@/twoopstracker/lib/cms";
 
 function Index({ ...props }) {
   return (
@@ -16,7 +16,7 @@ export async function getStaticProps() {
   return {
     props: {
       ...settings(),
-      ...fgPassword(),
+      ...forgotPassword(),
     },
   };
 }

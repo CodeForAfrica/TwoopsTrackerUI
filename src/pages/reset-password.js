@@ -3,7 +3,7 @@ import React from "react";
 
 import Page from "@/twoopstracker/components/Page";
 import ResetPassword from "@/twoopstracker/components/ResetPassword";
-import { settings, rsPassword } from "@/twoopstracker/lib/cms";
+import { settings, resetPassword } from "@/twoopstracker/lib/cms";
 
 function Index({ ...props }) {
   const {
@@ -20,7 +20,7 @@ export async function getStaticProps() {
   return {
     props: {
       ...settings(),
-      ...rsPassword(),
+      ...resetPassword(),
     },
   };
 }

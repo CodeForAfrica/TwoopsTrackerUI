@@ -183,12 +183,12 @@ export function verifyEmail() {
   return attributes;
 }
 
-export function fgPassword() {
+export function forgotPassword() {
   const { attributes } = fgPasswordContent;
   return attributes;
 }
 
-export function rsPassword() {
+export function resetPassword() {
   const { attributes } = rsPasswordContent;
   return attributes;
 }
