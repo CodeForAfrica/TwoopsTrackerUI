@@ -45,7 +45,10 @@ async function fetchNewToken({ account, user: nextAuthUser }) {
     exp: jwtDecode(accessToken).exp * 1000,
     idToken: account?.id_token ?? null,
     refreshToken,
-    user,
+    user: {
+      ...user,
+      name: user?.name ?? user?.first_name ?? user?.email,
+    },
   };
 }
 
@@ -104,7 +107,10 @@ const options = {
               exp: jwtDecode(accessToken).exp * 1000,
               accessToken,
               refreshToken,
-              user,
+              user: {
+                ...user,
+                name: user?.first_name ?? user?.email,
+              },
             };
           }
           const [error] = Object.values(result);
