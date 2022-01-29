@@ -12,13 +12,13 @@ import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
 import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
+import schema from "@/twoopstracker/utils/validationSchema";
 
 function SignUp({
   providers: providersProp,
@@ -31,23 +31,6 @@ function SignUp({
   ...props
 }) {
   const classes = useStyles(props);
-
-  const validationSchema = yup.object({
-    email: yup
-      .string("Enter your email")
-      .email("Enter a valid email")
-      .required("Email is required"),
-    password1: yup
-      .string("Enter your password")
-      .min(8, "Password should be of minimum 8 characters length")
-      .required("Password is required"),
-    firstName: yup
-      .string("Enter your First Name")
-      .required("First Name is required"),
-    lastName: yup
-      .string("Enter your Last Name")
-      .required("Last Name is required"),
-  });
 
   const [isPassword, setIsPassword] = useState(true);
 
@@ -89,7 +72,7 @@ function SignUp({
           <Typography className={classes.text}>{description}</Typography>
           <Formik
             initialValues={initialValues}
-            validationSchema={validationSchema}
+            validationSchema={schema}
             onSubmit={handleSubmit}
           >
             {({

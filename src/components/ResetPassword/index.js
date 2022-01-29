@@ -12,12 +12,12 @@ import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
+import schema from "@/twoopstracker/utils/validationSchema";
 
 function ResetPassword({
   title,
@@ -33,13 +33,6 @@ function ResetPassword({
   const togglePasswordType = () => {
     setIsPassword(!isPassword);
   };
-
-  const validationSchema = yup.object({
-    password: yup
-      .string("Enter your password")
-      .min(8, "Password should be of minimum 8 characters length")
-      .required("Password is required"),
-  });
 
   const handleSubmit = async (values, { setStatus }) => {
     const result = await fetchJson("/api/auth/reset-password/confirm", null, {
@@ -76,7 +69,7 @@ function ResetPassword({
           <Formik
             onSubmit={handleSubmit}
             initialValues={initialValues}
-            validationSchema={validationSchema}
+            validationSchema={schema}
           >
             {({
               errors,

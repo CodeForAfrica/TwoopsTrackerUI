@@ -9,21 +9,15 @@ import { Formik } from "formik";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React from "react";
-import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
+import schema from "@/twoopstracker/utils/validationSchema";
 
 function ForgotPassword({ title, description, ...props }) {
   const classes = useStyles(props);
-  const validationSchema = yup.object({
-    email: yup
-      .string("Enter your email")
-      .email("Enter a valid email")
-      .required("Email is required"),
-  });
 
   const handleSubmit = async (values, { setErrors }) => {
     const result = await fetchJson("/api/auth/reset-password", null, {
@@ -51,7 +45,7 @@ function ForgotPassword({ title, description, ...props }) {
           <Formik
             onSubmit={handleSubmit}
             initialValues={initialValues}
-            validationSchema={validationSchema}
+            validationSchema={schema}
           >
             {({
               errors,
