@@ -47,6 +47,7 @@ async function fetchNewToken({ account, user: nextAuthUser }) {
     refreshToken,
     user: {
       ...user,
+      lastName: user?.last_name,
       firstName: user?.first_name ?? user?.name?.split(" ")[0] ?? user?.email,
     },
   };
@@ -110,6 +111,7 @@ const options = {
               user: {
                 ...user,
                 firstName: user?.first_name ?? user?.email,
+                lastName: user?.last_name,
               },
             };
           }
