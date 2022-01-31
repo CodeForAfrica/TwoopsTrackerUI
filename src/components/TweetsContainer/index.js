@@ -31,15 +31,16 @@ function TweetsContainer({
 
   const router = useRouter();
   const [days, setDays] = useState(daysProp);
-  const [category, setCategory] = useState(categoryProp);
+  const [category, setCategory] = useState(categoryProp ?? "");
   const [insights, setInsights] = useState(insightsProp);
-  const [location, setLocation] = useState(locationProp);
+  const [location, setLocation] = useState(locationProp ?? "");
   const [page, setPage] = useState(pageProp);
   const [paginating, setPaginating] = useState(false);
   const [pageSize, setPageSize] = useState(pageSizeProp);
   const [query, setQuery] = useState(queryProp);
+  const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
-  const [theme, setTheme] = useState(themeProp);
+  const [theme, setTheme] = useState(themeProp ?? "");
   const [tweets, setTweets] = useState(tweetsProp);
 
   const setStateObject = {
@@ -142,11 +143,13 @@ function TweetsContainer({
   };
   const { data: newTweets, isLoading: isLoadingTweets } =
     useTweets(shouldFetch);
+
   useEffect(() => {
     if (newTweets) {
       setTweets(newTweets);
+      setSearchQuery(query);
     }
-  }, [newTweets]);
+  }, [newTweets, query]);
   const shouldFetchInsights = () => {
     if (paginating || !search) {
       return null;
@@ -178,11 +181,12 @@ function TweetsContainer({
         onSearch={handleSearch}
         query={query}
         theme={theme}
+        category={category}
         className={classes.root}
       />
       {isLoading && <Loading />}
+      <SearchResults query={searchQuery} label="Search Results" />
       <Chart {...props} data={insights} className={classes.chartRoot} />
-      <SearchResults query={query} label="Search Results" />
       {tweets?.results?.length > 0 && (
         <ContentActions
           apiUri="/api/tweets"

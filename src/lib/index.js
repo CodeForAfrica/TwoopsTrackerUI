@@ -124,14 +124,21 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     pageSize,
     download,
   } = userQuery || {};
-  let query = term || theme;
-  if (query && theme) {
-    query = `(${query} AND ${theme})`;
+
+  let query;
+  if (theme) {
+    query = theme;
+  } else {
+    query = term;
+  }
+  if (term && theme) {
+    query = `${term} "${theme}"`;
   }
   let days = parseInt(daysAsString, 10) || undefined;
   if (days > 90) {
     days = 90;
   }
+
   return { category, query, location, days, page, pageSize, download };
 }
 
@@ -139,6 +146,7 @@ export async function tweets(requestQuery, session) {
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQuery)
   );
+
   const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
   return fetchJson(url, session);

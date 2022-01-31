@@ -33,5 +33,6 @@ export default function getQueryString({
   if (download) {
     searchParams.append("download", download);
   }
+
   return searchParams.toString();
 }
