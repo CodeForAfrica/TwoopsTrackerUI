@@ -38,7 +38,6 @@ function SearchSection({
       onSaveSearch(name);
     }
   };
-
   const handleKeyDown = (e) => {
     if (onSearch && e.key === "Enter") {
       onSearch(e);
@@ -58,7 +57,6 @@ function SearchSection({
           </Grid>
           <Grid item lg={5} xs={12} className={classes.filterSection}>
             <Filter
-              key={days}
               label="Days"
               handleSelection={onSelection}
               menuItems={[
@@ -72,19 +70,17 @@ function SearchSection({
               value={days}
             />
             <Filter
-              key={theme}
               label="Theme"
               handleSelection={onSelection}
               menuItems={[
                 { name: "Covid-19", value: "Covid-19" },
                 { name: "Anti-vaxx", value: "Anti-vaxx" },
                 { name: "Foreign Influence", value: "Foreign Influence" },
-                { name: "None", value: "theme-none" },
+                { name: "None", value: "" },
               ]}
               value={theme}
             />
             <Filter
-              key={category}
               label="Category"
               handleSelection={onSelection}
               menuItems={[
@@ -97,19 +93,18 @@ function SearchSection({
                   name: "Foreign Influence Actors",
                   value: "foreign influence actors",
                 },
-                { name: "None", value: "category-none" },
+                { name: "None", value: "" },
               ]}
               value={category}
             />
             <Filter
-              key={location}
               label="Location"
               handleSelection={onSelection}
               menuItems={[
                 { name: "Russia", value: "Russia" },
                 { name: "Jamaica", value: "Jamaica" },
                 { name: "Ghana", value: "Ghana" },
-                { name: "None", value: "location-none" },
+                { name: "None", value: "" },
               ]}
               value={location}
             />
