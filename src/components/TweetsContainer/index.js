@@ -69,7 +69,7 @@ function TweetsContainer({
         setStateObject?.[k]?.(queryParams[k])
       );
     }
-    // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependenc
+    // NOTE(kilemensi): Nextjs router shouldn't be a useEffect dependency
     //                  e.g. https://github.com/vercel/next.js/issues/18127
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady]);
@@ -195,16 +195,17 @@ function TweetsContainer({
     useTweets(shouldFetch);
   useEffect(() => {
     if (newTweets) {
-      setTweets(newTweets);
-
-      if (contentRef.current && paginating) {
-        contentRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
+      setTweets({ ...newTweets });
     }
   }, [newTweets, paginating]);
+  useEffect(() => {
+    if (paginating && contentRef.current) {
+      contentRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [paginating, tweets]);
 
   const shouldFetchInsights = () => {
     if (paginating || !searching) {
@@ -227,7 +228,7 @@ function TweetsContainer({
     useTweets(shouldFetchInsights);
   useEffect(() => {
     if (newInsights) {
-      setInsights(newInsights);
+      setInsights([...newInsights]);
     }
   }, [newInsights]);
 
