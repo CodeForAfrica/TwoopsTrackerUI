@@ -31,10 +31,10 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   stayInTouch: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
     letterspacing: typography.pxToRem(0.7),
     [breakpoints.up("lg")]: {
       flexDirection: "row",
+      alignItems: "center",
     },
   },
   stayInTouchIcon: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     fontSize: typography.pxToRem(10.48),
     lineHeight: 15.67 / 10.48,
     margin: 0,
-    padding: `${typography.pxToRem(10)} ${typography.pxToRem(8)}`,
+    padding: `${typography.pxToRem(10)} ${typography.pxToRem(0)}`,
     [breakpoints.up("lg")]: {
       padding: 0,
     },
@@ -60,12 +60,16 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
       lineHeight: 20.93 / 14,
     },
   },
+  stayInTouchTitle: {
+    textAlign: "left",
+  },
   stayInTouchLink: {
     padding: 0,
   },
   stayInTouchLinks: {
-    justifyContent: "center",
-    marginLeft: typography.pxToRem(21.84),
+    [breakpoints.up("lg")]: {
+      marginLeft: typography.pxToRem(21.84),
+    },
     [breakpoints.up("xl")]: {
       marginLeft: typography.pxToRem(29),
     },
@@ -87,7 +91,6 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     },
   },
   quickLinkRoot: {
-    textAlign: "center",
     padding: `${typography.pxToRem(32)} 0 `,
     [breakpoints.up("lg")]: {
       textAlign: "inherit",
