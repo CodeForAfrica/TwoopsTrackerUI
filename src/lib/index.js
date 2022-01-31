@@ -77,13 +77,13 @@ export function tweetsSearchParamFromSearchQuery({
   download,
 }) {
   const searchParams = new URLSearchParams();
-  if (query && query !== "theme-none") {
+  if (query) {
     searchParams.append("query", query);
   }
-  if (category && category !== "category-none") {
+  if (category) {
     searchParams.append("category", category);
   }
-  if (location && location !== "location-none") {
+  if (location) {
     searchParams.append("location", location);
   }
   const date = new Date();
@@ -126,20 +126,19 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
   } = userQuery || {};
 
   let query;
-
-  if (theme && theme !== "theme-none") {
+  if (theme) {
     query = theme;
   } else {
     query = term;
   }
-
-  if (query && theme !== "theme-none" && theme !== undefined) {
-    query = `(${query} AND ${theme})`;
+  if (term && theme) {
+    query = `${term} "${theme}"`;
   }
   let days = parseInt(daysAsString, 10) || undefined;
   if (days > 90) {
     days = 90;
   }
+
   return { category, query, location, days, page, pageSize, download };
 }
 
