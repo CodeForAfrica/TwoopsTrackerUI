@@ -28,6 +28,9 @@ function Sort({
     });
   };
 
+  if (!menuItems?.length) {
+    return null;
+  }
   return (
     <FormControl fullWidth className={classes.form}>
       <Typography

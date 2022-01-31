@@ -63,6 +63,7 @@ const ContentActions = forwardRef(function ContentActions(props, ref) {
   const {
     apiUri,
     className,
+    menuItems,
     onChangeSortBy,
     onClickSortOrder,
     queryParams,
@@ -149,11 +150,7 @@ const ContentActions = forwardRef(function ContentActions(props, ref) {
                 label="Sort By:"
                 name="sort"
                 onChangeSortField={onChangeSortBy}
-                menuItems={[
-                  { name: "Created At", value: "created-at" },
-                  { name: "Deleted At", value: "deleted-at" },
-                  { name: "Owner Screen Name", value: "owner-screen-name" },
-                ]}
+                menuItems={menuItems}
                 onClickSortOrder={onClickSortOrder}
                 value={sortBy}
               />
@@ -168,6 +165,12 @@ const ContentActions = forwardRef(function ContentActions(props, ref) {
 ContentActions.propTypes = {
   apiUri: PropTypes.string,
   className: PropTypes.string,
+  menuItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    })
+  ),
   onChangeSortBy: PropTypes.func,
   onClickSortOrder: PropTypes.func,
   queryParams: PropTypes.shape({}),
@@ -178,6 +181,7 @@ ContentActions.propTypes = {
 ContentActions.defaultProps = {
   apiUri: undefined,
   className: PropTypes.string,
+  menuItems: undefined,
   onChangeSortBy: undefined,
   onClickSortOrder: undefined,
   queryParams: undefined,

@@ -259,6 +259,11 @@ function TweetsContainer({
           queryParams={{ query, theme, location, days, sort }}
           type="tweets"
           sort={sort}
+          menuItems={[
+            { name: "Created At", value: "created-at" },
+            { name: "Deleted At", value: "deleted-at" },
+            { name: "Owner Screen Name", value: "owner-screen-name" },
+          ]}
           onChangeSortBy={handleChangeSortBy}
           onClickSortOrder={handleClickSortOrder}
           ref={contentRef}
