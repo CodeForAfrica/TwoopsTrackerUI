@@ -12,13 +12,13 @@ export default function getQueryString({
   if (query) {
     searchParams.append("query", query);
   }
-  if (category && category !== "category-none") {
+  if (category) {
     searchParams.append("category", category);
   }
-  if (theme && theme !== "theme-none") {
+  if (theme) {
     searchParams.append("theme", theme);
   }
-  if (location && location !== "location-none") {
+  if (location) {
     searchParams.append("location", location);
   }
   if (days) {
@@ -33,5 +33,6 @@ export default function getQueryString({
   if (download) {
     searchParams.append("download", download);
   }
+
   return searchParams.toString();
 }
