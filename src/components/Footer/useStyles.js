@@ -60,6 +60,9 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
       lineHeight: 20.93 / 14,
     },
   },
+  stayInTouchTitle: {
+    textAlign: "left",
+  },
   stayInTouchLink: {
     padding: 0,
   },
