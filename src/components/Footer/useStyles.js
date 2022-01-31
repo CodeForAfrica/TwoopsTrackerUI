@@ -67,6 +67,9 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     [breakpoints.up("lg")]: {
       marginLeft: typography.pxToRem(21.84),
     },
+    [breakpoints.up("xl")]: {
+      marginLeft: typography.pxToRem(29),
+    },
     "& > a": {
       borderRight: "none",
       display: "flex",
