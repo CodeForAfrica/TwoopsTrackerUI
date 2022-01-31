@@ -33,7 +33,7 @@
     "markdown-it": "^12.3.2",
     "markdown-it-link-attributes": "^4.0.0",
     "nanoid": "^3.1.31",
-    "next": "^12.0.7",
+    "next": "^12.0.9",
     "next-auth": "^4.0.5",
     "next-seo": "^4.23.0",
     "prop-types": "^15.7.2",
@@ -112,7 +112,7 @@
     ]
   },
   "engines": {
-    "node": ">=14.17.0 <15.x",
+    "node": ">=12.18.0 <17.x",
     "yarn": ">=1.19.2 <2.x"
   }
 }
