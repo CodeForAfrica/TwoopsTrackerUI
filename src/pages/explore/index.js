@@ -24,7 +24,7 @@ function Explore({
   theme,
   tweets: tweetsProp,
   results,
-  ordering,
+  sort,
   ...props
 }) {
   return (
@@ -42,7 +42,7 @@ function Explore({
           theme={theme}
           tweets={tweetsProp}
           results={results}
-          ordering={ordering}
+          sort={sort}
           {...props}
         />
       </SWRConfig>
@@ -53,14 +53,14 @@ function Explore({
 Explore.propTypes = {
   category: PropTypes.string,
   days: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  results: PropTypes.arrayOf(PropTypes.shape({})),
   fallback: PropTypes.shape({}),
   insights: PropTypes.arrayOf(PropTypes.shape({})),
   location: PropTypes.string,
-  ordering: PropTypes.string,
   page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   query: PropTypes.string,
+  results: PropTypes.arrayOf(PropTypes.shape({})),
+  sort: PropTypes.string,
   theme: PropTypes.number,
   tweets: PropTypes.shape({}),
 };
@@ -74,10 +74,10 @@ Explore.defaultProps = {
   page: undefined,
   pageSize: undefined,
   query: undefined,
-  theme: undefined,
-  ordering: undefined,
-  tweets: undefined,
   results: undefined,
+  sort: undefined,
+  theme: undefined,
+  tweets: undefined,
 };
 
 export async function getServerSideProps(context) {
@@ -85,14 +85,13 @@ export async function getServerSideProps(context) {
   const { query: userQuery } = context;
   const query = {
     days: 14,
-    ordering: "-deleted_at",
+    sort: "-deleted-at",
     ...userQuery,
   };
   const session = await getSession(context);
   const foundTweets = await tweets(query, session);
   const insights = await tweetsInsights(query, session);
   const queryString = getQueryString(query);
-  console.log(queryString);
   const searchQueryString = queryString ? `?${queryString}` : "";
   if (session) {
     results = await lists(session, { pageSize: 10 });
