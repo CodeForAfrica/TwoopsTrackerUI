@@ -15,16 +15,24 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   root: {},
   section: {},
   actions: {
+    marginLeft: typography.pxToRem(-16),
     borderBottom: "1px solid #00000040",
-    paddingBottom: typography.pxToRem(42),
-    paddingTop: typography.pxToRem(72),
+    padding: `${typography.pxToRem(42)} 0`,
+    [breakpoints.up("md")]: {
+      margin: 0,
+      borderBottom: "1px solid #00000040",
+      paddingBottom: typography.pxToRem(42),
+      paddingTop: typography.pxToRem(72),
+    },
     [breakpoints.up("xl")]: {
+      margin: 0,
       paddingBottom: typography.pxToRem(47),
       paddingTop: typography.pxToRem(80),
     },
   },
   downloadAction: {
     flexDirection: "column",
+    padding: `${typography.pxToRem(18)} 0`,
     [breakpoints.up("md")]: {
       flexDirection: "row",
     },
