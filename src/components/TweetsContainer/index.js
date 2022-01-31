@@ -36,16 +36,17 @@ function TweetsContainer({
 
   const router = useRouter();
   const [days, setDays] = useState(daysProp);
-  const [category, setCategory] = useState(categoryProp);
+  const [category, setCategory] = useState(categoryProp ?? "");
   const [insights, setInsights] = useState(insightsProp);
-  const [location, setLocation] = useState(locationProp);
+  const [location, setLocation] = useState(locationProp ?? "");
   const [page, setPage] = useState(pageProp);
   // Changes which page is displayed when either page or sort is changed.
   const [paginating, setPaginating] = useState(false);
   const [pageSize, setPageSize] = useState(pageSizeProp);
   const [query, setQuery] = useState(queryProp);
   const [searching, setSearching] = useState(false);
-  const [theme, setTheme] = useState(themeProp);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [theme, setTheme] = useState(themeProp ?? "");
   const [tweets, setTweets] = useState(tweetsProp);
   const [sort, setSort] = useState(sortProp);
   const contentRef = useRef();
@@ -193,11 +194,13 @@ function TweetsContainer({
   };
   const { data: newTweets, isLoading: isLoadingTweets } =
     useTweets(shouldFetch);
+
   useEffect(() => {
     if (newTweets) {
       setTweets({ ...newTweets });
+      setSearchQuery(query);
     }
-  }, [newTweets, paginating]);
+  }, [newTweets, query]);
   useEffect(() => {
     if (paginating && contentRef.current) {
       contentRef.current.scrollIntoView({
@@ -244,11 +247,12 @@ function TweetsContainer({
         onSearch={handleSearch}
         query={query}
         theme={theme}
+        category={category}
         className={classes.root}
       />
       {isLoading && <Loading />}
+      <SearchResults query={searchQuery} label="Search Results" />
       <Chart {...props} data={insights} className={classes.chartRoot} />
-      <SearchResults query={query} label="Search Results" />
       {tweets?.results?.length > 0 && (
         <ContentActions
           apiUri="/api/tweets"
