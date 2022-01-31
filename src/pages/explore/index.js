@@ -81,9 +81,6 @@ export async function getServerSideProps(context) {
   const { query: userQuery } = context;
   const query = {
     days: 14,
-    category: "category-none",
-    theme: "theme-none",
-    location: "location-none",
     ...userQuery,
   };
   const session = await getSession(context);
