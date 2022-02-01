@@ -10,11 +10,7 @@ import Tabs from "@/twoopstracker/components/Tabs";
 import Upload from "@/twoopstracker/components/Upload";
 import UserAccount from "@/twoopstracker/components/UserAccount";
 import UserSearch from "@/twoopstracker/components/UserSearch";
-import {
-  searchPagination,
-  upload,
-  listPagination,
-} from "@/twoopstracker/config";
+import { upload, paginationOptions } from "@/twoopstracker/config";
 import { lists, getSavedSearches } from "@/twoopstracker/lib";
 import { settings } from "@/twoopstracker/lib/cms";
 
@@ -53,14 +49,14 @@ function Account({ lists: listsProp, activeSlug, searches, ...props }) {
         children = (
           <Lists
             lists={listsProp}
-            paginationProps={listPagination}
+            paginationProps={paginationOptions}
             {...props}
           />
         );
         break;
       case "searches":
         children = (
-          <UserSearch searches={searches} paginationProps={searchPagination} />
+          <UserSearch searches={searches} paginationProps={paginationOptions} />
         );
         break;
       case "data":
@@ -117,8 +113,8 @@ export async function getServerSideProps(context) {
   const [activeSlug] = params?.slug ?? ["lists"];
   const activePageTitle = accountPages[activeSlug]?.label ?? "Account";
   const title = `${activePageTitle}${userName ? ` | ${userName}` : ""}`;
-  const foundLists = await lists(session, { pageSize: 5 });
-  const searches = await getSavedSearches({ pageSize: 3 }, session);
+  const foundLists = await lists(session, { pageSize: 20 });
+  const searches = await getSavedSearches({ pageSize: 20 }, session);
 
   const { query: userQuery } = context;
   const query = {
