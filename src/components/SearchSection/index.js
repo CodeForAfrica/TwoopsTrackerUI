@@ -21,6 +21,7 @@ function SearchSection({
   onSearch,
   query,
   theme,
+  searchGuide: searchGuideProp,
   ...props
 }) {
   const classes = useStyles(props);
@@ -109,7 +110,10 @@ function SearchSection({
               ]}
               value={location}
             />
-            <SearchGuide title="How to Search" />
+            <SearchGuide
+              {...searchGuideProp}
+              classes={{ root: classes.help }}
+            />
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
@@ -179,6 +183,7 @@ SearchSection.propTypes = {
   onSearch: PropTypes.func,
   query: PropTypes.string,
   theme: PropTypes.string,
+  searchGuide: PropTypes.shape({}),
 };
 
 SearchSection.defaultProps = {
@@ -190,6 +195,7 @@ SearchSection.defaultProps = {
   onSearch: undefined,
   query: undefined,
   theme: undefined,
+  searchGuide: undefined,
 };
 
 export default SearchSection;
