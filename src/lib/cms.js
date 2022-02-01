@@ -3,6 +3,7 @@ import * as md from "./md";
 import aboutContent from "@/cms/pages/about.md";
 import updateProfileContent from "@/cms/pages/account/update.md";
 import loginContent from "@/cms/pages/auth/login.md";
+import exploreContent from "@/cms/pages/explore.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
 import lexiconsContent from "@/cms/pages/lexicons.md";
@@ -108,6 +109,11 @@ function processLexiconsContent() {
       ?.map((resource) => md.renderObjectValuesInline(resource)) ?? null;
 }
 processLexiconsContent();
+
+export function explore() {
+  const { attributes } = exploreContent;
+  return attributes;
+}
 
 export function lexicons() {
   const { attributes } = lexiconsContent;
