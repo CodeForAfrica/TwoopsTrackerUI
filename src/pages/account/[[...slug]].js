@@ -109,17 +109,20 @@ export async function getServerSideProps(context) {
     };
   }
 
+  const { query: userQuery } = context;
+  const { page = 1, pageSize = 20, sort = "name" } = userQuery;
   const userName = session?.user?.name;
   const [activeSlug] = params?.slug ?? ["lists"];
   const activePageTitle = accountPages[activeSlug]?.label ?? "Account";
   const title = `${activePageTitle}${userName ? ` | ${userName}` : ""}`;
-  const foundLists = await lists(session, { pageSize: 20 });
-  const searches = await getSavedSearches({ pageSize: 20 }, session);
+  const foundLists = await lists({ page, pageSize, sort }, session);
+  const searches = await getSavedSearches({ page, pageSize }, session);
 
-  const { query: userQuery } = context;
   const query = {
-    sort: activeSlug === "lists" ? "name" : null,
     ...userQuery,
+    sort: activeSlug === "lists" ? sort : null,
+    page: ["lists", "searches"].includes(activeSlug) ? page : null,
+    pageSize: ["lists", "searches"].includes(activeSlug) ? pageSize : null,
   };
 
   return {
