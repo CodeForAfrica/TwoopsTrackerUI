@@ -36,7 +36,6 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
     if (queryString) {
       listURL = `${listURL}?${queryString}`;
     }
-
     return fetchJson(listURL);
   };
   const { data, mutate } = useSWR([`/api/lists`, page, pageSize], fetcher);

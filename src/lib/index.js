@@ -61,7 +61,9 @@ export async function APIRequest(payload, method, session, query) {
   }
 
   if (param && accounts) {
-    url = `${url}/accounts/?list[]=${param}&${listParams.toString()}`;
+    url = listParams.toString()
+      ? `${url}/accounts/?list[]=${param}&${listParams.toString()}`
+      : `${url}/accounts/?list[]=${param}`;
   } else if (del) {
     url = `${url}/lists/${param}?accounts[]=${del}`;
   } else if (param) {

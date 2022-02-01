@@ -11,6 +11,7 @@ import ListModal from "@/twoopstracker/components/ListModal";
 import Pagination from "@/twoopstracker/components/Pagination";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
+import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 function AccountsList({
   apiUrl,
@@ -25,12 +26,28 @@ function AccountsList({
   const handleClose = () => setOpen(false);
   const [listAccounts, setListAccounts] = useState(accounts);
   const [newAccounts, setNewAccounts] = useState("");
-  const [page, setPage] = useState(1);
+  const [existingAccounts, setExistingAccounts] = useState(accounts);
+  const [page, setPage] = useState();
   const [pageSize, setPageSize] = useState(3);
-  const fetcher = (url) => fetchJson(url);
-  const paginationString = new URLSearchParams({ page, pageSize }).toString();
+  const fetcher = (url, pg, pSize) => {
+    const queryString = getQueryString({
+      page: pg,
+      pageSize: pSize,
+    });
+    let listURL = url;
+    if (queryString) {
+      listURL = `${listURL}&&${queryString}`;
+    }
+    return fetchJson(listURL);
+  };
+
   const { data, mutate } = useSWR(
-    `${apiUrl}/?accounts=true&&${paginationString}`,
+    [`${apiUrl}/?accounts=true`, page, pageSize],
+    fetcher
+  );
+
+  const { data: accountsData, mutate: mutateAccountsData } = useSWR(
+    `${apiUrl}/?accounts=true`,
     fetcher
   );
 
@@ -38,7 +55,11 @@ function AccountsList({
     if (data) {
       setListAccounts(data.results);
     }
-  }, [data]);
+
+    if (accountsData) {
+      setExistingAccounts(accountsData.results);
+    }
+  }, [data, accountsData]);
 
   const handleClickPage = (e, value) => {
     setPage(value);
@@ -71,7 +92,7 @@ function AccountsList({
     const payload = {
       name,
       is_private: isPrivate,
-      accounts: [...accountsMap, ...accounts],
+      accounts: [...accountsMap, ...existingAccounts],
     };
 
     try {
@@ -81,6 +102,7 @@ function AccountsList({
       });
 
       mutate({ ...data });
+      mutateAccountsData();
       setOpen(false);
       setNewAccounts("");
     } catch (e) {
@@ -124,7 +146,7 @@ function AccountsList({
       })}
       <Pagination
         {...paginationProps}
-        count={Math.ceil(count / (pageSize || 10))}
+        count={Math.ceil((count ?? 0) / (pageSize || 10))}
         onChangePage={handleClickPage}
         onChangePageSize={handleClickPageSize}
         page={page}
