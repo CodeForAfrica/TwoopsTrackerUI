@@ -44,14 +44,18 @@ const accountPages = {
   },
 };
 
-function Account({ foundLists, activeSlug, searches, ...props }) {
+function Account({ lists: listsProp, activeSlug, searches, ...props }) {
   const classes = useStyles(props);
   const tabItems = Object.entries(accountPages).map(([slug, values]) => {
     let children;
     switch (slug) {
       case "lists":
         children = (
-          <Lists results={foundLists} paginationProps={listPagination} />
+          <Lists
+            lists={listsProp}
+            paginationProps={listPagination}
+            {...props}
+          />
         );
         break;
       case "searches":
@@ -70,6 +74,7 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
     }
     return { ...values, slug, children };
   });
+
   return (
     <Page {...props}>
       <Section classes={{ root: classes.section }}>
@@ -85,15 +90,15 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
 }
 
 Account.propTypes = {
-  foundLists: PropTypes.arrayOf(PropTypes.shape({})),
-  searches: PropTypes.shape({}),
   activeSlug: PropTypes.string,
+  lists: PropTypes.arrayOf(PropTypes.shape({})),
+  searches: PropTypes.shape({}),
 };
 
 Account.defaultProps = {
-  searches: undefined,
-  foundLists: undefined,
   activeSlug: undefined,
+  lists: undefined,
+  searches: undefined,
 };
 
 export async function getServerSideProps(context) {
@@ -112,17 +117,24 @@ export async function getServerSideProps(context) {
   const [activeSlug] = params?.slug ?? ["lists"];
   const activePageTitle = accountPages[activeSlug]?.label ?? "Account";
   const title = `${activePageTitle}${userName ? ` | ${userName}` : ""}`;
-  const results = await lists(session, { pageSize: 5 });
+  const foundLists = await lists(session, { pageSize: 5 });
   const searches = await getSavedSearches({ pageSize: 3 }, session);
+
+  const { query: userQuery } = context;
+  const query = {
+    sort: activeSlug === "lists" ? "name" : null,
+    ...userQuery,
+  };
 
   return {
     props: {
       ...settings(),
+      ...query,
       activeSlug,
+      lists: foundLists,
       searches,
-      foundLists: results,
-      title,
       session,
+      title,
     },
   };
 }
