@@ -37,7 +37,7 @@ function Footer({
           alignItems="center"
           justifyContent="space-between"
         >
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} lg={4}>
             {project.logoProps && (
               <LogoButton
                 {...project.logoProps}
@@ -49,7 +49,7 @@ function Footer({
             )}
             {project.description && (
               <RichTypography
-                variant="subtitle2"
+                variant="overline"
                 className={classes.description}
               >
                 {project.description}

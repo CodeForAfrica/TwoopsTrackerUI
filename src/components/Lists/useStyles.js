@@ -6,8 +6,18 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     display: "flex",
     flexDirection: "column",
     [breakpoints.up("md")]: {
-      flexDirection: "row",
+      flexDirection: "column",
       justifyContent: "space-between",
+    },
+  },
+  createListModal: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    [breakpoints.up("md")]: {
+      justifyContent: "flex-end",
+      alignItems: "flex-end",
     },
   },
   listItem: {
@@ -23,8 +33,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     padding: `${typography.pxToRem(20)} 0`,
     [breakpoints.up("md")]: {
       position: "relative",
-      top: typography.pxToRem(70),
-      padding: 0,
+      top: typography.pxToRem(60),
     },
   },
   label: {

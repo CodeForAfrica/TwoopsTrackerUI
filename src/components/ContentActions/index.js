@@ -14,6 +14,7 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   section: {
     borderBottom: "1px solid #00000040",
     paddingBottom: typography.pxToRem(28),
+    padding: 0,
   },
   button: {
     margin: `auto ${typography.pxToRem(12)}`,
@@ -56,7 +57,7 @@ function ContentActions({ apiUri, queryParams, type, ...props }) {
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container justifyContent="space-between" alignItems="center">
-          <Grid container item alignItems="center">
+          <Grid container item md={4} alignItems="center">
             <Typography className={classes.label} variant="body2">
               {download.label}
             </Typography>
