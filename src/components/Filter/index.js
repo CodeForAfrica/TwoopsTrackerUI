@@ -20,21 +20,26 @@ function Filter({ handleSelection, label, menuItems, value, ...props }) {
   return (
     <Box sx={{ width: 160 }} className={classes.box}>
       <FormControl fullWidth className={classes.form}>
-        <InputLabel id={`${label}-id`} className={classes.label}>
+        <InputLabel
+          shrink
+          id={`${label}-select-label`}
+          className={classes.label}
+        >
           {label}
         </InputLabel>
         <Select
-          labelId={`${label}-id`}
+          labelId={`${label}-select-label`}
+          id={`${label}-select`}
           value={value}
+          displayEmpty
           onChange={handleChange}
           className={classes.select}
         >
-          {menuItems &&
-            menuItems.map((item) => (
-              <MenuItem key={item.value} value={item.value}>
-                {item.name}
-              </MenuItem>
-            ))}
+          {menuItems?.map((item) => (
+            <MenuItem key={item.value} value={item.value}>
+              {item.name}
+            </MenuItem>
+          )) ?? null}
         </Select>
       </FormControl>
     </Box>

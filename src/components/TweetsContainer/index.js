@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import useStyles from "./useStyles";
 import useTweets from "./useTweets";
 
 import Chart from "@/twoopstracker/components/Chart";
@@ -14,6 +13,11 @@ import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
+// NOTE(kilemensi): We need this component styles to load after Chart component
+//                  styles so that overriding works.
+// eslint-disable-next-line import/order
+import useStyles from "./useStyles";
+
 function TweetsContainer({
   category: categoryProp,
   days: daysProp,
@@ -23,6 +27,7 @@ function TweetsContainer({
   pageSize: pageSizeProp,
   paginationProps,
   query: queryProp,
+  sort: sortProp,
   theme: themeProp,
   tweets: tweetsProp,
   ...props
@@ -31,16 +36,20 @@ function TweetsContainer({
 
   const router = useRouter();
   const [days, setDays] = useState(daysProp);
-  const [category, setCategory] = useState(categoryProp);
+  const [category, setCategory] = useState(categoryProp ?? "");
   const [insights, setInsights] = useState(insightsProp);
-  const [location, setLocation] = useState(locationProp);
+  const [location, setLocation] = useState(locationProp ?? "");
   const [page, setPage] = useState(pageProp);
+  // Changes which page is displayed when either page or sort is changed.
   const [paginating, setPaginating] = useState(false);
   const [pageSize, setPageSize] = useState(pageSizeProp);
   const [query, setQuery] = useState(queryProp);
-  const [search, setSearch] = useState(false);
-  const [theme, setTheme] = useState(themeProp);
+  const [searching, setSearching] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [theme, setTheme] = useState(themeProp ?? "");
   const [tweets, setTweets] = useState(tweetsProp);
+  const [sort, setSort] = useState(sortProp);
+  const contentRef = useRef();
 
   const setStateObject = {
     category: setCategory,
@@ -50,6 +59,7 @@ function TweetsContainer({
     pageSize: setPageSize,
     query: setQuery,
     theme: setTheme,
+    sort: setSort,
   };
 
   // Handle initial query parameters from server (if any)
@@ -60,13 +70,14 @@ function TweetsContainer({
         setStateObject?.[k]?.(queryParams[k])
       );
     }
-    // NOTE(kilemensi): Nextjs router shouldn't be a userEffect dependenc
+    // NOTE(kilemensi): Nextjs router shouldn't be a useEffect dependency
     //                  e.g. https://github.com/vercel/next.js/issues/18127
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady]);
 
   const handleSearch = async () => {
-    setSearch(true);
+    setPaginating(false);
+    setSearching(true);
   };
 
   useEffect(() => {
@@ -79,6 +90,7 @@ function TweetsContainer({
         days,
         page,
         pageSize,
+        sort,
       });
       const { pathname } = router;
       let newPathname = pathname;
@@ -88,23 +100,61 @@ function TweetsContainer({
       router.push(newPathname, newPathname, { shallow: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, query, theme, location, days, page, pageSize, router.isReady]);
+  }, [
+    query,
+    theme,
+    category,
+    location,
+    days,
+    page,
+    pageSize,
+    sort,
+    router.isReady,
+  ]);
 
   const handleSelection = ({ name, value }) => {
-    setSearch(false);
     setStateObject[name](value);
     setPaginating(false);
+    setSearching(false);
+  };
+
+  const handleChangeSortBy = ({ value }) => {
+    setSort((prevSort) => {
+      const sortOrder = prevSort.startsWith("-") ? "-" : "";
+      return `${sortOrder}${value}`;
+    });
+    setPaginating(true);
+    setSearching(false);
+  };
+
+  const paginate = (newPage) => {
+    if (newPage) {
+      setPage(newPage);
+    }
+    setPaginating(true);
+    setSearching(false);
+  };
+
+  const handleClickSortOrder = (e) => {
+    e.preventDefault();
+
+    setSort((prevSort) => {
+      const sortOrder = prevSort.startsWith("-") ? "" : "-";
+      const sortBy = prevSort.replace(/^-/, "");
+
+      return `${sortOrder}${sortBy}`;
+    });
+    paginate();
   };
 
   const handleClickPage = (e, value) => {
-    setPage(value);
-    setPaginating(true);
+    paginate(value);
   };
+
   const handleClickPageSize = (e, value) => {
     // Changing pageSize triggers computation of number of pages.
-    setPage(1);
     setPageSize(value);
-    setPaginating(true);
+    paginate(1);
   };
 
   const handleSaveSearch = async (name) => {
@@ -116,15 +166,17 @@ function TweetsContainer({
         location,
         days,
         name,
+        sort,
       }),
     });
   };
 
   const shouldFetch = () => {
-    if (!(search || paginating)) {
+    if (!(paginating || searching)) {
       return null;
     }
 
+    let url = "/api/tweets";
     const queryString = getQueryString({
       query,
       theme,
@@ -133,8 +185,8 @@ function TweetsContainer({
       page,
       pageSize,
       category,
+      sort,
     });
-    let url = "/api/tweets";
     if (queryString) {
       url = `${url}?${queryString}`;
     }
@@ -142,17 +194,33 @@ function TweetsContainer({
   };
   const { data: newTweets, isLoading: isLoadingTweets } =
     useTweets(shouldFetch);
+
   useEffect(() => {
     if (newTweets) {
-      setTweets(newTweets);
+      setTweets({ ...newTweets });
+      setSearchQuery(query);
     }
-  }, [newTweets]);
+  }, [newTweets, query]);
+  useEffect(() => {
+    if (paginating && contentRef.current) {
+      contentRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [paginating, tweets]);
+
   const shouldFetchInsights = () => {
-    if (paginating || !search) {
+    if (paginating || !searching) {
       return null;
     }
 
-    const queryString = getQueryString({ query, theme, location, days });
+    const queryString = getQueryString({
+      query,
+      theme,
+      location,
+      days,
+    });
     let url = "/api/tweets/insights";
     if (queryString) {
       url = `${url}?${queryString}`;
@@ -163,9 +231,10 @@ function TweetsContainer({
     useTweets(shouldFetchInsights);
   useEffect(() => {
     if (newInsights) {
-      setInsights(newInsights);
+      setInsights([...newInsights]);
     }
   }, [newInsights]);
+
   const isLoading = isLoadingTweets || isLoadingInsights;
 
   return (
@@ -178,16 +247,27 @@ function TweetsContainer({
         onSearch={handleSearch}
         query={query}
         theme={theme}
+        category={category}
         className={classes.root}
       />
       {isLoading && <Loading />}
+      <SearchResults query={searchQuery} label="Search Results" />
       <Chart {...props} data={insights} className={classes.chartRoot} />
-      <SearchResults query={query} label="Search Results" />
       {tweets?.results?.length > 0 && (
         <ContentActions
           apiUri="/api/tweets"
-          queryParams={{ query, theme, location, days }}
+          queryParams={{ query, theme, location, days, sort }}
           type="tweets"
+          sort={sort}
+          menuItems={[
+            { name: "Created At", value: "created-at" },
+            { name: "Deleted At", value: "deleted-at" },
+            { name: "Owner Screen Name", value: "owner-screen-name" },
+          ]}
+          onChangeSortBy={handleChangeSortBy}
+          onClickSortOrder={handleClickSortOrder}
+          ref={contentRef}
+          className={classes.content}
         />
       )}
       <Tweets tweets={tweets} />
@@ -214,6 +294,7 @@ TweetsContainer.propTypes = {
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   paginationProps: PropTypes.shape({}),
   query: PropTypes.string,
+  sort: PropTypes.string,
   theme: PropTypes.number,
   tweets: PropTypes.shape({
     count: PropTypes.number,
@@ -230,6 +311,7 @@ TweetsContainer.defaultProps = {
   pageSize: undefined,
   paginationProps: undefined,
   query: undefined,
+  sort: undefined,
   theme: undefined,
   tweets: PropTypes.arrayOf(PropTypes.shape({})),
 };
