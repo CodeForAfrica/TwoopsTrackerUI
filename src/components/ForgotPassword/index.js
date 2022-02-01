@@ -9,12 +9,12 @@ import { Formik } from "formik";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React from "react";
+import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
-import schema from "@/twoopstracker/utils/validationSchema";
 
 function ForgotPassword({ title, description, ...props }) {
   const classes = useStyles(props);
@@ -36,6 +36,13 @@ function ForgotPassword({ title, description, ...props }) {
     email: "",
   };
 
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+  });
+
   return (
     <Section className={classes.section}>
       <Grid container>
@@ -45,7 +52,7 @@ function ForgotPassword({ title, description, ...props }) {
           <Formik
             onSubmit={handleSubmit}
             initialValues={initialValues}
-            validationSchema={schema}
+            validationSchema={validationSchema}
           >
             {({
               errors,

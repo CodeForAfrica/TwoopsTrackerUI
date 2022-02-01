@@ -12,12 +12,12 @@ import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
-import schema from "@/twoopstracker/utils/validationSchema";
 
 function ResetPassword({
   title,
@@ -55,6 +55,12 @@ function ResetPassword({
   const initialValues = {
     password: "",
   };
+  const validationSchema = yup.object().shape({
+    password: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+  });
 
   if (!(uid && token)) {
     return null;
@@ -69,7 +75,7 @@ function ResetPassword({
           <Formik
             onSubmit={handleSubmit}
             initialValues={initialValues}
-            validationSchema={schema}
+            validationSchema={validationSchema}
           >
             {({
               errors,

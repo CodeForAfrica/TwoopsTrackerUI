@@ -13,12 +13,12 @@ import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
 import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
-import schema from "@/twoopstracker/utils/validationSchema";
 
 function Login({
   providers: providersProp,
@@ -56,6 +56,17 @@ function Login({
     type: "login",
   };
 
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+    password: yup
+      .string("Enter your password")
+      .min(8, "Password should be of minimum 8 characters length")
+      .required("Password is required"),
+  });
+
   useEffect(() => {
     if (session) {
       Router.push("/explore");
@@ -73,7 +84,7 @@ function Login({
           <Formik
             onSubmit={handleSubmit}
             initialValues={initialValues}
-            validationSchema={schema}
+            validationSchema={validationSchema}
           >
             {({
               errors,
