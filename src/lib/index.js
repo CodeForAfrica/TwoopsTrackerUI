@@ -4,7 +4,7 @@ import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const BASE_URL = process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL;
 
-export async function lists(session, { download, page, pageSize, sort }) {
+export async function lists({ download, page, pageSize, sort }, session) {
   const searchParams = new URLSearchParams();
   if (download) {
     searchParams.append("download", download);
