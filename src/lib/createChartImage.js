@@ -4,7 +4,7 @@ import * as vega from "vega";
 
 import LineScope from "@/twoopstracker/components/Chart/LineScope";
 import {
-  tweetsSearchParamFromSearchQuery,
+  tweetsSearchParamsFromSearchQuery,
   tweetsSearchQueryFromUserQuery,
   tweetsUserQuery,
 } from "@/twoopstracker/lib";
@@ -34,7 +34,7 @@ export default async function createChartImage(data, query) {
     const Body = await sharp(Buffer.from(svg)).png().toBuffer();
 
     const searchQuery = tweetsSearchQueryFromUserQuery(tweetsUserQuery(query));
-    const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+    const searchParams = tweetsSearchParamsFromSearchQuery(searchQuery);
     searchParams.delete("format");
     const uniqueQueryString = searchParams.toString();
 

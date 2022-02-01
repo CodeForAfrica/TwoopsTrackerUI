@@ -84,7 +84,7 @@ export async function APIRequest(payload, method, session, query) {
   return fetchJson(url, session, options);
 }
 
-export function tweetsSearchParamFromSearchQuery({
+export function tweetsSearchParamsFromSearchQuery({
   category,
   query,
   location,
@@ -92,6 +92,7 @@ export function tweetsSearchParamFromSearchQuery({
   page,
   pageSize,
   download,
+  sort,
 }) {
   const searchParams = new URLSearchParams();
   if (query) {
@@ -103,9 +104,33 @@ export function tweetsSearchParamFromSearchQuery({
   if (location) {
     searchParams.append("location", location);
   }
+  if (sort) {
+    let sortBy;
+    switch (sort.replace(/^-/, "")) {
+      case "created-at":
+        sortBy = "created_at";
+        break;
+      case "deleted-at":
+        sortBy = "deleted_at";
+        break;
+      case "owner-screen-name":
+        sortBy = "owner__screen_name";
+        break;
+      default:
+        sortBy = null;
+        break;
+    }
+    if (sortBy) {
+      const sortOrder = sort.startsWith("-") ? "-" : "";
+      searchParams.append("ordering", `${sortOrder}${sortBy}`);
+    }
+  }
   const date = new Date();
-  const endDate = date.toISOString().substr(0, 10);
-  const startDate = subDays(date, days).toISOString().substr(0, 10);
+  const endDate = date.toISOString().substring(0, 10);
+  // Ensure we load data for at least 1 day
+  const startDate = subDays(date, Math.max(days, 1))
+    .toISOString()
+    .substring(0, 10);
   searchParams.append("start_date", startDate);
   searchParams.append("end_date", endDate);
   if (page) {
@@ -124,13 +149,33 @@ export function tweetsSearchParamFromSearchQuery({
 }
 
 export function tweetsUserQuery(requestQuery) {
-  const { query, theme, location, days, page, pageSize, download, category } =
-    requestQuery;
+  const {
+    query,
+    theme,
+    location,
+    days,
+    page,
+    pageSize,
+    download,
+    category,
+    sort,
+  } = requestQuery;
 
-  return { query, theme, location, days, page, pageSize, download, category };
+  return {
+    query,
+    theme,
+    location,
+    days,
+    page,
+    pageSize,
+    download,
+    category,
+    sort,
+  };
 }
 
 export function tweetsSearchQueryFromUserQuery(userQuery) {
+  // this one
   const {
     query: term,
     theme,
@@ -140,24 +185,42 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     page,
     pageSize,
     download,
+    sort,
   } = userQuery || {};
-  let query = term || theme;
-  if (query && theme) {
-    query = `(${query} AND ${theme})`;
+
+  let query;
+  if (theme) {
+    query = theme;
+  } else {
+    query = term;
   }
+  if (term && theme) {
+    query = `${term} "${theme}"`;
+  }
+
   let days = parseInt(daysAsString, 10) || undefined;
   if (days > 90) {
     days = 90;
   }
-  return { category, query, location, days, page, pageSize, download };
+  return {
+    category,
+    query,
+    location,
+    days,
+    page,
+    pageSize,
+    download,
+    sort,
+  };
 }
 
 export async function tweets(requestQuery, session) {
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQuery)
   );
-  const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+  const searchParams = tweetsSearchParamsFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
+
   return fetchJson(url, session);
 }
 
@@ -167,7 +230,7 @@ export async function tweetsInsights(requestQuery, session) {
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQueryQuery)
   );
-  const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+  const searchParams = tweetsSearchParamsFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/insights?${searchParams.toString()}`;
   return fetchJson(url, session);
 }
@@ -224,8 +287,8 @@ export async function postSavedSearch(payload, session) {
   const d = days ?? 7;
 
   const date = new Date();
-  const endDate = date.toISOString().substr(0, 10);
-  const startDate = subDays(date, d).toISOString().substr(0, 10);
+  const endDate = date.toISOString().substring(0, 10);
+  const startDate = subDays(date, d).toISOString().substring(0, 10);
 
   const options = {
     method: "POST",

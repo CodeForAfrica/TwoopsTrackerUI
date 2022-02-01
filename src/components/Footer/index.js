@@ -65,6 +65,7 @@ function Footer({
                   link: classes.stayInTouchLink,
                   links: classes.stayInTouchLinks,
                   text: classes.stayInTouchText,
+                  title: classes.stayInTouchTitle,
                 }}
               />
             )}

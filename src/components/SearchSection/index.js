@@ -38,7 +38,6 @@ function SearchSection({
       onSaveSearch(name);
     }
   };
-
   const handleKeyDown = (e) => {
     if (onSearch && e.key === "Enter") {
       onSearch(e);
@@ -58,7 +57,6 @@ function SearchSection({
           </Grid>
           <Grid item lg={5} xs={12} className={classes.filterSection}>
             <Filter
-              key={days}
               label="Days"
               handleSelection={onSelection}
               menuItems={[
@@ -72,7 +70,6 @@ function SearchSection({
               value={days}
             />
             <Filter
-              key={theme}
               label="Theme"
               handleSelection={onSelection}
               menuItems={[
@@ -84,7 +81,6 @@ function SearchSection({
               value={theme}
             />
             <Filter
-              key={category}
               label="Category"
               handleSelection={onSelection}
               menuItems={[
@@ -102,7 +98,6 @@ function SearchSection({
               value={category}
             />
             <Filter
-              key={location}
               label="Location"
               handleSelection={onSelection}
               menuItems={[
