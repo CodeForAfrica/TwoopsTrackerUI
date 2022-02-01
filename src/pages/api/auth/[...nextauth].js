@@ -144,6 +144,9 @@ const options = {
     async jwt({ token, user, account }) {
       // when created: e.g. at sign in
       //              fetch new access token
+
+      console.log(token);
+      console.log(user);
       if (account && user) {
         if (OAUTH_PROVIDERS.includes(account.provider)) {
           return fetchNewToken({ account, user });
@@ -170,7 +173,7 @@ const options = {
         token
       );
       const newToken = token;
-      newToken.user = { ...token.user, ...user };
+      newToken.user = { ...token?.user, ...user };
       if (!(session && token)) {
         return null;
       }
