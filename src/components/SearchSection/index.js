@@ -9,6 +9,7 @@ import Filter from "@/twoopstracker/components/Filter";
 import Link from "@/twoopstracker/components/Link";
 import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
 import Search from "@/twoopstracker/components/Search";
+import SearchGuide from "@/twoopstracker/components/SearchGuide";
 import Section from "@/twoopstracker/components/Section";
 
 function SearchSection({
@@ -108,6 +109,7 @@ function SearchSection({
               ]}
               value={location}
             />
+            <SearchGuide title="How to Search" />
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
