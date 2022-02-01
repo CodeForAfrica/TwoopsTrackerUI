@@ -34,7 +34,7 @@ function Lists({
   const [page, setPage] = useState(parseInt(pageProp, 10) || 1);
   // Changes which page is displayed when either page or sort is changed.
   const [paginating, setPaginating] = useState(false);
-  const [pageSize, setPageSize] = useState(parseInt(pageSizeProp, 10) || 10);
+  const [pageSize, setPageSize] = useState(parseInt(pageSizeProp, 10) || 20);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = useStyles(props);
