@@ -5,7 +5,7 @@ import {
   Paper,
   Typography,
   IconButton,
-  ClickAwayListener,
+  Backdrop,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -13,34 +13,34 @@ import React, { useState } from "react";
 
 import { ReactComponent as HelpIcon } from "@/twoopstracker/assets/icons/help-circle.svg";
 
-const useStyles = makeStyles(({ palette, typography }) => ({
+const useStyles = makeStyles(({ palette, typography, zIndex }) => ({
   root: {},
-  popper: {},
-  paper: {
-    background: palette.background.default,
-    border: `1px solid ${palette.grey.light}`,
-    width: typography.pxToRem(180),
-    boxShadow: "0px 3px 6px #00000029",
-    borderRadius: 0,
-    marginTop: typography.pxToRem(-40),
+  popper: {
+    zIndex: zIndex.modal + 2,
   },
-  header: {
-    background: palette.background.paper,
-    height: typography.pxToRem(36),
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    paddingLeft: typography.pxToRem(16),
-    paddingRight: typography.pxToRem(10),
+  paper: {
+    background: "f7f7f7",
+    borderRadius: 0,
+    width: typography.pxToRem(795),
+    padding: typography.pxToRem(30),
+    marginRight: typography.pxToRem(33),
+    marginTop: typography.pxToRem(16),
   },
   title: {
-    fontSize: typography.pxToRem(11),
-    lineHeight: 17 / 11,
-    color: "#666666",
+    fontFamily: typography.body1.fontFamily,
+    marginBottom: typography.pxToRem(44),
+    fontWeight: "normal",
   },
   button: {
     padding: 0,
+  },
+  backdrop: {
+    zIndex: zIndex.modal + 1,
+    color: "#fff",
+  },
+  description: {
+    background: palette.background.default,
+    padding: typography.pxToRem(10),
   },
 }));
 
@@ -62,6 +62,11 @@ function SearchGuide({ title, description, ...props }) {
 
   return (
     <div className={classes.root}>
+      <Backdrop
+        open={Boolean(anchorEl)}
+        className={classes.backdrop}
+        onClick={handleClose}
+      />
       <IconButton
         onClick={handleClick}
         aria-describedby="aria-search-help"
@@ -77,13 +82,15 @@ function SearchGuide({ title, description, ...props }) {
         transition
       >
         {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <ClickAwayListener onClickAway={handleClose}>
-              <Paper className={classes.paper}>
-                <Typography variant="h4">{title}</Typography>
-                <RichTypography variant="body2">{description}</RichTypography>
-              </Paper>
-            </ClickAwayListener>
+          <Fade {...TransitionProps}>
+            <Paper className={classes.paper}>
+              <Typography variant="h4" className={classes.title}>
+                {title}
+              </Typography>
+              <RichTypography variant="body2" className={classes.description}>
+                {description}
+              </RichTypography>
+            </Paper>
           </Fade>
         )}
       </Popper>
