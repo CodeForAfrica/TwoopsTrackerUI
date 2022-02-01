@@ -1,4 +1,5 @@
 import { Typography, Grid } from "@material-ui/core";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
@@ -15,45 +16,104 @@ import getQueryString from "@/twoopstracker/utils/getQueryString";
 // eslint-disable-next-line import/order
 import useStyles from "./useStyles";
 
-function Lists({ results: listsProp, paginationProps, ...props }) {
+function Lists({
+  lists: listsProp,
+  page: pageProp,
+  pageSize: pageSizeProp,
+  paginationProps,
+  sort: sortProp,
+  ...props
+}) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [lists, setLists] = useState(listsProp ? listsProp.results : []);
+  const [lists, setLists] = useState(listsProp);
   const [name, setName] = useState("");
   const [accounts, setAccounts] = useState("");
   const [privacy, setPrivacy] = useState(false);
-  const [page, setPage] = useState();
-  const [pageSize, setPageSize] = useState(5);
+  const [sort, setSort] = useState(sortProp);
+  const [page, setPage] = useState(parseInt(pageProp, 10) || 1);
+  // Changes which page is displayed when either page or sort is changed.
+  const [paginating, setPaginating] = useState(false);
+  const [pageSize, setPageSize] = useState(parseInt(pageSizeProp, 10) || 10);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = useStyles(props);
 
-  const fetcher = (url, pg, pSize) => {
-    const queryString = getQueryString({
-      page: pg,
-      pageSize: pSize,
+  useEffect(() => {
+    if (router.isReady) {
+      const queryString = getQueryString({
+        page,
+        pageSize,
+        sort,
+      });
+      const { pathname } = router;
+      let newPathname = pathname;
+      if (queryString) {
+        newPathname = `${newPathname}?${queryString}`;
+      }
+      router.push(newPathname, newPathname, { shallow: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, pageSize, sort, router.isReady]);
+
+  const paginate = (newPage) => {
+    if (newPage) {
+      setPage(newPage);
+    }
+    setPaginating(true);
+  };
+  const handleClickPage = (_, value) => {
+    paginate(value);
+  };
+  const handleClickPageSize = (_, value) => {
+    setPageSize(value);
+    paginate(1);
+  };
+  const handleChangeSortBy = ({ value }) => {
+    setSort((prevSort) => {
+      const sortOrder = prevSort.startsWith("-") ? "-" : "";
+      return `${sortOrder}${value}`;
     });
-    let listURL = url;
-    if (queryString) {
-      listURL = `${listURL}?${queryString}`;
+    paginate();
+  };
+  const handleClickSortOrder = (e) => {
+    e.preventDefault();
+
+    setSort((prevSort) => {
+      const sortOrder = prevSort.startsWith("-") ? "" : "-";
+      const sortBy = prevSort.replace(/^-/, "");
+
+      return `${sortOrder}${sortBy}`;
+    });
+    paginate();
+  };
+
+  const shouldFetch = () => {
+    if (!paginating) {
+      return null;
     }
 
-    return fetchJson(listURL);
+    let url = `/api/lists`;
+    const queryString = getQueryString({
+      page,
+      pageSize,
+      sort,
+    });
+    if (queryString) {
+      url = `${url}?${queryString}`;
+    }
+    return url;
   };
-  const { data, mutate } = useSWR([`/api/lists`, page, pageSize], fetcher);
-
+  const fetcher = (url) => {
+    return fetchJson(url);
+  };
+  const { data, mutate } = useSWR(shouldFetch, fetcher);
   useEffect(() => {
+    setPaginating(false);
     if (data) {
-      setLists(data.results);
+      setLists({ ...data });
     }
   }, [data]);
-
-  const handleClickPage = (e, value) => {
-    setPage(value);
-  };
-  const handleClickPageSize = (e, value) => {
-    setPage(1);
-    setPageSize(value);
-  };
 
   const onCreate = async () => {
     const accountsMap = accounts
@@ -95,6 +155,8 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
       setPrivacy(event.target.checked);
     }
   };
+
+  const count = Math.ceil((lists?.count ?? 0) / pageSize);
   return (
     <div className={classes.root}>
       <div className={classes.section}>
@@ -122,15 +184,22 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
             buttonOnClick={onCreate}
           />
         </div>
-        {lists?.length ? (
+        {lists?.count ? (
           <>
             <ContentActions
               apiUri="/api/lists"
-              classes={{ section: classes.actions }}
+              menuItems={[
+                { name: "Created At", value: "created-at" },
+                { name: "Name", value: "name" },
+              ]}
+              onChangeSortBy={handleChangeSortBy}
+              onClickSortOrder={handleClickSortOrder}
+              sort={sort}
               type="lists"
+              classes={{ section: classes.actions }}
             />
             <Grid container>
-              {lists?.map((item) => (
+              {lists?.results?.map((item) => (
                 <Grid item xs={12}>
                   <ListCard
                     key={item.name}
@@ -143,7 +212,7 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
             </Grid>
             <Pagination
               {...paginationProps}
-              count={Math.ceil((data?.count ?? 0) / (pageSize || 10))}
+              count={count}
               onChangePage={handleClickPage}
               onChangePageSize={handleClickPageSize}
               page={page}
@@ -160,13 +229,19 @@ function Lists({ results: listsProp, paginationProps, ...props }) {
 }
 
 Lists.propTypes = {
-  results: PropTypes.arrayOf(PropTypes.shape({})),
+  lists: PropTypes.arrayOf(PropTypes.shape({})),
+  page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   paginationProps: PropTypes.shape({}),
+  sort: PropTypes.string,
 };
 
 Lists.defaultProps = {
-  results: undefined,
+  lists: undefined,
+  page: undefined,
+  pageSize: undefined,
   paginationProps: undefined,
+  sort: undefined,
 };
 
 export default Lists;
