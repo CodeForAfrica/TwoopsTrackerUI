@@ -4,21 +4,38 @@ import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const BASE_URL = process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL;
 
-export async function lists(session, pageData) {
-  const listParams = new URLSearchParams();
-
-  if (pageData.page) {
-    listParams.append("page", pageData.page);
+export async function lists({ download, page, pageSize, sort }, session) {
+  const searchParams = new URLSearchParams();
+  if (download) {
+    searchParams.append("download", download);
   }
-  if (pageData.pageSize) {
-    listParams.append("page_size", pageData.pageSize);
+  if (page) {
+    searchParams.append("page", page);
   }
-  if (pageData.download) {
-    listParams.append("download", pageData.download);
+  if (pageSize) {
+    searchParams.append("page_size", pageSize);
+  }
+  if (sort) {
+    let sortBy;
+    switch (sort.replace(/^-/, "")) {
+      case "created-at":
+        sortBy = "created_at";
+        break;
+      case "name":
+        sortBy = "name";
+        break;
+      default:
+        sortBy = null;
+        break;
+    }
+    if (sortBy) {
+      const sortOrder = sort.startsWith("-") ? "-" : "";
+      searchParams.append("ordering", `${sortOrder}${sortBy}`);
+    }
   }
 
   const result = await fetchJson(
-    `${BASE_URL}/lists/?${listParams.toString()}`,
+    `${BASE_URL}/lists/?${searchParams.toString()}`,
     session
   );
   return result;
