@@ -116,11 +116,11 @@ function Lists({
     setPaginating(false);
     if (data) {
       setLists({ ...data });
-      setLoading(true);
+      setLoading(false);
     } else if (!data && !error) {
       setLoading(true);
     } else {
-      setLoading(false);
+      setLoading(true);
     }
   }, [data, error]);
 
