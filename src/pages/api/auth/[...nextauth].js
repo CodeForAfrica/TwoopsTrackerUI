@@ -45,11 +45,7 @@ async function fetchNewToken({ account, user: nextAuthUser }) {
     exp: jwtDecode(accessToken).exp * 1000,
     idToken: account?.id_token ?? null,
     refreshToken,
-    user: {
-      ...user,
-      lastName: user?.last_name,
-      firstName: user?.first_name ?? user?.name?.split(" ")[0] ?? user?.email,
-    },
+    user,
   };
 }
 
@@ -108,11 +104,7 @@ const options = {
               exp: jwtDecode(accessToken).exp * 1000,
               accessToken,
               refreshToken,
-              user: {
-                ...user,
-                firstName: user?.first_name ?? user?.email,
-                lastName: user?.last_name,
-              },
+              user,
             };
           }
           const [error] = Object.values(result);
@@ -144,9 +136,6 @@ const options = {
     async jwt({ token, user, account }) {
       // when created: e.g. at sign in
       //              fetch new access token
-
-      console.log(token);
-      console.log(user);
       if (account && user) {
         if (OAUTH_PROVIDERS.includes(account.provider)) {
           return fetchNewToken({ account, user });
@@ -173,7 +162,12 @@ const options = {
         token
       );
       const newToken = token;
-      newToken.user = { ...token?.user, ...user };
+      newToken.user = {
+        ...token?.user,
+        ...user,
+        firstName: user?.first_name ?? user?.name?.split(" ")[0],
+        lastName: user?.last_name,
+      };
       if (!(session && token)) {
         return null;
       }
