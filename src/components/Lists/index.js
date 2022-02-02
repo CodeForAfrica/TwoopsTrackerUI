@@ -130,6 +130,7 @@ function Lists({
         method: "POST",
         body: JSON.stringify(payload),
       });
+
       mutate();
       setOpen(false);
       setName("");
