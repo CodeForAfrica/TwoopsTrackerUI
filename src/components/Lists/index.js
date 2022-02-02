@@ -30,6 +30,8 @@ function Lists({
   const [name, setName] = useState("");
   const [accounts, setAccounts] = useState("");
   const [privacy, setPrivacy] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(true);
   const [sort, setSort] = useState(sortProp);
   const [page, setPage] = useState(parseInt(pageProp, 10) || 1);
   // Changes which page is displayed when either page or sort is changed.
@@ -107,13 +109,20 @@ function Lists({
   const fetcher = (url) => {
     return fetchJson(url);
   };
-  const { data, mutate } = useSWR(shouldFetch, fetcher);
+
+  const { data, error, mutate } = useSWR(shouldFetch, fetcher);
+
   useEffect(() => {
     setPaginating(false);
     if (data) {
       setLists({ ...data });
+      setLoading(true);
+    } else if (!data && !error) {
+      setLoading(true);
+    } else {
+      setLoading(false);
     }
-  }, [data]);
+  }, [data, error]);
 
   const onCreate = async () => {
     const accountsMap = accounts
@@ -131,13 +140,17 @@ function Lists({
         body: JSON.stringify(payload),
       });
 
+      setLoading(true);
       mutate();
+      setIsError(false);
       setOpen(false);
       setName("");
       setAccounts("");
       setPrivacy(false);
     } catch (e) {
       setOpen(true);
+      setLoading(false);
+      setIsError(true);
     }
   };
 
@@ -148,6 +161,8 @@ function Lists({
 
     if (event.target.name === "accounts") {
       setAccounts(event.target.value);
+      setLoading(true);
+      setIsError(false);
     }
 
     if (event.target.name === "status") {
@@ -171,6 +186,11 @@ function Lists({
         accountsLabel="User Accounts"
         accountsOnChange={handleChange}
         accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
+        accountsErrorHelper={
+          !isLoading && isError
+            ? "Please enter a valid comma-separated list of Twitter usernames."
+            : " "
+        }
         privacyOnChange={handleChange}
         accountsValue={accounts}
         privacyValue={privacy}

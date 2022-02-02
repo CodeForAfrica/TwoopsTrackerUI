@@ -104,7 +104,7 @@ function ModalComponent({
             )}
             {accountsErrorHelper && (
               <FormHelperText
-                className={classes.label}
+                className={classes.error}
                 id="accounts-helper-text"
               >
                 {accountsErrorHelper}
