@@ -48,7 +48,7 @@ function ResetPassword({
       Router.push("/login");
     } else if (result?.data) {
       const field = Object.keys(result.data)[0];
-      setStatus(`${field}: ${result.data[field][0]}`);
+      setStatus(result.data[field][0]);
     }
   };
 
@@ -57,9 +57,9 @@ function ResetPassword({
   };
   const validationSchema = yup.object().shape({
     password: yup
-      .string("Enter your email")
-      .email("Enter a valid email")
-      .required("Email is required"),
+      .string("Enter your password")
+      .min(8, "Password should be of minimum 8 characters length")
+      .required("Password is required"),
   });
 
   if (!(uid && token)) {
