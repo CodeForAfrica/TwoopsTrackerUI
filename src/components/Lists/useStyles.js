@@ -10,16 +10,7 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
       justifyContent: "space-between",
     },
   },
-  createListModal: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    [breakpoints.up("md")]: {
-      justifyContent: "flex-end",
-      alignItems: "flex-end",
-    },
-  },
+  createListModal: {},
   listItem: {
     marginTop: typography.pxToRem(20),
   },
@@ -30,11 +21,6 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     cursor: "pointer",
     color: palette.primary.main,
     textDecoration: "underline",
-    padding: `${typography.pxToRem(20)} 0`,
-    [breakpoints.up("md")]: {
-      position: "relative",
-      top: typography.pxToRem(60),
-    },
   },
   label: {
     color: "#000",
@@ -51,6 +37,33 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
   },
   actions: {
     width: "100%",
+  },
+  downloadAction: {
+    order: 1,
+    [breakpoints.up("md")]: {
+      order: 0,
+    },
+  },
+  sortAction: {
+    order: 2,
+    [breakpoints.up("md")]: {
+      order: 0,
+    },
+  },
+  otherActions: {
+    order: 0,
+    [breakpoints.up("md")]: {
+      order: 2,
+    },
+  },
+  noLists: {
+    paddingTop: typography.pxToRem(42),
+    [breakpoints.up("md")]: {
+      paddingTop: typography.pxToRem(72),
+    },
+    [breakpoints.up("xl")]: {
+      paddingTop: typography.pxToRem(80),
+    },
   },
 }));
 

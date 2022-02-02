@@ -141,16 +141,10 @@ export const upload = {
   uploadLabel: "Select a File",
 };
 
-export const searchPagination = {
-  pageSizeDefaultValue: "3",
+export const paginationOptions = {
+  pageSizeDefaultValue: 20,
   pageSizeLabel: "Results on Page",
-  pageSizeOptions: [{ value: "10" }, { value: "20" }],
-};
-
-export const listPagination = {
-  pageSizeDefaultValue: "3",
-  pageSizeLabel: "Results on Page",
-  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+  pageSizeOptions: [{ value: 20 }, { value: 50 }],
 };
 
 export const listAccountsPagination = {
