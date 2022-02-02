@@ -59,10 +59,7 @@ function SearchSection({
             <Hidden lgUp implementation="css">
               <SearchGuide
                 {...searchGuideProp}
-                popperOptions={{
-                  placement: "bottom",
-                  positionFixed: true,
-                }}
+                placement="bottom"
                 classes={{ root: classes.help }}
               />
             </Hidden>
