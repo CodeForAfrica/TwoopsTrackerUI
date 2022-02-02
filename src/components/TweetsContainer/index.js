@@ -240,6 +240,7 @@ function TweetsContainer({
   return (
     <>
       <SearchSection
+        {...props}
         days={days}
         location={location}
         onSelection={handleSelection}

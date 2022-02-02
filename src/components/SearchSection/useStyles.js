@@ -10,7 +10,13 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     flexDirection: "column",
     [breakpoints.up("md")]: {
       flexDirection: "row",
+      alignItems: "flex-end",
     },
+  },
+  inputSection: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-end",
   },
   container: {
     display: "flex",
@@ -29,6 +35,9 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     marginRight: typography.pxToRem(15),
   },
   button: {},
+  help: {
+    marginLeft: typography.pxToRem(10),
+  },
 }));
 
 export default useStyles;
