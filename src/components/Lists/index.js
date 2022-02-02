@@ -35,7 +35,6 @@ function Lists({
   const [sort, setSort] = useState(sortProp);
   const [page, setPage] = useState(parseInt(pageProp, 10) || 1);
   // Changes which page is displayed when either page or sort is changed.
-  const [paginating, setPaginating] = useState(false);
   const [pageSize, setPageSize] = useState(parseInt(pageSizeProp, 10) || 20);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -62,7 +61,6 @@ function Lists({
     if (newPage) {
       setPage(newPage);
     }
-    setPaginating(true);
   };
   const handleClickPage = (_, value) => {
     paginate(value);
@@ -91,10 +89,6 @@ function Lists({
   };
 
   const shouldFetch = () => {
-    if (!paginating) {
-      return null;
-    }
-
     let url = `/api/lists`;
     const queryString = getQueryString({
       page,
@@ -113,7 +107,6 @@ function Lists({
   const { data, error, mutate } = useSWR(shouldFetch, fetcher);
 
   useEffect(() => {
-    setPaginating(false);
     if (data) {
       setLists({ ...data });
       setLoading(false);
@@ -134,13 +127,12 @@ function Lists({
       is_private: privacy,
       accounts: accountsMap,
     };
+    setLoading(true);
     try {
       await fetchJson("/api/lists", null, {
         method: "POST",
         body: JSON.stringify(payload),
       });
-
-      setLoading(true);
       mutate();
       setIsError(false);
       setOpen(false);
