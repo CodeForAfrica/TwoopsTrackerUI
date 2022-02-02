@@ -7,12 +7,6 @@ project:
     of civic technology and data journalism labs. All content is released under
     a Creative Commons 4 Attribution Licence. Reuse it to help empower your own
     community.
-
-
-    a
-
-
-    vbdd
   logo: /images/cfa-logo-white-1.png
 contacts:
   title: "STAY IN TOUCH:"
