@@ -1,4 +1,4 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Hidden } from "@material-ui/core";
 import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -50,12 +50,22 @@ function SearchSection({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item lg={7} xs={12}>
+          <Grid item lg={7} xs={12} className={classes.inputSection}>
             <Search
               defaultValue={query || undefined}
               onChange={onSelection}
               onKeyDown={handleKeyDown}
             />
+            <Hidden lgUp implementation="css">
+              <SearchGuide
+                {...searchGuideProp}
+                popperOptions={{
+                  placement: "bottom",
+                  positionFixed: true,
+                }}
+                classes={{ root: classes.help }}
+              />
+            </Hidden>
           </Grid>
           <Grid item lg={5} xs={12} className={classes.filterSection}>
             <Filter
@@ -110,10 +120,13 @@ function SearchSection({
               ]}
               value={location}
             />
-            <SearchGuide
-              {...searchGuideProp}
-              classes={{ root: classes.help }}
-            />
+            <Hidden mdDown implementation="css">
+              <SearchGuide
+                {...searchGuideProp}
+                placement="top-end"
+                classes={{ root: classes.help }}
+              />
+            </Hidden>
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>

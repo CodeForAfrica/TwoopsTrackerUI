@@ -3,6 +3,7 @@ import {
   Popper,
   Fade,
   Paper,
+  ButtonBase,
   Typography,
   IconButton,
   Backdrop,
@@ -22,14 +23,13 @@ const useStyles = makeStyles(
     paper: {
       background: "f7f7f7",
       borderRadius: 0,
-      margin: typography.pxToRem(20),
+      margin: typography.pxToRem(30),
       padding: typography.pxToRem(30),
       [breakpoints.up("md")]: {
-        marginRight: typography.pxToRem(33),
-        marginTop: typography.pxToRem(16),
         width: typography.pxToRem(640),
       },
       [breakpoints.up("lg")]: {
+        margin: `${typography.pxToRem(16)} ${typography.pxToRem(33)} 0 0`,
         width: typography.pxToRem(795),
       },
     },
@@ -40,6 +40,10 @@ const useStyles = makeStyles(
     },
     button: {
       padding: 0,
+    },
+    buttonBase: {
+      display: "block",
+      textAlign: "left",
     },
     backdrop: {
       zIndex: zIndex.modal + 1,
@@ -84,8 +88,8 @@ function SearchGuide({ title, description, ...props }) {
         <HelpIcon />
       </IconButton>
       <Popper
+        {...props}
         open={Boolean(anchorEl)}
-        placement="top-end"
         anchorEl={anchorEl}
         className={classes.popper}
         transition
@@ -93,12 +97,18 @@ function SearchGuide({ title, description, ...props }) {
         {({ TransitionProps }) => (
           <Fade {...TransitionProps}>
             <Paper className={classes.paper}>
-              <Typography variant="h4" className={classes.title}>
-                {title}
-              </Typography>
-              <RichTypography variant="body2" className={classes.description}>
-                {description}
-              </RichTypography>
+              <ButtonBase
+                component={ButtonBase}
+                onClick={handleClose}
+                className={classes.buttonBase}
+              >
+                <Typography variant="h4" className={classes.title}>
+                  {title}
+                </Typography>
+                <RichTypography variant="body2" className={classes.description}>
+                  {description}
+                </RichTypography>
+              </ButtonBase>
             </Paper>
           </Fade>
         )}

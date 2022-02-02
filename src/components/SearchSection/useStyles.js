@@ -13,6 +13,11 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
       alignItems: "flex-end",
     },
   },
+  inputSection: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-end",
+  },
   container: {
     display: "flex",
     justifyContent: "space-between",
