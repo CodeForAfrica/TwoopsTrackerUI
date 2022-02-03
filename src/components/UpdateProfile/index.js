@@ -25,6 +25,7 @@ function Update({
   changePasswordLink,
   successLabel,
   errorLabel,
+  buttonLabel,
   ...props
 }) {
   const classes = useStyles(props);
@@ -160,7 +161,7 @@ function Update({
                   helperText={touched.email && errors.email}
                 />
                 <Button type="submit" variant="contained" color="primary">
-                  Submit
+                  {buttonLabel}
                 </Button>
               </form>
             )}
@@ -182,6 +183,7 @@ Update.propTypes = {
   changePasswordLink: PropTypes.string,
   successLabel: PropTypes.string,
   errorLabel: PropTypes.string,
+  buttonLabel: PropTypes.string,
 };
 
 Update.defaultProps = {
@@ -192,6 +194,7 @@ Update.defaultProps = {
   changePasswordLink: undefined,
   successLabel: undefined,
   errorLabel: undefined,
+  buttonLabel: undefined,
 };
 
 export default Update;
