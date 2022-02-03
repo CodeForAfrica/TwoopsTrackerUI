@@ -35,14 +35,14 @@ about:
     investigative projects across Africa with years of experience across all
     organisations.
   partners:
-    - Code for All
     - Code for Africa
+    - Code for All
   secondaryPartners:
     - ANCIR’s iLAB
     - PesaCheck
     - CivicSignal
     - DRFLab
   primaryPartners:
-    - Code for All
     - Code for Africa
+    - Code for All
 ---
