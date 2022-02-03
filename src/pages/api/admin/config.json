@@ -628,12 +628,12 @@
             },
             {
               "label": "First Name Label",
-              "name": "firstName",
+              "name": "firstNameLabel",
               "widget": "string"
             },
             {
               "label": "Last Name Label",
-              "name": "lastName",
+              "name": "lastNameLabel",
               "widget": "string"
             },
             {

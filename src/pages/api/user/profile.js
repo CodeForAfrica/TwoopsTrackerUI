@@ -8,14 +8,16 @@ export default async function handler(req, res) {
     res.status(401).end();
   }
   if (req.method === "PATCH") {
+    const body = JSON.parse(req?.body);
+
     const options = {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        first_name: JSON.parse(req.body).firstName,
-        last_name: JSON.parse(req.body).lastName,
+        first_name: body?.firstName,
+        last_name: body?.lastName,
       }),
     };
     const results = await fetchJson(
