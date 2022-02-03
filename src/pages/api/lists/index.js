@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
   if (req.method === "POST" || req.method === "PUT") {
     const { body, method } = req;
-    const results = await APIRequest(body, method, null, session);
+    const results = await APIRequest(body, method, session, {});
     return res.status(200).json(results);
   }
 

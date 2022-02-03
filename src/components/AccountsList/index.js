@@ -8,14 +8,16 @@ import useStyles from "./useStyles";
 import Account from "@/twoopstracker/components/Account";
 import ContentActions from "@/twoopstracker/components/ContentActions";
 import ListModal from "@/twoopstracker/components/ListModal";
+import Pagination from "@/twoopstracker/components/Pagination";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
+import getQueryString from "@/twoopstracker/utils/getQueryString";
 
 function AccountsList({
   apiUrl,
   editable,
   paginationProps,
-  data: { id, name, accounts, is_private: isPrivate },
+  data: { id, name, count, results: accounts, is_private: isPrivate },
   ...props
 }) {
   const classes = useStyles(props);
@@ -24,30 +26,45 @@ function AccountsList({
   const handleClose = () => setOpen(false);
   const [listAccounts, setListAccounts] = useState(accounts);
   const [newAccounts, setNewAccounts] = useState("");
-  const fetcher = (url) => fetchJson(url);
-  const { data, mutate } = useSWR(apiUrl, fetcher);
+  const [page, setPage] = useState();
+  const [pageSize, setPageSize] = useState(3);
+  const [currentCount, setCurrentCount] = useState(count);
+  const fetcher = (url, pg, pSize) => {
+    const queryString = getQueryString({
+      page: pg,
+      pageSize: pSize,
+    });
+    let listURL = url;
+    if (queryString) {
+      listURL = `${listURL}&&${queryString}`;
+    }
+    return fetchJson(listURL);
+  };
+
+  const { data, mutate } = useSWR(
+    [`${apiUrl}/?accounts=true`, page, pageSize],
+    fetcher
+  );
 
   useEffect(() => {
     if (data) {
-      setListAccounts(data.accounts);
+      setListAccounts(data.results);
+      setCurrentCount(data.count);
     }
   }, [data]);
 
+  const handleClickPage = (e, value) => {
+    setPage(value);
+  };
+  const handleClickPageSize = (e, value) => {
+    // Changing pageSize triggers computation of number of pages.
+    setPage(1);
+    setPageSize(value);
+  };
+
   const handleDelete = async (account) => {
-    const filteredAccounts = listAccounts.filter(
-      (acc) => acc.screen_name !== account
-    );
-
-    const payload = {
-      name,
-      accounts: filteredAccounts,
-      owner: 1,
-      is_private: isPrivate,
-    };
-
-    await fetchJson(apiUrl, null, {
-      method: "PUT",
-      body: JSON.stringify(payload),
+    await fetchJson(`${apiUrl}/?del=${account}`, null, {
+      method: "DELETE",
     });
 
     mutate({ ...data });
@@ -60,6 +77,10 @@ function AccountsList({
   };
 
   const handleCreate = async () => {
+    const listData = await fetchJson(`${apiUrl}/?accounts=true`, null, {
+      method: "GET",
+    });
+
     const accountsMap = newAccounts
       .split(",")
       .map((item) => ({ screen_name: item }));
@@ -67,7 +88,7 @@ function AccountsList({
     const payload = {
       name,
       is_private: isPrivate,
-      accounts: [...accountsMap, ...accounts],
+      accounts: [...accountsMap, ...listData.results],
     };
 
     try {
@@ -113,11 +134,19 @@ function AccountsList({
           <Account
             key={account.screen_name}
             account={account}
-            items={listAccounts.length}
+            items={currentCount}
             onDelete={editable ? handleDelete : null}
           />
         );
       })}
+      <Pagination
+        {...paginationProps}
+        count={Math.ceil((currentCount ?? 0) / (pageSize || 10))}
+        onChangePage={handleClickPage}
+        onChangePageSize={handleClickPageSize}
+        page={page}
+        pageSize={pageSize}
+      />
     </Section>
   );
 }
@@ -125,7 +154,7 @@ function AccountsList({
 AccountsList.propTypes = {
   apiUrl: PropTypes.string,
   data: PropTypes.shape({
-    accounts: PropTypes.arrayOf(PropTypes.shape({})),
+    results: PropTypes.arrayOf(PropTypes.shape({})),
     count: PropTypes.number,
     id: PropTypes.number,
     is_private: PropTypes.bool,

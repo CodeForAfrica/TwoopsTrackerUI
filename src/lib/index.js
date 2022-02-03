@@ -41,6 +41,10 @@ export async function lists({ download, page, pageSize, sort }, session) {
   return result;
 }
 
+export async function listAccounts(id, session) {
+  return fetchJson(`${BASE_URL}/accounts/?list[]=${id}`, session);
+}
+
 export async function list(id, session) {
   return fetchJson(`${BASE_URL}/lists/${id}`, session);
 }
@@ -61,10 +65,25 @@ export async function allAccounts(session, pageData) {
   return result;
 }
 
-export async function APIRequest(payload, method, param, session) {
+export async function APIRequest(payload, method, session, query) {
   let url = BASE_URL;
+  const { accounts, listId: param, page, pageSize, del } = query;
 
-  if (param) {
+  const listParams = new URLSearchParams();
+  if (page) {
+    listParams.append("page", query.page);
+  }
+  if (pageSize) {
+    listParams.append("page_size", query.pageSize);
+  }
+
+  if (param && accounts) {
+    url = listParams.toString()
+      ? `${url}/accounts/?list[]=${param}&${listParams.toString()}`
+      : `${url}/accounts/?list[]=${param}`;
+  } else if (del) {
+    url = `${url}/lists/${param}?accounts[]=${del}`;
+  } else if (param) {
     url = `${url}/lists/${param}`;
   } else {
     url = `${url}/lists/`;

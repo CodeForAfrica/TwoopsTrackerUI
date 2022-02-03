@@ -4,13 +4,18 @@ import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
-import { list } from "@/twoopstracker/lib";
+import { listAccountsPagination } from "@/twoopstracker/config";
+import { listAccounts, list } from "@/twoopstracker/lib";
 import { settings } from "@/twoopstracker/lib/cms";
 
 export default function Index({ data, ...props }) {
   return (
     <Page {...props}>
-      <AccountsList data={data} {...props} />
+      <AccountsList
+        data={data}
+        paginationProps={listAccountsPagination}
+        {...props}
+      />
     </Page>
   );
 }
@@ -36,7 +41,10 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const data = await list(paramData.listId, session);
+  const accounts = await listAccounts(paramData.listId, session); // NOTE(Gertrude): Currently returning accounts with different ids than backend even after cache clearing
+  const listData = await list(paramData.listId, session);
+
+  const data = { ...listData, ...accounts };
 
   return {
     props: {
