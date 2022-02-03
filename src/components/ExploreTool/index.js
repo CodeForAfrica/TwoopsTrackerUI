@@ -1,15 +1,15 @@
 import { Typography, Button, Grid, makeStyles } from "@material-ui/core";
-import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
+import Figure from "@/twoopstracker/components/Figure";
 import Section from "@/twoopstracker/components/Section";
 
 const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
     marginTop: typography.pxToRem(60),
     marginBottom: typography.pxToRem(60),
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       marginTop: typography.pxToRem(90),
       marginBottom: typography.pxToRem(90),
     },
@@ -21,14 +21,17 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   description: {
     marginTop: typography.pxToRem(35),
     marginBottom: typography.pxToRem(35),
-    [breakpoints.up("xl")]: {
-      width: typography.pxToRem(561),
-    },
   },
-  imageGrid: {
+  figure: {
     marginTop: typography.pxToRem(35),
-    [breakpoints.up("xl")]: {
+    height: typography.pxToRem(403),
+    width: typography.pxToRem(731),
+    [breakpoints.up("lg")]: {
       marginTop: 0,
+    },
+    [breakpoints.up("xl")]: {
+      height: typography.pxToRem(436.2),
+      width: typography.pxToRem(790.5),
     },
   },
 }));
@@ -46,9 +49,9 @@ function ExploreTool({
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
-        <Grid container>
-          <Grid item lg={5}>
-            <Typography className={classes.title} variant="h2">
+        <Grid container justifyContent="space-between">
+          <Grid item lg={4} xl={5}>
+            <Typography className={classes.title} component="h2" variant="h1">
               {title}
             </Typography>
             <Typography className={classes.description} variant="body1">
@@ -58,8 +61,8 @@ function ExploreTool({
               {buttonText}
             </Button>
           </Grid>
-          <Grid item lg={7} className={classes.imageGrid}>
-            <Image height={436} width={790} src={image} alt={title} />
+          <Grid item>
+            <Figure src={image} alt={title} className={classes.figure} />
           </Grid>
         </Grid>
       </Section>

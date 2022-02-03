@@ -14,7 +14,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       padding: 0,
       flexDirection: "row",
       justifyContent: "flex-end",
@@ -25,16 +25,12 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     borderRadius: 0,
   },
   label: {
-    fontSize: typography.pxToRem(24),
-    fontStyle: "normal",
-    fontWeight: "normal",
-    lineHeight: "149.49%",
     textAlign: "right",
     textTransform: "capitalize",
   },
   menu: {
     margin: 0,
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       marginRight: typography.pxToRem(15),
     },
   },
@@ -67,7 +63,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       textDecoration: "none",
       color: "black",
     },
-    [breakpoints.up("xl")]: {
+    [breakpoints.up("lg")]: {
       padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
       color: "black",
       "&:hover, &:focus, &:focus-within": {
@@ -110,17 +106,18 @@ function Menu({
               text: classes.text,
             }}
           >
-            <Typography variant="body1" className={classes.label}>
+            <Typography variant="body2" className={classes.label}>
               {item.label}
             </Typography>
           </Button>
         </Grid>
       ))}
-      {session?.user?.name ? (
+
+      {session && session.user ? (
         <UserProfile
-          label={session.user.first_name || session.user.name.split(" ")[0]}
-          alt={session.user.name.toLowerCase()}
-          src={session?.user?.image !== "" ? session?.user?.image : userAvator}
+          label={session.user.firstName}
+          alt={session.user.firstName}
+          src={session.user?.image !== "" ? session.user?.image : userAvator}
           logOutLabel={logOutLabel}
           profilePages={profilePages}
           accountLink={accountLink}

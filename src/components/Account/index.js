@@ -9,6 +9,7 @@ import ListModal from "@/twoopstracker/components/ListModal";
 
 function Account({
   account: {
+    account_id: id,
     name,
     screen_name: screenName,
     created_at: createdAt,
@@ -29,7 +30,7 @@ function Account({
 
   const onAccountDelete = async () => {
     try {
-      await onDelete(screenName);
+      await onDelete(id);
       setOpen(true);
     } catch (e) {
       setOpen(false);
@@ -39,12 +40,12 @@ function Account({
   return (
     <div className={classes.root}>
       <Grid container>
-        <Grid item lg={1}>
+        <Grid item lg={2}>
           <div className={classes.icon}>
             <Avatar src={image} className={classes.avatar} />
           </div>
         </Grid>
-        <Grid item lg={5} sm={12} className={classes.detailSection}>
+        <Grid item lg={5} xs={12} className={classes.detailSection}>
           <Typography className={classes.username} variant="h4">
             {name || "Username Username"}
           </Typography>
@@ -66,12 +67,14 @@ function Account({
             </Typography>
           )}
         </Grid>
-        <Grid item lg={5} sm={12} className={classes.buttonSection}>
+        <Grid item lg={5} xs={12} className={classes.buttonSection}>
           {onDelete && (
             <Button
               onClick={handleOpen}
               disabled={items === 1}
               className={classes.delete}
+              variant="contained"
+              color="primary"
             >
               Delete
             </Button>
@@ -91,6 +94,7 @@ function Account({
 
 Account.propTypes = {
   account: PropTypes.shape({
+    account_id: PropTypes.number,
     name: PropTypes.string,
     screen_name: PropTypes.string,
     created_at: PropTypes.string,

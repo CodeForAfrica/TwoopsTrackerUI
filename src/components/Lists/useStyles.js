@@ -6,10 +6,11 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     display: "flex",
     flexDirection: "column",
     [breakpoints.up("md")]: {
-      flexDirection: "row",
+      flexDirection: "column",
       justifyContent: "space-between",
     },
   },
+  createListModal: {},
   listItem: {
     marginTop: typography.pxToRem(20),
   },
@@ -20,12 +21,6 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
     cursor: "pointer",
     color: palette.primary.main,
     textDecoration: "underline",
-    padding: `${typography.pxToRem(20)} 0`,
-    [breakpoints.up("md")]: {
-      position: "relative",
-      top: typography.pxToRem(70),
-      padding: 0,
-    },
   },
   label: {
     color: "#000",
@@ -42,6 +37,33 @@ const useStyles = makeStyles(({ typography, palette, breakpoints }) => ({
   },
   actions: {
     width: "100%",
+  },
+  downloadAction: {
+    order: 1,
+    [breakpoints.up("md")]: {
+      order: 0,
+    },
+  },
+  sortAction: {
+    order: 2,
+    [breakpoints.up("md")]: {
+      order: 0,
+    },
+  },
+  otherActions: {
+    order: 0,
+    [breakpoints.up("md")]: {
+      order: 2,
+    },
+  },
+  noLists: {
+    paddingTop: typography.pxToRem(42),
+    [breakpoints.up("md")]: {
+      paddingTop: typography.pxToRem(72),
+    },
+    [breakpoints.up("xl")]: {
+      paddingTop: typography.pxToRem(80),
+    },
   },
 }));
 

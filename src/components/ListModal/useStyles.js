@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ palette, typography }) => ({
   root: {
     borderBottom: "solid 1px gray",
     paddingBottom: typography.pxToRem(15),
@@ -11,12 +11,10 @@ const useStyles = makeStyles(({ typography }) => ({
     marginBottom: typography.pxToRem(10),
   },
   editButton: {
-    color: "red",
+    color: palette.primary.main,
   },
-  deleteButton: {
-    backgroundColor: "red",
-    color: "#fff",
-    marginLeft: typography.pxToRem(20),
+  error: {
+    color: palette.primary.main,
   },
   label: {
     color: "#000",
@@ -25,6 +23,9 @@ const useStyles = makeStyles(({ typography }) => ({
     color: "#000",
   },
   formControl: {
+    marginBottom: typography.pxToRem(20),
+  },
+  deleteDescription: {
     marginBottom: typography.pxToRem(20),
   },
 }));

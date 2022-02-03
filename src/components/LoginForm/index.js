@@ -1,65 +1,71 @@
-import { Button, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {
+  IconButton,
+  Button,
+  Typography,
+  Grid,
+  TextField,
+  FormHelperText,
+  InputAdornment,
+} from "@material-ui/core";
+import { Formik } from "formik";
 import { useSession, signIn } from "next-auth/react";
+import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import * as yup from "yup";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    color: "white",
-    background: "none",
-    height: "100vh",
-    margin: "auto",
-  },
-  loginButton: {
-    marginBottom: "1rem",
-    width: "100%",
-    color: "white",
-    "&:hover": {
-      color: "#000",
-    },
-    backgroundColor: theme.palette.primary.main,
-    fontWeight: 800,
-    fontSize: theme.typography.subtitle2.fontSize,
-    height: "3rem",
-    [theme.breakpoints.up("xl")]: {
-      fontSize: theme.typography.subtitle1.fontSize,
-      height: "3.5rem",
-      paddingLeft: "2rem",
-      paddingRight: "2rem",
-    },
-  },
-  buttonContainer: {
-    paddingTop: "1rem",
-    width: "400px",
-    [theme.breakpoints.between("xs", "xs")]: {
-      width: "95vw",
-    },
-    "& .MuiLink-underlineHover": {
-      "&:hover": {
-        textDecoration: "none",
-      },
-    },
-  },
-  formStyles: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  item: {
-    color: "black",
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-}));
+import useStyles from "./useStyles";
 
-function Login({ providers: providersProp, ...props }) {
+import Link from "@/twoopstracker/components/Link";
+import Section from "@/twoopstracker/components/Section";
+
+function Login({
+  providers: providersProp,
+  title,
+  description,
+  forgotPasswordLink,
+  forgotPasswordPrompt,
+  signupPrompt,
+  signUpLink,
+  signUpText,
+  googleIcon,
+  passwordIcon,
+  ...props
+}) {
   const classes = useStyles(props);
   const { data: session } = useSession();
+  const [isPassword, setIsPassword] = useState(true);
+
+  const togglePasswordType = () => {
+    setIsPassword(!isPassword);
+  };
+
+  const handleSubmit = async (values, { setStatus }) => {
+    const res = await signIn("credentials", { ...values, redirect: false });
+    if (res.error) {
+      setStatus(res.error);
+    } else if (res.ok) {
+      Router.push("/explore ");
+    }
+  };
+
+  const initialValues = {
+    email: "",
+    password: "",
+    type: "login",
+  };
+
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+    password: yup
+      .string("Enter your password")
+      .min(8, "Password should be of minimum 8 characters length")
+      .required("Password is required"),
+  });
 
   useEffect(() => {
     if (session) {
@@ -68,48 +74,178 @@ function Login({ providers: providersProp, ...props }) {
   }, [session]);
 
   const providers = Object.values(providersProp ?? {});
-  if (!providers?.length) {
-    return null;
-  }
+
   return (
-    <Grid
-      container
-      justifyContent="space-around"
-      alignItems="center"
-      className={classes.root}
-    >
-      <Grid item xs={12} className={classes.item}>
-        <form noValidate className={classes.formStyles}>
+    <Section className={classes.section}>
+      <Grid container>
+        <Grid item xs={12} md={7} className={classes.container}>
+          <Typography variant="h2">{title}</Typography>
+          <Typography className={classes.text}>{description}</Typography>
+          <Formik
+            onSubmit={handleSubmit}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+          >
+            {({
+              errors,
+              handleSubmit: handleSubmitProp,
+              handleChange,
+              touched,
+              status,
+            }) => (
+              <form className={classes.form} onSubmit={handleSubmitProp}>
+                {status?.length && (
+                  <FormHelperText
+                    component="div"
+                    error
+                    classes={{ root: classes.textfield }}
+                  >
+                    <Typography variant="caption">{status}</Typography>
+                  </FormHelperText>
+                )}
+                <TextField
+                  className={classes.textfield}
+                  InputLabelProps={{
+                    className: classes.label,
+                    shrink: false,
+                    required: false,
+                  }}
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  autoComplete="email"
+                  name="email"
+                  variant="outlined"
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  autoFocus
+                  color="secondary"
+                  onChange={handleChange}
+                  error={touched.email && Boolean(errors.email)}
+                  helperText={touched.email && errors.email}
+                />
+
+                <TextField
+                  className={classes.textfield}
+                  InputLabelProps={{
+                    className: classes.label,
+                    shrink: false,
+                    required: false,
+                  }}
+                  InputProps={{
+                    className: classes.input,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          className={classes.passwordButton}
+                          onClick={() => togglePasswordType()}
+                        >
+                          <Image
+                            height={45}
+                            width={45}
+                            src={passwordIcon}
+                            alt=""
+                          />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type={isPassword ? "password" : "text"}
+                  id="password"
+                  autoComplete="current-password"
+                  color="secondary"
+                  onChange={handleChange}
+                  error={touched.password && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
+                />
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Login
+                </Button>
+              </form>
+            )}
+          </Formik>
           <div className={classes.buttonContainer}>
-            {providers.map((provider) => (
-              <Button
-                key={provider.name}
-                variant="contained"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() =>
-                  signIn(provider.id, {
-                    callbackUrl: `${window.location.origin}/explore`,
-                  })
+            {!session &&
+              providers &&
+              Object.values(providers).map((provider) => {
+                if (provider.id === "google") {
+                  return (
+                    <Button
+                      key={provider.name}
+                      value="Subscribe"
+                      name="submit"
+                      id="mc-embedded-subscribe-form"
+                      variant="contained"
+                      className={classes.loginButton}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() =>
+                        signIn(provider.id, {
+                          callbackUrl: `${window.location.origin}/explore`,
+                        })
+                      }
+                    >
+                      <Image height={45} width={45} src={googleIcon} alt="" />
+                      <Typography className={classes.signinText}>
+                        Sign in with {provider.name}
+                      </Typography>
+                    </Button>
+                  );
                 }
-                className={classes.loginButton}
-              >
-                Sign in with {provider.name}
-              </Button>
-            ))}
+                return null;
+              })}
           </div>
-        </form>
+          <Button
+            component={Link}
+            href={forgotPasswordLink}
+            classes={{ text: classes.passwordText }}
+          >
+            {forgotPasswordPrompt}
+          </Button>
+          <Typography className={classes.text}>
+            {signupPrompt} <Link href={signUpLink}>{signUpText}</Link>
+          </Typography>
+        </Grid>
       </Grid>
-    </Grid>
+    </Section>
   );
 }
 
 Login.propTypes = {
   providers: PropTypes.shape({}),
+  title: PropTypes.string,
+  description: PropTypes.string,
+  forgotPasswordLink: PropTypes.string,
+  forgotPasswordPrompt: PropTypes.string,
+  signupPrompt: PropTypes.string,
+  signUpText: PropTypes.string,
+  signUpLink: PropTypes.string,
+  googleIcon: PropTypes.string,
+  passwordIcon: PropTypes.string,
 };
 
 Login.defaultProps = {
   providers: undefined,
+  title: undefined,
+  forgotPasswordPrompt: undefined,
+  description: undefined,
+  forgotPasswordLink: undefined,
+  signupPrompt: undefined,
+  signUpLink: undefined,
+  signUpText: undefined,
+  googleIcon: undefined,
+  passwordIcon: undefined,
 };
 
 export default Login;

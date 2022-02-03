@@ -22,8 +22,8 @@ function Update({
   const { data: session } = useSession();
 
   const [form, setForm] = useState({
-    firstName: session.user.first_name,
-    lastName: session.user.last_name,
+    firstName: session.user.firstName,
+    lastName: session.user.lastName,
   });
 
   const formChanged = (event) => {

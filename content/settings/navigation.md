@@ -15,7 +15,7 @@ main:
     href: /about
 login:
   - label: Sign up
-    href: /login
+    href: /signup
     icon:
       src: /images/signup.svg
   - label: Login

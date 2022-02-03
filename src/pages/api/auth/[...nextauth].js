@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
 import fetchJson from "@/twoopstracker/utils/fetchJson";
@@ -72,6 +73,47 @@ async function fetchRefreshedToken({ token: currentToken }) {
 const options = {
   // Configure one or more authentication providers
   providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      async authorize(credentials) {
+        // Add logic here to look up the user from the credentials supplied
+        const authBody = {
+          email: credentials.email,
+          password: credentials.password,
+        };
+        try {
+          const response = await fetch(
+            `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}login/`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(authBody),
+            }
+          );
+          const result = await response.json();
+          if (response.ok && result) {
+            const {
+              access_token: accessToken,
+              refresh_token: refreshToken,
+              user,
+            } = result;
+
+            return {
+              exp: jwtDecode(accessToken).exp * 1000,
+              accessToken,
+              refreshToken,
+              user,
+            };
+          }
+          const [error] = Object.values(result);
+          throw new Error(error);
+        } catch (e) {
+          throw new Error(e.message);
+        }
+      },
+    }),
     GoogleProvider({
       clientId: process.env.NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_ID,
       clientSecret: process.env.NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_SECRET,
@@ -98,7 +140,10 @@ const options = {
         if (OAUTH_PROVIDERS.includes(account.provider)) {
           return fetchNewToken({ account, user });
         }
-        // TODO(kilemensi): Handle for non-oauth accounts
+
+        if (account.provider === "credentials") {
+          return user;
+        }
       }
       // when updated: e.g. when session is accessed in the client
       //               return current token if the access token
@@ -117,7 +162,12 @@ const options = {
         token
       );
       const newToken = token;
-      newToken.user = { ...token.user, ...user };
+      newToken.user = {
+        ...token?.user,
+        ...user,
+        firstName: user?.first_name ?? user?.name?.split(" ")[0],
+        lastName: user?.last_name,
+      };
       if (!(session && token)) {
         return null;
       }

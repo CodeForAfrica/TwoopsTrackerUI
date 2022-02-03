@@ -4,24 +4,45 @@ import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 const BASE_URL = process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL;
 
-export async function lists(session, pageData) {
-  const listParams = new URLSearchParams();
-
-  if (pageData.page) {
-    listParams.append("page", pageData.page);
+export async function lists({ download, page, pageSize, sort }, session) {
+  const searchParams = new URLSearchParams();
+  if (download) {
+    searchParams.append("download", download);
   }
-  if (pageData.pageSize) {
-    listParams.append("page_size", pageData.pageSize);
+  if (page) {
+    searchParams.append("page", page);
   }
-  if (pageData.download) {
-    listParams.append("download", pageData.download);
+  if (pageSize) {
+    searchParams.append("page_size", pageSize);
+  }
+  if (sort) {
+    let sortBy;
+    switch (sort.replace(/^-/, "")) {
+      case "created-at":
+        sortBy = "created_at";
+        break;
+      case "name":
+        sortBy = "name";
+        break;
+      default:
+        sortBy = null;
+        break;
+    }
+    if (sortBy) {
+      const sortOrder = sort.startsWith("-") ? "-" : "";
+      searchParams.append("ordering", `${sortOrder}${sortBy}`);
+    }
   }
 
   const result = await fetchJson(
-    `${BASE_URL}/lists/?${listParams.toString()}`,
+    `${BASE_URL}/lists/?${searchParams.toString()}`,
     session
   );
   return result;
+}
+
+export async function listAccounts(id, session) {
+  return fetchJson(`${BASE_URL}/accounts/?list[]=${id}`, session);
 }
 
 export async function list(id, session) {
@@ -44,10 +65,25 @@ export async function allAccounts(session, pageData) {
   return result;
 }
 
-export async function APIRequest(payload, method, param, session) {
+export async function APIRequest(payload, method, session, query) {
   let url = BASE_URL;
+  const { accounts, listId: param, page, pageSize, del } = query;
 
-  if (param) {
+  const listParams = new URLSearchParams();
+  if (page) {
+    listParams.append("page", query.page);
+  }
+  if (pageSize) {
+    listParams.append("page_size", query.pageSize);
+  }
+
+  if (param && accounts) {
+    url = listParams.toString()
+      ? `${url}/accounts/?list[]=${param}&${listParams.toString()}`
+      : `${url}/accounts/?list[]=${param}`;
+  } else if (del) {
+    url = `${url}/lists/${param}?accounts[]=${del}`;
+  } else if (param) {
     url = `${url}/lists/${param}`;
   } else {
     url = `${url}/lists/`;
@@ -67,7 +103,7 @@ export async function APIRequest(payload, method, param, session) {
   return fetchJson(url, session, options);
 }
 
-export function tweetsSearchParamFromSearchQuery({
+export function tweetsSearchParamsFromSearchQuery({
   category,
   query,
   location,
@@ -75,6 +111,7 @@ export function tweetsSearchParamFromSearchQuery({
   page,
   pageSize,
   download,
+  sort,
 }) {
   const searchParams = new URLSearchParams();
   if (query) {
@@ -86,9 +123,33 @@ export function tweetsSearchParamFromSearchQuery({
   if (location) {
     searchParams.append("location", location);
   }
+  if (sort) {
+    let sortBy;
+    switch (sort.replace(/^-/, "")) {
+      case "created-at":
+        sortBy = "created_at";
+        break;
+      case "deleted-at":
+        sortBy = "deleted_at";
+        break;
+      case "owner-screen-name":
+        sortBy = "owner__screen_name";
+        break;
+      default:
+        sortBy = null;
+        break;
+    }
+    if (sortBy) {
+      const sortOrder = sort.startsWith("-") ? "-" : "";
+      searchParams.append("ordering", `${sortOrder}${sortBy}`);
+    }
+  }
   const date = new Date();
-  const endDate = date.toISOString().substr(0, 10);
-  const startDate = subDays(date, days).toISOString().substr(0, 10);
+  const endDate = date.toISOString().substring(0, 10);
+  // Ensure we load data for at least 1 day
+  const startDate = subDays(date, Math.max(days, 1))
+    .toISOString()
+    .substring(0, 10);
   searchParams.append("start_date", startDate);
   searchParams.append("end_date", endDate);
   if (page) {
@@ -107,13 +168,33 @@ export function tweetsSearchParamFromSearchQuery({
 }
 
 export function tweetsUserQuery(requestQuery) {
-  const { query, theme, location, days, page, pageSize, download, category } =
-    requestQuery;
+  const {
+    query,
+    theme,
+    location,
+    days,
+    page,
+    pageSize,
+    download,
+    category,
+    sort,
+  } = requestQuery;
 
-  return { query, theme, location, days, page, pageSize, download, category };
+  return {
+    query,
+    theme,
+    location,
+    days,
+    page,
+    pageSize,
+    download,
+    category,
+    sort,
+  };
 }
 
 export function tweetsSearchQueryFromUserQuery(userQuery) {
+  // this one
   const {
     query: term,
     theme,
@@ -123,24 +204,42 @@ export function tweetsSearchQueryFromUserQuery(userQuery) {
     page,
     pageSize,
     download,
+    sort,
   } = userQuery || {};
-  let query = term || theme;
-  if (query && theme) {
-    query = `(${query} AND ${theme})`;
+
+  let query;
+  if (theme) {
+    query = theme;
+  } else {
+    query = term;
   }
+  if (term && theme) {
+    query = `${term} "${theme}"`;
+  }
+
   let days = parseInt(daysAsString, 10) || undefined;
-  if (days > 30) {
-    days = 30;
+  if (days > 90) {
+    days = 90;
   }
-  return { category, query, location, days, page, pageSize, download };
+  return {
+    category,
+    query,
+    location,
+    days,
+    page,
+    pageSize,
+    download,
+    sort,
+  };
 }
 
 export async function tweets(requestQuery, session) {
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQuery)
   );
-  const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+  const searchParams = tweetsSearchParamsFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/?${searchParams.toString()}`;
+
   return fetchJson(url, session);
 }
 
@@ -150,7 +249,7 @@ export async function tweetsInsights(requestQuery, session) {
   const searchQuery = tweetsSearchQueryFromUserQuery(
     tweetsUserQuery(requestQueryQuery)
   );
-  const searchParams = tweetsSearchParamFromSearchQuery(searchQuery);
+  const searchParams = tweetsSearchParamsFromSearchQuery(searchQuery);
   const url = `${BASE_URL}/tweets/insights?${searchParams.toString()}`;
   return fetchJson(url, session);
 }
@@ -207,8 +306,8 @@ export async function postSavedSearch(payload, session) {
   const d = days ?? 7;
 
   const date = new Date();
-  const endDate = date.toISOString().substr(0, 10);
-  const startDate = subDays(date, d).toISOString().substr(0, 10);
+  const endDate = date.toISOString().substring(0, 10);
+  const startDate = subDays(date, d).toISOString().substring(0, 10);
 
   const options = {
     method: "POST",

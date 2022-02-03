@@ -261,75 +261,6 @@
           ]
         },
         {
-          "label": "Update Profile",
-          "name": "updateProfile",
-          "file": "content/pages/account/update.md",
-          "fields": [
-            {
-              "label": "Title",
-              "name": "title",
-              "widget": "string"
-            },
-            {
-              "label": "First Name Label",
-              "name": "firstName",
-              "widget": "string"
-            },
-            {
-              "label": "Last Name Label",
-              "name": "lastName",
-              "widget": "string"
-            },
-            {
-              "label": "Change Password Label",
-              "name": "changePasswordLabel",
-              "widget": "string"
-            },
-            {
-              "label": "Change Password Link",
-              "name": "changePasswordLink",
-              "widget": "string"
-            },
-            {
-              "label": "Update Label",
-              "name": "updateLabel",
-              "widget": "string"
-            }
-          ]
-        },
-        {
-          "label": "Update Password",
-          "name": "updatePassword",
-          "file": "content/pages/account/updatePassword.md",
-          "fields": [
-            {
-              "label": "Title",
-              "name": "title",
-              "widget": "string"
-            },
-            {
-              "label": "Description",
-              "name": "firstName",
-              "widget": "string"
-            },
-            {
-              "label": "Password 1 Label",
-              "name": "password1Label",
-              "widget": "string"
-            },
-            {
-              "label": "Password 2 Label",
-              "name": "password2Label",
-              "widget": "string"
-            },
-            {
-              "label": "Update Label",
-              "name": "updateLabel",
-              "widget": "string"
-            }
-          ]
-        },
-        {
           "label": "Investigations",
           "name": "investigations",
           "file": "content/pages/investigations.md",
@@ -382,6 +313,40 @@
                   "name": "cta",
                   "widget": "string",
                   "default": "View PDF"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Explore",
+          "name": "explore",
+          "file": "content/pages/explore.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Publish Date",
+              "name": "date",
+              "widget": "datetime"
+            },
+            {
+              "label": "Search Guide",
+              "name": "searchGuide",
+              "widget": "object",
+              "fields": [
+                {
+                  "label": "Title",
+                  "name": "title",
+                  "widget": "string"
+                },
+                {
+                  "label": "Description",
+                  "name": "description",
+                  "widget": "markdown"
                 }
               ]
             }
@@ -642,6 +607,278 @@
                   ]
                 }
               ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Account",
+      "label": "Account",
+      "files": [
+        {
+          "label": "Update Profile",
+          "name": "updateProfile",
+          "file": "content/pages/account/update.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "First Name Label",
+              "name": "firstName",
+              "widget": "string"
+            },
+            {
+              "label": "Last Name Label",
+              "name": "lastName",
+              "widget": "string"
+            },
+            {
+              "label": "Success Label",
+              "name": "successLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Error Label",
+              "name": "errorLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Change Password Label",
+              "name": "changePasswordLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Change Password Link",
+              "name": "changePasswordLink",
+              "widget": "string"
+            },
+            {
+              "label": "Update Label",
+              "name": "updateLabel",
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "label": "Update Password",
+          "name": "updatePassword",
+          "file": "content/pages/account/updatePassword.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Description",
+              "name": "firstName",
+              "widget": "string"
+            },
+            {
+              "label": "Password 1 Label",
+              "name": "password1Label",
+              "widget": "string"
+            },
+            {
+              "label": "Password 2 Label",
+              "name": "password2Label",
+              "widget": "string"
+            },
+            {
+              "label": "Update Label",
+              "name": "updateLabel",
+              "widget": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "label": "Authentication & Registration",
+      "files": [
+        {
+          "label": "Sign In",
+          "name": "login",
+          "file": "content/pages/auth/login.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Description",
+              "name": "description",
+              "widget": "string"
+            },
+            {
+              "label": "SignUp Prompt",
+              "name": "signupPrompt",
+              "widget": "string"
+            },
+            {
+              "label": "SignUp Link",
+              "name": "signupLink",
+              "widget": "string"
+            },
+            {
+              "label": "SignUp Text",
+              "name": "signupText",
+              "widget": "string"
+            },
+            {
+              "label": "Forgot Password Prompt",
+              "name": "forgotPasswordPrompt",
+              "widget": "string"
+            },
+            {
+              "label": "Forgot Password Link",
+              "name": "forgotPasswordLink",
+              "widget": "string"
+            },
+            {
+              "label": "Google Icon",
+              "name": "googleIcon",
+              "widget": "image"
+            },
+            {
+              "label": "Password Icon",
+              "name": "passwordIcon",
+              "widget": "image"
+            }
+          ]
+        },
+        {
+          "label": "Sign Up",
+          "name": "SignUp",
+          "file": "content/pages/auth/register.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Description",
+              "name": "description",
+              "widget": "string"
+            },
+            {
+              "label": "Login Prompt",
+              "name": "loginPrompt",
+              "widget": "string"
+            },
+            {
+              "label": "Login Text",
+              "name": "loginText",
+              "widget": "string"
+            },
+            {
+              "label": "Error Label",
+              "name": "errorLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Google Icon",
+              "name": "googleIcon",
+              "widget": "image"
+            },
+            {
+              "label": "Password Icon",
+              "name": "passwordIcon",
+              "widget": "image"
+            }
+          ]
+        },
+        {
+          "label": "Verify Email",
+          "name": "VerifyEmail",
+          "file": "content/pages/auth/verify-email.md",
+          "fields": [
+            {
+              "label": "Category",
+              "name": "category",
+              "widget": "object",
+              "fields": [
+                {
+                  "label": "Registration",
+                  "name": "register",
+                  "widget": "object",
+                  "fields": [
+                    {
+                      "label": "Title",
+                      "name": "title",
+                      "widget": "string"
+                    },
+                    {
+                      "label": "Descripion",
+                      "name": "description",
+                      "widget": "markdown"
+                    }
+                  ]
+                },
+                {
+                  "label": "Reset Password",
+                  "name": "resetPassword",
+                  "widget": "object",
+                  "fields": [
+                    {
+                      "label": "Title",
+                      "name": "title",
+                      "widget": "string"
+                    },
+                    {
+                      "label": "Descripion",
+                      "name": "description",
+                      "widget": "markdown"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Forgot Password",
+          "name": "fgPassword",
+          "file": "content/pages/auth/forgot-password.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Description",
+              "name": "description",
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "label": "Reset Password",
+          "name": "rsPassword",
+          "file": "content/pages/auth/reset-password.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Description",
+              "name": "description",
+              "widget": "string"
+            },
+            {
+              "label": "Password Icon",
+              "name": "passwordIcon",
+              "widget": "image"
             }
           ]
         }

@@ -1,4 +1,4 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Hidden } from "@material-ui/core";
 import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -9,6 +9,7 @@ import Filter from "@/twoopstracker/components/Filter";
 import Link from "@/twoopstracker/components/Link";
 import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
 import Search from "@/twoopstracker/components/Search";
+import SearchGuide from "@/twoopstracker/components/SearchGuide";
 import Section from "@/twoopstracker/components/Section";
 
 function SearchSection({
@@ -20,6 +21,7 @@ function SearchSection({
   onSearch,
   query,
   theme,
+  searchGuide: searchGuideProp,
   ...props
 }) {
   const classes = useStyles(props);
@@ -38,7 +40,6 @@ function SearchSection({
       onSaveSearch(name);
     }
   };
-
   const handleKeyDown = (e) => {
     if (onSearch && e.key === "Enter") {
       onSearch(e);
@@ -49,16 +50,22 @@ function SearchSection({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item xl={7} xs={12}>
+          <Grid item lg={7} xs={12} className={classes.inputSection}>
             <Search
               defaultValue={query || undefined}
               onChange={onSelection}
               onKeyDown={handleKeyDown}
             />
+            <Hidden lgUp implementation="css">
+              <SearchGuide
+                {...searchGuideProp}
+                placement="bottom"
+                classes={{ root: classes.help }}
+              />
+            </Hidden>
           </Grid>
-          <Grid item xl={5} xs={12} className={classes.filterSection}>
+          <Grid item lg={5} xs={12} className={classes.filterSection}>
             <Filter
-              key={days}
               label="Days"
               handleSelection={onSelection}
               menuItems={[
@@ -67,11 +74,11 @@ function SearchSection({
                 { name: "Last 7 Days", value: "7" },
                 { name: "Last 14 Days", value: "14" },
                 { name: "Last 30 Days", value: "30" },
+                { name: "Last 90 Days", value: "90" },
               ]}
               value={days}
             />
             <Filter
-              key={theme}
               label="Theme"
               handleSelection={onSelection}
               menuItems={[
@@ -83,7 +90,6 @@ function SearchSection({
               value={theme}
             />
             <Filter
-              key={category}
               label="Category"
               handleSelection={onSelection}
               menuItems={[
@@ -101,7 +107,6 @@ function SearchSection({
               value={category}
             />
             <Filter
-              key={location}
               label="Location"
               handleSelection={onSelection}
               menuItems={[
@@ -112,6 +117,13 @@ function SearchSection({
               ]}
               value={location}
             />
+            <Hidden mdDown implementation="css">
+              <SearchGuide
+                {...searchGuideProp}
+                placement="top-end"
+                classes={{ root: classes.help }}
+              />
+            </Hidden>
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
@@ -181,6 +193,7 @@ SearchSection.propTypes = {
   onSearch: PropTypes.func,
   query: PropTypes.string,
   theme: PropTypes.string,
+  searchGuide: PropTypes.shape({}),
 };
 
 SearchSection.defaultProps = {
@@ -192,6 +205,7 @@ SearchSection.defaultProps = {
   onSearch: undefined,
   query: undefined,
   theme: undefined,
+  searchGuide: undefined,
 };
 
 export default SearchSection;

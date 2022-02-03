@@ -8,8 +8,6 @@ const useStyles = makeStyles(({ palette, typography }) => ({
     padding: `${typography.pxToRem(10)} ${typography.pxToRem(20)}`,
     marginLeft: typography.pxToRem(10),
     marginTop: typography.pxToRem(10),
-    borderRadius: typography.pxToRem(50),
-    color: palette.text.primary,
   },
   dialog: {
     padding: typography.pxToRem(30),
@@ -105,7 +103,7 @@ function SavedSearchDialog({
         <Grid item xs={12}>
           <Button
             onClick={handleClose}
-            variant="outlined"
+            variant="contained"
             color="primary"
             className={classes.button}
           >
@@ -113,7 +111,7 @@ function SavedSearchDialog({
           </Button>
           <Button
             onClick={handleClick}
-            variant="outlined"
+            variant="contained"
             color="primary"
             className={classes.button}
           >

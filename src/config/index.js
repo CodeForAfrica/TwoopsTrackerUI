@@ -63,6 +63,15 @@ export const navigationArgs = {
   },
 };
 
+export const login = {
+  title: "Welcome back",
+  description: "Login to access all the features on TrollTracker",
+  signupPrompt: "New to Trolltracker?",
+  signUpLink: "Sign up now",
+  href: "/signup",
+  password: "Forgot password?",
+};
+
 export const searches = [
   {
     name: "Search name",
@@ -132,13 +141,13 @@ export const upload = {
   uploadLabel: "Select a File",
 };
 
-export const searchPagination = {
-  pageSizeDefaultValue: "3",
+export const paginationOptions = {
+  pageSizeDefaultValue: 20,
   pageSizeLabel: "Results on Page",
-  pageSizeOptions: [{ value: "10" }, { value: "20" }],
+  pageSizeOptions: [{ value: 20 }, { value: 50 }],
 };
 
-export const listPagination = {
+export const listAccountsPagination = {
   pageSizeDefaultValue: "3",
   pageSizeLabel: "Results on Page",
   pageSizeOptions: [{ value: "10" }, { value: "20" }],
