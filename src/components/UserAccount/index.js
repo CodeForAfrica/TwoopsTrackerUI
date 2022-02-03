@@ -1,4 +1,4 @@
-import { Typography, Divider, Grid, Button, Link } from "@material-ui/core";
+import { Typography, Divider, Grid, Button } from "@material-ui/core";
 import { useSession } from "next-auth/react";
 import React from "react";
 
@@ -6,6 +6,7 @@ import useStyles from "./useStyles";
 
 import UserIcon from "@/twoopstracker/assets/icons/avator.svg";
 import Figure from "@/twoopstracker/components/Figure";
+import Link from "@/twoopstracker/components/Link";
 
 function UserAccount({ ...props }) {
   const classes = useStyles(props);
