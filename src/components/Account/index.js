@@ -1,9 +1,11 @@
-import { Grid, Typography, Button, Avatar } from "@material-ui/core";
+import { Grid, Typography, Button } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
+import UserIcon from "@/twoopstracker/assets/icons/user.svg";
+import Figure from "@/twoopstracker/components/Figure";
 import Link from "@/twoopstracker/components/Link";
 import ListModal from "@/twoopstracker/components/ListModal";
 
@@ -27,6 +29,7 @@ function Account({
   const classes = useStyles(props);
 
   const date = new Date(createdAt);
+  const profileImage = image?.replace("_normal", "");
 
   const onAccountDelete = async () => {
     try {
@@ -41,9 +44,9 @@ function Account({
     <div className={classes.root}>
       <Grid container>
         <Grid item lg={2}>
-          <div className={classes.icon}>
-            <Avatar src={image} className={classes.avatar} />
-          </div>
+          <Grid item>
+            <Figure src={profileImage || UserIcon} className={classes.icon} />
+          </Grid>
         </Grid>
         <Grid item lg={5} xs={12} className={classes.detailSection}>
           <Typography className={classes.username} variant="h4">

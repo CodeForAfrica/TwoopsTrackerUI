@@ -18,6 +18,10 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     width: typography.pxToRem(165),
     height: typography.pxToRem(165),
     border: `solid 1px`,
+    "& img": {
+      borderRadius: "50%",
+      padding: `${typography.pxToRem(22)} !important`,
+    },
   },
   detailSection: {
     marginLeft: 0,
