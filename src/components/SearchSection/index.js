@@ -1,4 +1,4 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Hidden } from "@material-ui/core";
 import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -9,6 +9,7 @@ import Filter from "@/twoopstracker/components/Filter";
 import Link from "@/twoopstracker/components/Link";
 import SavedSearchDialog from "@/twoopstracker/components/SavedSearchDialog";
 import Search from "@/twoopstracker/components/Search";
+import SearchGuide from "@/twoopstracker/components/SearchGuide";
 import Section from "@/twoopstracker/components/Section";
 
 function SearchSection({
@@ -20,6 +21,7 @@ function SearchSection({
   onSearch,
   query,
   theme,
+  searchGuide: searchGuideProp,
   ...props
 }) {
   const classes = useStyles(props);
@@ -48,12 +50,19 @@ function SearchSection({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item lg={7} xs={12}>
+          <Grid item lg={7} xs={12} className={classes.inputSection}>
             <Search
               defaultValue={query || undefined}
               onChange={onSelection}
               onKeyDown={handleKeyDown}
             />
+            <Hidden lgUp implementation="css">
+              <SearchGuide
+                {...searchGuideProp}
+                placement="bottom"
+                classes={{ root: classes.help }}
+              />
+            </Hidden>
           </Grid>
           <Grid item lg={5} xs={12} className={classes.filterSection}>
             <Filter
@@ -108,6 +117,13 @@ function SearchSection({
               ]}
               value={location}
             />
+            <Hidden mdDown implementation="css">
+              <SearchGuide
+                {...searchGuideProp}
+                placement="top-end"
+                classes={{ root: classes.help }}
+              />
+            </Hidden>
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
@@ -177,6 +193,7 @@ SearchSection.propTypes = {
   onSearch: PropTypes.func,
   query: PropTypes.string,
   theme: PropTypes.string,
+  searchGuide: PropTypes.shape({}),
 };
 
 SearchSection.defaultProps = {
@@ -188,6 +205,7 @@ SearchSection.defaultProps = {
   onSearch: undefined,
   query: undefined,
   theme: undefined,
+  searchGuide: undefined,
 };
 
 export default SearchSection;

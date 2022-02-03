@@ -1,12 +1,13 @@
 import * as md from "./md";
 
 import aboutContent from "@/cms/pages/about.md";
-import fgPasswordContent from "@/cms/pages/account/forgot-password.md";
-import loginContent from "@/cms/pages/account/login.md";
-import signUpContent from "@/cms/pages/account/register.md";
-import rsPasswordContent from "@/cms/pages/account/reset-password.md";
 import updateProfileContent from "@/cms/pages/account/update.md";
-import verifyEmailContent from "@/cms/pages/account/verify-email.md";
+import fgPasswordContent from "@/cms/pages/auth/forgot-password.md";
+import loginContent from "@/cms/pages/auth/login.md";
+import signUpContent from "@/cms/pages/auth/register.md";
+import rsPasswordContent from "@/cms/pages/auth/reset-password.md";
+import verifyEmailContent from "@/cms/pages/auth/verify-email.md";
+import exploreContent from "@/cms/pages/explore.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
 import lexiconsContent from "@/cms/pages/lexicons.md";
@@ -112,6 +113,11 @@ function processLexiconsContent() {
       ?.map((resource) => md.renderObjectValuesInline(resource)) ?? null;
 }
 processLexiconsContent();
+
+export function explore() {
+  const { attributes } = exploreContent;
+  return attributes;
+}
 
 export function lexicons() {
   const { attributes } = lexiconsContent;

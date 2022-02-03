@@ -319,6 +319,40 @@
           ]
         },
         {
+          "label": "Explore",
+          "name": "explore",
+          "file": "content/pages/explore.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Publish Date",
+              "name": "date",
+              "widget": "datetime"
+            },
+            {
+              "label": "Search Guide",
+              "name": "searchGuide",
+              "widget": "object",
+              "fields": [
+                {
+                  "label": "Title",
+                  "name": "title",
+                  "widget": "string"
+                },
+                {
+                  "label": "Description",
+                  "name": "description",
+                  "widget": "markdown"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "label": "Lexicons",
           "name": "lexicons",
           "file": "content/pages/lexicons.md",
@@ -628,11 +662,17 @@
               "widget": "string"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "label": "Authentication & Registration",
+      "files": [
         {
           "label": "Sign In",
           "name": "login",
-          "file": "content/pages/account/login.md",
+          "file": "content/pages/auth/login.md",
           "fields": [
             {
               "label": "Title",
@@ -684,7 +724,7 @@
         {
           "label": "Sign Up",
           "name": "SignUp",
-          "file": "content/pages/account/register.md",
+          "file": "content/pages/auth/register.md",
           "fields": [
             {
               "label": "Title",
@@ -726,7 +766,7 @@
         {
           "label": "Verify Email",
           "name": "VerifyEmail",
-          "file": "content/pages/account/verify-email.md",
+          "file": "content/pages/auth/verify-email.md",
           "fields": [
             {
               "label": "Category",
@@ -774,7 +814,7 @@
         {
           "label": "Forgot Password",
           "name": "fgPassword",
-          "file": "content/pages/account/forgot-password.md",
+          "file": "content/pages/auth/forgot-password.md",
           "fields": [
             {
               "label": "Title",
@@ -791,7 +831,7 @@
         {
           "label": "Reset Password",
           "name": "rsPassword",
-          "file": "content/pages/account/reset-password.md",
+          "file": "content/pages/auth/reset-password.md",
           "fields": [
             {
               "label": "Title",

@@ -57,11 +57,18 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
       flexDirection: "row",
     },
   },
+  otherActions: {
+    flexDirection: "column",
+    [breakpoints.up("md")]: {
+      flexDirection: "row",
+    },
+  },
 }));
 
 const ContentActions = forwardRef(function ContentActions(props, ref) {
   const {
     apiUri,
+    children,
     className,
     menuItems,
     onChangeSortBy,
@@ -139,7 +146,7 @@ const ContentActions = forwardRef(function ContentActions(props, ref) {
           <Grid
             item
             xs={12}
-            md={8}
+            md={4}
             container
             justifyContent="flex-end"
             className={classes.sortAction}
@@ -156,6 +163,18 @@ const ContentActions = forwardRef(function ContentActions(props, ref) {
               />
             </Grid>
           </Grid>
+          {children ? (
+            <Grid
+              item
+              xs={12}
+              md={4}
+              container
+              justifyContent="flex-end"
+              className={classes.otherActions}
+            >
+              <Grid item>{children}</Grid>
+            </Grid>
+          ) : null}
         </Grid>
       </Section>
     </div>
@@ -164,6 +183,7 @@ const ContentActions = forwardRef(function ContentActions(props, ref) {
 
 ContentActions.propTypes = {
   apiUri: PropTypes.string,
+  children: PropTypes.node,
   className: PropTypes.string,
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
@@ -180,6 +200,7 @@ ContentActions.propTypes = {
 
 ContentActions.defaultProps = {
   apiUri: undefined,
+  children: undefined,
   className: PropTypes.string,
   menuItems: undefined,
   onChangeSortBy: undefined,

@@ -10,11 +10,7 @@ import Tabs from "@/twoopstracker/components/Tabs";
 import Upload from "@/twoopstracker/components/Upload";
 import UserAccount from "@/twoopstracker/components/UserAccount";
 import UserSearch from "@/twoopstracker/components/UserSearch";
-import {
-  searchPagination,
-  upload,
-  listPagination,
-} from "@/twoopstracker/config";
+import { upload, paginationOptions } from "@/twoopstracker/config";
 import { lists, getSavedSearches } from "@/twoopstracker/lib";
 import { settings } from "@/twoopstracker/lib/cms";
 
@@ -44,19 +40,23 @@ const accountPages = {
   },
 };
 
-function Account({ foundLists, activeSlug, searches, ...props }) {
+function Account({ lists: listsProp, activeSlug, searches, ...props }) {
   const classes = useStyles(props);
   const tabItems = Object.entries(accountPages).map(([slug, values]) => {
     let children;
     switch (slug) {
       case "lists":
         children = (
-          <Lists results={foundLists} paginationProps={listPagination} />
+          <Lists
+            lists={listsProp}
+            paginationProps={paginationOptions}
+            {...props}
+          />
         );
         break;
       case "searches":
         children = (
-          <UserSearch searches={searches} paginationProps={searchPagination} />
+          <UserSearch searches={searches} paginationProps={paginationOptions} />
         );
         break;
       case "data":
@@ -70,6 +70,7 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
     }
     return { ...values, slug, children };
   });
+
   return (
     <Page {...props}>
       <Section classes={{ root: classes.section }}>
@@ -85,15 +86,15 @@ function Account({ foundLists, activeSlug, searches, ...props }) {
 }
 
 Account.propTypes = {
-  foundLists: PropTypes.arrayOf(PropTypes.shape({})),
-  searches: PropTypes.shape({}),
   activeSlug: PropTypes.string,
+  lists: PropTypes.arrayOf(PropTypes.shape({})),
+  searches: PropTypes.shape({}),
 };
 
 Account.defaultProps = {
-  searches: undefined,
-  foundLists: undefined,
   activeSlug: undefined,
+  lists: undefined,
+  searches: undefined,
 };
 
 export async function getServerSideProps(context) {
@@ -108,21 +109,31 @@ export async function getServerSideProps(context) {
     };
   }
 
+  const { query: userQuery } = context;
+  const { page = 1, pageSize = 20, sort = "name" } = userQuery;
   const userName = session?.user?.name;
   const [activeSlug] = params?.slug ?? ["lists"];
   const activePageTitle = accountPages[activeSlug]?.label ?? "Account";
   const title = `${activePageTitle}${userName ? ` | ${userName}` : ""}`;
-  const results = await lists(session, { pageSize: 5 });
-  const searches = await getSavedSearches({ pageSize: 3 }, session);
+  const foundLists = await lists({ page, pageSize, sort }, session);
+  const searches = await getSavedSearches({ page, pageSize }, session);
+
+  const query = {
+    ...userQuery,
+    sort: activeSlug === "lists" ? sort : null,
+    page: ["lists", "searches"].includes(activeSlug) ? page : null,
+    pageSize: ["lists", "searches"].includes(activeSlug) ? pageSize : null,
+  };
 
   return {
     props: {
       ...settings(),
+      ...query,
       activeSlug,
+      lists: foundLists,
       searches,
-      foundLists: results,
-      title,
       session,
+      title,
     },
   };
 }
