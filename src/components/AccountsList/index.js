@@ -29,6 +29,7 @@ function AccountsList({
   const [existingAccounts, setExistingAccounts] = useState(accounts);
   const [page, setPage] = useState();
   const [pageSize, setPageSize] = useState(3);
+  const [currentCount, setCurrentCount] = useState(count);
   const fetcher = (url, pg, pSize) => {
     const queryString = getQueryString({
       page: pg,
@@ -54,6 +55,7 @@ function AccountsList({
   useEffect(() => {
     if (data) {
       setListAccounts(data.results);
+      setCurrentCount(data.count);
     }
 
     if (accountsData) {
@@ -71,7 +73,7 @@ function AccountsList({
   };
 
   const handleDelete = async (account) => {
-    fetchJson(`${apiUrl}/?del=${account}`, null, {
+    await fetchJson(`${apiUrl}/?del=${account}`, null, {
       method: "DELETE",
     });
 
@@ -139,14 +141,14 @@ function AccountsList({
           <Account
             key={account.screen_name}
             account={account}
-            items={listAccounts.length}
+            items={currentCount}
             onDelete={editable ? handleDelete : null}
           />
         );
       })}
       <Pagination
         {...paginationProps}
-        count={Math.ceil((count ?? 0) / (pageSize || 10))}
+        count={Math.ceil((currentCount ?? 0) / (pageSize || 10))}
         onChangePage={handleClickPage}
         onChangePageSize={handleClickPageSize}
         page={page}
