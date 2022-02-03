@@ -692,6 +692,21 @@
               "label": "Button Label",
               "name": "buttonLabel",
               "widget": "string"
+            },
+            {
+              "label": "Password Icon",
+              "name": "passwordIcon",
+              "widget": "image"
+            },
+            {
+              "label": "Success Label",
+              "name": "successLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Error Label",
+              "name": "errorLabel",
+              "widget": "string"
             }
           ]
         }
