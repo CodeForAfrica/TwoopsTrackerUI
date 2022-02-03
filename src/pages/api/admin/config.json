@@ -657,8 +657,8 @@
               "widget": "string"
             },
             {
-              "label": "Update Label",
-              "name": "updateLabel",
+              "label": "Button Label",
+              "name": "buttonLabel",
               "widget": "string"
             }
           ]
@@ -679,18 +679,18 @@
               "widget": "string"
             },
             {
-              "label": "Password 1 Label",
-              "name": "password1Label",
+              "label": "Old Password Label",
+              "name": "oldPasswordLabel",
               "widget": "string"
             },
             {
-              "label": "Password 2 Label",
-              "name": "password2Label",
+              "label": "New Password Label",
+              "name": "newPasswordLabel",
               "widget": "string"
             },
             {
-              "label": "Update Label",
-              "name": "updateLabel",
+              "label": "Button Label",
+              "name": "buttonLabel",
               "widget": "string"
             }
           ]
