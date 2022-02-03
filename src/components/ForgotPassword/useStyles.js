@@ -30,9 +30,6 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   input: {
     background: palette.background.default,
   },
-  button: {
-    marginLeft: typography.pxToRem(10),
-  },
 }));
 
 export default useStyles;

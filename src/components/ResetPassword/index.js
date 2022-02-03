@@ -132,12 +132,7 @@ function ResetPassword({
                   error={touched.password && Boolean(errors.password)}
                   helperText={touched.password && errors.password}
                 />
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                >
+                <Button variant="contained" color="primary" type="submit">
                   Submit
                 </Button>
               </form>
