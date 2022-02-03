@@ -1,7 +1,7 @@
 ---
 title: Edit your details
-firstName: First Name
-lastName: Last Name
+firstNameLabel: First Name
+lastNameLabel: Last Name
 successLabel: Account Successfully Updated!!
 errorLabel: An Error Happened, Try again
 changePasswordLabel: Change your password
