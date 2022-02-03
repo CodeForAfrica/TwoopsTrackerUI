@@ -1,47 +1,50 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ palette, typography }) => ({
   root: {
     flexGrow: 1,
-    color: "white",
-    background: "none",
-    height: "100vh",
-    margin: "auto",
   },
   section: {
     marginTop: typography.pxToRem(80),
     marginBottom: typography.pxToRem(80),
   },
-
   formStyles: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
-  link: {
+  item: {
+    color: palette.text.primary,
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
     marginTop: typography.pxToRem(22),
-    marginBottom: typography.pxToRem(44),
-    display: "block",
   },
   label: {
-    color: "black",
+    color: palette.text.primary,
     position: "relative",
-    top: -20,
+    top: typography.pxToRem(-7),
     transform: "none",
   },
+
   container: {
     background: "#F7F7F7",
     padding: typography.pxToRem(30),
-    maxWidth: typography.pxToRem(600),
   },
   form: {
     marginTop: typography.pxToRem(40),
+  },
+  changePassword: {
+    marginLeft: typography.pxToRem(30),
   },
   textfield: {
     marginBottom: typography.pxToRem(30),
   },
   input: {
-    background: "white",
+    background: palette.background.default,
   },
 }));
 
