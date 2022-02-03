@@ -112,11 +112,12 @@ function Menu({
           </Button>
         </Grid>
       ))}
-      {session?.user?.name ? (
+
+      {session && session.user ? (
         <UserProfile
-          label={session.user.first_name || session.user.name.split(" ")[0]}
-          alt={session.user.name.toLowerCase()}
-          src={session?.user?.image !== "" ? session?.user?.image : userAvator}
+          label={session.user.firstName}
+          alt={session.user.firstName}
+          src={session.user?.image !== "" ? session.user?.image : userAvator}
           logOutLabel={logOutLabel}
           profilePages={profilePages}
           accountLink={accountLink}

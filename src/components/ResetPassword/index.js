@@ -1,6 +1,6 @@
 import {
-  IconButton,
   Button,
+  IconButton,
   Typography,
   Grid,
   TextField,
@@ -8,33 +8,26 @@ import {
   InputAdornment,
 } from "@material-ui/core";
 import { Formik } from "formik";
-import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
-import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-function Login({
-  providers: providersProp,
+function ResetPassword({
   title,
   description,
-  forgotPasswordLink,
-  forgotPasswordPrompt,
-  signupPrompt,
-  signUpLink,
-  signUpText,
-  googleIcon,
+  uid,
+  token,
   passwordIcon,
   ...props
 }) {
   const classes = useStyles(props);
-  const { data: session } = useSession();
   const [isPassword, setIsPassword] = useState(true);
 
   const togglePasswordType = () => {
@@ -42,38 +35,36 @@ function Login({
   };
 
   const handleSubmit = async (values, { setStatus }) => {
-    const res = await signIn("credentials", { ...values, redirect: false });
-    if (res.error) {
-      setStatus(res.error);
-    } else if (res.ok) {
-      Router.push("/explore ");
+    const result = await fetchJson("/api/auth/password/reset/confirm", null, {
+      method: "POST",
+      body: JSON.stringify({
+        uid,
+        token,
+        ...values,
+      }),
+    });
+
+    if (result?.success) {
+      Router.push("/login");
+    } else if (result?.data) {
+      const field = Object.keys(result.data)[0];
+      setStatus(result.data[field][0]);
     }
   };
 
   const initialValues = {
-    email: "",
     password: "",
-    type: "login",
   };
-
   const validationSchema = yup.object().shape({
-    email: yup
-      .string("Enter your email")
-      .email("Enter a valid email")
-      .required("Email is required"),
     password: yup
       .string("Enter your password")
       .min(8, "Password should be of minimum 8 characters length")
       .required("Password is required"),
   });
 
-  useEffect(() => {
-    if (session) {
-      Router.push("/explore");
-    }
-  }, [session]);
-
-  const providers = Object.values(providersProp ?? {});
+  if (!(uid && token)) {
+    return null;
+  }
 
   return (
     <Section className={classes.section}>
@@ -103,29 +94,6 @@ function Login({
                     <Typography variant="caption">{status}</Typography>
                   </FormHelperText>
                 )}
-                <TextField
-                  className={classes.textfield}
-                  InputLabelProps={{
-                    className: classes.label,
-                    shrink: false,
-                    required: false,
-                  }}
-                  InputProps={{
-                    className: classes.input,
-                  }}
-                  autoComplete="email"
-                  name="email"
-                  variant="outlined"
-                  fullWidth
-                  id="email"
-                  label="Email"
-                  autoFocus
-                  color="secondary"
-                  onChange={handleChange}
-                  error={touched.email && Boolean(errors.email)}
-                  helperText={touched.email && errors.email}
-                />
-
                 <TextField
                   className={classes.textfield}
                   InputLabelProps={{
@@ -170,82 +138,31 @@ function Login({
                   color="primary"
                   type="submit"
                 >
-                  Login
+                  Submit
                 </Button>
               </form>
             )}
           </Formik>
-          <div className={classes.buttonContainer}>
-            {!session &&
-              providers &&
-              Object.values(providers).map((provider) => {
-                if (provider.id === "google") {
-                  return (
-                    <Button
-                      key={provider.name}
-                      value="Subscribe"
-                      name="submit"
-                      id="mc-embedded-subscribe-form"
-                      variant="contained"
-                      className={classes.loginButton}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() =>
-                        signIn(provider.id, {
-                          callbackUrl: `${window.location.origin}/explore`,
-                        })
-                      }
-                    >
-                      <Image height={45} width={45} src={googleIcon} alt="" />
-                      <Typography className={classes.signinText}>
-                        Sign in with {provider.name}
-                      </Typography>
-                    </Button>
-                  );
-                }
-                return null;
-              })}
-          </div>
-          <Button
-            component={Link}
-            href={forgotPasswordLink}
-            classes={{ text: classes.passwordText }}
-          >
-            {forgotPasswordPrompt}
-          </Button>
-          <Typography className={classes.text}>
-            {signupPrompt} <Link href={signUpLink}>{signUpText}</Link>
-          </Typography>
         </Grid>
       </Grid>
     </Section>
   );
 }
 
-Login.propTypes = {
-  providers: PropTypes.shape({}),
+ResetPassword.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
-  forgotPasswordLink: PropTypes.string,
-  forgotPasswordPrompt: PropTypes.string,
-  signupPrompt: PropTypes.string,
-  signUpText: PropTypes.string,
-  signUpLink: PropTypes.string,
-  googleIcon: PropTypes.string,
+  uid: PropTypes.string,
+  token: PropTypes.string,
   passwordIcon: PropTypes.string,
 };
 
-Login.defaultProps = {
-  providers: undefined,
+ResetPassword.defaultProps = {
   title: undefined,
-  forgotPasswordPrompt: undefined,
   description: undefined,
-  forgotPasswordLink: undefined,
-  signupPrompt: undefined,
-  signUpLink: undefined,
-  signUpText: undefined,
-  googleIcon: undefined,
+  uid: undefined,
+  token: undefined,
   passwordIcon: undefined,
 };
 
-export default Login;
+export default ResetPassword;

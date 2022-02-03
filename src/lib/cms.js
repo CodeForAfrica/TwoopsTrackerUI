@@ -2,7 +2,11 @@ import * as md from "./md";
 
 import aboutContent from "@/cms/pages/about.md";
 import updateProfileContent from "@/cms/pages/account/update.md";
+import fgPasswordContent from "@/cms/pages/auth/forgot-password.md";
 import loginContent from "@/cms/pages/auth/login.md";
+import signUpContent from "@/cms/pages/auth/register.md";
+import rsPasswordContent from "@/cms/pages/auth/reset-password.md";
+import verifyEmailContent from "@/cms/pages/auth/verify-email.md";
 import exploreContent from "@/cms/pages/explore.md";
 import homeContent from "@/cms/pages/index.md";
 import investigationsContent from "@/cms/pages/investigations.md";
@@ -164,6 +168,10 @@ export function login() {
   return attributes;
 }
 
+export function signUp() {
+  const { attributes } = signUpContent;
+  return attributes;
+}
 export function navigation() {
   const { attributes } = navigationContent;
   return attributes;
@@ -174,4 +182,19 @@ export function settings() {
     footer: footer(),
     navigation: navigation(),
   };
+}
+
+export function verifyEmail() {
+  const { attributes } = verifyEmailContent;
+  return attributes;
+}
+
+export function forgotPassword() {
+  const { attributes } = fgPasswordContent;
+  return attributes;
+}
+
+export function resetPassword() {
+  const { attributes } = rsPasswordContent;
+  return attributes;
 }

@@ -1,77 +1,82 @@
 import {
-  IconButton,
   Button,
   Typography,
   Grid,
   TextField,
-  FormHelperText,
   InputAdornment,
+  FormHelperText,
 } from "@material-ui/core";
 import { Formik } from "formik";
-import { useSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
 import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-function Login({
+function SignUp({
   providers: providersProp,
   title,
   description,
-  forgotPasswordLink,
-  forgotPasswordPrompt,
-  signupPrompt,
-  signUpLink,
-  signUpText,
+  loginPrompt,
+  loginText,
   googleIcon,
   passwordIcon,
   ...props
 }) {
   const classes = useStyles(props);
-  const { data: session } = useSession();
+
   const [isPassword, setIsPassword] = useState(true);
 
   const togglePasswordType = () => {
     setIsPassword(!isPassword);
   };
 
-  const handleSubmit = async (values, { setStatus }) => {
-    const res = await signIn("credentials", { ...values, redirect: false });
-    if (res.error) {
-      setStatus(res.error);
-    } else if (res.ok) {
-      Router.push("/explore ");
+  const handleSubmit = async (values, { setErrors, setStatus }) => {
+    const result = await fetchJson("/api/auth/registration", null, {
+      method: "POST",
+      body: JSON.stringify(values),
+    });
+
+    if (result?.success) {
+      Router.push("/verify-email?q=register");
+    } else if (result?.data) {
+      if ("non_field_errors" in result.data) {
+        setStatus(result.data.non_field_errors);
+      } else {
+        setErrors(result.data);
+      }
     }
   };
 
   const initialValues = {
     email: "",
-    password: "",
-    type: "login",
+    password1: "",
+    firstName: "",
+    lastName: "",
   };
-
   const validationSchema = yup.object().shape({
     email: yup
       .string("Enter your email")
       .email("Enter a valid email")
       .required("Email is required"),
-    password: yup
+    password1: yup
       .string("Enter your password")
       .min(8, "Password should be of minimum 8 characters length")
       .required("Password is required"),
+    firstName: yup
+      .string("Enter your First Name")
+      .required("First Name is required"),
+    lastName: yup
+      .string("Enter your Last Name")
+      .required("Last Name is required"),
   });
-
-  useEffect(() => {
-    if (session) {
-      Router.push("/explore");
-    }
-  }, [session]);
 
   const providers = Object.values(providersProp ?? {});
 
@@ -82,9 +87,9 @@ function Login({
           <Typography variant="h2">{title}</Typography>
           <Typography className={classes.text}>{description}</Typography>
           <Formik
-            onSubmit={handleSubmit}
             initialValues={initialValues}
             validationSchema={validationSchema}
+            onSubmit={handleSubmit}
           >
             {({
               errors,
@@ -108,7 +113,48 @@ function Login({
                   InputLabelProps={{
                     className: classes.label,
                     shrink: false,
-                    required: false,
+                  }}
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  autoComplete="firstName"
+                  name="firstName"
+                  variant="outlined"
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  color="secondary"
+                  onChange={handleChange}
+                  error={touched.firstName && Boolean(errors.firstName)}
+                  helperText={touched.firstName && errors.firstName}
+                />
+                <TextField
+                  className={classes.textfield}
+                  InputLabelProps={{
+                    className: classes.label,
+                    shrink: false,
+                  }}
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  autoComplete="lastName"
+                  name="lastName"
+                  variant="outlined"
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  autoFocus
+                  color="secondary"
+                  onChange={handleChange}
+                  error={touched.lastName && Boolean(errors.lastName)}
+                  helperText={touched.lastName && errors.lastName}
+                />
+                <TextField
+                  className={classes.textfield}
+                  InputLabelProps={{
+                    className: classes.label,
+                    shrink: false,
                   }}
                   InputProps={{
                     className: classes.input,
@@ -128,16 +174,12 @@ function Login({
 
                 <TextField
                   className={classes.textfield}
-                  InputLabelProps={{
-                    className: classes.label,
-                    shrink: false,
-                    required: false,
-                  }}
+                  InputLabelProps={{ className: classes.label, shrink: false }}
                   InputProps={{
                     className: classes.input,
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton
+                        <Button
                           className={classes.passwordButton}
                           onClick={() => togglePasswordType()}
                         >
@@ -147,37 +189,36 @@ function Login({
                             src={passwordIcon}
                             alt=""
                           />
-                        </IconButton>
+                        </Button>
                       </InputAdornment>
                     ),
                   }}
                   variant="outlined"
                   margin="normal"
                   fullWidth
-                  name="password"
+                  name="password1"
                   label="Password"
                   type={isPassword ? "password" : "text"}
-                  id="password"
+                  id="password1"
                   autoComplete="current-password"
                   color="secondary"
                   onChange={handleChange}
-                  error={touched.password && Boolean(errors.password)}
-                  helperText={touched.password && errors.password}
+                  error={touched.password1 && Boolean(errors.password1)}
+                  helperText={touched.password1 && errors.password1}
                 />
                 <Button
+                  type="submit"
                   className={classes.button}
                   variant="contained"
                   color="primary"
-                  type="submit"
                 >
-                  Login
+                  SignUp
                 </Button>
               </form>
             )}
           </Formik>
           <div className={classes.buttonContainer}>
-            {!session &&
-              providers &&
+            {providers &&
               Object.values(providers).map((provider) => {
                 if (provider.id === "google") {
                   return (
@@ -206,15 +247,8 @@ function Login({
                 return null;
               })}
           </div>
-          <Button
-            component={Link}
-            href={forgotPasswordLink}
-            classes={{ text: classes.passwordText }}
-          >
-            {forgotPasswordPrompt}
-          </Button>
           <Typography className={classes.text}>
-            {signupPrompt} <Link href={signUpLink}>{signUpText}</Link>
+            {loginPrompt} <Link href="/login">{loginText}</Link>
           </Typography>
         </Grid>
       </Grid>
@@ -222,30 +256,26 @@ function Login({
   );
 }
 
-Login.propTypes = {
+SignUp.propTypes = {
   providers: PropTypes.shape({}),
   title: PropTypes.string,
   description: PropTypes.string,
-  forgotPasswordLink: PropTypes.string,
-  forgotPasswordPrompt: PropTypes.string,
-  signupPrompt: PropTypes.string,
-  signUpText: PropTypes.string,
-  signUpLink: PropTypes.string,
+  loginPrompt: PropTypes.string,
+  loginText: PropTypes.string,
+  loginLink: PropTypes.string,
   googleIcon: PropTypes.string,
   passwordIcon: PropTypes.string,
 };
 
-Login.defaultProps = {
+SignUp.defaultProps = {
   providers: undefined,
   title: undefined,
-  forgotPasswordPrompt: undefined,
   description: undefined,
-  forgotPasswordLink: undefined,
-  signupPrompt: undefined,
-  signUpLink: undefined,
-  signUpText: undefined,
+  loginPrompt: undefined,
+  loginLink: undefined,
+  loginText: undefined,
   googleIcon: undefined,
   passwordIcon: undefined,
 };
 
-export default Login;
+export default SignUp;
