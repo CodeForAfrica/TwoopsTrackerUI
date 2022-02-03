@@ -46,6 +46,10 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   input: {
     background: palette.background.default,
   },
+  status: {
+    color: "#00FF00",
+    marginBottom: typography.pxToRem(10),
+  },
 }));
 
 export default useStyles;

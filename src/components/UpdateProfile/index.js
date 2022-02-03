@@ -6,10 +6,9 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import { Formik } from "formik";
-import { useSession } from "next-auth/react";
-import Router from "next/router";
+import { getSession, useSession } from "next-auth/react";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 
 import useStyles from "./useStyles";
@@ -24,27 +23,31 @@ function Update({
   lastNameLabel,
   changePasswordLabel,
   changePasswordLink,
-  updateLabel,
+  successLabel,
+  errorLabel,
   ...props
 }) {
   const classes = useStyles(props);
   const { data: session } = useSession();
   const { email, firstName, lastName } = session.user;
+  const [isError, setIsError] = useState(false);
 
-  const handleSubmit = async (values, { setErrors, setStatus }) => {
+  const handleSubmit = async (values, { setStatus }) => {
     const result = await fetchJson("/api/user/profile", null, {
-      method: "PUT",
+      method: "PATCH",
       body: JSON.stringify(values),
     });
 
-    if (result?.success) {
-      Router.push("/verify-email?q=register");
-    } else if (result?.data) {
-      if ("non_field_errors" in result.data) {
-        setStatus(result.data.non_field_errors);
-      } else {
-        setErrors(result.data);
-      }
+    if (result && result.pk) {
+      setStatus(successLabel);
+      setIsError(false);
+      await getSession(); // to update session right away
+      setTimeout(() => {
+        setStatus("");
+      }, 4000);
+    } else {
+      setStatus(errorLabel);
+      setIsError(true);
     }
   };
 
@@ -81,11 +84,11 @@ function Update({
               values,
             }) => (
               <form className={classes.form} onSubmit={handleSubmitProp}>
-                {status?.length && (
+                {status?.length > 0 && (
                   <FormHelperText
                     component="div"
-                    error
-                    classes={{ root: classes.textfield }}
+                    error={isError}
+                    classes={{ root: classes.status }}
                   >
                     <Typography variant="caption">{status}</Typography>
                   </FormHelperText>
@@ -177,7 +180,8 @@ Update.propTypes = {
   lastNameLabel: PropTypes.string,
   changePasswordLabel: PropTypes.string,
   changePasswordLink: PropTypes.string,
-  updateLabel: PropTypes.string,
+  successLabel: PropTypes.string,
+  errorLabel: PropTypes.string,
 };
 
 Update.defaultProps = {
@@ -186,7 +190,8 @@ Update.defaultProps = {
   lastNameLabel: undefined,
   changePasswordLabel: undefined,
   changePasswordLink: undefined,
-  updateLabel: undefined,
+  successLabel: undefined,
+  errorLabel: undefined,
 };
 
 export default Update;
