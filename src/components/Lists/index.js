@@ -30,10 +30,11 @@ function Lists({
   const [name, setName] = useState("");
   const [accounts, setAccounts] = useState("");
   const [privacy, setPrivacy] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(true);
   const [sort, setSort] = useState(sortProp);
   const [page, setPage] = useState(parseInt(pageProp, 10) || 1);
   // Changes which page is displayed when either page or sort is changed.
-  const [paginating, setPaginating] = useState(false);
   const [pageSize, setPageSize] = useState(parseInt(pageSizeProp, 10) || 20);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -60,7 +61,6 @@ function Lists({
     if (newPage) {
       setPage(newPage);
     }
-    setPaginating(true);
   };
   const handleClickPage = (_, value) => {
     paginate(value);
@@ -89,10 +89,6 @@ function Lists({
   };
 
   const shouldFetch = () => {
-    if (!paginating) {
-      return null;
-    }
-
     let url = `/api/lists`;
     const queryString = getQueryString({
       page,
@@ -107,13 +103,19 @@ function Lists({
   const fetcher = (url) => {
     return fetchJson(url);
   };
-  const { data, mutate } = useSWR(shouldFetch, fetcher);
+
+  const { data, error, mutate } = useSWR(shouldFetch, fetcher);
+
   useEffect(() => {
-    setPaginating(false);
     if (data) {
       setLists({ ...data });
+      setLoading(false);
+    } else if (!data && !error) {
+      setLoading(true);
+    } else {
+      setLoading(true);
     }
-  }, [data]);
+  }, [data, error]);
 
   const onCreate = async () => {
     const accountsMap = accounts
@@ -125,20 +127,22 @@ function Lists({
       is_private: privacy,
       accounts: accountsMap,
     };
-
+    setLoading(true);
     try {
       await fetchJson("/api/lists", null, {
         method: "POST",
         body: JSON.stringify(payload),
       });
-
       mutate();
+      setIsError(false);
       setOpen(false);
       setName("");
       setAccounts("");
       setPrivacy(false);
     } catch (e) {
       setOpen(true);
+      setLoading(false);
+      setIsError(true);
     }
   };
 
@@ -149,6 +153,8 @@ function Lists({
 
     if (event.target.name === "accounts") {
       setAccounts(event.target.value);
+      setLoading(true);
+      setIsError(false);
     }
 
     if (event.target.name === "status") {
@@ -172,6 +178,11 @@ function Lists({
         accountsLabel="User Accounts"
         accountsOnChange={handleChange}
         accountsHelper="Enter twitter account names seperated by a comma i.e userone,usertwo"
+        accountsErrorHelper={
+          !isLoading && isError
+            ? "Please enter a valid comma-separated list of Twitter usernames."
+            : " "
+        }
         privacyOnChange={handleChange}
         accountsValue={accounts}
         privacyValue={privacy}
