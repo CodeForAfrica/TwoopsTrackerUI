@@ -26,7 +26,6 @@ function AccountsList({
   const handleClose = () => setOpen(false);
   const [listAccounts, setListAccounts] = useState(accounts);
   const [newAccounts, setNewAccounts] = useState("");
-  const [existingAccounts, setExistingAccounts] = useState(accounts);
   const [page, setPage] = useState();
   const [pageSize, setPageSize] = useState(3);
   const [currentCount, setCurrentCount] = useState(count);
@@ -47,21 +46,12 @@ function AccountsList({
     fetcher
   );
 
-  const { data: accountsData, mutate: mutateAccountsData } = useSWR(
-    `${apiUrl}/?accounts=true`,
-    fetcher
-  );
-
   useEffect(() => {
     if (data) {
       setListAccounts(data.results);
       setCurrentCount(data.count);
     }
-
-    if (accountsData) {
-      setExistingAccounts(accountsData.results);
-    }
-  }, [data, accountsData]);
+  }, [data]);
 
   const handleClickPage = (e, value) => {
     setPage(value);
@@ -87,6 +77,10 @@ function AccountsList({
   };
 
   const handleCreate = async () => {
+    const listData = await fetchJson(`${apiUrl}/?accounts=true`, null, {
+      method: "GET",
+    });
+
     const accountsMap = newAccounts
       .split(",")
       .map((item) => ({ screen_name: item }));
@@ -94,7 +88,7 @@ function AccountsList({
     const payload = {
       name,
       is_private: isPrivate,
-      accounts: [...accountsMap, ...existingAccounts],
+      accounts: [...accountsMap, ...listData.results],
     };
 
     try {
@@ -104,7 +98,6 @@ function AccountsList({
       });
 
       mutate({ ...data });
-      mutateAccountsData();
       setOpen(false);
       setNewAccounts("");
     } catch (e) {
