@@ -6,25 +6,15 @@ import {
   Avatar,
   Link,
 } from "@material-ui/core";
-import { useSession, getSession } from "next-auth/react";
-import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import React from "react";
 
 import useStyles from "./useStyles";
 
 function UserAccount({ ...props }) {
   const classes = useStyles(props);
-  // useSession does not work get the session from the server, but from the storage, so we can quickly test if the user is logged in.
-  const { data } = useSession();
-  const [session, setSession] = useState(data);
+  const { data: session } = useSession();
 
-  // getSession gets the updated session from the backend in case of change in profile.
-  useEffect(() => {
-    async function fetchSession() {
-      const newSession = await getSession();
-      setSession(newSession);
-    }
-    fetchSession();
-  }, []);
   if (!session) {
     return null;
   }
