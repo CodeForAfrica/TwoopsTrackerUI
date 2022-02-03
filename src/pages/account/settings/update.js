@@ -29,7 +29,6 @@ export async function getServerSideProps(context) {
       ...settings(),
       ...updateProfile(),
       session,
-      title: "Update Profile",
     },
   };
 }
