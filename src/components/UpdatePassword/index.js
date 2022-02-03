@@ -18,7 +18,7 @@ import useStyles from "./useStyles";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-function Update({
+function UpdatePassword({
   title,
   description,
   oldPasswordLabel,
@@ -185,7 +185,7 @@ function Update({
   );
 }
 
-Update.propTypes = {
+UpdatePassword.propTypes = {
   description: PropTypes.string,
   oldPasswordLabel: PropTypes.string,
   newPasswordLabel: PropTypes.string,
@@ -196,7 +196,7 @@ Update.propTypes = {
   successLabel: PropTypes.string,
 };
 
-Update.defaultProps = {
+UpdatePassword.defaultProps = {
   title: undefined,
   description: PropTypes.string,
   oldPasswordLabel: PropTypes.string,
@@ -207,4 +207,4 @@ Update.defaultProps = {
   successLabel: undefined,
 };
 
-export default Update;
+export default UpdatePassword;

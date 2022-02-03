@@ -17,7 +17,7 @@ import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-function Update({
+function UpdateProfile({
   title,
   firstNameLabel,
   lastNameLabel,
@@ -175,7 +175,7 @@ function Update({
   );
 }
 
-Update.propTypes = {
+UpdateProfile.propTypes = {
   title: PropTypes.string,
   firstNameLabel: PropTypes.string,
   lastNameLabel: PropTypes.string,
@@ -186,7 +186,7 @@ Update.propTypes = {
   buttonLabel: PropTypes.string,
 };
 
-Update.defaultProps = {
+UpdateProfile.defaultProps = {
   title: undefined,
   firstNameLabel: undefined,
   lastNameLabel: undefined,
@@ -197,4 +197,4 @@ Update.defaultProps = {
   buttonLabel: undefined,
 };
 
-export default Update;
+export default UpdateProfile;

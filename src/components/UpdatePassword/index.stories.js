@@ -1,24 +1,24 @@
 import React from "react";
 
-import UserSearch from ".";
+import UpdatePassword from ".";
 
 export default {
-  title: "Components/UserSearch",
+  title: "Components/UpdatePassword",
   argTypes: {},
 };
 
 function Template(args) {
-  return <UserSearch {...args} />;
+  return <UpdatePassword {...args} />;
 }
 
 export const Default = Template.bind({});
 
 Default.args = {
-  title: "Edit your details",
-  firstName: "First Name",
-  lastName: "Last Name",
-  email: "Email",
-  changePasswordLabel: "Change your password",
-  changePasswordLink: "/change-password",
-  updateLabel: "Update",
+  title: "Change Password",
+  oldPasswordLabel: "Old Password",
+  newPasswordLabel: "New Password",
+  successLabel: "Password Successfully Updated!!",
+  errorLabel: "An Error Happened, Try again",
+  buttonLabel: "Change Password",
+  passwordIcon: "/images/password.svg",
 };
