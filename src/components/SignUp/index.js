@@ -206,12 +206,7 @@ function SignUp({
                   error={touched.password1 && Boolean(errors.password1)}
                   helperText={touched.password1 && errors.password1}
                 />
-                <Button
-                  type="submit"
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                >
+                <Button type="submit" variant="contained" color="primary">
                   SignUp
                 </Button>
               </form>
