@@ -21,7 +21,6 @@ export async function getServerSideProps(context) {
       ...settings(),
       ...updatePassword(),
       session,
-      title: "Update Profile",
     },
   };
 }
