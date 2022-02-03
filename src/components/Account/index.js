@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import useStyles from "./useStyles";
 
-import UserIcon from "@/twoopstracker/assets/icons/user.svg";
+import UserIcon from "@/twoopstracker/assets/icons/avator.svg";
 import Figure from "@/twoopstracker/components/Figure";
 import Link from "@/twoopstracker/components/Link";
 import ListModal from "@/twoopstracker/components/ListModal";
