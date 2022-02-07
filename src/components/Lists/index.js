@@ -225,6 +225,8 @@ function Lists({
               {lists?.results?.map((item) => (
                 <Grid item xs={12}>
                   <ListCard
+                    editLabel="Edit"
+                    deleteLabel="Delete"
                     key={item.name}
                     classes={{ root: classes.listItem }}
                     {...item}

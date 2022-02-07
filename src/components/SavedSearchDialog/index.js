@@ -29,6 +29,8 @@ function SavedSearchDialog({
   onClose,
   open,
   title,
+  saveLabel,
+  cancelLabel,
   variant,
   ...props
 }) {
@@ -107,7 +109,7 @@ function SavedSearchDialog({
             color="primary"
             className={classes.button}
           >
-            Cancel
+            {cancelLabel}
           </Button>
           <Button
             onClick={handleClick}
@@ -115,7 +117,7 @@ function SavedSearchDialog({
             color="primary"
             className={classes.button}
           >
-            Save
+            {saveLabel}
           </Button>
         </Grid>
       </Grid>
@@ -125,6 +127,8 @@ function SavedSearchDialog({
 
 SavedSearchDialog.propTypes = {
   name: PropTypes.string,
+  saveLabel: PropTypes.string,
+  cancelLabel: PropTypes.string,
   onClick: PropTypes.func,
   onClose: PropTypes.func,
   open: PropTypes.bool,
@@ -137,6 +141,8 @@ SavedSearchDialog.defaultProps = {
   name: undefined,
   onClick: undefined,
   onClose: undefined,
+  saveLabel: undefined,
+  cancelLabel: undefined,
   open: undefined,
   query: undefined,
   title: undefined,

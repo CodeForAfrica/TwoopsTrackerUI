@@ -15,6 +15,8 @@ function ListCard({
   is_private: isPrivate,
   id,
   mutate,
+  editLabel,
+  deleteLabel,
   ...props
 }) {
   const [open, setOpen] = useState(false);
@@ -98,7 +100,7 @@ function ListCard({
             onClick={handleOpen}
             className={classes.editButton}
           >
-            Edit
+            {editLabel}
           </Button>
           <Button
             variant="contained"
@@ -106,7 +108,7 @@ function ListCard({
             onClick={handleDeleteOpen}
             className={classes.deleteButton}
           >
-            Delete
+            {deleteLabel}
           </Button>
           <ListModal
             open={open}
@@ -135,6 +137,8 @@ function ListCard({
 
 ListCard.propTypes = {
   name: PropTypes.string,
+  editLabel: PropTypes.string,
+  deleteLabel: PropTypes.string,
   mutate: PropTypes.func,
   accounts: PropTypes.arrayOf(PropTypes.shape({})),
   id: PropTypes.number,
@@ -146,6 +150,8 @@ ListCard.propTypes = {
 ListCard.defaultProps = {
   name: undefined,
   mutate: undefined,
+  editLabel: undefined,
+  deleteLabel: undefined,
   accounts: undefined,
   id: undefined,
   is_private: undefined,

@@ -9,7 +9,12 @@ import { settings, signUp } from "@/twoopstracker/lib/cms";
 function Register({ providers: providersProp, ...props }) {
   return (
     <Page {...props}>
-      <SignUp providers={providersProp} {...props} />
+      <SignUp
+        providers={providersProp}
+        signUpLabel="SignUp"
+        signInText="Sign in with"
+        {...props}
+      />
     </Page>
   );
 }

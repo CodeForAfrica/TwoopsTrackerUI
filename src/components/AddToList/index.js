@@ -96,7 +96,13 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function AddToList({ handle, results: listsProp, ...props }) {
+function AddToList({
+  handle,
+  results: listsProp,
+  label,
+  successLabel,
+  ...props
+}) {
   const classes = useStyles(props);
   const anchorRef = useRef(null);
 
@@ -191,7 +197,7 @@ function AddToList({ handle, results: listsProp, ...props }) {
           <Image width={24} height={24} alt="Add to list" src={addToList} />
         }
       >
-        <Typography className={classes.list}>Add to List</Typography>
+        <Typography className={classes.list}>{label}</Typography>
       </Button>
 
       <Popper
@@ -243,7 +249,7 @@ function AddToList({ handle, results: listsProp, ...props }) {
           onClose={handleSnackBarClose}
         >
           <Alert onClose={handleSnackBarClose} severity="success">
-            Account has beeen sucessfully added!
+            {successLabel}
           </Alert>
         </Snackbar>
       ) : null}
@@ -253,6 +259,8 @@ function AddToList({ handle, results: listsProp, ...props }) {
 
 AddToList.propTypes = {
   results: PropTypes.arrayOf(PropTypes.shape({})),
+  label: PropTypes.string,
+  successLabel: PropTypes.string,
   data: PropTypes.shape({
     accounts: PropTypes.arrayOf(PropTypes.shape({})),
     name: PropTypes.string,
@@ -264,6 +272,8 @@ AddToList.propTypes = {
 
 AddToList.defaultProps = {
   handle: undefined,
+  label: undefined,
+  successLabel: undefined,
   results: undefined,
   data: undefined,
 };

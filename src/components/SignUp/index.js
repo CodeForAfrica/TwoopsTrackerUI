@@ -24,6 +24,8 @@ function SignUp({
   providers: providersProp,
   title,
   description,
+  signUpLabel,
+  signInText,
   loginPrompt,
   loginText,
   googleIcon,
@@ -187,7 +189,7 @@ function SignUp({
                             height={45}
                             width={45}
                             src={passwordIcon}
-                            alt=""
+                            alt="Password Icon"
                           />
                         </Button>
                       </InputAdornment>
@@ -212,7 +214,7 @@ function SignUp({
                   variant="contained"
                   color="primary"
                 >
-                  SignUp
+                  {signUpLabel}
                 </Button>
               </form>
             )}
@@ -239,7 +241,7 @@ function SignUp({
                     >
                       <Image height={45} width={45} src={googleIcon} alt="" />
                       <Typography className={classes.signinText}>
-                        Sign in with {provider.name}
+                        {signInText} {provider.name}
                       </Typography>
                     </Button>
                   );
@@ -260,6 +262,8 @@ SignUp.propTypes = {
   providers: PropTypes.shape({}),
   title: PropTypes.string,
   description: PropTypes.string,
+  signUpLabel: PropTypes.string,
+  signInText: PropTypes.string,
   loginPrompt: PropTypes.string,
   loginText: PropTypes.string,
   loginLink: PropTypes.string,
@@ -270,6 +274,8 @@ SignUp.propTypes = {
 SignUp.defaultProps = {
   providers: undefined,
   title: undefined,
+  signUpLabel: undefined,
+  signInText: undefined,
   description: undefined,
   loginPrompt: undefined,
   loginLink: undefined,

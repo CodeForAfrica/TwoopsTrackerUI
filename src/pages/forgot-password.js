@@ -7,7 +7,7 @@ import { settings, forgotPassword } from "@/twoopstracker/lib/cms";
 function Index({ ...props }) {
   return (
     <Page {...props}>
-      <ForgotPassword {...props} />
+      <ForgotPassword label="Submit" {...props} />
     </Page>
   );
 }

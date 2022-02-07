@@ -23,6 +23,7 @@ import Section from "@/twoopstracker/components/Section";
 function Login({
   providers: providersProp,
   title,
+  loginLabel,
   description,
   forgotPasswordLink,
   forgotPasswordPrompt,
@@ -145,7 +146,7 @@ function Login({
                             height={45}
                             width={45}
                             src={passwordIcon}
-                            alt=""
+                            alt="Password Icon"
                           />
                         </IconButton>
                       </InputAdornment>
@@ -170,7 +171,7 @@ function Login({
                   color="primary"
                   type="submit"
                 >
-                  Login
+                  Login{loginLabel}
                 </Button>
               </form>
             )}
@@ -225,6 +226,7 @@ function Login({
 Login.propTypes = {
   providers: PropTypes.shape({}),
   title: PropTypes.string,
+  loginLabel: PropTypes.string,
   description: PropTypes.string,
   forgotPasswordLink: PropTypes.string,
   forgotPasswordPrompt: PropTypes.string,
@@ -237,6 +239,7 @@ Login.propTypes = {
 
 Login.defaultProps = {
   providers: undefined,
+  loginLabel: undefined,
   title: undefined,
   forgotPasswordPrompt: undefined,
   description: undefined,

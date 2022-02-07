@@ -11,7 +11,7 @@ function Index({ ...props }) {
   } = useRouter();
   return (
     <Page {...props}>
-      <ResetPassword {...props} uid={uid} token={token} />
+      <ResetPassword {...props} uid={uid} label="Submit" token={token} />
     </Page>
   );
 }

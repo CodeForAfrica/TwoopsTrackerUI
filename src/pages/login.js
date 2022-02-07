@@ -9,7 +9,7 @@ import { settings, login } from "@/twoopstracker/lib/cms";
 function SignIn({ providers: providersProp, ...props }) {
   return (
     <Page {...props}>
-      <Login providers={providersProp} {...props} />
+      <Login providers={providersProp} loginLabel="Login" {...props} />
     </Page>
   );
 }

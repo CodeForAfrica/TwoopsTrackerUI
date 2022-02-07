@@ -10,7 +10,11 @@ import { settings } from "@/twoopstracker/lib/cms";
 export default function Index(props) {
   return (
     <Page {...props}>
-      <AccountsList {...props} paginationProps={pagination} />
+      <AccountsList
+        {...props}
+        accountLabel="Add Account"
+        paginationProps={pagination}
+      />
     </Page>
   );
 }
