@@ -50,7 +50,7 @@ partners:
       cross-examination, data, technology, forensics, financial and other
       services to assist in addressing and resolving investigative queries."
     name: ANCIR’s iLAB
-    logo: /images/ancir-logo2.png
+    logo: /images/ancir-logo.png
     url: https://investigate.africa
   - description:
       "[PesaCheck](https://pesacheck.org) is a pioneering verification
