@@ -166,9 +166,11 @@ function UpdateProfile({
               </form>
             )}
           </Formik>
-          <Typography className={classes.text}>
-            <Link href={changePasswordLink}>{changePasswordLabel}</Link>
-          </Typography>
+          {session?.accountType === "credentails" && (
+            <Typography className={classes.text}>
+              <Link href={changePasswordLink}>{changePasswordLabel}</Link>
+            </Typography>
+          )}
         </Grid>
       </Grid>
     </Section>

@@ -45,6 +45,7 @@ async function fetchNewToken({ account, user: nextAuthUser }) {
     exp: jwtDecode(accessToken).exp * 1000,
     idToken: account?.id_token ?? null,
     refreshToken,
+    accountType: account?.provider,
     user,
   };
 }
@@ -142,7 +143,10 @@ const options = {
         }
 
         if (account.provider === "credentials") {
-          return user;
+          return {
+            accountType: "credentials",
+            user,
+          };
         }
       }
       // when updated: e.g. when session is accessed in the client
@@ -161,6 +165,7 @@ const options = {
         `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}user`,
         token
       );
+
       const newToken = token;
       newToken.user = {
         ...token?.user,
