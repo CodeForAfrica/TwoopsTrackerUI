@@ -48,6 +48,9 @@ function Account({ lists: listsProp, activeSlug, searches, ...props }) {
       case "lists":
         children = (
           <Lists
+            createLabel="Create New List"
+            title="Your Lists"
+            noListLabel="There are no lists"
             lists={listsProp}
             paginationProps={paginationOptions}
             {...props}

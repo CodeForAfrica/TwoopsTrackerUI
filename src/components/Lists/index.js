@@ -22,6 +22,9 @@ function Lists({
   pageSize: pageSizeProp,
   paginationProps,
   sort: sortProp,
+  createLabel,
+  title,
+  noListLabel,
   ...props
 }) {
   const router = useRouter();
@@ -166,7 +169,7 @@ function Lists({
   const newList = (
     <div className={classes.createListModal}>
       <Typography onClick={handleOpen} className={classes.create}>
-        Create New List
+        {createLabel}
       </Typography>
       <ListModal
         open={open}
@@ -195,7 +198,7 @@ function Lists({
     <div className={classes.root}>
       <div className={classes.section}>
         <Typography variant="h2" className={classes.title}>
-          Your Lists
+          {title}
         </Typography>
         {lists?.count ? (
           <>
@@ -243,7 +246,7 @@ function Lists({
         ) : (
           <div className={classes.noLists}>
             {newList}
-            <Typography variant="body1">There are no lists</Typography>
+            <Typography variant="body1">{noListLabel}</Typography>
           </div>
         )}
       </div>
@@ -257,6 +260,9 @@ Lists.propTypes = {
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   paginationProps: PropTypes.shape({}),
   sort: PropTypes.string,
+  createLabel: PropTypes.string,
+  title: PropTypes.string,
+  noListLabel: PropTypes.string,
 };
 
 Lists.defaultProps = {
@@ -265,6 +271,9 @@ Lists.defaultProps = {
   pageSize: undefined,
   paginationProps: undefined,
   sort: undefined,
+  createLabel: undefined,
+  title: undefined,
+  noListLabel: undefined,
 };
 
 export default Lists;
