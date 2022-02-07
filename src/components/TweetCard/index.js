@@ -21,6 +21,8 @@ function TweetCard({
   owner,
   onClick,
   deleted,
+  seeLessLabel,
+  originalTweetText,
   content: contentProp,
   retweeted_user_screen_name: retweetedUser,
   retweet_id: retweetId,
@@ -139,13 +141,13 @@ function TweetCard({
         />
         {expanded && (
           <Button onClick={handleMore} className={classes.seeLessButton}>
-            See less
+            {seeLessLabel}
           </Button>
         )}
       </div>
       {retweetedUser && (
         <RichTypography variant="body2">
-          Original tweet by
+          {originalTweetText}
           {` `}
           <Link
             href={`https://twitter.com/${retweetedUser.slice(
@@ -171,6 +173,8 @@ TweetCard.propTypes = {
   results: PropTypes.arrayOf(PropTypes.shape({})),
   onClick: PropTypes.func,
   deleted_at: PropTypes.string,
+  seeLessLabel: PropTypes.string,
+  originalTweetText: PropTypes.string,
   retweet_id: PropTypes.number,
   retweeted_user_screen_name: PropTypes.string,
   number_of_interactions: PropTypes.number,
@@ -184,6 +188,8 @@ TweetCard.defaultProps = {
   owner: undefined,
   onClick: undefined,
   content: undefined,
+  seeLessLabel: undefined,
+  originalTweetText: undefined,
   deleted_at: undefined,
   retweet_id: undefined,
   retweeted_user_screen_name: undefined,
