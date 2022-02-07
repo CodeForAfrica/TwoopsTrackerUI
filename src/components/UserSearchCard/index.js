@@ -173,7 +173,7 @@ function UserSearchCard({
               onClick={handleClickOpen}
               className={classes.button}
             >
-              Edit{editLabel}
+              {editLabel}
             </Button>
             <Button
               variant="outlined"
@@ -181,7 +181,7 @@ function UserSearchCard({
               className={classes.button}
               onClick={handleDelete}
             >
-              Delete{deleteLabel}
+              {deleteLabel}
             </Button>
           </Grid>
         </Grid>

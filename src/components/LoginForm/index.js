@@ -171,7 +171,7 @@ function Login({
                   color="primary"
                   type="submit"
                 >
-                  Login{loginLabel}
+                  {loginLabel}
                 </Button>
               </form>
             )}
