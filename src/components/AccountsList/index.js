@@ -116,7 +116,6 @@ function AccountsList({
           </Button>
         )}
       </div>
-      S
       <ContentActions
         apiUri={`/api/lists/${id}`}
         classes={{ section: classes.actions }}
