@@ -117,7 +117,7 @@ function ResetPassword({
                             src={
                               isPassword ? passwordHideIcon : passwordShowIcon
                             }
-                            alt=""
+                            alt="Password Icon"
                           />
                         </IconButton>
                       </InputAdornment>
