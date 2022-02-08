@@ -5,7 +5,7 @@ loginLabel: Login
 signupPrompt: New to Trolltracker?
 signUpLink: /signup
 signUpLabel: Sign up now
-signInText: "Sign in with "
+signInLabel: "Sign in with "
 forgotPasswordPrompt: Forgot password?
 forgotPasswordLink: /forgot-password
 googleIcon: /images/googleicon.svg
