@@ -12,7 +12,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
   },
   button: {
     marginTop: typography.pxToRem(60),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       marginTop: typography.pxToRem(80),
     },
   },
@@ -22,7 +22,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
     alignItems: "center",
     paddingTop: typography.pxToRem(75),
     paddingBottom: typography.pxToRem(75),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       paddingTop: typography.pxToRem(112),
       paddingBottom: typography.pxToRem(112),
     },
@@ -37,7 +37,7 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
     marginBottom: typography.pxToRem(80),
     color: palette.text.secondary,
     fontWeight: 400,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       width: typography.pxToRem(1053),
     },
     [breakpoints.up("xl")]: {
