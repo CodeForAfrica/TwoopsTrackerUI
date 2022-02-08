@@ -700,13 +700,13 @@
               "widget": "string"
             },
             {
-              "label": "SignUp Text",
-              "name": "signupText",
+              "label": "SignUp Label",
+              "name": "signupLabel",
               "widget": "string"
             },
             {
-              "label": "Sign In Text",
-              "name": "signInText",
+              "label": "Sign In Label",
+              "name": "signInLabel",
               "widget": "string"
             },
             {
@@ -762,8 +762,8 @@
               "widget": "string"
             },
             {
-              "label": "signin Text",
-              "name": "signInText",
+              "label": "signin Label",
+              "name": "signInLabel",
               "widget": "string"
             },
             {

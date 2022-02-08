@@ -13,7 +13,7 @@ export default function Index({ data, ...props }) {
     <Page {...props}>
       <AccountsList
         data={data}
-        accountLabel="Add Account"
+        addAccountLabel="Add Account"
         paginationProps={listAccountsPagination}
         {...props}
       />

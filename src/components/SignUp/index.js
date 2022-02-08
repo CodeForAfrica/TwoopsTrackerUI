@@ -25,7 +25,7 @@ function SignUp({
   title,
   description,
   signUpLabel,
-  signInText,
+  signInLabel,
   loginPrompt,
   loginText,
   googleIcon,
@@ -244,7 +244,7 @@ function SignUp({
                     >
                       <Image height={45} width={45} src={googleIcon} alt="" />
                       <Typography className={classes.signinText}>
-                        {signInText} {provider.name}
+                        {signInLabel} {provider.name}
                       </Typography>
                     </Button>
                   );
@@ -266,7 +266,7 @@ SignUp.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   signUpLabel: PropTypes.string,
-  signInText: PropTypes.string,
+  signInLabel: PropTypes.string,
   loginPrompt: PropTypes.string,
   loginText: PropTypes.string,
   loginLink: PropTypes.string,
@@ -279,7 +279,7 @@ SignUp.defaultProps = {
   providers: undefined,
   title: undefined,
   signUpLabel: undefined,
-  signInText: undefined,
+  signInLabel: undefined,
   description: undefined,
   loginPrompt: undefined,
   loginLink: undefined,

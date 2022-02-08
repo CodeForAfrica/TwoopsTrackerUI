@@ -12,7 +12,7 @@ export default function Index(props) {
     <Page {...props}>
       <AccountsList
         {...props}
-        accountLabel="Add Account"
+        addAccountLabel="Add Account"
         paginationProps={pagination}
       />
     </Page>
