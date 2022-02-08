@@ -7,7 +7,7 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import { Formik } from "formik";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -30,6 +30,7 @@ function UpdatePassword({
   ...props
 }) {
   const classes = useStyles(props);
+  const { data: session } = useSession();
   const [isError, setIsError] = useState(false);
 
   const [showPassword, setShowPassword] = useState({
@@ -79,6 +80,10 @@ function UpdatePassword({
       setIsError(true);
     }
   };
+
+  if (session?.accountType !== "credentials") {
+    return null;
+  }
 
   return (
     <Section className={classes.section}>
