@@ -869,6 +869,11 @@
               "widget": "string"
             },
             {
+              "label": "Submit Label",
+              "name": "submitLabel",
+              "widget": "string"
+            },
+            {
               "label": "Password Icon",
               "name": "passwordIcon",
               "widget": "image"

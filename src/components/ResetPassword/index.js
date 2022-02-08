@@ -21,7 +21,7 @@ import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 function ResetPassword({
   title,
-  label,
+  submitLabel,
   description,
   uid,
   token,
@@ -139,7 +139,7 @@ function ResetPassword({
                   color="primary"
                   type="submit"
                 >
-                  Submit{label}
+                  {submitLabel}
                 </Button>
               </form>
             )}
@@ -152,7 +152,7 @@ function ResetPassword({
 
 ResetPassword.propTypes = {
   title: PropTypes.string,
-  label: PropTypes.string,
+  submitLabel: PropTypes.string,
   description: PropTypes.string,
   uid: PropTypes.string,
   token: PropTypes.string,
@@ -161,7 +161,7 @@ ResetPassword.propTypes = {
 
 ResetPassword.defaultProps = {
   title: undefined,
-  label: undefined,
+  submitLabel: undefined,
   description: undefined,
   uid: undefined,
   token: undefined,
