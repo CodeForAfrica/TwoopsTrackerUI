@@ -198,7 +198,7 @@ function Lists({
     <div className={classes.root}>
       <div className={classes.section}>
         <Typography variant="h2" className={classes.title}>
-          {title}
+          {titleLabel}
         </Typography>
         {lists?.count ? (
           <>
@@ -263,7 +263,7 @@ Lists.propTypes = {
   paginationProps: PropTypes.shape({}),
   sort: PropTypes.string,
   createLabel: PropTypes.string,
-  title: PropTypes.string,
+  titleLabel: PropTypes.string,
   noListLabel: PropTypes.string,
 };
 
@@ -274,7 +274,7 @@ Lists.defaultProps = {
   paginationProps: undefined,
   sort: undefined,
   createLabel: undefined,
-  title: undefined,
+  titleLabel: undefined,
   noListLabel: undefined,
 };
 

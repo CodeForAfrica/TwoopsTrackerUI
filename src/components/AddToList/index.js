@@ -197,7 +197,7 @@ function AddToList({
           <Image width={24} height={24} alt="Add to list" src={addToList} />
         }
       >
-        <Typography className={classes.list}>{label}</Typography>
+        <Typography className={classes.list}>{addToListLabel}</Typography>
       </Button>
 
       <Popper
@@ -259,7 +259,7 @@ function AddToList({
 
 AddToList.propTypes = {
   results: PropTypes.arrayOf(PropTypes.shape({})),
-  label: PropTypes.string,
+  addToListLabel: PropTypes.string,
   successLabel: PropTypes.string,
   data: PropTypes.shape({
     accounts: PropTypes.arrayOf(PropTypes.shape({})),
@@ -272,7 +272,7 @@ AddToList.propTypes = {
 
 AddToList.defaultProps = {
   handle: undefined,
-  label: undefined,
+  addToListLabel: undefined,
   successLabel: undefined,
   results: undefined,
   data: undefined,

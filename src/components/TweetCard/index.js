@@ -102,7 +102,7 @@ function TweetCard({
             {session && (
               <AddToList
                 handle={handle}
-                label="Add to List"
+                addToListLabel="Add to List"
                 successLabel="Account has beeen sucessfully added!"
                 results={results}
               />
