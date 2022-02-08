@@ -685,6 +685,11 @@
               "widget": "string"
             },
             {
+              "label": "Login Label",
+              "name": "loginLabel",
+              "widget": "string"
+            },
+            {
               "label": "SignUp Prompt",
               "name": "signupPrompt",
               "widget": "string"

@@ -229,7 +229,6 @@ Login.propTypes = {
   providers: PropTypes.shape({}),
   title: PropTypes.string,
   loginLabel: PropTypes.string,
-
   description: PropTypes.string,
   forgotPasswordLink: PropTypes.string,
   forgotPasswordPrompt: PropTypes.string,

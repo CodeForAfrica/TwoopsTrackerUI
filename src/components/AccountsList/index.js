@@ -134,6 +134,7 @@ function AccountsList({
       {listAccounts?.map((account) => {
         return (
           <Account
+            deleteLabel="Delete"
             key={account.screen_name}
             account={account}
             items={currentCount}
