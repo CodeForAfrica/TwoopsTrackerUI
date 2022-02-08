@@ -23,7 +23,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     display: "flex",
     justifyContent: "flex-start",
     marginLeft: typography.pxToRem(-8),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       padding: 0,
       flexDirection: "row",
       justifyContent: "flex-start",
