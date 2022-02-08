@@ -81,7 +81,7 @@ function TweetCard({
   return (
     <div className={classes.root}>
       <Grid container justifyContent="space-between">
-        <Grid item container lg={8} alignItems="center">
+        <Grid item container md={8} alignItems="center" wrap="nowrap">
           <Grid item>
             <Figure src={profileImage || UserIcon} className={classes.icon} />
           </Grid>
@@ -100,7 +100,7 @@ function TweetCard({
             {session && <AddToList handle={handle} results={results} />}
           </Grid>
         </Grid>
-        <Grid item lg={4}>
+        <Grid item md={4}>
           {createdAt && (
             <Typography variant="body2">{`Created on ${created[0]} at ${created[1]}`}</Typography>
           )}

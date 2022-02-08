@@ -10,7 +10,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
       fontFamily: typography.body1.fontFamily,
       fontSize: typography.pxToRem(18),
       lineHeight: 30 / 18,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("md")]: {
         fontSize: typography.pxToRem(24),
         lineHeight: 35.88 / 24,
       },
@@ -27,7 +27,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
           fontSize: typography.pxToRem(18),
           lineHeight: 30 / 18,
           padding: 0,
-          [breakpoints.up("lg")]: {
+          [breakpoints.up("md")]: {
             fontSize: typography.pxToRem(24),
             lineHeight: 35.88 / 24,
           },
@@ -57,7 +57,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
       textDecoration: "none",
       color: "black",
     },
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       color: "black",
       "&:hover, &:focus, &:focus-within": {
         color: "black",
@@ -95,7 +95,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     fontSize: typography.pxToRem(18),
     lineHeight: 30 / 18,
     padding: 0,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       fontSize: typography.pxToRem(24),
       lineHeight: 35.88 / 24,
     },

@@ -165,7 +165,11 @@ function Lists({
   const count = Math.ceil((lists?.count ?? 0) / pageSize);
   const newList = (
     <div className={classes.createListModal}>
-      <Typography onClick={handleOpen} className={classes.create}>
+      <Typography
+        onClick={handleOpen}
+        variant="body2"
+        className={classes.create}
+      >
         Create New List
       </Typography>
       <ListModal
