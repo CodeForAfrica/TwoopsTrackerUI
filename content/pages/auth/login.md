@@ -7,5 +7,6 @@ signUpLink: /signup
 forgotPasswordPrompt: Forgot password?
 forgotPasswordLink: /forgot-password
 googleIcon: /images/googleicon.svg
-passwordIcon: /images/password.svg
+passwordSeeIcon: /images/password.svg
+passwordHideIcon: /images/passwordhide.svg
 ---

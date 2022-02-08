@@ -27,7 +27,8 @@ function SignUp({
   loginPrompt,
   loginText,
   googleIcon,
-  passwordIcon,
+  passwordSeeIcon,
+  passwordHideIcon,
   ...props
 }) {
   const classes = useStyles(props);
@@ -186,7 +187,9 @@ function SignUp({
                           <Image
                             height={45}
                             width={45}
-                            src={passwordIcon}
+                            src={
+                              isPassword ? passwordHideIcon : passwordSeeIcon
+                            }
                             alt=""
                           />
                         </Button>
@@ -264,7 +267,8 @@ SignUp.propTypes = {
   loginText: PropTypes.string,
   loginLink: PropTypes.string,
   googleIcon: PropTypes.string,
-  passwordIcon: PropTypes.string,
+  passwordSeeIcon: PropTypes.string,
+  passwordHideIcon: PropTypes.string,
 };
 
 SignUp.defaultProps = {
@@ -275,7 +279,8 @@ SignUp.defaultProps = {
   loginLink: undefined,
   loginText: undefined,
   googleIcon: undefined,
-  passwordIcon: undefined,
+  passwordSeeIcon: undefined,
+  passwordHideIcon: undefined,
 };
 
 export default SignUp;

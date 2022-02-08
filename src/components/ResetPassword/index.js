@@ -24,7 +24,8 @@ function ResetPassword({
   description,
   uid,
   token,
-  passwordIcon,
+  passwordSeeIcon,
+  passwordHideIcon,
   ...props
 }) {
   const classes = useStyles(props);
@@ -112,7 +113,9 @@ function ResetPassword({
                           <Image
                             height={45}
                             width={45}
-                            src={passwordIcon}
+                            src={
+                              isPassword ? passwordHideIcon : passwordSeeIcon
+                            }
                             alt=""
                           />
                         </IconButton>
@@ -154,7 +157,8 @@ ResetPassword.propTypes = {
   description: PropTypes.string,
   uid: PropTypes.string,
   token: PropTypes.string,
-  passwordIcon: PropTypes.string,
+  passwordSeeIcon: PropTypes.string,
+  passwordHideIcon: PropTypes.string,
 };
 
 ResetPassword.defaultProps = {
@@ -162,7 +166,8 @@ ResetPassword.defaultProps = {
   description: undefined,
   uid: undefined,
   token: undefined,
-  passwordIcon: undefined,
+  passwordSeeIcon: undefined,
+  passwordHideIcon: undefined,
 };
 
 export default ResetPassword;
