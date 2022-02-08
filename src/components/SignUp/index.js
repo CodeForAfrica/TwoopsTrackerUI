@@ -27,7 +27,7 @@ function SignUp({
   loginPrompt,
   loginText,
   googleIcon,
-  passwordSeeIcon,
+  passwordShowIcon,
   passwordHideIcon,
   ...props
 }) {
@@ -188,7 +188,7 @@ function SignUp({
                             height={45}
                             width={45}
                             src={
-                              isPassword ? passwordHideIcon : passwordSeeIcon
+                              isPassword ? passwordHideIcon : passwordShowIcon
                             }
                             alt=""
                           />
@@ -267,7 +267,7 @@ SignUp.propTypes = {
   loginText: PropTypes.string,
   loginLink: PropTypes.string,
   googleIcon: PropTypes.string,
-  passwordSeeIcon: PropTypes.string,
+  passwordShowIcon: PropTypes.string,
   passwordHideIcon: PropTypes.string,
 };
 
@@ -279,7 +279,7 @@ SignUp.defaultProps = {
   loginLink: undefined,
   loginText: undefined,
   googleIcon: undefined,
-  passwordSeeIcon: undefined,
+  passwordShowIcon: undefined,
   passwordHideIcon: undefined,
 };
 

@@ -5,6 +5,6 @@ loginPrompt: Already on Troll tracker?
 loginText: " Login now"
 errorLabel: Check field and try again
 googleIcon: /images/googleicon.svg
-passwordSeeIcon: /images/password.svg
+passwordShowIcon: /images/password.svg
 passwordHideIcon: /images/passwordhide.svg
 ---

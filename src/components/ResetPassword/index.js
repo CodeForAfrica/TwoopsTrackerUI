@@ -24,7 +24,7 @@ function ResetPassword({
   description,
   uid,
   token,
-  passwordSeeIcon,
+  passwordShowIcon,
   passwordHideIcon,
   ...props
 }) {
@@ -114,7 +114,7 @@ function ResetPassword({
                             height={45}
                             width={45}
                             src={
-                              isPassword ? passwordHideIcon : passwordSeeIcon
+                              isPassword ? passwordHideIcon : passwordShowIcon
                             }
                             alt=""
                           />
@@ -157,7 +157,7 @@ ResetPassword.propTypes = {
   description: PropTypes.string,
   uid: PropTypes.string,
   token: PropTypes.string,
-  passwordSeeIcon: PropTypes.string,
+  passwordShowIcon: PropTypes.string,
   passwordHideIcon: PropTypes.string,
 };
 
@@ -166,7 +166,7 @@ ResetPassword.defaultProps = {
   description: undefined,
   uid: undefined,
   token: undefined,
-  passwordSeeIcon: undefined,
+  passwordShowIcon: undefined,
   passwordHideIcon: undefined,
 };
 
