@@ -9,5 +9,6 @@ signInText: "Sign in with "
 forgotPasswordPrompt: Forgot password?
 forgotPasswordLink: /forgot-password
 googleIcon: /images/googleicon.svg
-passwordIcon: /images/password.svg
+passwordShowIcon: /images/password.svg
+passwordHideIcon: /images/passwordhide.svg
 ---
