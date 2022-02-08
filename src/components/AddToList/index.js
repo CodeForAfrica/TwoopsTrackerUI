@@ -99,7 +99,7 @@ function Alert(props) {
 function AddToList({
   handle,
   results: listsProp,
-  label,
+  addToListLabel,
   successLabel,
   ...props
 }) {
