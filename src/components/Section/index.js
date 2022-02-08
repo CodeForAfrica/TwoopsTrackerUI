@@ -13,6 +13,7 @@ const useStyles = makeStyles(({ breakpoints, typography, widths }) => ({
     const value = widths.values[breakpoint];
     if (value !== 0) {
       acc[breakpoints.up(breakpoint)] = {
+        overflow: "hidden",
         padding: 0,
         width: value,
       };
