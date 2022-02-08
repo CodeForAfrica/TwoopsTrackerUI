@@ -1,5 +1,6 @@
 import * as md from "./md";
 
+import account from "@/cms/components/account.md";
 import accountlist from "@/cms/components/accountList.md";
 import addtolist from "@/cms/components/addToList.md";
 import search from "@/cms/components/search.md";
@@ -211,7 +212,13 @@ export function accountList() {
   const { attributes } = accountlist;
   return attributes;
 }
+
 export function addToList() {
   const { attributes } = addtolist;
+  return attributes;
+}
+
+export function accountLabel() {
+  const { attributes } = account;
   return attributes;
 }

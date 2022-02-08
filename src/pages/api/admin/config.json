@@ -941,6 +941,18 @@
               "widget": "string"
             }
           ]
+        },
+        {
+          "label": "Account Label",
+          "name": "account",
+          "file": "content/components/account.md",
+          "fields": [
+            {
+              "label": "Delete Label",
+              "name": "deleteLabe;",
+              "widget": "string"
+            }
+          ]
         }
       ]
     }
