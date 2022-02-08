@@ -145,7 +145,7 @@ const options = {
         if (account.provider === "credentials") {
           return {
             accountType: "credentials",
-            user,
+            ...user,
           };
         }
       }
