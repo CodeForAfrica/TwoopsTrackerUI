@@ -14,7 +14,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       padding: 0,
       flexDirection: "row",
       justifyContent: "flex-end",
@@ -30,7 +30,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   menu: {
     margin: 0,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       marginRight: typography.pxToRem(15),
     },
   },
@@ -63,7 +63,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
       textDecoration: "none",
       color: "black",
     },
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       padding: `${typography.pxToRem(7)} ${typography.pxToRem(18)}`,
       color: "black",
       "&:hover, &:focus, &:focus-within": {
@@ -113,19 +113,21 @@ function Menu({
         </Grid>
       ))}
 
-      {session && session.user ? (
-        <UserProfile
-          label={session.user.firstName}
-          alt={session.user.firstName}
-          src={session.user?.image !== "" ? session.user?.image : userAvator}
-          logOutLabel={logOutLabel}
-          profilePages={profilePages}
-          accountLink={accountLink}
-        />
-      ) : (
-        <LoginMenu items={login} />
-      )}
-      {children}
+      <Grid item>
+        {session && session.user ? (
+          <UserProfile
+            label={session.user.firstName}
+            alt={session.user.firstName}
+            src={session.user?.image !== "" ? session.user?.image : userAvator}
+            logOutLabel={logOutLabel}
+            profilePages={profilePages}
+            accountLink={accountLink}
+          />
+        ) : (
+          <LoginMenu items={login} />
+        )}
+        {children}
+      </Grid>
     </Grid>
   );
 }
