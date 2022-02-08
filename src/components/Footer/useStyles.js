@@ -15,7 +15,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     margin: "0 auto",
     padding: 0,
     width: typography.pxToRem(195.73),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       margin: 0,
     },
     [breakpoints.up("xl")]: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     display: "flex",
     flexDirection: "column",
     letterspacing: typography.pxToRem(0.7),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       flexDirection: "row",
       alignItems: "center",
     },
@@ -52,7 +52,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     lineHeight: 15.67 / 10.48,
     margin: 0,
     padding: `${typography.pxToRem(10)} ${typography.pxToRem(0)}`,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       padding: 0,
     },
     [breakpoints.up("xl")]: {
@@ -67,12 +67,6 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     padding: 0,
   },
   stayInTouchLinks: {
-    [breakpoints.up("lg")]: {
-      marginLeft: typography.pxToRem(21.84),
-    },
-    [breakpoints.up("xl")]: {
-      marginLeft: typography.pxToRem(29),
-    },
     "& > a": {
       borderRight: "none",
       display: "flex",
@@ -89,10 +83,16 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     "& > a:last-of-type": {
       marginRight: 0,
     },
+    [breakpoints.up("md")]: {
+      marginLeft: typography.pxToRem(21.84),
+    },
+    [breakpoints.up("xl")]: {
+      marginLeft: typography.pxToRem(29),
+    },
   },
   quickLinkRoot: {
     padding: `${typography.pxToRem(32)} 0 `,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       textAlign: "inherit",
       padding: 0,
     },
@@ -125,7 +125,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     color: palette.text.secondary,
     padding: `${typography.pxToRem(33)} 0`,
     fontFamily: typography.subtitle1.fontFamily,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       textAlign: "left",
     },
     [breakpoints.up("xl")]: {
@@ -138,7 +138,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     flexWrap: "wrap",
     flexDirection: "row",
     justifyContent: "center",
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       justifyContent: "flex-start",
     },
     "& > a": {
@@ -149,7 +149,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     color: palette.text.secondary,
     order: 5,
     padding: `0 ${typography.pxToRem(5)}`,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       padding: `0 ${typography.pxToRem(10)}`,
     },
   },
