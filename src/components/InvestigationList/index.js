@@ -41,7 +41,7 @@ function InvestigationList({ items, paginationProps, ...props }) {
 
         <Grid container direction="row" className={classes.title}>
           {items.slice((page - 1) * pageSize, page * pageSize).map((item) => (
-            <Grid item lg={6} key={item.title}>
+            <Grid item md={6} key={item.title}>
               <InvestigationCard width={170} height={238} {...item} />
             </Grid>
           ))}
