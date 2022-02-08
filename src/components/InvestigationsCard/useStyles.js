@@ -5,18 +5,18 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
     marginBottom: typography.pxToRem(40),
     [breakpoints.up("md")]: {
       marginBottom: typography.pxToRem(80),
-      paddingRight: typography.pxToRem(118),
     },
   },
-  card: {
-    marginRight: typography.pxToRem(60),
-  },
+  actionArea: (props) => ({
+    display: "flex",
+    alignItems: props.featured ? "center" : "flex-start",
+    columnGap: typography.pxToRem(60),
+  }),
   content: {
     display: "flex",
-    alignItems: "center",
-    padding: "0rem 1rem",
+    flexDirection: "column",
   },
-  description: {
+  contentDescription: {
     margin: `${typography.pxToRem(20)} 0`,
     overflow: "hidden",
     boxOrient: "vertical",
@@ -26,26 +26,28 @@ const useStyles = makeStyles(({ breakpoints, typography }) => ({
       margin: `${typography.pxToRem(30)} 0`,
     },
   },
-  media: {
-    height: typography.pxToRem(238),
-    width: typography.pxToRem(169),
-    "& span": {
-      boxShadow: `0 4px 8px 0 rgba(0,0,0,0.4)`,
-    },
+  contentLink: {
+    width: "100%",
   },
-  featured: {
-    height: `${typography.pxToRem(421)} !important`,
-    width: `${typography.pxToRem(300)} !important`,
-    "& span": {
-      boxShadow: `0 4px 8px 0 rgba(0,0,0,0.4)`,
-    },
-  },
-  title: {
-    overflow: "hidden",
+  contentTitle: {
     boxOrient: "vertical",
     display: "-webkit-box",
-    lineClamp: 3,
     fontWeight: "bold",
+    lineClamp: 3,
+    marginTop: 0,
+    overflow: "hidden",
+    width: "100%",
+  },
+  media: (props) => {
+    return {
+      display: "flex",
+      flex: "1 0 auto",
+      height: typography.pxToRem(props.height),
+      width: typography.pxToRem(props.width),
+      "& span": {
+        boxShadow: `0 4px 8px 0 rgba(0,0,0,0.4)`,
+      },
+    };
   },
 }));
 

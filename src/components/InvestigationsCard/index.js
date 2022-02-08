@@ -1,26 +1,26 @@
-import { Grid } from "@material-ui/core";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import React from "react";
 
+import Card from "@/twoopstracker/components/Card";
+
+// NOTE(kilemensi): This is a workaround for this component styles to be loaded
+//                  after Card styles so that style-override works.
+// eslint-disable-next-line import/order
 import useStyles from "./useStyles";
 
-import Card from "@/twoopstracker/components/Card";
-import Content from "@/twoopstracker/components/Card/Content";
-
 function InvestigationsCard({
+  className,
   ctaText,
   description,
-  featured,
   href,
-  width,
-  height,
   image,
   imageProps,
   title,
   ...props
 }) {
   const classes = useStyles(props);
+  const { featured, height, width } = props;
   const contentProps = {
     ctaText,
     description,
@@ -32,35 +32,26 @@ function InvestigationsCard({
   };
 
   return (
-    <Grid wrap="nowrap" container className={classes.root}>
-      <Grid item>
-        <Card
-          image={image}
-          width={width}
-          height={height}
-          classes={{
-            root: classes.card,
-            media: clsx({
-              [classes.media]: true,
-              [classes.featured]: featured,
-            }),
-          }}
-        />
-      </Grid>
-      <Grid item className={classes.content}>
-        <Content
-          {...contentProps}
-          classes={{
-            description: classes.description,
-            title: classes.title,
-          }}
-        />
-      </Grid>
-    </Grid>
+    <Card
+      {...contentProps}
+      image={image}
+      width={width}
+      height={height}
+      classes={{
+        root: clsx(classes.root, className),
+        actionArea: classes.actionArea,
+        media: classes.media,
+        content: classes.content,
+        contentDescription: classes.contentDescription,
+        contentLink: classes.contentLink,
+        contentTitle: classes.contentTitle,
+      }}
+    />
   );
 }
 
 InvestigationsCard.propTypes = {
+  className: PropTypes.string,
   ctaText: PropTypes.string,
   description: PropTypes.string,
   featured: PropTypes.bool,
@@ -73,6 +64,7 @@ InvestigationsCard.propTypes = {
 };
 
 InvestigationsCard.defaultProps = {
+  className: undefined,
   ctaText: "View Investigation",
   description: undefined,
   featured: false,
