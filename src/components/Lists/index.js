@@ -23,7 +23,7 @@ function Lists({
   paginationProps,
   sort: sortProp,
   createLabel,
-  title,
+  titleLabel,
   noListLabel,
   ...props
 }) {
