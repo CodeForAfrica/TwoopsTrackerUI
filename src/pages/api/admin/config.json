@@ -700,6 +700,11 @@
               "widget": "string"
             },
             {
+              "label": "Sign In Text",
+              "name": "signInText",
+              "widget": "string"
+            },
+            {
               "label": "Forgot Password Prompt",
               "name": "forgotPasswordPrompt",
               "widget": "string"

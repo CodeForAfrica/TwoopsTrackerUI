@@ -30,6 +30,7 @@ function Login({
   signupPrompt,
   signUpLink,
   signUpText,
+  signInText,
   googleIcon,
   passwordIcon,
   ...props
@@ -199,7 +200,8 @@ function Login({
                     >
                       <Image height={45} width={45} src={googleIcon} alt="" />
                       <Typography className={classes.signinText}>
-                        Sign in with {provider.name}
+                        {signInText}
+                        {provider.name}
                       </Typography>
                     </Button>
                   );
@@ -227,11 +229,13 @@ Login.propTypes = {
   providers: PropTypes.shape({}),
   title: PropTypes.string,
   loginLabel: PropTypes.string,
+
   description: PropTypes.string,
   forgotPasswordLink: PropTypes.string,
   forgotPasswordPrompt: PropTypes.string,
   signupPrompt: PropTypes.string,
   signUpText: PropTypes.string,
+  signInText: PropTypes.string,
   signUpLink: PropTypes.string,
   googleIcon: PropTypes.string,
   passwordIcon: PropTypes.string,
@@ -247,6 +251,7 @@ Login.defaultProps = {
   signupPrompt: undefined,
   signUpLink: undefined,
   signUpText: undefined,
+  signInText: undefined,
   googleIcon: undefined,
   passwordIcon: undefined,
 };
