@@ -747,6 +747,16 @@
               "widget": "string"
             },
             {
+              "label": "Signup Label",
+              "name": "signUpLabel",
+              "widget": "string"
+            },
+            {
+              "label": "signin Text",
+              "name": "signInText",
+              "widget": "string"
+            },
+            {
               "label": "Error Label",
               "name": "errorLabel",
               "widget": "string"
@@ -824,6 +834,11 @@
             {
               "label": "Description",
               "name": "description",
+              "widget": "string"
+            },
+            {
+              "label": "Submit",
+              "name": "submitLabel",
               "widget": "string"
             }
           ]
