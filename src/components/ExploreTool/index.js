@@ -9,7 +9,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   root: {
     marginTop: typography.pxToRem(60),
     marginBottom: typography.pxToRem(60),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       marginTop: typography.pxToRem(90),
       marginBottom: typography.pxToRem(90),
     },
@@ -24,10 +24,14 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
   },
   figure: {
     marginTop: typography.pxToRem(35),
-    height: typography.pxToRem(403),
-    width: typography.pxToRem(731),
-    [breakpoints.up("lg")]: {
+    height: typography.pxToRem(322.25),
+    width: typography.pxToRem(584),
+    [breakpoints.up("md")]: {
       marginTop: 0,
+    },
+    [breakpoints.up("lg")]: {
+      height: typography.pxToRem(403),
+      width: typography.pxToRem(731),
     },
     [breakpoints.up("xl")]: {
       height: typography.pxToRem(436.2),
@@ -50,7 +54,7 @@ function ExploreTool({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container justifyContent="space-between">
-          <Grid item lg={4} xl={5}>
+          <Grid item md={5} lg={4} xl={5}>
             <Typography className={classes.title} component="h2" variant="h1">
               {title}
             </Typography>
@@ -77,6 +81,7 @@ ExploreTool.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
 };
+
 ExploreTool.defaultProps = {
   buttonLink: undefined,
   buttonText: undefined,
@@ -84,4 +89,5 @@ ExploreTool.defaultProps = {
   image: undefined,
   title: undefined,
 };
+
 export default ExploreTool;
