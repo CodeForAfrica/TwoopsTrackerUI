@@ -241,10 +241,6 @@ function TweetsContainer({
     <>
       <SearchSection
         {...props}
-        twitterAccountsLabel="See all Twitter Accounts"
-        searchLabel="Save Search"
-        loadSearchLabel="Load search"
-        saveSearchLabel="Search"
         days={days}
         location={location}
         onSelection={handleSelection}
@@ -275,7 +271,7 @@ function TweetsContainer({
           className={classes.content}
         />
       )}
-      <Tweets tweets={tweets} />
+      <Tweets tweets={tweets} {...props} />
       {tweets?.results?.length > 0 && (
         <Pagination
           {...paginationProps}

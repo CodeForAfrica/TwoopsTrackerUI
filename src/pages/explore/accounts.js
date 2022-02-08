@@ -5,16 +5,12 @@ import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
 import { pagination } from "@/twoopstracker/config";
 import { allAccounts } from "@/twoopstracker/lib";
-import { settings } from "@/twoopstracker/lib/cms";
+import { accountList, settings } from "@/twoopstracker/lib/cms";
 
 export default function Index(props) {
   return (
     <Page {...props}>
-      <AccountsList
-        {...props}
-        addAccountLabel="Add Account"
-        paginationProps={pagination}
-      />
+      <AccountsList {...props} paginationProps={pagination} />
     </Page>
   );
 }
@@ -40,6 +36,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       ...settings(),
+      ...accountList(),
       data,
       session,
     },

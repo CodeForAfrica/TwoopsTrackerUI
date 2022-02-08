@@ -100,12 +100,7 @@ function TweetCard({
               </Typography>
             </div>
             {session && (
-              <AddToList
-                handle={handle}
-                addToListLabel="Add to List"
-                successLabel="Account has beeen sucessfully added!"
-                results={results}
-              />
+              <AddToList handle={handle} results={results} {...props} />
             )}
           </Grid>
         </Grid>

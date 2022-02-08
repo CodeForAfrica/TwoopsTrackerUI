@@ -1,5 +1,8 @@
 import * as md from "./md";
 
+import accountlist from "@/cms/components/accountList.md";
+import addtolist from "@/cms/components/addToList.md";
+import search from "@/cms/components/search.md";
 import aboutContent from "@/cms/pages/about.md";
 import updateProfileContent from "@/cms/pages/account/update.md";
 import fgPasswordContent from "@/cms/pages/auth/forgot-password.md";
@@ -196,5 +199,19 @@ export function forgotPassword() {
 
 export function resetPassword() {
   const { attributes } = rsPasswordContent;
+  return attributes;
+}
+
+export function searchSection() {
+  const { attributes } = search;
+  return attributes;
+}
+
+export function accountList() {
+  const { attributes } = accountlist;
+  return attributes;
+}
+export function addToList() {
+  const { attributes } = addtolist;
   return attributes;
 }

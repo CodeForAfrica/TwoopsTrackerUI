@@ -881,6 +881,68 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Components",
+      "label": "Components",
+      "files": [
+        {
+          "label": "Search",
+          "name": "search",
+          "file": "content/components/search.md",
+          "fields": [
+            {
+              "label": "Twitter Accounts Label",
+              "name": "twitterAccountsLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Search Label",
+              "name": "searchLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Load Search Label",
+              "name": "loadSearchLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Save Search Label",
+              "name": "saveSearchLabel",
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "label": "Account List",
+          "name": "accountlist",
+          "file": "content/components/accountlist.md",
+          "fields": [
+            {
+              "label": "Add Account Label",
+              "name": "addAccountLabel",
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "label": "Add To List",
+          "name": "addtolist",
+          "file": "content/components/addtolist.md",
+          "fields": [
+            {
+              "label": "Add To List Label",
+              "name": "addToListLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Success Label",
+              "name": "successLabel",
+              "widget": "string"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
