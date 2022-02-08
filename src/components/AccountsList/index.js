@@ -112,7 +112,7 @@ function AccountsList({
         {name && <Typography variant="h2">{name}</Typography>}
         {editable && (
           <Button variant="contained" color="primary" onClick={handleOpen}>
-            {accountLabel}
+            {addAccountLabel}
           </Button>
         )}
       </div>
