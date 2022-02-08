@@ -16,7 +16,7 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     backgroundColor: palette.background.paper,
     paddingTop: typography.pxToRem(60),
     paddingBottom: typography.pxToRem(60),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       paddingTop: typography.pxToRem(100),
       paddingBottom: typography.pxToRem(100),
     },
