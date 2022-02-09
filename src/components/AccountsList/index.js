@@ -17,6 +17,7 @@ function AccountsList({
   apiUrl,
   editable,
   addAccountLabel,
+  deleteLabel,
   paginationProps,
   data: { id, name, count, results: accounts, is_private: isPrivate },
   ...props
@@ -133,11 +134,11 @@ function AccountsList({
       {listAccounts?.map((account) => {
         return (
           <Account
-            deleteLabel="Delete"
             key={account.screen_name}
             account={account}
             items={currentCount}
             onDelete={editable ? handleDelete : null}
+            deleteLabel={deleteLabel}
           />
         );
       })}
@@ -156,6 +157,7 @@ function AccountsList({
 AccountsList.propTypes = {
   apiUrl: PropTypes.string,
   addAccountLabel: PropTypes.string,
+  deleteLabel: PropTypes.string,
   data: PropTypes.shape({
     results: PropTypes.arrayOf(PropTypes.shape({})),
     count: PropTypes.number,
@@ -171,6 +173,7 @@ AccountsList.propTypes = {
 
 AccountsList.defaultProps = {
   data: undefined,
+  deleteLabel: undefined,
   addAccountLabel: undefined,
   apiUrl: undefined,
   editable: false,
