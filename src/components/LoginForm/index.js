@@ -27,7 +27,7 @@ function Login({
   description,
   forgotPasswordLink,
   forgotPasswordPrompt,
-  signupPrompt,
+  signUpPrompt,
   signUpLink,
   signUpLabel,
   signInLabel,
@@ -220,7 +220,7 @@ function Login({
             {forgotPasswordPrompt}
           </Button>
           <Typography className={classes.text}>
-            {signupPrompt} <Link href={signUpLink}>{signUpLabel}</Link>
+            {signUpPrompt} <Link href={signUpLink}>{signUpLabel}</Link>
           </Typography>
         </Grid>
       </Grid>
@@ -235,7 +235,7 @@ Login.propTypes = {
   description: PropTypes.string,
   forgotPasswordLink: PropTypes.string,
   forgotPasswordPrompt: PropTypes.string,
-  signupPrompt: PropTypes.string,
+  signUpPrompt: PropTypes.string,
   signUpLabel: PropTypes.string,
   signInLabel: PropTypes.string,
   signUpLink: PropTypes.string,
@@ -251,7 +251,7 @@ Login.defaultProps = {
   forgotPasswordPrompt: undefined,
   description: undefined,
   forgotPasswordLink: undefined,
-  signupPrompt: undefined,
+  signUpPrompt: undefined,
   signUpLink: undefined,
   signUpLabel: undefined,
   signInLabel: undefined,

@@ -691,7 +691,7 @@
             },
             {
               "label": "SignUp Prompt",
-              "name": "signupPrompt",
+              "name": "signUpPrompt",
               "widget": "string"
             },
             {
