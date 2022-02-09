@@ -21,6 +21,10 @@ function SearchSection({
   onSearch,
   query,
   theme,
+  twitterAccountsLabel,
+  searchLabel,
+  loadSearchLabel,
+  saveSearchLabel,
   searchGuide: searchGuideProp,
   ...props
 }) {
@@ -136,7 +140,7 @@ function SearchSection({
                 component={Link}
                 underline="none"
               >
-                See all Twitter Accounts
+                {twitterAccountsLabel}
               </Button>
             )}
           </div>
@@ -150,14 +154,14 @@ function SearchSection({
                   component={Link}
                   underline="none"
                 >
-                  Load search
+                  {loadSearchLabel}
                 </Button>
                 <Button
                   variant="outlined"
                   className={classes.saveButton}
                   onClick={handleClickSaveSearch}
                 >
-                  Save Search
+                  {saveSearchLabel}
                 </Button>
               </>
             ) : null}
@@ -167,7 +171,7 @@ function SearchSection({
               className={classes.button}
               onClick={onSearch}
             >
-              Search
+              {searchLabel}
             </Button>
           </div>
         </div>
@@ -175,10 +179,12 @@ function SearchSection({
 
       <SavedSearchDialog
         open={open}
+        saveLabel="Save"
+        cancelLabel="Cancel"
+        title="Save Search"
         onClick={handleClickSaveSavedSearch}
         onClose={handleClose}
         variant="add"
-        title="Save Search"
       />
     </div>
   );
@@ -187,6 +193,10 @@ function SearchSection({
 SearchSection.propTypes = {
   category: PropTypes.string,
   days: PropTypes.string,
+  twitterAccountsLabel: PropTypes.string,
+  searchLabel: PropTypes.string,
+  loadSearchLabel: PropTypes.string,
+  saveSearchLabel: PropTypes.string,
   location: PropTypes.string,
   onSaveSearch: PropTypes.func,
   onSelection: PropTypes.func,
@@ -199,6 +209,10 @@ SearchSection.propTypes = {
 SearchSection.defaultProps = {
   category: undefined,
   days: undefined,
+  twitterAccountsLabel: undefined,
+  searchLabel: undefined,
+  loadSearchLabel: undefined,
+  saveSearchLabel: undefined,
   location: undefined,
   onSelection: undefined,
   onSaveSearch: undefined,

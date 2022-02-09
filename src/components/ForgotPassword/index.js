@@ -16,7 +16,7 @@ import useStyles from "./useStyles";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
-function ForgotPassword({ title, description, ...props }) {
+function ForgotPassword({ title, description, submitLabel, ...props }) {
   const classes = useStyles(props);
 
   const handleSubmit = async (values, { setErrors }) => {
@@ -93,9 +93,13 @@ function ForgotPassword({ title, description, ...props }) {
                   error={touched.email && Boolean(errors.email)}
                   helperText={touched.email && errors.email}
                 />
-
-                <Button variant="contained" color="primary" type="submit">
-                  Submit
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  {submitLabel}
                 </Button>
               </form>
             )}
@@ -108,11 +112,13 @@ function ForgotPassword({ title, description, ...props }) {
 
 ForgotPassword.propTypes = {
   title: PropTypes.string,
+  submitLabel: PropTypes.string,
   description: PropTypes.string,
 };
 
 ForgotPassword.defaultProps = {
   title: undefined,
+  submitLabel: undefined,
   description: undefined,
 };
 

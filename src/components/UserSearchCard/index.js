@@ -44,6 +44,8 @@ function UserSearchCard({
   query: queryObj,
   created_at: createdAt,
   onDelete,
+  deleteLabel,
+  editLabel,
   onEdit,
   datePrefix,
   keywordPrefix,
@@ -171,7 +173,7 @@ function UserSearchCard({
               onClick={handleClickOpen}
               className={classes.button}
             >
-              Edit
+              {editLabel}
             </Button>
             <Button
               variant="outlined"
@@ -179,7 +181,7 @@ function UserSearchCard({
               className={classes.button}
               onClick={handleDelete}
             >
-              Delete
+              {deleteLabel}
             </Button>
           </Grid>
         </Grid>
@@ -192,6 +194,8 @@ function UserSearchCard({
         onClose={handleClose}
         variant="edit"
         title="Edit Search"
+        saveLabel="Save"
+        cancelLabel="Cancel"
       />
     </div>
   );
@@ -200,6 +204,8 @@ function UserSearchCard({
 UserSearchCard.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
+  deleteLabel: PropTypes.string,
+  editLabel: PropTypes.string,
   query: PropTypes.shape({
     endDate: PropTypes.string,
     startDate: PropTypes.string,
@@ -216,6 +222,8 @@ UserSearchCard.propTypes = {
 UserSearchCard.defaultProps = {
   id: undefined,
   name: undefined,
+  deleteLabel: undefined,
+  editLabel: undefined,
   query: undefined,
   created_at: undefined,
   onDelete: undefined,

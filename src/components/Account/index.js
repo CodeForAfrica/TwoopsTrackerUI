@@ -18,6 +18,7 @@ function Account({
     protected: accountType,
     profile_image_url: image,
   },
+  deleteLabel,
   items,
   onDelete,
   ...props
@@ -79,7 +80,7 @@ function Account({
               variant="contained"
               color="primary"
             >
-              Delete
+              {deleteLabel}
             </Button>
           )}
           <ListModal
@@ -106,11 +107,13 @@ Account.propTypes = {
   }),
   items: PropTypes.number,
   onDelete: PropTypes.func,
+  deleteLabel: PropTypes.string,
 };
 
 Account.defaultProps = {
   account: undefined,
   items: undefined,
+  deleteLabel: undefined,
   onDelete: undefined,
 };
 

@@ -23,12 +23,14 @@ import Section from "@/twoopstracker/components/Section";
 function Login({
   providers: providersProp,
   title,
+  loginLabel,
   description,
   forgotPasswordLink,
   forgotPasswordPrompt,
-  signupPrompt,
+  signUpPrompt,
   signUpLink,
-  signUpText,
+  signUpLabel,
+  signInLabel,
   googleIcon,
   passwordShowIcon,
   passwordHideIcon,
@@ -145,10 +147,10 @@ function Login({
                           <Image
                             height={45}
                             width={45}
+                            alt="Password Icon"
                             src={
                               isPassword ? passwordHideIcon : passwordShowIcon
                             }
-                            alt=""
                           />
                         </IconButton>
                       </InputAdornment>
@@ -173,7 +175,7 @@ function Login({
                   color="primary"
                   type="submit"
                 >
-                  Login
+                  {loginLabel}
                 </Button>
               </form>
             )}
@@ -201,7 +203,8 @@ function Login({
                     >
                       <Image height={45} width={45} src={googleIcon} alt="" />
                       <Typography className={classes.signinText}>
-                        Sign in with {provider.name}
+                        {signInLabel}
+                        {provider.name}
                       </Typography>
                     </Button>
                   );
@@ -217,7 +220,7 @@ function Login({
             {forgotPasswordPrompt}
           </Button>
           <Typography className={classes.text}>
-            {signupPrompt} <Link href={signUpLink}>{signUpText}</Link>
+            {signUpPrompt} <Link href={signUpLink}>{signUpLabel}</Link>
           </Typography>
         </Grid>
       </Grid>
@@ -228,11 +231,13 @@ function Login({
 Login.propTypes = {
   providers: PropTypes.shape({}),
   title: PropTypes.string,
+  loginLabel: PropTypes.string,
   description: PropTypes.string,
   forgotPasswordLink: PropTypes.string,
   forgotPasswordPrompt: PropTypes.string,
-  signupPrompt: PropTypes.string,
-  signUpText: PropTypes.string,
+  signUpPrompt: PropTypes.string,
+  signUpLabel: PropTypes.string,
+  signInLabel: PropTypes.string,
   signUpLink: PropTypes.string,
   googleIcon: PropTypes.string,
   passwordShowIcon: PropTypes.string,
@@ -241,13 +246,15 @@ Login.propTypes = {
 
 Login.defaultProps = {
   providers: undefined,
+  loginLabel: undefined,
   title: undefined,
   forgotPasswordPrompt: undefined,
   description: undefined,
   forgotPasswordLink: undefined,
-  signupPrompt: undefined,
+  signUpPrompt: undefined,
   signUpLink: undefined,
-  signUpText: undefined,
+  signUpLabel: undefined,
+  signInLabel: undefined,
   googleIcon: undefined,
   passwordShowIcon: undefined,
   passwordHideIcon: undefined,

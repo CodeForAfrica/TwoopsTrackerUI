@@ -24,6 +24,8 @@ function SignUp({
   providers: providersProp,
   title,
   description,
+  signUpLabel,
+  signInLabel,
   loginPrompt,
   loginText,
   googleIcon,
@@ -172,7 +174,6 @@ function SignUp({
                   error={touched.email && Boolean(errors.email)}
                   helperText={touched.email && errors.email}
                 />
-
                 <TextField
                   className={classes.textfield}
                   InputLabelProps={{ className: classes.label, shrink: false }}
@@ -187,10 +188,10 @@ function SignUp({
                           <Image
                             height={45}
                             width={45}
+                            alt="Password Icon"
                             src={
                               isPassword ? passwordHideIcon : passwordShowIcon
                             }
-                            alt=""
                           />
                         </Button>
                       </InputAdornment>
@@ -209,8 +210,13 @@ function SignUp({
                   error={touched.password1 && Boolean(errors.password1)}
                   helperText={touched.password1 && errors.password1}
                 />
-                <Button type="submit" variant="contained" color="primary">
-                  SignUp
+                <Button
+                  type="submit"
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                >
+                  {signUpLabel}
                 </Button>
               </form>
             )}
@@ -237,7 +243,7 @@ function SignUp({
                     >
                       <Image height={45} width={45} src={googleIcon} alt="" />
                       <Typography className={classes.signinText}>
-                        Sign in with {provider.name}
+                        {signInLabel} {provider.name}
                       </Typography>
                     </Button>
                   );
@@ -258,6 +264,8 @@ SignUp.propTypes = {
   providers: PropTypes.shape({}),
   title: PropTypes.string,
   description: PropTypes.string,
+  signUpLabel: PropTypes.string,
+  signInLabel: PropTypes.string,
   loginPrompt: PropTypes.string,
   loginText: PropTypes.string,
   loginLink: PropTypes.string,
@@ -269,6 +277,8 @@ SignUp.propTypes = {
 SignUp.defaultProps = {
   providers: undefined,
   title: undefined,
+  signUpLabel: undefined,
+  signInLabel: undefined,
   description: undefined,
   loginPrompt: undefined,
   loginLink: undefined,

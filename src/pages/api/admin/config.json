@@ -732,8 +732,13 @@
               "widget": "string"
             },
             {
+              "label": "Login Label",
+              "name": "loginLabel",
+              "widget": "string"
+            },
+            {
               "label": "SignUp Prompt",
-              "name": "signupPrompt",
+              "name": "signUpPrompt",
               "widget": "string"
             },
             {
@@ -742,8 +747,13 @@
               "widget": "string"
             },
             {
-              "label": "SignUp Text",
-              "name": "signupText",
+              "label": "SignUp Label",
+              "name": "signupLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Sign In Label",
+              "name": "signInLabel",
               "widget": "string"
             },
             {
@@ -791,6 +801,16 @@
             {
               "label": "Login Text",
               "name": "loginText",
+              "widget": "string"
+            },
+            {
+              "label": "Signup Label",
+              "name": "signUpLabel",
+              "widget": "string"
+            },
+            {
+              "label": "signin Label",
+              "name": "signInLabel",
               "widget": "string"
             },
             {
@@ -872,6 +892,11 @@
               "label": "Description",
               "name": "description",
               "widget": "string"
+            },
+            {
+              "label": "Submit",
+              "name": "submitLabel",
+              "widget": "string"
             }
           ]
         },
@@ -891,9 +916,88 @@
               "widget": "string"
             },
             {
+              "label": "Submit Label",
+              "name": "submitLabel",
+              "widget": "string"
+            },
+            {
               "label": "Password Icon",
               "name": "passwordIcon",
               "widget": "image"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Components",
+      "label": "Components",
+      "files": [
+        {
+          "label": "Search",
+          "name": "search",
+          "file": "content/components/search.md",
+          "fields": [
+            {
+              "label": "Twitter Accounts Label",
+              "name": "twitterAccountsLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Search Label",
+              "name": "searchLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Load Search Label",
+              "name": "loadSearchLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Save Search Label",
+              "name": "saveSearchLabel",
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "label": "Account List",
+          "name": "accountlist",
+          "file": "content/components/accountlist.md",
+          "fields": [
+            {
+              "label": "Add Account Label",
+              "name": "addAccountLabel",
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "label": "Add To List",
+          "name": "addtolist",
+          "file": "content/components/addtolist.md",
+          "fields": [
+            {
+              "label": "Add To List Label",
+              "name": "addToListLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Success Label",
+              "name": "successLabel",
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "label": "Account Label",
+          "name": "account",
+          "file": "content/components/account.md",
+          "fields": [
+            {
+              "label": "Delete Label",
+              "name": "deleteLabe;",
+              "widget": "string"
             }
           ]
         }

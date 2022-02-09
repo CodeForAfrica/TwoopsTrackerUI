@@ -83,6 +83,8 @@ function UserSearch({ searches: searchesProp, paginationProps, ...props }) {
               <Grid item xs={12}>
                 <UserSearchCard
                   {...item}
+                  editLabel="Edit"
+                  deleteLabel="Delete"
                   key={item.created_at}
                   onDelete={handleDeleteSearch}
                   onEdit={handleEditSearch}

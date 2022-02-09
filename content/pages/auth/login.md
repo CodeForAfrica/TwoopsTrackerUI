@@ -1,9 +1,11 @@
 ---
 title: Welcome back
 description: Login to access all the features on TrollTracker
-signupPrompt: New to Trolltracker?
-signUpText: Sign up now
+loginLabel: Login
+signUpPrompt: New to Trolltracker?
 signUpLink: /signup
+signUpLabel: Sign up now
+signInLabel: "Sign in with "
 forgotPasswordPrompt: Forgot password?
 forgotPasswordLink: /forgot-password
 googleIcon: /images/googleicon.svg

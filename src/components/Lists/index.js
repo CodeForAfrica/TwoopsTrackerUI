@@ -22,6 +22,9 @@ function Lists({
   pageSize: pageSizeProp,
   paginationProps,
   sort: sortProp,
+  createLabel,
+  titleLabel,
+  noListLabel,
   ...props
 }) {
   const router = useRouter();
@@ -165,12 +168,8 @@ function Lists({
   const count = Math.ceil((lists?.count ?? 0) / pageSize);
   const newList = (
     <div className={classes.createListModal}>
-      <Typography
-        onClick={handleOpen}
-        variant="body2"
-        className={classes.create}
-      >
-        Create New List
+      <Typography onClick={handleOpen} className={classes.create}>
+        {createLabel}
       </Typography>
       <ListModal
         open={open}
@@ -199,7 +198,7 @@ function Lists({
     <div className={classes.root}>
       <div className={classes.section}>
         <Typography variant="h2" className={classes.title}>
-          Your Lists
+          {titleLabel}
         </Typography>
         {lists?.count ? (
           <>
@@ -226,6 +225,8 @@ function Lists({
               {lists?.results?.map((item) => (
                 <Grid item xs={12}>
                   <ListCard
+                    editLabel="Edit"
+                    deleteLabel="Delete"
                     key={item.name}
                     classes={{ root: classes.listItem }}
                     {...item}
@@ -247,7 +248,7 @@ function Lists({
         ) : (
           <div className={classes.noLists}>
             {newList}
-            <Typography variant="body1">There are no lists</Typography>
+            <Typography variant="body1">{noListLabel}</Typography>
           </div>
         )}
       </div>
@@ -261,6 +262,9 @@ Lists.propTypes = {
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   paginationProps: PropTypes.shape({}),
   sort: PropTypes.string,
+  createLabel: PropTypes.string,
+  titleLabel: PropTypes.string,
+  noListLabel: PropTypes.string,
 };
 
 Lists.defaultProps = {
@@ -269,6 +273,9 @@ Lists.defaultProps = {
   pageSize: undefined,
   paginationProps: undefined,
   sort: undefined,
+  createLabel: undefined,
+  titleLabel: undefined,
+  noListLabel: undefined,
 };
 
 export default Lists;

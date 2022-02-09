@@ -96,7 +96,13 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function AddToList({ handle, results: listsProp, ...props }) {
+function AddToList({
+  handle,
+  results: listsProp,
+  addToListLabel,
+  successLabel,
+  ...props
+}) {
   const classes = useStyles(props);
   const anchorRef = useRef(null);
 
@@ -127,10 +133,10 @@ function AddToList({ handle, results: listsProp, ...props }) {
     setOpen(false);
     setOpenSnackBar(true);
 
-    if (accountData.accounts.includes({ screen_name: handle })) {
+    if (accountData.accounts?.includes({ screen_name: handle })) {
       setListIncluded(false);
     } else {
-      accountData.accounts.push({ screen_name: handle });
+      accountData.accounts?.push({ screen_name: handle });
       setListIncluded(true);
     }
 
@@ -191,7 +197,7 @@ function AddToList({ handle, results: listsProp, ...props }) {
           <Image width={24} height={24} alt="Add to list" src={addToList} />
         }
       >
-        <Typography className={classes.list}>Add to List</Typography>
+        <Typography className={classes.list}>{addToListLabel}</Typography>
       </Button>
 
       <Popper
@@ -243,7 +249,7 @@ function AddToList({ handle, results: listsProp, ...props }) {
           onClose={handleSnackBarClose}
         >
           <Alert onClose={handleSnackBarClose} severity="success">
-            Account has beeen sucessfully added!
+            {successLabel}
           </Alert>
         </Snackbar>
       ) : null}
@@ -253,6 +259,8 @@ function AddToList({ handle, results: listsProp, ...props }) {
 
 AddToList.propTypes = {
   results: PropTypes.arrayOf(PropTypes.shape({})),
+  addToListLabel: PropTypes.string,
+  successLabel: PropTypes.string,
   data: PropTypes.shape({
     accounts: PropTypes.arrayOf(PropTypes.shape({})),
     name: PropTypes.string,
@@ -264,6 +272,8 @@ AddToList.propTypes = {
 
 AddToList.defaultProps = {
   handle: undefined,
+  addToListLabel: undefined,
+  successLabel: undefined,
   results: undefined,
   data: undefined,
 };

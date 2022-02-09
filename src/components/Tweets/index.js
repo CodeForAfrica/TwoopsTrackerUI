@@ -14,7 +14,13 @@ function Tweets({ tweets, ...props }) {
     <Section className={classes.section}>
       {tweets?.results?.length > 0 ? (
         tweets.results.map((tweet) => (
-          <TweetCard key={tweet.tweet_id} {...tweet} />
+          <TweetCard
+            key={tweet.tweet_id}
+            seeLessLabel="See less"
+            originalTweetText="Original tweet by"
+            {...tweet}
+            {...props}
+          />
         ))
       ) : (
         <Typography className={classes.text}>No Tweets Found</Typography>

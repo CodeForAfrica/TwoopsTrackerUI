@@ -16,6 +16,8 @@ import getQueryString from "@/twoopstracker/utils/getQueryString";
 function AccountsList({
   apiUrl,
   editable,
+  addAccountLabel,
+  deleteLabel,
   paginationProps,
   data: { id, name, count, results: accounts, is_private: isPrivate },
   ...props
@@ -111,7 +113,7 @@ function AccountsList({
         {name && <Typography variant="h2">{name}</Typography>}
         {editable && (
           <Button variant="contained" color="primary" onClick={handleOpen}>
-            Add Account
+            {addAccountLabel}
           </Button>
         )}
       </div>
@@ -136,6 +138,7 @@ function AccountsList({
             account={account}
             items={currentCount}
             onDelete={editable ? handleDelete : null}
+            deleteLabel={deleteLabel}
           />
         );
       })}
@@ -153,6 +156,8 @@ function AccountsList({
 
 AccountsList.propTypes = {
   apiUrl: PropTypes.string,
+  addAccountLabel: PropTypes.string,
+  deleteLabel: PropTypes.string,
   data: PropTypes.shape({
     results: PropTypes.arrayOf(PropTypes.shape({})),
     count: PropTypes.number,
@@ -168,6 +173,8 @@ AccountsList.propTypes = {
 
 AccountsList.defaultProps = {
   data: undefined,
+  deleteLabel: undefined,
+  addAccountLabel: undefined,
   apiUrl: undefined,
   editable: false,
   paginationProps: undefined,

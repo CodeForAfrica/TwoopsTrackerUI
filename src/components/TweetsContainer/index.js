@@ -271,7 +271,7 @@ function TweetsContainer({
           className={classes.content}
         />
       )}
-      <Tweets tweets={tweets} />
+      <Tweets tweets={tweets} {...props} />
       {tweets?.results?.length > 0 && (
         <Pagination
           {...paginationProps}

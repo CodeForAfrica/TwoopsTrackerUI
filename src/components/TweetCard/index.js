@@ -21,6 +21,10 @@ function TweetCard({
   owner,
   onClick,
   deleted,
+  addToListLabel,
+  successLabel,
+  seeLessLabel,
+  originalTweetText,
   content: contentProp,
   retweeted_user_screen_name: retweetedUser,
   retweet_id: retweetId,
@@ -97,7 +101,14 @@ function TweetCard({
                 {accountType}
               </Typography>
             </div>
-            {session && <AddToList handle={handle} results={results} />}
+            {session && (
+              <AddToList
+                handle={handle}
+                addToListLabel={addToListLabel}
+                successLabel={successLabel}
+                results={results}
+              />
+            )}
           </Grid>
         </Grid>
         <Grid item md={4}>
@@ -132,13 +143,13 @@ function TweetCard({
         />
         {expanded && (
           <Button onClick={handleMore} className={classes.seeLessButton}>
-            See less
+            {seeLessLabel}
           </Button>
         )}
       </div>
       {retweetedUser && (
         <RichTypography variant="body2">
-          Original tweet by
+          {originalTweetText}
           {` `}
           <Link
             href={`https://twitter.com/${retweetedUser.slice(
@@ -161,9 +172,14 @@ TweetCard.propTypes = {
     protected: PropTypes.bool,
     profile_image_url: PropTypes.string,
   }),
+  successLabel: PropTypes.string,
+  addToListLabel: PropTypes.string,
+
   results: PropTypes.arrayOf(PropTypes.shape({})),
   onClick: PropTypes.func,
   deleted_at: PropTypes.string,
+  seeLessLabel: PropTypes.string,
+  originalTweetText: PropTypes.string,
   retweet_id: PropTypes.number,
   retweeted_user_screen_name: PropTypes.string,
   number_of_interactions: PropTypes.number,
@@ -177,6 +193,10 @@ TweetCard.defaultProps = {
   owner: undefined,
   onClick: undefined,
   content: undefined,
+  successLabel: undefined,
+  addToListLabel: undefined,
+  seeLessLabel: undefined,
+  originalTweetText: undefined,
   deleted_at: undefined,
   retweet_id: undefined,
   retweeted_user_screen_name: undefined,

@@ -6,7 +6,7 @@ import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
 import { listAccountsPagination } from "@/twoopstracker/config";
 import { listAccounts, list } from "@/twoopstracker/lib";
-import { settings } from "@/twoopstracker/lib/cms";
+import { settings, accountList } from "@/twoopstracker/lib/cms";
 
 export default function Index({ data, ...props }) {
   return (
@@ -49,6 +49,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       ...settings(),
+      ...accountList(),
       data,
       session,
       apiUrl: `/api/lists/${paramData.listId}`,
