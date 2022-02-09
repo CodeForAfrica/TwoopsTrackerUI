@@ -16,7 +16,8 @@ function Account({
     screen_name: screenName,
     created_at: createdAt,
     protected: accountType,
-    profile_image_url: image,
+    profile_image_url: profileImageHttpNormal,
+    profile_image_url_https: profileImageHttpsNormal,
   },
   items,
   onDelete,
@@ -29,7 +30,8 @@ function Account({
   const classes = useStyles(props);
 
   const date = new Date(createdAt);
-  const profileImage = image?.replace("_normal", "");
+  const profileImageNormal = profileImageHttpsNormal || profileImageHttpNormal;
+  const profileImage = profileImageNormal?.replace("_normal", "");
 
   const onAccountDelete = async () => {
     try {
@@ -102,6 +104,7 @@ Account.propTypes = {
     screen_name: PropTypes.string,
     created_at: PropTypes.string,
     profile_image_url: PropTypes.string,
+    profile_image_url_https: PropTypes.string,
     protected: PropTypes.bool,
   }),
   items: PropTypes.number,
