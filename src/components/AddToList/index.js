@@ -133,10 +133,10 @@ function AddToList({
     setOpen(false);
     setOpenSnackBar(true);
 
-    if (accountData.accounts.includes({ screen_name: handle })) {
+    if (accountData.accounts?.includes({ screen_name: handle })) {
       setListIncluded(false);
     } else {
-      accountData.accounts.push({ screen_name: handle });
+      accountData.accounts?.push({ screen_name: handle });
       setListIncluded(true);
     }
 
