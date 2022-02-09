@@ -54,13 +54,13 @@ function SearchSection({
     <div className={classes.root}>
       <Section className={classes.section}>
         <Grid container>
-          <Grid item lg={7} xs={12} className={classes.inputSection}>
+          <Grid item md={7} xs={12} className={classes.inputSection}>
             <Search
               defaultValue={query || undefined}
               onChange={onSelection}
               onKeyDown={handleKeyDown}
             />
-            <Hidden lgUp implementation="css">
+            <Hidden mdUp implementation="css">
               <SearchGuide
                 {...searchGuideProp}
                 placement="bottom"
@@ -68,7 +68,7 @@ function SearchSection({
               />
             </Hidden>
           </Grid>
-          <Grid item lg={5} xs={12} className={classes.filterSection}>
+          <Grid item md={5} xs={12} className={classes.filterSection}>
             <Filter
               label="Days"
               handleSelection={onSelection}
@@ -121,7 +121,7 @@ function SearchSection({
               ]}
               value={location}
             />
-            <Hidden mdDown implementation="css">
+            <Hidden smDown implementation="css">
               <SearchGuide
                 {...searchGuideProp}
                 placement="top-end"

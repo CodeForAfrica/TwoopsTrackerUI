@@ -7,7 +7,7 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   title: {
     fontSize: typography.pxToRem(36),
     marginBottom: typography.pxToRem(30),
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       marginTop: typography.pxToRem(30),
     },
   },

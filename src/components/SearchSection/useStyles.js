@@ -22,7 +22,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "column",
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       flexDirection: "row",
     },
   },

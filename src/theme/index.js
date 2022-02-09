@@ -11,7 +11,7 @@ const theme = createTheme({
     values: {
       xs: 0,
       sm: 390, // mobile
-      md: 960, // tablet
+      md: 1152, // tablet
       lg: 1440, // desktop
       xl: 1920, // desktop
     },
@@ -93,7 +93,7 @@ const theme = createTheme({
   },
   widths: {
     values: {
-      md: 900,
+      md: 1106,
       lg: 1240,
       xl: 1520,
     },
@@ -111,7 +111,7 @@ deepmerge(
       fontSize: pxToRem(30),
       lineHeight: 40 / 30,
       color: palette.text.secondary,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("md")]: {
         fontSize: pxToRem(48),
         lineHeight: 52.8 / 48,
       },
@@ -123,26 +123,29 @@ deepmerge(
     h2: {
       fontSize: pxToRem(30),
       lineHeight: 49.2 / 30,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("md")]: {
         fontSize: pxToRem(48),
         lineHeight: 71.75 / 48,
       },
     },
     h3: {
       fontSize: pxToRem(30),
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("md")]: {
         fontSize: pxToRem(40),
         lineHeight: 58.67 / 40,
       },
     },
     h4: {
       fontSize: pxToRem(24),
-      [breakpoints.up("lg")]: { fontSize: pxToRem(36), lineHeight: 53.82 / 36 },
+      [breakpoints.up("md")]: {
+        fontSize: pxToRem(36),
+        lineHeight: 53.82 / 36,
+      },
     },
     h5: {
       fontSize: pxToRem(14),
       lineHeight: 30 / 14,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("md")]: {
         fontSize: pxToRem(16),
         lineHeight: 30 / 16,
       },
@@ -150,7 +153,7 @@ deepmerge(
     body1: {
       fontSize: pxToRem(18),
       lineHeight: 30 / 18,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("md")]: {
         fontSize: pxToRem(24),
         lineHeight: 35.88 / 24,
       },
@@ -162,19 +165,19 @@ deepmerge(
     button: {
       fontSize: pxToRem(16),
       lineHeight: 24 / 16,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("md")]: {
         fontSize: pxToRem(24),
         lineHeight: 35.88 / 24,
       },
     },
     caption: {
       fontSize: pxToRem(14),
-      [breakpoints.up("lg")]: { fontSize: pxToRem(14) },
+      [breakpoints.up("md")]: { fontSize: pxToRem(14) },
     },
     subtitle1: {
       fontSize: pxToRem(16),
       lineHeight: 24 / 16,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("md")]: {
         fontSize: typography.pxToRem(24),
         lineHeight: 35.88 / 24,
       },
@@ -182,7 +185,7 @@ deepmerge(
     subtitle2: {
       fontSize: 14,
       lineHeight: 20 / 14,
-      [breakpoints.up("lg")]: {
+      [breakpoints.up("md")]: {
         fontSize: typography.pxToRem(18),
         lineHeight: 30 / 18,
       },

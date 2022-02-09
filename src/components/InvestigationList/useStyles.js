@@ -7,7 +7,7 @@ const useStyles = makeStyles(({ typography }) => ({
   pagination: {
     borderTop: "1px solid #D0D0D0",
   },
-  title: {
+  otherCards: {
     borderTop: "1px solid #D0D0D0",
     paddingTop: typography.pxToRem(48),
   },

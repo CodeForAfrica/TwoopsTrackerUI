@@ -86,11 +86,16 @@ function Partners({
   ...props
 }) {
   const classes = useStyles(props);
+
   return (
     <div className={classes.root}>
       <Section className={classes.section}>
         <div className={classes.primaryPartnerContainer}>
-          <Typography className={classes.title} variant="h1">
+          <Typography
+            color="textPrimary"
+            variant="h1"
+            className={classes.title}
+          >
             {title}
           </Typography>
           <Typography className={classes.description} variant="body1">
@@ -114,7 +119,7 @@ function Partners({
         <div className={classes.secondaryPartners}>
           <Grid container>
             {secondaryPartners?.map(({ image, href }) => (
-              <Grid item lg={3} md={6} xs={12}>
+              <Grid item md={3} sm={6} xs={12}>
                 <Link key={href} href={href}>
                   <Image
                     className={classes.image}

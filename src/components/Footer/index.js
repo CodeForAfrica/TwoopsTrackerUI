@@ -37,7 +37,7 @@ function Footer({
           alignItems="center"
           justifyContent="space-between"
         >
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} md={4}>
             {project.logoProps && (
               <LogoButton
                 {...project.logoProps}
@@ -77,10 +77,10 @@ function Footer({
             }}
             item
             xs={12}
-            lg={4}
+            md={4}
           >
             {quickLinksProp?.map((qL) => (
-              <Grid key={qL.title} container item xs={12} lg={6}>
+              <Grid key={qL.title} container item xs={12} md={6}>
                 <QuickLinks
                   linkComponent={Link}
                   {...qL}

@@ -13,7 +13,7 @@ import Figure from "@/twoopstracker/components/Figure";
 import Link from "@/twoopstracker/components/Link";
 
 // NOTE(kilemensi): This is a workaround for this component styles to be loaded
-//                  after Figure styles so that we can override Figure styles.
+//                  after Figure styles so that style-override works.
 // eslint-disable-next-line import/order
 import useStyles from "./useStyles";
 
@@ -85,7 +85,7 @@ function TweetCard({
   return (
     <div className={classes.root}>
       <Grid container justifyContent="space-between">
-        <Grid item container lg={8} alignItems="center">
+        <Grid item container md={8} alignItems="center" wrap="nowrap">
           <Grid item>
             <Figure src={profileImage || UserIcon} className={classes.icon} />
           </Grid>
@@ -111,7 +111,7 @@ function TweetCard({
             )}
           </Grid>
         </Grid>
-        <Grid item lg={4}>
+        <Grid item md={4}>
           {createdAt && (
             <Typography variant="body2">{`Created on ${created[0]} at ${created[1]}`}</Typography>
           )}

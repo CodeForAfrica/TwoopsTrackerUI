@@ -44,12 +44,12 @@ function Account({
   return (
     <div className={classes.root}>
       <Grid container>
-        <Grid item lg={2}>
+        <Grid item md={2}>
           <Grid item>
             <Figure src={profileImage || UserIcon} className={classes.icon} />
           </Grid>
         </Grid>
-        <Grid item lg={5} xs={12} className={classes.detailSection}>
+        <Grid item md={5} xs={12} className={classes.detailSection}>
           <Typography className={classes.username} variant="h4">
             {name || "Username Username"}
           </Typography>
@@ -71,7 +71,7 @@ function Account({
             </Typography>
           )}
         </Grid>
-        <Grid item lg={5} xs={12} className={classes.buttonSection}>
+        <Grid item md={5} xs={12} className={classes.buttonSection}>
           {onDelete && (
             <Button
               onClick={handleOpen}

@@ -8,7 +8,11 @@ const useStyles = makeStyles(({ typography }) => ({
     padding: 0,
     width: "100%",
   },
-  actionArea: {},
+  actionArea: {
+    "&:hover .MuiCardActionArea-focusHighlight": {
+      opacity: 0,
+    },
+  },
   actionAreaFocusHighlight: {},
   actionAreaFocusVisible: {},
   content: {},

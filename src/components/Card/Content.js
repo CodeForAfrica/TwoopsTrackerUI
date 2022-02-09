@@ -36,6 +36,7 @@ function Content({
   ...props
 }) {
   const classes = useStyles(props);
+
   if (!(title || description || href)) {
     return null;
   }
