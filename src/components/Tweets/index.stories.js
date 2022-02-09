@@ -62,7 +62,7 @@ const tweets = [
       friends_count: 3144,
       favourites_count: 3213,
       statuses_count: 3213,
-      profile_image_url:
+      profile_image_url_https:
         "https://pbs.twimg.com/profile_images/1096380175791607808/0OVjpWb8_normal.png",
       deleted: false,
     },
