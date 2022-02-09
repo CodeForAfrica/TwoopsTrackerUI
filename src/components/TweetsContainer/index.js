@@ -13,8 +13,8 @@ import SearchSection from "@/twoopstracker/components/SearchSection";
 import Tweets from "@/twoopstracker/components/Tweets";
 import getQueryString from "@/twoopstracker/utils/getQueryString";
 
-// NOTE(kilemensi): We need this component styles to load after Chart component
-//                  styles so that overriding works.
+// NOTE(kilemensi): This is a workaround for this component styles to be loaded
+//                  after Chart styles so that style-override works.
 // eslint-disable-next-line import/order
 import useStyles from "./useStyles";
 

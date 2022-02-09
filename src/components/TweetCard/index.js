@@ -13,7 +13,7 @@ import Figure from "@/twoopstracker/components/Figure";
 import Link from "@/twoopstracker/components/Link";
 
 // NOTE(kilemensi): This is a workaround for this component styles to be loaded
-//                  after Figure styles so that we can override Figure styles.
+//                  after Figure styles so that style-override works.
 // eslint-disable-next-line import/order
 import useStyles from "./useStyles";
 
