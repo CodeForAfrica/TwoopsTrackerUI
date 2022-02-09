@@ -100,7 +100,6 @@ function ForgotPassword({ title, description, submitLabel, ...props }) {
                   type="submit"
                 >
                   {submitLabel}
-
                 </Button>
               </form>
             )}

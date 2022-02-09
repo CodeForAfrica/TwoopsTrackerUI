@@ -143,7 +143,6 @@ function ResetPassword({
                   type="submit"
                 >
                   {submitLabel}
-     
                 </Button>
               </form>
             )}

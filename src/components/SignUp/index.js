@@ -174,7 +174,6 @@ function SignUp({
                   error={touched.email && Boolean(errors.email)}
                   helperText={touched.email && errors.email}
                 />
-
                 <TextField
                   className={classes.textfield}
                   InputLabelProps={{ className: classes.label, shrink: false }}
@@ -218,7 +217,6 @@ function SignUp({
                   color="primary"
                 >
                   {signUpLabel}
-
                 </Button>
               </form>
             )}
