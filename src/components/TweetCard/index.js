@@ -21,6 +21,8 @@ function TweetCard({
   owner,
   onClick,
   deleted,
+  addToListLabel,
+  successLabel,
   seeLessLabel,
   originalTweetText,
   content: contentProp,
@@ -100,7 +102,12 @@ function TweetCard({
               </Typography>
             </div>
             {session && (
-              <AddToList handle={handle} results={results} {...props} />
+              <AddToList
+                handle={handle}
+                addToListLabel={addToListLabel}
+                successLabel={successLabel}
+                results={results}
+              />
             )}
           </Grid>
         </Grid>
@@ -165,6 +172,9 @@ TweetCard.propTypes = {
     protected: PropTypes.bool,
     profile_image_url: PropTypes.string,
   }),
+  successLabel: PropTypes.string,
+  addToListLabel: PropTypes.string,
+
   results: PropTypes.arrayOf(PropTypes.shape({})),
   onClick: PropTypes.func,
   deleted_at: PropTypes.string,
@@ -183,6 +193,8 @@ TweetCard.defaultProps = {
   owner: undefined,
   onClick: undefined,
   content: undefined,
+  successLabel: undefined,
+  addToListLabel: undefined,
   seeLessLabel: undefined,
   originalTweetText: undefined,
   deleted_at: undefined,

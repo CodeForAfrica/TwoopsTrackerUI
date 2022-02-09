@@ -1,3 +1,3 @@
 ---
-deleteLabe;: Delete
+deleteLabel: Delete
 ---

@@ -19,6 +19,7 @@ function Tweets({ tweets, ...props }) {
             seeLessLabel="See less"
             originalTweetText="Original tweet by"
             {...tweet}
+            {...props}
           />
         ))
       ) : (
