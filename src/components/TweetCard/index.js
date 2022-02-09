@@ -39,9 +39,11 @@ function TweetCard({
     name,
     screen_name: screenName,
     protected: accountStatus,
-    profile_image_url: profileImageNormal,
+    profile_image_url: profileImageHttpNormal,
+    profile_image_url_https: profileImageHttpsNormal,
   } = owner;
 
+  const profileImageNormal = profileImageHttpsNormal || profileImageHttpNormal;
   // NOTE(kilemensi): Since our card size is bigger than _bigger size from
   //                  alternative size offered by Twitter, we need to use
   //                  original size if avaiable.
@@ -160,6 +162,7 @@ TweetCard.propTypes = {
     name: PropTypes.string,
     protected: PropTypes.bool,
     profile_image_url: PropTypes.string,
+    profile_image_url_https: PropTypes.string,
   }),
   results: PropTypes.arrayOf(PropTypes.shape({})),
   onClick: PropTypes.func,
