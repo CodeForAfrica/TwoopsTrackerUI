@@ -2,7 +2,7 @@
 title: Welcome back
 description: Login to access all the features on TrollTracker
 loginLabel: Login
-signupPrompt: New to Trolltracker?
+signUpPrompt: New to Trolltracker?
 signUpLink: /signup
 signUpLabel: Sign up now
 signInLabel: "Sign in with "
