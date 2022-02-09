@@ -38,8 +38,7 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     },
   },
   label: {
-    padding: `${typography.pxToRem(6)} 0`,
-    paddingBottom: typography.pxToRem(28),
+    padding: 0,
   },
   button: {
     color: palette.secondary.main,
