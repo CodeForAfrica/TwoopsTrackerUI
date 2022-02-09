@@ -94,12 +94,7 @@ function ForgotPassword({ title, description, ...props }) {
                   helperText={touched.email && errors.email}
                 />
 
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                >
+                <Button variant="contained" color="primary" type="submit">
                   Submit
                 </Button>
               </form>

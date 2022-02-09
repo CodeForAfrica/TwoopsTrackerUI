@@ -82,9 +82,6 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   input: {
     background: palette.background.default,
   },
-  button: {
-    marginLeft: typography.pxToRem(10),
-  },
 }));
 
 export default useStyles;

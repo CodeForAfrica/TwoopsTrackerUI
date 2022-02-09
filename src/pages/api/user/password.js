@@ -3,29 +3,28 @@ import { getSession } from "next-auth/react";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 export default async function handler(req, res) {
-  const session = await getSession({ req });
-  if (!session) {
-    res.status(401).end();
-  }
-  if (req.method === "PATCH") {
+  if (req.method === "POST") {
+    const session = await getSession({ req });
     const body = JSON.parse(req?.body);
 
     const options = {
-      method: "PATCH",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        first_name: body?.firstName,
-        last_name: body?.lastName,
+        new_password1: body?.newPassword,
+        new_password2: body?.newPassword,
+        old_password: body?.oldPassword,
       }),
     };
-    const results = await fetchJson(
-      `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}user/`,
+    const result = await fetchJson(
+      `${process.env.NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL}password/change/`,
       session,
       options
     );
-    return res.json(results);
+
+    return res.json(result);
   }
 
   return res.status(405).end();

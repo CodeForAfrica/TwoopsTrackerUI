@@ -2,13 +2,13 @@ import { getSession } from "next-auth/react";
 import React from "react";
 
 import Page from "@/twoopstracker/components/Page";
-import UpdateProfile from "@/twoopstracker/components/UpdateProfile";
-import { settings, updateProfile } from "@/twoopstracker/lib/cms";
+import UpdatePassword from "@/twoopstracker/components/UpdatePassword";
+import { settings, updatePassword } from "@/twoopstracker/lib/cms";
 
 function Update({ ...props }) {
   return (
     <Page {...props}>
-      <UpdateProfile {...props} />
+      <UpdatePassword {...props} />
     </Page>
   );
 }
@@ -27,9 +27,8 @@ export async function getServerSideProps(context) {
   return {
     props: {
       ...settings(),
-      ...updateProfile(),
+      ...updatePassword(),
       session,
-      title: "Update Profile",
     },
   };
 }
