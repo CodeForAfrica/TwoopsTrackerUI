@@ -15,6 +15,9 @@ const useStyles = makeStyles(({ breakpoints, palette, typography }) => ({
     margin: "0 auto",
     padding: 0,
     width: typography.pxToRem(195.73),
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
     [breakpoints.up("md")]: {
       margin: 0,
     },
