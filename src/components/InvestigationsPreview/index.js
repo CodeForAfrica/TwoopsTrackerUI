@@ -1,8 +1,8 @@
 import { Typography, Button, Grid, makeStyles } from "@material-ui/core";
-import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
+import Image from "@/twoopstracker/components/Image";
 import Link from "@/twoopstracker/components/Link";
 import Section from "@/twoopstracker/components/Section";
 

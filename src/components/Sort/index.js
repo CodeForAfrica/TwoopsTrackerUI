@@ -1,5 +1,4 @@
 import { FormControl, Typography, IconButton } from "@material-ui/core";
-import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -7,6 +6,7 @@ import useStyles from "./useStyles";
 
 import SortDown from "@/twoopstracker/assets/icons/sort-down.svg";
 import SortUp from "@/twoopstracker/assets/icons/sort-up.svg";
+import Image from "@/twoopstracker/components/Image";
 import TweetSelect from "@/twoopstracker/components/TweetSelect";
 
 function Sort({

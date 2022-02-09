@@ -8,7 +8,7 @@ function Image({ placeholder: placeholderProp, src, ...props }) {
   }
   const hasBlurData = !!src?.blurDataURL;
   const placeholder = placeholderProp || hasBlurData ? "blur" : undefined;
-  return <NImage {...props} placeholder={placeholder} src={src} />;
+  return <NImage unoptimized {...props} placeholder={placeholder} src={src} />;
 }
 
 Image.propTypes = {
