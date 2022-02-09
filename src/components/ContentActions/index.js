@@ -38,12 +38,12 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     },
   },
   label: {
-    padding: `${typography.pxToRem(6)} 0`,
-    paddingBottom: typography.pxToRem(28),
+    padding: 0,
   },
   button: {
     color: palette.secondary.main,
     fontSize: typography.body2.fontSize,
+    lineHeight: typography.body2.lineHeight,
     marginLeft: typography.pxToRem(12),
     minWidth: "auto",
     padding: 0,
@@ -120,7 +120,7 @@ const ContentActions = forwardRef(function ContentActions(props, ref) {
             container
             className={classes.downloadAction}
           >
-            <Grid item>
+            <Grid item container>
               <Typography
                 align="left"
                 component="span"

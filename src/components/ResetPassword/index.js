@@ -8,7 +8,6 @@ import {
   InputAdornment,
 } from "@material-ui/core";
 import { Formik } from "formik";
-import Image from "next/image";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -16,6 +15,7 @@ import * as yup from "yup";
 
 import useStyles from "./useStyles";
 
+import Image from "@/twoopstracker/components/Image";
 import Section from "@/twoopstracker/components/Section";
 import fetchJson from "@/twoopstracker/utils/fetchJson";
 
@@ -143,6 +143,7 @@ function ResetPassword({
                   type="submit"
                 >
                   {submitLabel}
+     
                 </Button>
               </form>
             )}

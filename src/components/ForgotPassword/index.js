@@ -93,7 +93,6 @@ function ForgotPassword({ title, description, submitLabel, ...props }) {
                   error={touched.email && Boolean(errors.email)}
                   helperText={touched.email && errors.email}
                 />
-
                 <Button
                   className={classes.button}
                   variant="contained"
@@ -101,6 +100,7 @@ function ForgotPassword({ title, description, submitLabel, ...props }) {
                   type="submit"
                 >
                   {submitLabel}
+
                 </Button>
               </form>
             )}

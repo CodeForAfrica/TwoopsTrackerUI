@@ -8,12 +8,12 @@ import {
   DialogContent,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Image from "next/image";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 import MenuCloseIcon from "@/twoopstracker/assets/close_black_24dp.svg";
 import MenuOpenIcon from "@/twoopstracker/assets/menu_open.svg";
+import Image from "@/twoopstracker/components/Image";
 import Link from "@/twoopstracker/components/Link";
 import Menu from "@/twoopstracker/components/Menu";
 import Section from "@/twoopstracker/components/Section";

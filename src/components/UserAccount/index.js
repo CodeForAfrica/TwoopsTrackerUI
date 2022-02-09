@@ -1,45 +1,35 @@
-import {
-  Typography,
-  Divider,
-  Grid,
-  Button,
-  Avatar,
-  Link,
-} from "@material-ui/core";
-import { useSession, getSession } from "next-auth/react";
-import React, { useState, useEffect } from "react";
+import { Typography, Divider, Grid, Button } from "@material-ui/core";
+import { useSession } from "next-auth/react";
+import React from "react";
 
 import useStyles from "./useStyles";
 
+import UserIcon from "@/twoopstracker/assets/icons/avator.svg";
+import Figure from "@/twoopstracker/components/Figure";
+import Link from "@/twoopstracker/components/Link";
+
 function UserAccount({ ...props }) {
   const classes = useStyles(props);
-  // useSession does not work get the session from the server, but from the storage, so we can quickly test if the user is logged in.
-  const { data } = useSession();
-  const [session, setSession] = useState(data);
+  const { data: session } = useSession();
 
-  // getSession gets the updated session from the backend in case of change in profile.
-  useEffect(() => {
-    async function fetchSession() {
-      const newSession = await getSession();
-      setSession(newSession);
-    }
-    fetchSession();
-  }, []);
   if (!session) {
     return null;
   }
 
   const {
-    user: { email, name, image, first_name: firstName, last_name: lastName },
+    user: { email, name, image, firstName, lastName },
   } = session;
 
   return (
     <div className={classes.card}>
       <Grid container>
         <Grid item>
-          <div className={classes.icon}>
-            <Avatar alt={name} src={image} className={classes.avatar} />
-          </div>
+          <Figure
+            src={image || UserIcon}
+            width={106}
+            height={106}
+            className={classes.icon}
+          />
         </Grid>
         <Grid item lg={10} className={classes.userDetails}>
           <Typography variant="h4" className={classes.username}>
@@ -48,7 +38,7 @@ function UserAccount({ ...props }) {
           <Typography>{email}</Typography>
         </Grid>
       </Grid>
-      <Divider />
+      <Divider className={classes.divider} />
       <div className={classes.buttons}>
         <Button
           component={Link}

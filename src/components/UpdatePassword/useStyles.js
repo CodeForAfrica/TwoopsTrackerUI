@@ -29,7 +29,12 @@ const useStyles = makeStyles(({ palette, typography }) => ({
     top: typography.pxToRem(-7),
     transform: "none",
   },
-
+  passwordButton: {
+    "&:hover": {
+      backgroundColor: palette.background.default,
+    },
+  },
+  passwordText: { paddingLeft: 0 },
   container: {
     background: "#F7F7F7",
     padding: typography.pxToRem(30),

@@ -6,6 +6,7 @@ import addtolist from "@/cms/components/addToList.md";
 import search from "@/cms/components/search.md";
 import aboutContent from "@/cms/pages/about.md";
 import updateProfileContent from "@/cms/pages/account/update.md";
+import updatePasswordContent from "@/cms/pages/account/updatePassword.md";
 import fgPasswordContent from "@/cms/pages/auth/forgot-password.md";
 import loginContent from "@/cms/pages/auth/login.md";
 import signUpContent from "@/cms/pages/auth/register.md";
@@ -38,6 +39,10 @@ export function about() {
 
 export function updateProfile() {
   const { attributes } = updateProfileContent;
+  return attributes;
+}
+export function updatePassword() {
+  const { attributes } = updatePasswordContent;
   return attributes;
 }
 

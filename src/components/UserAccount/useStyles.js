@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(({ typography }) => ({
+const useStyles = makeStyles(({ palette, typography }) => ({
   root: {},
   card: {
     marginTop: typography.pxToRem(20),
@@ -11,9 +11,9 @@ const useStyles = makeStyles(({ typography }) => ({
   },
   icon: {
     position: "relative",
-    width: typography.pxToRem(100),
-    height: typography.pxToRem(100),
-    border: "solid 1px rgba(0,0,0,0.12)",
+    width: typography.pxToRem(125),
+    height: typography.pxToRem(125),
+    border: `solid 1px ${palette.secondary.main}`,
   },
   username: {},
   userDetails: {
@@ -37,13 +37,11 @@ const useStyles = makeStyles(({ typography }) => ({
     },
   },
   button: {
-    marginLeft: typography.pxToRem(5),
-    minWidth: typography.pxToRem(100),
+    marginRight: typography.pxToRem(10),
   },
-  avatar: {
-    width: "80%",
-    height: "80%",
-    margin: typography.pxToRem(10),
+  divider: {
+    marginTop: typography.pxToRem(15),
+    backgroundColor: palette.background.dark,
   },
 }));
 

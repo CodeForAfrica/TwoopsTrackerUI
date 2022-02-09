@@ -628,12 +628,12 @@
             },
             {
               "label": "First Name Label",
-              "name": "firstName",
+              "name": "firstNameLabel",
               "widget": "string"
             },
             {
               "label": "Last Name Label",
-              "name": "lastName",
+              "name": "lastNameLabel",
               "widget": "string"
             },
             {
@@ -657,8 +657,55 @@
               "widget": "string"
             },
             {
-              "label": "Update Label",
-              "name": "updateLabel",
+              "label": "Button Label",
+              "name": "buttonLabel",
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "label": "Update Password",
+          "name": "updatePassword",
+          "file": "content/pages/account/updatePassword.md",
+          "fields": [
+            {
+              "label": "Title",
+              "name": "title",
+              "widget": "string"
+            },
+            {
+              "label": "Description",
+              "name": "firstName",
+              "widget": "string"
+            },
+            {
+              "label": "Old Password Label",
+              "name": "oldPasswordLabel",
+              "widget": "string"
+            },
+            {
+              "label": "New Password Label",
+              "name": "newPasswordLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Button Label",
+              "name": "buttonLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Password Icon",
+              "name": "passwordIcon",
+              "widget": "image"
+            },
+            {
+              "label": "Success Label",
+              "name": "successLabel",
+              "widget": "string"
+            },
+            {
+              "label": "Error Label",
+              "name": "errorLabel",
               "widget": "string"
             }
           ]
