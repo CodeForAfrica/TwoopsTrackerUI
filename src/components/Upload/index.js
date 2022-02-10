@@ -82,7 +82,7 @@ function Upload({
     // for example, are reported as text/plain under macOS but as
     // application/vnd.ms-excel under Windows. In some cases there might
     // not be a mime type set at all.
-    accept: "text/csv,application/vnd.ms-excel,text/plain",
+    accept: "text/csv,application/vnd.ms-excel,text/plain,", // note the comma, for when no mime-type is set
     multiple: false,
   });
   const processFile = useCallback(async () => {
