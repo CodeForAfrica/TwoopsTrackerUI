@@ -77,18 +77,30 @@ function Upload({
   const [loading, setLoading] = React.useState(false);
   const [messages, setMessages] = React.useState();
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    accept: "text/csv",
+    // From a note @ https://react-dropzone.js.org/#browser-limitations:
+    // Mime type determination is not reliable across platforms. CSV files,
+    // for example, are reported as text/plain under macOS but as
+    // application/vnd.ms-excel under Windows. In some cases there might
+    // not be a mime type set at all.
+    accept: "text/csv,application/vnd.ms-excel,text/plain,", // note the comma, for when no mime-type is set
+    multiple: false,
   });
   const processFile = useCallback(async () => {
     setLoading(true);
     setLoading();
     setMessages();
     try {
-      const formData = new FormData();
-      formData.append("file", acceptedFiles[0]);
-      const response = await handleUpload(formData);
-      setLoading(false);
-      setMessages(response);
+      if (acceptedFiles[0].name.toLocaleLowerCase().endsWith(".csv")) {
+        const formData = new FormData();
+        formData.append("file", acceptedFiles[0]);
+        const response = await handleUpload(formData);
+        setLoading(false);
+        setMessages(response);
+      } else {
+        setMessages({
+          errors: [{ message: "Only CSV (.csv) files are supported" }],
+        });
+      }
     } catch (err) {
       setMessages({ errors: [{ message: errorLabel }] });
     }
