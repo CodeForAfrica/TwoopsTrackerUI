@@ -136,9 +136,11 @@ function Upload({
                   (messages.lists_proccessed?.failed ?? 0) || 1)
               }
             />
-            <Typography variant="caption" className={classes.error}>
-              {messages.lists_proccessed?.failed} {failedLabel}
-            </Typography>
+            {messages.lists_proccessed?.failed > 0 && (
+              <Typography variant="caption" className={classes.error}>
+                {messages.lists_proccessed?.failed} {failedLabel}
+              </Typography>
+            )}
           </>
         )}
         {!loading && messages?.errors ? (
