@@ -1,6 +1,10 @@
 import theme from "@/twoopstracker/theme";
 
-export default function LineChartScope(data, smallScreen = false) {
+export default function LineChartScope(
+  data,
+  smallScreen = false,
+  mediumScreen = false
+) {
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: "Line Chart",
@@ -90,10 +94,13 @@ export default function LineChartScope(data, smallScreen = false) {
         value: smallScreen,
       },
       {
+        name: "mediumScreen",
+        value: mediumScreen,
+      },
+      {
         name: "highlight",
-        value: smallScreen
-          ? "Total deleted tweets"
-          : ["Total number of deleted", "tweets"],
+        update:
+          "smallScreen ? 'Total deleted tweets' : mediumScreen ? ['Total number of', 'deleted tweets']: ['Total number of deleted', 'tweets']",
       },
       {
         name: "total",
@@ -109,7 +116,7 @@ export default function LineChartScope(data, smallScreen = false) {
       },
       {
         name: "highlightSize",
-        value: smallScreen ? 18 : 24,
+        value: smallScreen || mediumScreen ? 18 : 24,
       },
       {
         name: "sourceFont",
@@ -145,7 +152,7 @@ export default function LineChartScope(data, smallScreen = false) {
       },
       {
         name: "totalSize",
-        value: smallScreen ? 18 : 36,
+        update: "smallScreen ? '18' : mediumScreen ? '26' : '36'",
       },
     ],
     scales: [
@@ -159,7 +166,8 @@ export default function LineChartScope(data, smallScreen = false) {
         range: [
           0,
           {
-            signal: "smallScreen ? breadth - 25 : 0.7 * breadth",
+            signal:
+              "smallScreen ? breadth - 25 : mediumScreen? breadth - 230:  breadth - 366",
           },
         ],
       },
@@ -215,7 +223,8 @@ export default function LineChartScope(data, smallScreen = false) {
           update: {
             x: { value: 0 },
             width: {
-              signal: "smallScreen? breadth : 0.7 * breadth",
+              signal:
+                "smallScreen? breadth : mediumScreen? breadth - 230:  breadth - 366",
             },
             height: { signal: "smallScreen? height - 100 : height" },
             zindex: 1,
@@ -236,7 +245,10 @@ export default function LineChartScope(data, smallScreen = false) {
             encode: {
               grid: {
                 update: {
-                  x2: { signal: "smallScreen ? breadth : 0.7 * breadth" },
+                  x2: {
+                    signal:
+                      "smallScreen ? breadth : mediumScreen? breadth - 230:  breadth - 366",
+                  },
                   opacity: { value: 0.2 },
                 },
               },
@@ -323,7 +335,10 @@ export default function LineChartScope(data, smallScreen = false) {
         name: "highlightGroup",
         encode: {
           enter: {
-            x: { signal: "smallScreen ? -10 : 0.73 * breadth" },
+            x: {
+              signal:
+                "smallScreen ? -10 : mediumScreen? breadth - 185 :  breadth - 320",
+            },
             y: 0,
             height: { signal: "height" },
             width: { value: 100 },
@@ -365,9 +380,15 @@ export default function LineChartScope(data, smallScreen = false) {
             encode: {
               update: {
                 x: { value: 0 },
-                height: { value: smallScreen ? 20 : 27 },
-                y: { signal: "smallScreen ? height - 20 : height -30 " },
-                text: { signal: "'Source: ' + source" },
+                height: { value: smallScreen ? 20 : 50 },
+                y: {
+                  signal:
+                    "smallScreen ? height - 20 : mediumScreen? height -50 : height -30 ",
+                },
+                text: {
+                  signal:
+                    "mediumScreen ? ['Source', source]: 'Source: ' + source",
+                },
                 opacity: { value: 1 },
                 font: { signal: "sourceFont" },
                 fontSize: { signal: "sourceSize" },
@@ -380,9 +401,12 @@ export default function LineChartScope(data, smallScreen = false) {
             encode: {
               update: {
                 x: { value: 0 },
-                height: { value: smallScreen ? 20 : 27 },
+                height: { value: smallScreen ? 20 : 30 },
                 y: { signal: "height" },
-                text: { signal: "'Last Updated: ' + lastUpdated" },
+                text: {
+                  signal:
+                    "mediumScreen ? ['Last Updated', lastUpdated]: 'Last Updated: ' + lastUpdated",
+                },
                 opacity: { value: 1 },
                 font: { signal: "sourceFont" },
                 fontSize: { signal: "sourceSize" },
