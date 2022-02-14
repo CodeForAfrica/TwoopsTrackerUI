@@ -41,8 +41,11 @@ const useStyles = makeStyles(({ typography, breakpoints }) => ({
   },
   menu: {
     margin: 0,
-    [breakpoints.up("lg")]: {
+    [breakpoints.up("md")]: {
       marginRight: typography.pxToRem(15),
+      "&:last-of-type": {
+        marginRight: 0,
+      },
     },
   },
   text: {
