@@ -1,4 +1,5 @@
 export default function getQueryString({
+  accounts,
   category,
   query,
   theme,
@@ -10,6 +11,9 @@ export default function getQueryString({
   sort,
 }) {
   const searchParams = new URLSearchParams();
+  if (accounts) {
+    searchParams.append("accounts", accounts);
+  }
   if (query) {
     searchParams.append("query", query);
   }
