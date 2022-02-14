@@ -53,7 +53,7 @@ function Account({
         </Grid>
         <Grid item md={5} xs={12} className={classes.detailSection}>
           <Typography className={classes.username} variant="h4">
-            {name || "Username Username"}
+            {name || "\u00A0"}
           </Typography>
           {screenName && (
             <Link href={`https://twitter.com/${screenName}`}>

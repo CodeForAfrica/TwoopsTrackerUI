@@ -131,19 +131,15 @@ function SearchSection({
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
-          <div>
-            {session && (
-              <Button
-                variant="outlined"
-                className={classes.saveButton}
-                href="/explore/accounts"
-                component={Link}
-                underline="none"
-              >
-                {twitterAccountsLabel}
-              </Button>
-            )}
-          </div>
+          <Button
+            variant="outlined"
+            className={classes.saveButton}
+            href="/explore/accounts"
+            component={Link}
+            underline="none"
+          >
+            {twitterAccountsLabel}
+          </Button>
           <div>
             {session ? (
               <>

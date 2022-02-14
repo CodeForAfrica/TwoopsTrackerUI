@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Pagination from ".";
 
-import { pagination } from "@/twoopstracker/config";
+import { paginationOptions } from "@/twoopstracker/config";
 
 export default {
   title: "Section/Pagination",
@@ -35,7 +35,7 @@ function Template({
 export const Default = Template.bind({});
 
 Default.args = {
-  ...pagination,
+  ...paginationOptions,
   page: 1,
   pageSize: "20",
   itemsCount: 101,

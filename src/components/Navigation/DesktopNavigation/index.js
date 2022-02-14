@@ -61,8 +61,6 @@ function DesktopNavigation({
               logOutLabel={logOutLabel}
             />
           </Grid>
-          <Grid />
-          <Grid />
         </Grid>
       </Section>
     </div>

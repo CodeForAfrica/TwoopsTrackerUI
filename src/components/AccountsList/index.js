@@ -1,4 +1,5 @@
 import { Typography, Button } from "@material-ui/core";
+import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
@@ -19,7 +20,7 @@ function AccountsList({
   addAccountLabel,
   deleteLabel,
   paginationProps,
-  data: { id, name, count, results: accounts, is_private: isPrivate },
+  data: { name, count, results: accounts, is_private: isPrivate },
   ...props
 }) {
   const classes = useStyles(props);
@@ -28,25 +29,60 @@ function AccountsList({
   const handleClose = () => setOpen(false);
   const [listAccounts, setListAccounts] = useState(accounts);
   const [newAccounts, setNewAccounts] = useState("");
-  const [page, setPage] = useState();
-  const [pageSize, setPageSize] = useState(3);
+  const [sort, setSort] = useState("name");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
   const [currentCount, setCurrentCount] = useState(count);
-  const fetcher = (url, pg, pSize) => {
-    const queryString = getQueryString({
-      page: pg,
-      pageSize: pSize,
-    });
-    let listURL = url;
-    if (queryString) {
-      listURL = `${listURL}&&${queryString}`;
-    }
-    return fetchJson(listURL);
+  const { data: session } = useSession();
+  const fetcher = (url) => {
+    return fetchJson(url, session);
   };
 
-  const { data, mutate } = useSWR(
-    [`${apiUrl}/?accounts=true`, page, pageSize],
-    fetcher
-  );
+  const paginate = (newPage) => {
+    if (newPage) {
+      setPage(newPage);
+    }
+  };
+  const handleChangeSortBy = ({ value }) => {
+    setSort((prevSort) => {
+      const sortOrder = prevSort.startsWith("-") ? "-" : "";
+      return `${sortOrder}${value}`;
+    });
+    paginate(1);
+  };
+  const handleClickSortOrder = (e) => {
+    e.preventDefault();
+
+    setSort((prevSort) => {
+      const sortOrder = prevSort.startsWith("-") ? "" : "-";
+      const sortBy = prevSort.replace(/^-/, "");
+
+      return `${sortOrder}${sortBy}`;
+    });
+    paginate(1);
+  };
+  const handleClickPage = (e, value) => {
+    paginate(value);
+  };
+  const handleClickPageSize = (e, value) => {
+    setPageSize(value);
+    paginate(1);
+  };
+
+  const shouldFetch = () => {
+    let url = apiUrl;
+    const queryString = getQueryString({
+      page,
+      pageSize,
+      sort,
+      accounts: editable,
+    });
+    if (queryString) {
+      url = `${url}?${queryString}`;
+    }
+    return url;
+  };
+  const { data, mutate } = useSWR(shouldFetch, fetcher);
 
   useEffect(() => {
     if (data) {
@@ -54,16 +90,14 @@ function AccountsList({
       setCurrentCount(data.count);
     }
   }, [data]);
-
-  const handleClickPage = (e, value) => {
-    setPage(value);
-  };
-  const handleClickPageSize = (e, value) => {
-    // Changing pageSize triggers computation of number of pages.
-    setPage(1);
-    setPageSize(value);
-  };
-
+  useEffect(() => {
+    if (data) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [data]);
   const handleDelete = async (account) => {
     await fetchJson(`${apiUrl}/?del=${account}`, null, {
       method: "DELETE",
@@ -118,9 +152,17 @@ function AccountsList({
         )}
       </div>
       <ContentActions
-        apiUri={`/api/lists/${id}`}
-        classes={{ section: classes.actions }}
+        apiUri={apiUrl}
+        sort={sort}
+        menuItems={[
+          { name: "Created At", value: "created-at" },
+          { name: "Name", value: "name" },
+          { name: "Screen Name", value: "screen-name" },
+        ]}
+        onChangeSortBy={handleChangeSortBy}
+        onClickSortOrder={handleClickSortOrder}
         type="lists"
+        classes={{ section: classes.actions }}
       />
       <ListModal
         open={open}
@@ -155,27 +197,26 @@ function AccountsList({
 }
 
 AccountsList.propTypes = {
-  apiUrl: PropTypes.string,
   addAccountLabel: PropTypes.string,
-  deleteLabel: PropTypes.string,
+  apiUrl: PropTypes.string,
   data: PropTypes.shape({
     results: PropTypes.arrayOf(PropTypes.shape({})),
     count: PropTypes.number,
-    id: PropTypes.number,
     is_private: PropTypes.bool,
     name: PropTypes.string,
     page: PropTypes.number,
     pageSize: PropTypes.number,
   }),
+  deleteLabel: PropTypes.string,
   editable: PropTypes.bool,
   paginationProps: PropTypes.shape({}),
 };
 
 AccountsList.defaultProps = {
-  data: undefined,
-  deleteLabel: undefined,
   addAccountLabel: undefined,
   apiUrl: undefined,
+  data: undefined,
+  deleteLabel: undefined,
   editable: false,
   paginationProps: undefined,
 };

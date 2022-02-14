@@ -41,25 +41,47 @@ export async function lists({ download, page, pageSize, sort }, session) {
   return result;
 }
 
-export async function listAccounts(id, session) {
-  return fetchJson(`${BASE_URL}/accounts/?list[]=${id}`, session);
-}
-
-export async function list(id, session) {
+export async function tweeterAccountsList(id, session) {
   return fetchJson(`${BASE_URL}/lists/${id}`, session);
 }
 
-export async function allAccounts(session, pageData) {
-  const listParams = new URLSearchParams();
+export async function tweeterAccounts(query, session) {
+  const searchParams = new URLSearchParams();
+  const { list, page, pageSize, sort } = query || {};
 
-  if (pageData.page) {
-    listParams.append("page", pageData.page);
+  if (list) {
+    searchParams.append("list[]", list);
   }
-  if (pageData.pageSize) {
-    listParams.append("page_size", pageData.pageSize);
+  if (page) {
+    searchParams.append("page", page);
   }
+  if (pageSize) {
+    searchParams.append("page_size", pageSize);
+  }
+  if (sort) {
+    let sortBy;
+    switch (sort.replace(/^-/, "")) {
+      case "created-at":
+        sortBy = "created_at";
+        break;
+      case "name":
+        sortBy = "name";
+        break;
+      case "screen-name":
+        sortBy = "screen_name";
+        break;
+      default:
+        sortBy = null;
+        break;
+    }
+    if (sortBy) {
+      const sortOrder = sort.startsWith("-") ? "-" : "";
+      searchParams.append("ordering", `${sortOrder}${sortBy}`);
+    }
+  }
+
   const result = await fetchJson(
-    `${BASE_URL}/accounts/?${listParams.toString()}`,
+    `${BASE_URL}/accounts/?${searchParams.toString()}`,
     session
   );
   return result;
@@ -67,7 +89,7 @@ export async function allAccounts(session, pageData) {
 
 export async function APIRequest(payload, method, session, query) {
   let url = BASE_URL;
-  const { accounts, listId: param, page, pageSize, del } = query;
+  const { accounts, listId: param, page, pageSize, del, sort } = query;
 
   const listParams = new URLSearchParams();
   if (page) {
@@ -75,6 +97,27 @@ export async function APIRequest(payload, method, session, query) {
   }
   if (pageSize) {
     listParams.append("page_size", query.pageSize);
+  }
+  if (sort) {
+    let sortBy;
+    switch (sort.replace(/^-/, "")) {
+      case "created-at":
+        sortBy = "created_at";
+        break;
+      case "name":
+        sortBy = "name";
+        break;
+      case "screen-name":
+        sortBy = "screen_name";
+        break;
+      default:
+        sortBy = null;
+        break;
+    }
+    if (sortBy) {
+      const sortOrder = sort.startsWith("-") ? "-" : "";
+      listParams.append("ordering", `${sortOrder}${sortBy}`);
+    }
   }
 
   if (param && accounts) {

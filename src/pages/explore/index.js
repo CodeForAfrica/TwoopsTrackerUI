@@ -5,7 +5,7 @@ import { SWRConfig } from "swr";
 
 import Page from "@/twoopstracker/components/Page";
 import TweetsContainer from "@/twoopstracker/components/TweetsContainer";
-import { pagination } from "@/twoopstracker/config";
+import { paginationOptions } from "@/twoopstracker/config";
 import { tweets, tweetsInsights, lists } from "@/twoopstracker/lib";
 import {
   settings,
@@ -42,7 +42,7 @@ function Explore({
           location={location}
           page={page}
           pageSize={pageSize}
-          paginationProps={pagination}
+          paginationProps={paginationOptions}
           query={query}
           theme={theme}
           tweets={tweetsProp}
