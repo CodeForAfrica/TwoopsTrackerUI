@@ -383,7 +383,7 @@ export default function LineChartScope(
                 height: { value: smallScreen ? 20 : 50 },
                 y: {
                   signal:
-                    "smallScreen ? height - 20 : mediumScreen? height -50 : height -30 ",
+                    "smallScreen ? height - 20 : mediumScreen? height -60 : height -30 ",
                 },
                 text: {
                   signal:
@@ -401,8 +401,10 @@ export default function LineChartScope(
             encode: {
               update: {
                 x: { value: 0 },
-                height: { value: smallScreen ? 20 : 30 },
-                y: { signal: "height" },
+                height: {
+                  signal: "smallScreen ? '20' : mediumScreen ? '50' : '30'",
+                },
+                y: { signal: "height - 5" },
                 text: {
                   signal:
                     "mediumScreen ? ['Last Updated', lastUpdated]: 'Last Updated: ' + lastUpdated",
