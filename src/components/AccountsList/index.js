@@ -28,8 +28,8 @@ function AccountsList({
   const handleClose = () => setOpen(false);
   const [listAccounts, setListAccounts] = useState(accounts);
   const [newAccounts, setNewAccounts] = useState("");
-  const [page, setPage] = useState();
-  const [pageSize, setPageSize] = useState(3);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
   const [currentCount, setCurrentCount] = useState(count);
   const fetcher = (url, pg, pSize) => {
     const queryString = getQueryString({
@@ -52,6 +52,14 @@ function AccountsList({
     if (data) {
       setListAccounts(data.results);
       setCurrentCount(data.count);
+    }
+  }, [data]);
+  useEffect(() => {
+    if (data) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
   }, [data]);
 
