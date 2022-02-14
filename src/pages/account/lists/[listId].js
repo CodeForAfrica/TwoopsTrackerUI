@@ -4,8 +4,8 @@ import React from "react";
 
 import AccountsList from "@/twoopstracker/components/AccountsList";
 import Page from "@/twoopstracker/components/Page";
-import { listAccountsPagination } from "@/twoopstracker/config";
-import { listAccounts, list } from "@/twoopstracker/lib";
+import { paginationOptions } from "@/twoopstracker/config";
+import { tweeterAccounts, tweeterAccountsList } from "@/twoopstracker/lib";
 import { settings, accountList } from "@/twoopstracker/lib/cms";
 
 export default function Index({ data, ...props }) {
@@ -13,7 +13,7 @@ export default function Index({ data, ...props }) {
     <Page {...props}>
       <AccountsList
         data={data}
-        paginationProps={listAccountsPagination}
+        paginationProps={paginationOptions}
         {...props}
       />
     </Page>
@@ -29,7 +29,9 @@ Index.defaultProps = {
 };
 
 export async function getServerSideProps(context) {
-  const { params: paramData } = context;
+  const {
+    params: { listId },
+  } = context;
   const session = await getSession(context);
 
   if (!session) {
@@ -41,10 +43,14 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const accounts = await listAccounts(paramData.listId, session); // NOTE(Gertrude): Currently returning accounts with different ids than backend even after cache clearing
-  const listData = await list(paramData.listId, session);
+  const list = await tweeterAccountsList(listId, session);
+  // NOTE(Gertrude): Currently returning accounts with different ids than backend even after cache clearing
+  const accounts = await tweeterAccounts(
+    { list: listId, page: 1, pageSize: 20 },
+    session
+  );
 
-  const data = { ...listData, ...accounts };
+  const data = { ...list, ...accounts };
 
   return {
     props: {
@@ -52,7 +58,7 @@ export async function getServerSideProps(context) {
       ...accountList(),
       data,
       session,
-      apiUrl: `/api/lists/${paramData.listId}`,
+      apiUrl: `/api/lists/${listId}`,
       editable: true,
     },
   };
