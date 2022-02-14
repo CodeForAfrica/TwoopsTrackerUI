@@ -62,7 +62,8 @@ function Chart({ className, data, ...props }) {
   const [title, setTitle] = useState("");
 
   const theme = useTheme();
-  const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
+  const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
+  const isMd = useMediaQuery(theme.breakpoints.only("md"));
 
   const calculateTooltipPosition = (event, tooltipBox, offsetX, offsetY) => {
     let x = event.pageX + offsetX;
@@ -122,7 +123,7 @@ function Chart({ className, data, ...props }) {
 
   useEffect(() => {
     async function renderChart() {
-      const spec = LineScope(data, !isUpLg);
+      const spec = LineScope(data, !isUpMd, isMd);
       if (chartRef?.current) {
         const view = await embed(chartRef.current, spec, {
           renderer: "svg",
@@ -140,7 +141,7 @@ function Chart({ className, data, ...props }) {
     if (data) {
       renderChart();
     }
-  }, [data, handler, isUpLg]);
+  }, [data, handler, isUpMd]);
 
   if (!data?.length) {
     return null;
