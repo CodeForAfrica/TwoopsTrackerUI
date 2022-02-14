@@ -103,7 +103,7 @@ function Partners({
           </Typography>
           <div className={classes.images}>
             {primaryPartners?.map(({ image, href }) => (
-              <Link key={image} href={href} className={classes.imageLink}>
+              <Link key={href} href={href} className={classes.imageLink}>
                 <Image
                   className={classes.image}
                   height={174}
@@ -119,7 +119,7 @@ function Partners({
         <div className={classes.secondaryPartners}>
           <Grid container>
             {secondaryPartners?.map(({ image, href }) => (
-              <Grid item md={3} sm={6} xs={12}>
+              <Grid key={href} item md={3} sm={6} xs={12}>
                 <Link key={href} href={href}>
                   <Image
                     className={classes.image}
