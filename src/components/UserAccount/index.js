@@ -1,5 +1,5 @@
 import { Typography, Divider, Grid, Button } from "@material-ui/core";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import React from "react";
 
 import useStyles from "./useStyles";
@@ -7,10 +7,16 @@ import useStyles from "./useStyles";
 import UserIcon from "@/twoopstracker/assets/icons/avator.svg";
 import Figure from "@/twoopstracker/components/Figure";
 import Link from "@/twoopstracker/components/Link";
+import fetchJson from "@/twoopstracker/utils/fetchJson";
 
 function UserAccount({ ...props }) {
   const classes = useStyles(props);
   const { data: session } = useSession();
+
+  const handleClickDelete = async () => {
+    await fetchJson("/api/user", undefined, { method: "DELETE" });
+    signOut();
+  };
 
   if (!session) {
     return null;
@@ -50,7 +56,12 @@ function UserAccount({ ...props }) {
         >
           Edit
         </Button>
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleClickDelete}
+          className={classes.button}
+        >
           Delete
         </Button>
       </div>
