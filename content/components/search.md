@@ -1,6 +1,6 @@
 ---
-twitterAccountsLabel: See all Twitter Accounts
-searchLabel: Save Search
+twitterAccountsLabel: See all Twitter accounts
+searchLabel: Search
 loadSearchLabel: Load search
-saveSearchLabel: Search
+saveSearchLabel: Save Search
 ---
