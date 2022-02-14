@@ -19,7 +19,7 @@ function AccountsList({
   addAccountLabel,
   deleteLabel,
   paginationProps,
-  data: { id, name, count, results: accounts, is_private: isPrivate },
+  data: { name, count, results: accounts, is_private: isPrivate },
   ...props
 }) {
   const classes = useStyles(props);
@@ -118,7 +118,7 @@ function AccountsList({
         )}
       </div>
       <ContentActions
-        apiUri={`/api/lists/${id}`}
+        apiUri={apiUrl}
         classes={{ section: classes.actions }}
         type="lists"
       />
@@ -155,27 +155,26 @@ function AccountsList({
 }
 
 AccountsList.propTypes = {
-  apiUrl: PropTypes.string,
   addAccountLabel: PropTypes.string,
-  deleteLabel: PropTypes.string,
+  apiUrl: PropTypes.string,
   data: PropTypes.shape({
     results: PropTypes.arrayOf(PropTypes.shape({})),
     count: PropTypes.number,
-    id: PropTypes.number,
     is_private: PropTypes.bool,
     name: PropTypes.string,
     page: PropTypes.number,
     pageSize: PropTypes.number,
   }),
+  deleteLabel: PropTypes.string,
   editable: PropTypes.bool,
   paginationProps: PropTypes.shape({}),
 };
 
 AccountsList.defaultProps = {
-  data: undefined,
-  deleteLabel: undefined,
   addAccountLabel: undefined,
   apiUrl: undefined,
+  data: undefined,
+  deleteLabel: undefined,
   editable: false,
   paginationProps: undefined,
 };
