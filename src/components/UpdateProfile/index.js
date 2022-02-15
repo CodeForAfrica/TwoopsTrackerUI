@@ -166,7 +166,7 @@ function UpdateProfile({
               </form>
             )}
           </Formik>
-          {session?.accountType === "credentails" && (
+          {session?.accountType === "credentials" && (
             <Typography className={classes.text}>
               <Link href={changePasswordLink}>{changePasswordLabel}</Link>
             </Typography>
