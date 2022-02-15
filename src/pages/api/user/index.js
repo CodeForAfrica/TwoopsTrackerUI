@@ -16,7 +16,6 @@ export default async function handler(req, res) {
       session,
       options
     );
-    console.log("boom", result);
 
     return res.status(result.status).json();
   }
