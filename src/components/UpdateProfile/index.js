@@ -65,7 +65,6 @@ function UpdateProfile({
     firstName: yup.string("Enter your First Name"),
     lastName: yup.string("Enter your Last Name"),
   });
-  console.log("BOOM", session);
 
   return (
     <Section className={classes.section}>
