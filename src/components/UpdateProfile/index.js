@@ -65,6 +65,7 @@ function UpdateProfile({
     firstName: yup.string("Enter your First Name"),
     lastName: yup.string("Enter your Last Name"),
   });
+  console.log("BOOM", session);
 
   return (
     <Section className={classes.section}>
@@ -166,7 +167,7 @@ function UpdateProfile({
               </form>
             )}
           </Formik>
-          {session?.accountType === "credentails" && (
+          {session?.accountType === "credentials" && (
             <Typography className={classes.text}>
               <Link href={changePasswordLink}>{changePasswordLabel}</Link>
             </Typography>
