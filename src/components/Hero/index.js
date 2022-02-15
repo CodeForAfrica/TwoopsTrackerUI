@@ -16,18 +16,26 @@ const useStyles = makeStyles(({ breakpoints, typography, palette }) => ({
     backgroundPosition: "right bottom",
     width: "100%",
   },
-  button: {
-    marginRight: typography.pxToRem(40),
-  },
-  buttonContainer: {
+  ctaContainer: {
     display: "flex",
-    marginTop: typography.pxToRem(40),
     flexDirection: "column",
-    [breakpoints.up("md")]: {
+    marginTop: typography.pxToRem(40),
+    [breakpoints.up("sm")]: {
       flexDirection: "row",
     },
     [breakpoints.up("lg")]: {
       marginTop: typography.pxToRem(80),
+    },
+  },
+  button: {
+    marginRight: 0,
+    marginTop: typography.pxToRem(10),
+    [breakpoints.up("sm")]: {
+      marginRight: typography.pxToRem(40),
+      marginTop: 0,
+      "&:last-of-type": {
+        marginRight: 0,
+      },
     },
   },
   title: {
@@ -72,7 +80,7 @@ function Hero({ ctas, description, title, withCTA, ...props }) {
           {description}
         </RichTypography>
         {withCTA && (
-          <div className={classes.buttonContainer}>
+          <div className={classes.ctaContainer}>
             {ctas.search ? (
               <Button
                 component={Link}
