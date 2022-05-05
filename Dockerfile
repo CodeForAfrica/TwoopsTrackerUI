@@ -1,7 +1,6 @@
 # Install dependencies only when needed
 FROM node:16-alpine AS deps
 
-ARG TWOOPSTRACKER_API_URL
 ARG NEXT_PUBLIC_TWOOPSTRACKER_API_URL
 ARG NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL
 ARG NEXTAUTH_JWT_TOKEN_VERIFY_URL
@@ -21,6 +20,10 @@ ARG ADMIN_OAUTH_CLIENT_ID
 ARG ADMIN_OAUTH_CLIENT_SECRET
 ARG ADMIN_OAUTH_SCOPE
 
+# Next.js collects completely anonymous telemetry data about general usage.
+# Learn more here: https://nextjs.org/telemetry
+ARG NEXT_TELEMETRY_DISABLED=1
+
 ENV TWOOPSTRACKER_API_URL=${TWOOPSTRACKER_API_URL} \
     NEXT_PUBLIC_TWOOPSTRACKER_API_URL=${NEXT_PUBLIC_TWOOPSTRACKER_API_URL} \
     NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL=${NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL} \
@@ -39,7 +42,8 @@ ENV TWOOPSTRACKER_API_URL=${TWOOPSTRACKER_API_URL} \
     ADMIN_BACKEND_AUTH_ENDPOINT=${ADMIN_BACKEND_AUTH_ENDPOINT} \
     ADMIN_OAUTH_CLIENT_ID=${ADMIN_OAUTH_CLIENT_ID} \
     ADMIN_OAUTH_CLIENT_SECRET=${ADMIN_OAUTH_CLIENT_SECRET} \
-    ADMIN_OAUTH_SCOPE=${ADMIN_OAUTH_SCOPE} 
+    ADMIN_OAUTH_SCOPE=${ADMIN_OAUTH_SCOPE} \
+    NEXT_TELEMETRY_DISABLED=${NEXT_TELEMETRY_DISABLED}
 
 WORKDIR /app
 COPY package.json yarn.lock ./
@@ -66,10 +70,9 @@ RUN adduser -S nextjs -u 1001
 
 
 # You only need to copy next.config.js if you are NOT using the default configuration
-# COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
 USER nextjs
@@ -77,3 +80,4 @@ USER nextjs
 EXPOSE 3000
 
 CMD ["yarn", "start"]
+
