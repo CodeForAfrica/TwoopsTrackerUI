@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:14 AS deps
+FROM node:16-alpine AS deps
 
 ARG TWOOPSTRACKER_API_URL
 ARG NEXT_PUBLIC_TWOOPSTRACKER_API_URL
@@ -55,7 +55,7 @@ COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build
 
 # Production image, copy all the files and run next
-FROM node:14 AS runner
+FROM node:16-alpine AS runner
 
 ENV NODE_ENV production
 
