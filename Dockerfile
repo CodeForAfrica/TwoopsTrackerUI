@@ -13,13 +13,13 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ARG NEXT_PUBLIC_TWOOPSTRACKER_API_URL
+ARG TWOOPSTRACKER_API_URL
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 ARG NEXT_TELEMETRY_DISABLED=1
 
-ENV NEXT_PUBLIC_TWOOPSTRACKER_API_URL=${NEXT_PUBLIC_TWOOPSTRACKER_API_URL} \
+ENV TWOOPSTRACKER_API_URL=${TWOOPSTRACKER_API_URL} \
     NEXT_TELEMETRY_DISABLED=${NEXT_TELEMETRY_DISABLED}
 
 RUN yarn build
