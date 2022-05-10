@@ -1,83 +1,55 @@
 # Install dependencies only when needed
 FROM node:16-alpine AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --network-timeout 600000
+
+# Rebuild the source code only when needed
+FROM node:16-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 
 ARG NEXT_PUBLIC_TWOOPSTRACKER_API_URL
-ARG NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL
-ARG NEXTAUTH_JWT_TOKEN_VERIFY_URL
-ARG NEXTAUTH_JWT_TOKEN_REFRESH_URL
-ARG NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_SECRET
-ARG NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_ID
-ARG NEXTAUTH_URL
-ARG NEXT_PUBLIC_IMAGE_DOMAINS
-ARG NEXTAUTH_SECRET
-ARG S3_UPLOAD_SECRET
-ARG S3_UPLOAD_KEY
-ARG S3_UPLOAD_BUCKET
-ARG S3_UPLOAD_REGION
-ARG ADMIN_BACKEND_REPO
-ARG ADMIN_BACKEND_AUTH_ENDPOINT
-ARG ADMIN_OAUTH_CLIENT_ID
-ARG ADMIN_OAUTH_CLIENT_SECRET
-ARG ADMIN_OAUTH_SCOPE
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 ARG NEXT_TELEMETRY_DISABLED=1
 
-ENV TWOOPSTRACKER_API_URL=${TWOOPSTRACKER_API_URL} \
-    NEXT_PUBLIC_TWOOPSTRACKER_API_URL=${NEXT_PUBLIC_TWOOPSTRACKER_API_URL} \
-    NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL=${NEXTAUTH_PROVIDERS_OAUTH_LOGIN_URL} \
-    NEXTAUTH_JWT_TOKEN_VERIFY_URL=${NEXTAUTH_JWT_TOKEN_VERIFY_URL} \
-    NEXTAUTH_JWT_TOKEN_REFRESH_URL=${NEXTAUTH_JWT_TOKEN_REFRESH_URL} \
-    NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_SECRET=${NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_SECRET} \
-    NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_ID=${NEXTAUTH_PROVIDERS_GOOGLE_CLIENT_ID} \
-    NEXTAUTH_URL=${NEXTAUTH_URL} \
-    NEXT_PUBLIC_IMAGE_DOMAINS=${NEXT_PUBLIC_IMAGE_DOMAINS} \
-    NEXTAUTH_SECRET=${NEXTAUTH_SECRET} \
-    S3_UPLOAD_SECRET=${S3_UPLOAD_SECRET} \
-    S3_UPLOAD_KEY=${S3_UPLOAD_KEY} \
-    S3_UPLOAD_BUCKET=${S3_UPLOAD_BUCKET} \
-    S3_UPLOAD_REGION=${S3_UPLOAD_REGION} \
-    ADMIN_BACKEND_REPO=${ADMIN_BACKEND_REPO} \
-    ADMIN_BACKEND_AUTH_ENDPOINT=${ADMIN_BACKEND_AUTH_ENDPOINT} \
-    ADMIN_OAUTH_CLIENT_ID=${ADMIN_OAUTH_CLIENT_ID} \
-    ADMIN_OAUTH_CLIENT_SECRET=${ADMIN_OAUTH_CLIENT_SECRET} \
-    ADMIN_OAUTH_SCOPE=${ADMIN_OAUTH_SCOPE} \
+ENV NEXT_PUBLIC_TWOOPSTRACKER_API_URL=${NEXT_PUBLIC_TWOOPSTRACKER_API_URL} \
     NEXT_TELEMETRY_DISABLED=${NEXT_TELEMETRY_DISABLED}
 
-WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-
-# Rebuild the source code only when needed
-FROM node:14 AS builder
-
-WORKDIR /app
-
-COPY . .
-COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build
 
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
 
-ENV NODE_ENV production
+ENV NODE_ENV production \
+    NEXT_TELEMETRY_DISABLED=1
 
 WORKDIR /app
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
 
 # You only need to copy next.config.js if you are NOT using the default configuration
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/package.json ./package.json
+
+# Automatically leverage output traces to reduce image size 
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+ENV PORT=3000
 
+CMD ["node", "server.js"]
