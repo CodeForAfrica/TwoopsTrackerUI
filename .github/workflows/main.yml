@@ -69,7 +69,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache-new
           context: .
           push: true
-          tags: "codeforafrica/twoopstracker_ui:${{ steps.version-check.outputs.version }}"
+          tags: "codeforafrica/twoopstracker-ui:${{ steps.version-check.outputs.version }}"
 
       - name: Move cache
         if: steps.version-check.outputs.changed == 'true'
