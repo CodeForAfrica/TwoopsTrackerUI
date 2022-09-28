@@ -17,7 +17,7 @@ const handleUpload = async (content) => {
   }
   const session = await getSession();
   return fetchJson(
-    `${process.env.TWOOPSTRACKER_API_URL}/lists/upload`,
+    `${process.env.NEXT_PUBLIC_TWOOPSTRACKER_API_URL}/lists/upload`,
     session,
     {
       method: "POST",
