@@ -146,6 +146,21 @@ export async function APIRequest(payload, method, session, query) {
   return fetchJson(url, session, options);
 }
 
+export async function uploadFile(req, res, session) {
+  const options = {
+    method: req.method,
+    responseType: "stream",
+    headers: {
+      "Content-Type": req.headers["content-type"], // which is multipart/form-data with boundary included
+      Authorization: `Bearer ${session.accessToken}`,
+    },
+    body: req,
+  };
+  const response = await fetch(`${BASE_URL}/lists/upload`, options);
+  response.body.pipe(res);
+  return response;
+}
+
 export function tweetsSearchParamsFromSearchQuery({
   category,
   query,

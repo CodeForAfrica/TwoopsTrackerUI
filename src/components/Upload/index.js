@@ -16,14 +16,10 @@ const handleUpload = async (content) => {
     return null;
   }
   const session = await getSession();
-  return fetchJson(
-    `${process.env.TWOOPSTRACKER_API_URL}/lists/upload`,
-    session,
-    {
-      method: "POST",
-      body: content,
-    }
-  );
+  return fetchJson("/api/lists/upload", session, {
+    method: "POST",
+    body: content,
+  });
 };
 
 const useStyles = makeStyles(({ typography }) => ({
