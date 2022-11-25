@@ -1,1 +1,1 @@
-FROM codeforafrica/twoopstracker-ui:0.1.0-alpha.2
+FROM codeforafrica/twoopstracker-ui:0.1.0
