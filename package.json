@@ -43,7 +43,7 @@
     "react-dropzone": "^12.0.2",
     "react-lines-ellipsis": "^0.15.0",
     "react-share": "^4.4.0",
-    "sharp": "^0.30.5",
+    "sharp": "^0.32.6",
     "simple-oauth2": "^4.2.0",
     "swr": "^1.0.1",
     "vega": "^5.23.0",
