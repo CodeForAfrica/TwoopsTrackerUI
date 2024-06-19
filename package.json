@@ -114,7 +114,8 @@
     ]
   },
   "engines": {
-    "node": ">=12.18.0 <17.x",
-    "yarn": ">=1.19.2 <2.x"
-  }
+    "node": "20.x",
+    "yarn": "1"
+  },
+  "packageManager": "yarn@1.22.22"
 }

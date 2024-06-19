@@ -1,5 +1,4 @@
 ---
-
 title: Edit your details
 firstName: First Name
 lastName: Last Name
@@ -9,5 +8,4 @@ changePasswordLabel: Change your password
 changePasswordLink: /account/settings/update/password
 buttonLabel: Update
 email: Email
-
 ---

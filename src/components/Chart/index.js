@@ -141,7 +141,7 @@ function Chart({ className, data, ...props }) {
     if (data) {
       renderChart();
     }
-  }, [data, handler, isUpMd]);
+  }, [data, handler, isMd, isUpMd]);
 
   if (!data?.length) {
     return null;
