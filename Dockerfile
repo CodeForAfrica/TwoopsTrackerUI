@@ -5,7 +5,7 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --network-timeout 600000
+RUN yarn install --frozen-lockfile --network-timeout 1200000
 
 # Rebuild the source code only when needed
 FROM node:20-alpine AS builder
@@ -18,10 +18,7 @@ ARG TWOOPSTRACKER_API_URL \
     # Learn more here: https://nextjs.org/telemetry
     NEXT_TELEMETRY_DISABLED=1
 
-ENV TWOOPSTRACKER_API_URL=${TWOOPSTRACKER_API_URL} \
-    NEXT_TELEMETRY_DISABLED=${NEXT_TELEMETRY_DISABLED}
-
-RUN yarn build
+RUN yarn build --verbose
 
 # Production image, copy all the files and run next
 FROM node:20-alpine AS runner
@@ -33,7 +30,6 @@ WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
-
 
 # You only need to copy next.config.js if you are NOT using the default configuration
 COPY --from=builder /app/next.config.js ./
