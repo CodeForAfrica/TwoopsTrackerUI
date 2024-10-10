@@ -18,12 +18,12 @@ ARG TWOOPSTRACKER_API_URL \
     # Learn more here: https://nextjs.org/telemetry
     NEXT_TELEMETRY_DISABLED=1
 
-RUN yarn build --verbose
+RUN yarn build
 
 # Production image, copy all the files and run next
 FROM node:20-alpine AS runner
 
-ENV NODE_ENV production \
+ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1
 
 WORKDIR /app
