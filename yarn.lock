@@ -1233,10 +1233,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@commons-ui/core@^0.1.0-alpha.6":
-  version "0.1.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/@commons-ui/core/-/core-0.1.0-alpha.6.tgz#e7f35e24ff0efa463775ee21fe059099197f618f"
-  integrity sha512-7x/GE6x1aT2/2VJbKD8No1FXJ1yQfz/CBFXplT09E9kJHmdmywwehwquYnl1qcu7oAAbaJogkc+e4Ve5yvsY4w==
+"@commons-ui/core@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@commons-ui/core/-/core-0.1.0.tgz#004512d27cd01f694bde2ebda76ab0e01ac10140"
+  integrity sha512-cqizgJzE/XXnf27d/TSrN5FqmEwGdzMz1YOsMSzBoNl9OZc78BnyjeB1dXQw1pOdj/S1qdIsuTRPIekL3DxO5Q==
   dependencies:
     clsx "^1.1.0"
     prop-types "^15.7.2"
@@ -4820,15 +4820,10 @@ can-use-dom@^0.1.0:
   resolved "https://registry.yarnpkg.com/can-use-dom/-/can-use-dom-0.1.0.tgz#22cc4a34a0abc43950f42c6411024a3f6366b45a"
   integrity sha1-IsxKNKCrxDlQ9CxkEQJKP2NmtFo=
 
-caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001283:
-  version "1.0.30001636"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001636.tgz"
-  integrity sha512-bMg2vmr8XBsbL6Lr0UHXy/21m84FTxDLWn2FSqMd5PrlbMxwJlQnC2YWYxVgp66PZE+BBNF2jYQUBKCo1FDeZg==
-
-caniuse-lite@^1.0.30001646:
-  version "1.0.30001653"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001653.tgz#b8af452f8f33b1c77f122780a4aecebea0caca56"
-  integrity sha512-XGWQVB8wFQ2+9NZwZ10GxTYC5hk0Fa+q8cSkr0tgvMhYhMHP/QC+WTgrePMDBWiWc/pV+1ik82Al20XOK25Gcw==
+caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001283, caniuse-lite@^1.0.30001646:
+  version "1.0.30001709"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001709.tgz"
+  integrity sha512-NgL3vUTnDrPCZ3zTahp4fsugQ4dc7EKTSzwQDPEel6DMoMnfH2jhry9n2Zm8onbSR+f/QtKHFOA+iAQu4kbtWA==
 
 capture-exit@^2.0.0:
   version "2.0.0"

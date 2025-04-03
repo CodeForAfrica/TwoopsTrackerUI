@@ -18,7 +18,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@commons-ui/core": "^0.1.0-alpha.6",
+    "@commons-ui/core": "^0.1.0",
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
     "@material-ui/core": "^4.11.3",
