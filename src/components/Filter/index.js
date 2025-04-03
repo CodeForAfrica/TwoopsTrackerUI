@@ -1,10 +1,4 @@
-import {
-  Box,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select,
-} from "@material-ui/core";
+import { Box, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -19,7 +13,7 @@ function Filter({ handleSelection, label, menuItems, value, ...props }) {
 
   return (
     <Box sx={{ width: 160 }} className={classes.box}>
-      <FormControl fullWidth className={classes.form}>
+      <FormControl variant="standard" fullWidth className={classes.form}>
         <InputLabel
           shrink
           id={`${label}-select-label`}
@@ -28,6 +22,7 @@ function Filter({ handleSelection, label, menuItems, value, ...props }) {
           {label}
         </InputLabel>
         <Select
+          variant="standard"
           labelId={`${label}-select-label`}
           id={`${label}-select`}
           value={value}

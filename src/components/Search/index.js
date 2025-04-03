@@ -1,4 +1,4 @@
-import { InputBase } from "@material-ui/core";
+import { InputBase } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 

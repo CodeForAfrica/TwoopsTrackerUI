@@ -1,4 +1,4 @@
-import { Typography, Divider, Grid, Button } from "@material-ui/core";
+import { Typography, Divider, Grid, Button } from "@mui/material";
 import { useSession, signOut } from "next-auth/react";
 import React from "react";
 
@@ -44,7 +44,12 @@ function UserAccount({ ...props }) {
           <Typography>{email}</Typography>
         </Grid>
       </Grid>
-      <Divider className={classes.divider} />
+      <Divider
+        className={classes.divider}
+        sx={{
+          opacity: "0.6",
+        }}
+      />
       <div className={classes.buttons}>
         <Button
           component={Link}

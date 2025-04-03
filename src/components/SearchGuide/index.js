@@ -7,8 +7,8 @@ import {
   Typography,
   IconButton,
   Backdrop,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -84,6 +84,7 @@ function SearchGuide({ title, description, ...props }) {
         onClick={handleClick}
         aria-describedby="aria-search-help"
         className={classes.button}
+        size="large"
       >
         <HelpIcon />
       </IconButton>

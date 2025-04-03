@@ -8,9 +8,9 @@ import {
   MenuItem,
   Snackbar,
   ClickAwayListener,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import MuiAlert from "@material-ui/lab/Alert";
+} from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
+import makeStyles from "@mui/styles/makeStyles";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
 import useSWR from "swr";
@@ -182,7 +182,6 @@ function AddToList({
   return (
     <div className={classes.root}>
       <Button
-        color="default"
         variant="text"
         size="medium"
         ref={anchorRef}
@@ -199,7 +198,6 @@ function AddToList({
       >
         <Typography className={classes.list}>{addToListLabel}</Typography>
       </Button>
-
       <Popper
         open={open}
         anchorEl={anchorRef.current}
@@ -241,7 +239,6 @@ function AddToList({
           </Grow>
         )}
       </Popper>
-
       {listIncluded ? (
         <Snackbar
           open={openSnackBar}

@@ -4,8 +4,8 @@ import {
   Paper,
   IconButton,
   ClickAwayListener,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -48,7 +48,7 @@ function Share({ title, url, ...props }) {
 
   return (
     <div className={classes.root}>
-      <IconButton onClick={onClick} className={classes.button}>
+      <IconButton onClick={onClick} className={classes.button} size="large">
         <Icon />
       </IconButton>
       <Popper

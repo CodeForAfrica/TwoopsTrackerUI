@@ -6,7 +6,7 @@ import {
   RichTypography,
   LogoButton,
 } from "@commons-ui/core";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 

@@ -1,104 +1,106 @@
-import { createTheme } from "@material-ui/core/styles";
-import { deepmerge } from "@material-ui/utils";
+import { createTheme, adaptV4Theme } from "@mui/material/styles";
+import { deepmerge } from "@mui/utils";
 
 const FONT_FAMILY_HEADING = '"Playfair Display", "serif"';
 const FONT_FAMILY_TEXT = '"Arial", "sans-serif"';
 const FONT_FAMILY_TEXT2 = '"Montserrat", "sans-serif"';
 
 // Create a theme instance.
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 390, // mobile
-      md: 1152, // tablet
-      lg: 1440, // desktop
-      xl: 1920, // desktop
+const theme = createTheme(
+  adaptV4Theme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 390, // mobile
+        md: 1152, // tablet
+        lg: 1440, // desktop
+        xl: 1920, // desktop
+      },
     },
-  },
-  palette: {
-    primary: {
-      main: "#DB1111",
+    palette: {
+      primary: {
+        main: "#DB1111",
+      },
+      secondary: {
+        main: "#000",
+      },
+      background: {
+        default: "#FFF",
+        secondary: "#DB1111",
+        paper: "#F8F8F8",
+        dark: "#D0D0D0",
+      },
+      text: {
+        primary: "#000000",
+        secondary: "#FFF",
+      },
     },
-    secondary: {
-      main: "#000",
+    props: {
+      MuiButtonBase: {
+        // Disable ripple effect globally
+        disableRipple: true,
+        disableTouchRipple: true,
+      },
     },
-    background: {
-      default: "#FFF",
-      secondary: "#DB1111",
-      paper: "#F8F8F8",
-      dark: "#D0D0D0",
-    },
-    text: {
-      primary: "#000000",
-      secondary: "#FFF",
-    },
-  },
-  props: {
-    MuiButtonBase: {
-      // Disable ripple effect globally
-      disableRipple: true,
-      disableTouchRipple: true,
-    },
-  },
-  typography: {
-    fontFamily: FONT_FAMILY_TEXT,
-    h1: {
-      fontFamily: FONT_FAMILY_HEADING,
-      fontWeight: "bold",
-    },
-    h2: {
-      fontFamily: FONT_FAMILY_HEADING,
-      fontWeight: "bold",
-    },
-    h3: {
-      fontFamily: FONT_FAMILY_HEADING,
-      fontWeight: "bold",
-    },
-    h4: {
-      fontFamily: FONT_FAMILY_HEADING,
-      fontWeight: "bold",
-    },
-    h5: {
-      fontFamily: FONT_FAMILY_HEADING,
-    },
-    subtitle1: {
-      fontFamily: FONT_FAMILY_TEXT2,
-    },
-    body1: {
-      fontFamily: FONT_FAMILY_TEXT2,
-    },
-    body2: {
-      fontFamily: FONT_FAMILY_TEXT2,
-      fontSize: "24px",
-    },
-    button: {
-      fontFamily: FONT_FAMILY_TEXT2,
-      fontStretch: "normal",
-      fontStyle: "normal",
-      fontWeight: "normal",
-      letterSpacing: 0,
-      textTransform: "none",
-    },
-    caption: {
-      fontFamily: FONT_FAMILY_HEADING,
-    },
-    overline: {
+    typography: {
       fontFamily: FONT_FAMILY_TEXT,
-      textTransform: "none",
+      h1: {
+        fontFamily: FONT_FAMILY_HEADING,
+        fontWeight: "bold",
+      },
+      h2: {
+        fontFamily: FONT_FAMILY_HEADING,
+        fontWeight: "bold",
+      },
+      h3: {
+        fontFamily: FONT_FAMILY_HEADING,
+        fontWeight: "bold",
+      },
+      h4: {
+        fontFamily: FONT_FAMILY_HEADING,
+        fontWeight: "bold",
+      },
+      h5: {
+        fontFamily: FONT_FAMILY_HEADING,
+      },
+      subtitle1: {
+        fontFamily: FONT_FAMILY_TEXT2,
+      },
+      body1: {
+        fontFamily: FONT_FAMILY_TEXT2,
+      },
+      body2: {
+        fontFamily: FONT_FAMILY_TEXT2,
+        fontSize: "24px",
+      },
+      button: {
+        fontFamily: FONT_FAMILY_TEXT2,
+        fontStretch: "normal",
+        fontStyle: "normal",
+        fontWeight: "normal",
+        letterSpacing: 0,
+        textTransform: "none",
+      },
+      caption: {
+        fontFamily: FONT_FAMILY_HEADING,
+      },
+      overline: {
+        fontFamily: FONT_FAMILY_TEXT,
+        textTransform: "none",
+      },
+      chart: {
+        fontFamily: FONT_FAMILY_TEXT2,
+      },
     },
-    chart: {
-      fontFamily: FONT_FAMILY_TEXT2,
+    widths: {
+      values: {
+        md: 1106,
+        lg: 1240,
+        xl: 1520,
+      },
     },
-  },
-  widths: {
-    values: {
-      md: 1106,
-      lg: 1240,
-      xl: 1520,
-    },
-  },
-});
+  })
+);
 
 const { breakpoints, palette, typography, overrides } = theme;
 const { pxToRem } = typography;

@@ -5,7 +5,7 @@ import {
   TextField,
   InputAdornment,
   FormHelperText,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Formik } from "formik";
 import { signIn } from "next-auth/react";
 import Router from "next/router";

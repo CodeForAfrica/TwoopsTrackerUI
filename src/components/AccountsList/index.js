@@ -1,4 +1,4 @@
-import { Typography, Button } from "@material-ui/core";
+import { Typography, Button } from "@mui/material";
 import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";

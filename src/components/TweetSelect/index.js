@@ -3,7 +3,7 @@ import {
   Select,
   InputBase,
   SvgIcon as MuiSvgIcon,
-} from "@material-ui/core";
+} from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -33,6 +33,7 @@ function TweetSelect({
 
   return (
     <Select
+      variant="standard"
       labelId={`${label}-id`}
       value={value}
       defaultValue={value}

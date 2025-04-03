@@ -4,7 +4,7 @@ import {
   Grid,
   TextField,
   FormHelperText,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Formik } from "formik";
 import Router from "next/router";
 import PropTypes from "prop-types";
