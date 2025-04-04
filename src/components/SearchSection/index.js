@@ -121,7 +121,7 @@ function SearchSection({
               ]}
               value={location}
             />
-            <Hidden xlDown implementation="css">
+            <Hidden smDown implementation="css">
               <SearchGuide
                 {...searchGuideProp}
                 placement="top-end"

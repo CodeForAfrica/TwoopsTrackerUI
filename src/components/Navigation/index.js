@@ -33,7 +33,7 @@ function Navigation({ logo, ...props }) {
   return (
     <AppBar color="primary" position="sticky" className={classes.root}>
       <Toolbar disableGutters className={classes.toolbar}>
-        <Hidden xlDown implementation="css" className={classes.navigation}>
+        <Hidden smDown implementation="css" className={classes.navigation}>
           <DesktopNavigation
             {...props}
             logo={logo?.desktop || logo}

@@ -1,4 +1,10 @@
-import { Typography, useMediaQuery, useTheme, StyledEngineProvider, ThemeProvider } from "@mui/material";
+import {
+  Typography,
+  useMediaQuery,
+  useTheme,
+  StyledEngineProvider,
+  ThemeProvider,
+} from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import clsx from "clsx";
 import PropTypes from "prop-types";
