@@ -1,4 +1,4 @@
-import { FormControl, Typography, IconButton } from "@material-ui/core";
+import { FormControl, Typography, IconButton } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -32,7 +32,7 @@ function Sort({
     return null;
   }
   return (
-    <FormControl fullWidth className={classes.form}>
+    <FormControl variant="standard" fullWidth className={classes.form}>
       <Typography
         align="left"
         component="span"

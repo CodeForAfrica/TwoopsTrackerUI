@@ -10,8 +10,8 @@ import {
   Grid,
   Divider,
   ClickAwayListener,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import { signOut, useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
@@ -178,7 +178,6 @@ function UserProfile({
   return (
     <div className={classes.root}>
       <Button
-        color="default"
         variant="text"
         size="large"
         ref={anchorRef}
@@ -195,7 +194,6 @@ function UserProfile({
           {label}
         </Typography>
       </Button>
-
       <Popper
         open={open}
         anchorEl={anchorRef.current}
@@ -230,7 +228,11 @@ function UserProfile({
                   {email}
                 </Typography>
               </Grid>
-              <Divider />
+              <Divider
+                sx={{
+                  opacity: "0.6",
+                }}
+              />
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   id="menu-list-grow"
@@ -253,9 +255,12 @@ function UserProfile({
 
               {accountLink?.map((item) => (
                 <div>
-                  <Divider />
+                  <Divider
+                    sx={{
+                      opacity: "0.6",
+                    }}
+                  />
                   <Button
-                    color="default"
                     variant="text"
                     size="small"
                     href={item.href}
@@ -273,9 +278,12 @@ function UserProfile({
               ))}
 
               <div>
-                <Divider />
+                <Divider
+                  sx={{
+                    opacity: "0.6",
+                  }}
+                />
                 <Button
-                  color="default"
                   variant="text"
                   size="small"
                   onClick={handleSignOut}

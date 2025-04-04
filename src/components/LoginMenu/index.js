@@ -1,5 +1,5 @@
-import { Grid, Button, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Button, Typography } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -101,7 +101,6 @@ function LoginMenu({ items, children, ...props }) {
         <Grid item key={item.label} className={classes.menu}>
           <Button
             component={Link}
-            color="default"
             variant="text"
             size="large"
             href={item.href}

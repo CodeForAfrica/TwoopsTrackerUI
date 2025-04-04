@@ -1,4 +1,4 @@
-import { Typography, Grid } from "@material-ui/core";
+import { Typography, Grid } from "@mui/material";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";

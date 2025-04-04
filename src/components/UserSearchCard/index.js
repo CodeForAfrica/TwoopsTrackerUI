@@ -1,5 +1,5 @@
-import { Button, Grid, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Button, Grid, Typography } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import { differenceInCalendarDays } from "date-fns";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";

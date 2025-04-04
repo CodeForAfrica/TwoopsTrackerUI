@@ -1,6 +1,5 @@
 import { RichTypography } from "@commons-ui/core";
-import { Box } from "@material-ui/core";
-import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
+import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 

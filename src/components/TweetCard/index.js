@@ -1,5 +1,5 @@
 import { RichTypography } from "@commons-ui/core";
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@mui/material";
 import clsx from "clsx";
 import { format, formatDistanceStrict, formatDistance } from "date-fns";
 import { useSession } from "next-auth/react";

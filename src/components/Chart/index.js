@@ -1,5 +1,11 @@
-import { Typography, useMediaQuery } from "@material-ui/core";
-import { makeStyles, useTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  Typography,
+  useMediaQuery,
+  useTheme,
+  StyledEngineProvider,
+  ThemeProvider,
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -98,12 +104,14 @@ function Chart({ className, data, ...props }) {
         return;
       }
       el.innerHTML = ReactDOMServer.renderToString(
-        <ThemeProvider theme={theme}>
-          <div className={classes.tooltip}>
-            <Typography className={classes.date}>{value?.date}</Typography>
-            <Typography className={classes.count}>{value?.count}</Typography>
-          </div>
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <div className={classes.tooltip}>
+              <Typography className={classes.date}>{value?.date}</Typography>
+              <Typography className={classes.count}>{value?.count}</Typography>
+            </div>
+          </ThemeProvider>
+        </StyledEngineProvider>
       );
 
       el.classList.add("visible");

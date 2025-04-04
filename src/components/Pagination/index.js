@@ -1,5 +1,4 @@
-import { Grid } from "@material-ui/core";
-import { Pagination as MuiPagination } from "@material-ui/lab";
+import { Grid, Pagination as MuiPagination } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 

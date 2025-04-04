@@ -1,4 +1,4 @@
-import { Button, Grid, Hidden } from "@material-ui/core";
+import { Button, Grid, Hidden } from "@mui/material";
 import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -172,7 +172,6 @@ function SearchSection({
           </div>
         </div>
       </Section>
-
       <SavedSearchDialog
         open={open}
         saveLabel="Save"

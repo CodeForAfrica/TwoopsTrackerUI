@@ -6,7 +6,7 @@ import {
   TextField,
   FormHelperText,
   InputAdornment,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Formik } from "formik";
 import { useSession, signIn } from "next-auth/react";
 import Router from "next/router";
@@ -143,6 +143,7 @@ function Login({
                         <IconButton
                           className={classes.passwordButton}
                           onClick={() => togglePasswordType()}
+                          size="large"
                         >
                           <Image
                             height={45}

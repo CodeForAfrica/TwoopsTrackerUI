@@ -6,7 +6,7 @@ import {
   TextField,
   FormHelperText,
   InputAdornment,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Formik } from "formik";
 import Router from "next/router";
 import PropTypes from "prop-types";
@@ -110,6 +110,7 @@ function ResetPassword({
                         <IconButton
                           className={classes.passwordButton}
                           onClick={() => togglePasswordType()}
+                          size="large"
                         >
                           <Image
                             height={45}

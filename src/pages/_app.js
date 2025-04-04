@@ -1,5 +1,8 @@
-import { CssBaseline } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/core/styles";
+import {
+  CssBaseline,
+  ThemeProvider,
+  StyledEngineProvider,
+} from "@mui/material";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import PropTypes from "prop-types";
@@ -24,13 +27,15 @@ export default function MyApp({
   return (
     <>
       <DefaultSeo {...SEO} />
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <SessionProvider session={session}>
-          <Component {...pageProps} />
-        </SessionProvider>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <SessionProvider session={session}>
+            <Component {...pageProps} />
+          </SessionProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </>
   );
 }

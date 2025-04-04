@@ -1,5 +1,5 @@
-import { createTheme } from "@material-ui/core/styles";
-import { deepmerge } from "@material-ui/utils";
+import { createTheme } from "@mui/material";
+import { deepmerge } from "@mui/utils";
 
 const FONT_FAMILY_HEADING = '"Playfair Display", "serif"';
 const FONT_FAMILY_TEXT = '"Arial", "sans-serif"';
@@ -34,11 +34,13 @@ const theme = createTheme({
       secondary: "#FFF",
     },
   },
-  props: {
+  components: {
     MuiButtonBase: {
-      // Disable ripple effect globally
-      disableRipple: true,
-      disableTouchRipple: true,
+      defaultProps: {
+        // Disable ripple effect globally
+        disableRipple: true,
+        disableTouchRipple: true,
+      },
     },
   },
   typography: {
@@ -100,7 +102,7 @@ const theme = createTheme({
   },
 });
 
-const { breakpoints, palette, typography, overrides } = theme;
+const { breakpoints, palette, typography } = theme;
 const { pxToRem } = typography;
 
 // Typography
@@ -204,70 +206,69 @@ deepmerge(
 
 // Overrides
 deepmerge(
-  overrides,
+  theme.components,
   {
     MuiButton: {
-      root: {
-        padding: `${typography.pxToRem(10)} ${typography.pxToRem(20)}`,
-        "&:hover": {
-          textDecoration: "none",
+      styleOverrides: {
+        root: {
+          padding: `${typography.pxToRem(10)} ${typography.pxToRem(20)}`,
+          "&:hover": {
+            textDecoration: "none",
+          },
         },
       },
-      contained: {
-        color: palette.secondary.main,
-        backgroundColor: palette.divider,
-        boxShadow: "none",
-        borderRadius: pxToRem(5),
-        border: "1px solid transparent",
-        transition: "none !important",
-        "&:hover": {
-          color: palette.text.secondary,
-          backgroundColor: "#a0a0a0",
-          border: "1px solid #707070",
-          borderRadius: pxToRem(5),
+      variants: [
+        {
+          props: { variant: "contained", color: "primary" },
+          style: {
+            color: palette.secondary.main,
+            backgroundColor: palette.background.default,
+            boxShadow: "none",
+            borderRadius: pxToRem(50),
+            border: `1px solid ${palette.primary.main}`,
+            "&:hover": {
+              boxShadow: "none",
+              color: palette.text.primary,
+              backgroundColor: palette.background.dark,
+              borderRadius: pxToRem(50),
+              border: `1px solid ${palette.primary.main}`,
+            },
+          },
         },
-      },
-      containedPrimary: {
-        color: palette.secondary.main,
-        backgroundColor: palette.background.default,
-        boxShadow: "none",
-        borderRadius: pxToRem(50),
-        border: `1px solid ${palette.primary.main}`,
-        "&:hover": {
-          boxShadow: "none",
-          color: palette.text.primary,
-          backgroundColor: palette.background.dark,
-          borderRadius: pxToRem(50),
-          border: `1px solid ${palette.primary.main}`,
+        {
+          props: { variant: "contained", color: "secondary" },
+          style: {
+            color: palette.secondary.main,
+            backgroundColor: palette.background.default,
+            boxShadow: "none",
+            borderRadius: 0,
+            border: "1px solid transparent",
+            "&:hover": {
+              boxShadow: "none",
+              color: palette.secondary.main,
+              backgroundColor: palette.background.default,
+              borderRadius: pxToRem(5),
+              border: `1px solid ${palette.background.default}`,
+            },
+          },
         },
-      },
-      containedSecondary: {
-        color: palette.secondary.main,
-        backgroundColor: palette.background.default,
-        boxShadow: "none",
-        borderRadius: 0,
-        border: "1px solid transparent",
-        "&:hover": {
-          boxShadow: "none",
-          color: palette.secondary.main,
-          backgroundColor: palette.background.default,
-          borderRadius: pxToRem(5),
-          border: `1px solid ${palette.background.default}`,
+        {
+          props: { variant: "outlined" },
+          style: {
+            color: palette.text.secondary,
+            backgroundColor: "transparent",
+            boxShadow: "none",
+            borderRadius: pxToRem(50),
+            border: `1px solid ${palette.background.default}`,
+            "&:hover": {
+              color: palette.primary.main,
+              backgroundColor: palette.background.default,
+              borderRadius: pxToRem(50),
+              border: `1px solid ${palette.background.default}`,
+            },
+          },
         },
-      },
-      outlined: {
-        color: palette.text.secondary,
-        backgroundColor: "transparent",
-        boxShadow: "none",
-        borderRadius: pxToRem(50),
-        border: `1px solid ${palette.background.default}`,
-        "&:hover": {
-          color: palette.primary.main,
-          backgroundColor: palette.background.default,
-          borderRadius: pxToRem(50),
-          border: `1px solid ${palette.background.default}`,
-        },
-      },
+      ],
     },
   },
   { clone: false }

@@ -1,5 +1,6 @@
 import { RichTypography } from "@commons-ui/core";
-import { Button, makeStyles, Typography } from "@material-ui/core";
+import { Button, Typography } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React from "react";
