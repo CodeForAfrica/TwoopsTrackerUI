@@ -1,5 +1,8 @@
-import { CssBaseline } from "@mui/material";
-import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
+import {
+  CssBaseline,
+  ThemeProvider,
+  StyledEngineProvider,
+} from "@mui/material";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import PropTypes from "prop-types";

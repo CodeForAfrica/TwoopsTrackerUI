@@ -1,5 +1,4 @@
-import { Tab, Tabs as MuiTabs, useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Tab, Tabs as MuiTabs, useMediaQuery, useTheme } from "@mui/material";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";

@@ -8,8 +8,8 @@ import {
   MenuItem,
   Snackbar,
   ClickAwayListener,
+  Alert as MuiAlert,
 } from "@mui/material";
-import MuiAlert from "@mui/material/Alert";
 import makeStyles from "@mui/styles/makeStyles";
 import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from "react";
