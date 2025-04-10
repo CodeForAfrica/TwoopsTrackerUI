@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { Formik } from "formik";
 import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import * as yup from "yup";

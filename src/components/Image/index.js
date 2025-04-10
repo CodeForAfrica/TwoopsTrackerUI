@@ -1,4 +1,4 @@
-import NImage from "next/image";
+import NImage from "next/legacy/image";
 import PropTypes from "prop-types";
 import React from "react";
 
