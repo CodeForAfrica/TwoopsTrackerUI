@@ -1,6 +1,6 @@
 import { muiTheme } from "storybook-addon-material-ui";
 import { RouterContext } from "next/dist/shared/lib/router-context";
-import * as NextImage from "next/image";
+import * as NextImage from "next/legacy/image";
 
 import theme from "../src/theme";
 import "./styles.css";

@@ -1,5 +1,5 @@
-import { NextSeo } from "next-seo";
 import Script from "next/script";
+import { NextSeo } from "next-seo";
 import PropTypes from "prop-types";
 import React from "react";
 

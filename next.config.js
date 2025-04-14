@@ -1,7 +1,5 @@
 module.exports = {
-  experimental: {
-    outputStandalone: true,
-  },
+  output: "standalone",
   images: {
     domains: process.env.NEXT_PUBLIC_IMAGE_DOMAINS?.split(",")
       ?.filter((d) => d.trim())
