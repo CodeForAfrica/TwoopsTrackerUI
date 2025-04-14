@@ -8,15 +8,15 @@ env:
   GIT_PUSH_FLAGS: "--force"
   TWOOPSTRACKER_API_URL: "https://dev.investigate.africa/v1"
 
+# This allows a subsequently queued workflow run to interrupt previous runs
+concurrency:
+  group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -27,7 +27,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: "20"
 
       - name: Check if version is bumped
         id: version-check
@@ -46,7 +46,7 @@ jobs:
 
       - name: Cache Docker layers
         if: steps.version-check.outputs.changed == 'true'
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           path: /tmp/.buildx-cache

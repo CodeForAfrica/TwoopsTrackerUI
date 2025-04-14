@@ -1,6 +1,6 @@
 {
   "name": "twoopstrackerui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "cms": "netlify-cms-proxy-server",
@@ -50,7 +50,7 @@
     "sharp": "^0.32.6",
     "simple-oauth2": "^4.2.0",
     "swr": "^1.0.1",
-    "vega": "^5.23.0",
+    "vega": "^5.32.0",
     "vega-embed": "^6.20.0",
     "vega-lite": "^5.1.1",
     "webpack": "^5.94.0",
