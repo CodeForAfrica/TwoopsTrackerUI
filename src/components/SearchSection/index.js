@@ -1,4 +1,4 @@
-import { Button, Grid, Hidden } from "@mui/material";
+import { Button, Grid, Box } from "@mui/material";
 import { useSession } from "next-auth/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -60,13 +60,20 @@ function SearchSection({
               onChange={onSelection}
               onKeyDown={handleKeyDown}
             />
-            <Hidden mdUp implementation="css">
+            <Box
+              sx={{
+                display: {
+                  xs: "block",
+                  md: "none",
+                },
+              }}
+            >
               <SearchGuide
                 {...searchGuideProp}
                 placement="bottom"
                 classes={{ root: classes.help }}
               />
-            </Hidden>
+            </Box>
           </Grid>
           <Grid item md={5} xs={12} className={classes.filterSection}>
             <Filter
@@ -121,13 +128,20 @@ function SearchSection({
               ]}
               value={location}
             />
-            <Hidden smDown implementation="css">
+            <Box
+              sx={{
+                display: {
+                  xs: "none",
+                  md: "block",
+                },
+              }}
+            >
               <SearchGuide
                 {...searchGuideProp}
                 placement="top-end"
                 classes={{ root: classes.help }}
               />
-            </Hidden>
+            </Box>
           </Grid>
         </Grid>
         <div className={classes.buttonSection}>
