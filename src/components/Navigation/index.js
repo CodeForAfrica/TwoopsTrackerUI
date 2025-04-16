@@ -1,4 +1,4 @@
-import { AppBar, Hidden, Toolbar } from "@mui/material";
+import { AppBar, Box, Toolbar } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import PropTypes from "prop-types";
 import React from "react";
@@ -33,16 +33,32 @@ function Navigation({ logo, ...props }) {
   return (
     <AppBar color="primary" position="sticky" className={classes.root}>
       <Toolbar disableGutters className={classes.toolbar}>
-        <Hidden smDown implementation="css" className={classes.navigation}>
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              md: "block",
+            },
+          }}
+          className={classes.navigation}
+        >
           <DesktopNavigation
             {...props}
             logo={logo?.desktop || logo}
             classes={{ section: classes.section }}
           />
-        </Hidden>
-        <Hidden mdUp implementation="css" className={classes.navigation}>
+        </Box>
+        <Box
+          sx={{
+            display: {
+              xs: "block",
+              md: "none",
+            },
+          }}
+          className={classes.navigation}
+        >
           <MobileNavigation {...props} {...props} logo={logo?.mobile || logo} />
-        </Hidden>
+        </Box>
       </Toolbar>
     </AppBar>
   );
