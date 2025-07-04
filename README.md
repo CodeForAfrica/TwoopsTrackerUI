@@ -1,3 +1,6 @@
+Moved to [CodeForAfrica/UI](https://github.com/CodeForAfrica/ui/tree/main/apps/twoopstracker) monorepo.
+
+
 # trolltracker.investigate.africa/
 
 Twoops Tracker
